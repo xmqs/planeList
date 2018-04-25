@@ -17,6 +17,9 @@
 				<div @click="zhiji" style="width: 100%;margin-top: 13px;">
 					<mt-button style="width: 100%;" type="default">手机值机</mt-button>
 				</div>
+				<div style="width: 100%;margin-top: 13px;">
+					<mt-button style="width: 100%;" type="default">航班动态</mt-button>
+				</div>
 			</div>
 		</div>
 	</div>
