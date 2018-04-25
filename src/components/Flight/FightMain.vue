@@ -7,7 +7,3 @@
         name: "FightMain"
     }
 </script>
-
-<style scoped>
-
-</style>
