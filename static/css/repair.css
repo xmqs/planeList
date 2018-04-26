@@ -80,7 +80,12 @@ input:-webkit-autofill {
 }
 
 .clearfix:after {
-	display: block content: "." height: 0 line-height: 0 clear: both visibility: hidden
+	display: block ;
+  content: "."  ;
+  height: 0 ;
+  line-height: 0 ;
+  clear: both ;
+  visibility: hidden
 }
 
 .clear-row {
