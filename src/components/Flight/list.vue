@@ -1,9 +1,15 @@
 <template>
-
+  <li>
+    123
+  </li>
 </template>
 
 <script>
     export default {
-        name: "FightMain"
+        name: "list"
     }
 </script>
+
+<style scoped>
+
+</style>
