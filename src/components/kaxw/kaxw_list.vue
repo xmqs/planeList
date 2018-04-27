@@ -129,7 +129,7 @@
 				animation_out: false,
 				animation_in: true,
 				move:false,
-				title_tj:true,
+				title_tj:false,
 				client:500,
 				bottomText:"",
 				animent:false,
@@ -360,6 +360,7 @@
 					for(var j = 0; j < res.data.data.length; j++) {
 						_that.pageList.push(res.data.data[j])
 					}
+					_that.title_tj = true;
 					setTimeout(function() {
 						_that.title_tj = false;
 					}, 800);
