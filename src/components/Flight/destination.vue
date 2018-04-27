@@ -5,24 +5,24 @@
         <p class="li_p_title">航班号</p>
         <input class="li_udp_input" type="text" placeholder="请输入航班号，如MU4527">
       </li>
-      <li class="chage_destination">
+      <li class="chage_destination" v-bind:class="{'change':changing}">
         <div class="destination left_destination">
           <p>出发地</p>
-          <div class="dest">南京</div>
+          <div class="dest dest_f">南京</div>
         </div>
-        <span class="icon_destination">
+        <div class="icon_destination" @click="changeFT">
 
-          </span>
+        </div>
         <div class="destination right_destination">
           <p>目的地</p>
-          <div class="dest">请选择</div>
+          <div class="dest dest_t">昆明</div>
         </div>
       </li>
       <li>
         <router-link :to="{path:'selectpalne'}">
           <p class="li_p_title">航空公司</p>
           <div class="li_udp_div">
-            请选择
+            {{planeCom}}
           </div>
         </router-link>
       </li>
@@ -41,8 +41,34 @@
 </template>
 
 <script>
+
     export default {
-        name: "destination"
+      name: "destination",
+      data(){
+        return{
+          planeCom:'请选择',
+          plane_back:false,
+          changing:false
+        }
+      },
+      mounted(){
+        if (sessionStorage.getItem("Destination")){
+          this.planeCom = sessionStorage.getItem("Destination");
+        }else if (this.$route.params.PlaneName) {
+            this.planeCom = this.$route.params.PlaneName;
+          }
+      },
+      methods:{
+        changeBack(){
+          this.plane_back = !this.plane_back;
+        },
+        changeFT(){
+          this.changing = true;
+          setTimeout(()=>{
+            this.changing = false;
+          },1000)
+        }
+      }
     }
 </script>
 
@@ -57,15 +83,6 @@
     color:#ccc;
   }
   /**出发地 目的地**/
-  .content li.chage_destination{
-    position: relative;
-    text-align: center;
-  }
-  .content li.chage_destination::after{
-    content: "";
-    clear: both;
-    display: table;
-  }
   .destination{
     text-align: left;
     width: 20%;
@@ -81,20 +98,17 @@
     color:rgba(153,153,153,1);
     line-height:2.4rem;
   }
-  .left_destination{
-    float: left;
+  /*.left_destination{
+    height: 4rem;
   }
   .right_destination{
-    float: right;
-  }
-  .icon_destination{
     height: 4rem;
+  }*/
+  .icon_destination{
+    height: 5rem;
     width: 40%;
     display: inline-block;
-    background: url("./../../../static/img/CombinedShape.png") center bottom no-repeat;
-    background-size: 3rem;
   }
-
   .li_p_title{
     font-size: 1.4rem;
     width:6rem;
@@ -134,5 +148,25 @@
   .content li{
     padding: .4rem 0;
     border-bottom: 1px solid #EEEEEE;
+  }
+  .content li.chage_destination{
+    display:flex;
+    display: -webkit-flex;
+    justify-content:space-between;
+    padding-bottom: .6rem;
+    position: relative;
+    height: 6rem;
+    background: url("./../../../static/img/palne_a.png") center no-repeat;
+    background-size: 3rem;
+  }
+  .content li.change{
+    background: url("./../../../static/img/plane_c.gif") center no-repeat;
+    background-size: 3rem;
+  }
+  .dest_f{
+    position: absolute;
+  }
+  .dest_t{
+    position: absolute;
   }
 </style>

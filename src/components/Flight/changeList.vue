@@ -1,6 +1,8 @@
 <template>
-  <ul class="Flight_list">
-    <li @click="planeDetail('AQ1039')">
+  <div>
+  <nav-header>航班动态</nav-header>
+  <ul class="change_list">
+    <li>
       <div class="list_header">
         <img src="./../../../static/img/com_icon.png">
         <span class="company">中国国际航空</span><span class="planeNum">AQ1039</span>
@@ -73,95 +75,19 @@
       </div>
     </li>
   </ul>
+  </div>
 </template>
 
 <script>
+  import NavHeader from "@/components/header/header"
     export default {
-        name: "myList",
-      methods:{
-        planeDetail(Plane){
-          this.$router.push({name:'PlaneDetail', params: { Plane: Plane} })
-        }
+        name: "changeList",
+      components:{
+        NavHeader
       }
     }
 </script>
 
 <style scoped>
-  .Flight_list li{
-    border-bottom: 1px solid #f6f6f6;
-    padding: .6rem 0;
-    padding-bottom: 1rem;
-  }
-  /**列表头部*/
-  .list_header{
-    display:flex;
-    display: -webkit-flex;
-    align-items:center;
-    height: 3rem;
-  }
-  .list_header img{
-    height:1.2rem;
-    display: inline-block;
-    margin-right: .4rem;
-  }
-  .company{
-    font-size:1.4rem;
-    color:rgba(153,153,153,1);
-    line-height: 1.6rem;
-    margin-right: .6rem;
-  }
-  .planeNum{
-    font-size:1.4rem;
-    color:rgba(51,51,51,1);
-    line-height: 1.6rem;
-  }
-  /*列表主体*/
-  .list_body{
-    display: flex;
-    display: -webkit-flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: .4rem 0;
-  }
-  .plane_up{
-    width: 1.4rem;
-    margin-right: 1rem;
-  }
-  .plane_down{
-    width: 1.4rem;
-    margin-left: 1rem;
-  }
-  .planeFrom{
-    font-size:1.6rem;
-    color:rgba(51,51,51,1);
-    line-height:2.4rem;
-  }
-  .planeTo{
-    font-size:1.6rem;
-    color:rgba(51,51,51,1);
-    line-height:2.4rem;
-  }
-  .list_page{
-    display: flex;
-    display: -webkit-flex;
-    align-items:center;
-  }
-  .planeTime{
-    font-size:1.2rem;
-    color:rgba(51,51,51,1);
-    padding-bottom: .6rem;
-    padding-right: .8rem;
-    background: url("./../../../static/img/line_to.png") bottom no-repeat;
-    background-size: 100%;
-  }
-  .planeStatus{
-    font-size:1.47rem;
-    line-height:2.4rem;
-  }
-  .yw{
-    color:rgba(255,136,0,1);
-  }
-  .zc{
-    color:rgba(38,205,121,1);
-  }
+
 </style>
