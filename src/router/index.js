@@ -10,6 +10,8 @@ import Flight from "@/components/Flight/flightMain"
 import Destination from "@/components/Flight/destination"
 import MyList from "@/components/Flight/myList"
 import SelectPalne from "@/components/Flight/selectPlane"
+import Changeplane from "@/components/Flight/changeList"
+import PlaneDetail from "@/components/Flight/planeDetail"
 
 
 Vue.use(Router)
@@ -59,6 +61,16 @@ export default new Router({
       path: '/flight/selectpalne',
       name: 'SelectPalne',
       component: SelectPalne,
+    },
+    {
+      path: '/flight/changeplane',
+      name: 'Changeplane',
+      component: Changeplane,
+    },
+    {
+      path: '/flight/planeDetail',
+      name: 'PlaneDetail',
+      component: PlaneDetail,
     }
 	]
 })
