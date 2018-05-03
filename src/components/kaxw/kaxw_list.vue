@@ -2,14 +2,14 @@
 	<div id="home">
 		<p v-show="title_tj" id="recommend" class="recommend">成功为您推荐十条新闻</p>
 		<!--头部临时用-->
-		<header>
+		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
 			<router-link :to="{path:'/'}">
-			<span id="h_back"></span>
-			</router-link>
+			<span style="display: inline-block;width:10px;height: 16px;background: url(/static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
+			</router-link>	
 			<router-link :to="{path:'/kaxw/search'}">
-				<div class="nmlgb"></div>
-			</router-link>
+				<div style="display: inline-block;width:19px;height: 19px;background: url(/static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;""></div>
+			</router-link>	
 		</header>
 		<!--顶部菜单-->
 		<div class="header">

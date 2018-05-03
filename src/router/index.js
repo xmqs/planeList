@@ -2,19 +2,20 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './../components/home'
 import Main from './../components/main/main'
-
+/*口岸新闻*/
 import kaxw_list from "@/components/kaxw/kaxw_list.vue"
 import kaxw_details from "@/components/kaxw/kaxw_details.vue"
 import search from "@/components/kaxw/search.vue"
+
+
 import Flight from "@/components/Flight/flightMain"
 import Destination from "@/components/Flight/destination"
 import MyList from "@/components/Flight/myList"
 import SelectPalne from "@/components/Flight/selectPlane"
-
 import Changeplane from "@/components/Flight/changeList"
 import PlaneDetail from "@/components/Flight/planeDetail"
 
-import HbDetails from "@/components/Flight/hbDetails"
+/*货物查询*/
 import hwcx from "@/components/hwcx/hwcx"
 
 
@@ -51,11 +52,6 @@ export default new Router({
 			name: 'hwcx',
 			component: hwcx
 		},
-    {
-      path: '/flight/hbDetails',
-      name: 'HbDetails',
-      component: HbDetails,
-    },
     //航班动态
     {
       path:'/flight',
