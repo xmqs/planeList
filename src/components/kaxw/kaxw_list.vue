@@ -2,14 +2,14 @@
 	<div id="home">
 		<p v-show="title_tj" id="recommend" class="recommend">成功为您推荐十条新闻</p>
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<header>
 			口岸新闻
 			<router-link :to="{path:'/'}">
-			<span style="display: inline-block;width:10px;height: 16px;background: url(/static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
-			</router-link>	
+			<span id="h_back"></span>
+			</router-link>
 			<router-link :to="{path:'/kaxw/search'}">
-				<div style="display: inline-block;width:19px;height: 19px;background: url(/static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;""></div>
-			</router-link>	
+				<div class="nmlgb"></div>
+			</router-link>
 		</header>
 		<!--顶部菜单-->
 		<div class="header">
@@ -29,10 +29,10 @@
 		<div class="page-tab-container" :class="{client}">
 		    <div id="soll" class="is_top">
 			    <v-loadmore :top-method="loadTop" :bottomDistance="bottomDistance"
-			    	:bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">  
+			    	:bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
 						<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
-							<mt-tab-container-item class="bo-p" v-for="(element,index) in menu" v-bind:id="element.alias">
-								<mt-cell class="mt-cell-st" v-for="(element,index) in pageList">
+							<mt-tab-container-item class="bo-p" v-for="(element,index) in menu" v-bind:id="element.alias" :key="index">
+								<mt-cell class="mt-cell-st" v-for="(element,index) in pageList" :key="index">
 									<router-link :to="{path: '/kaxw/kaxw_details/'+element.sourceId}">
 										<div style="color: #666666">
 											<img v-if="element.hasAttachFile" class="pd-img" src="/static/img/Rectangle18.png">
@@ -48,7 +48,7 @@
 					      	<p class="downwarp-progress" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);"></p>
 					      </span>
 					    </div>
-					    
+
 							<div v-show="isend" class="ending">
 								-- EDN --
 							</div>
@@ -58,7 +58,7 @@
 					      	<p class="downwarp-progress1" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);"></p>
 					      </span>
 					    </div>
-			    </v-loadmore>  
+			    </v-loadmore>
 			    <div v-if="scrollTop" @click="backTop" class="scrollTop"></div>
 		    </div>
 		</div>
@@ -100,7 +100,7 @@
 
 <script>
 	import axios from "axios"
-    import {Loadmore} from 'mint-ui';  
+    import {Loadmore} from 'mint-ui';
     import { Toast } from 'mint-ui'
 	import { formatDate } from '../../assets/js/date.js';
 	import require from '../../../static/js/require.js'
@@ -108,14 +108,14 @@
 		name: "kaxw_list",
 		data() {
 			return {
-		        searchCondition:{  //分页属性  
+		        searchCondition:{  //分页属性
 		    	  channelAlias:"news_tuijian",
-		          pageNo:"1",  
+		          pageNo:"1",
 		          pageSize:"10"
-		        }, 
-		        pageList:[],  
-		        allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了  
-		        scrollMode:"auto", //移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动  , 
+		        },
+		        pageList:[],
+		        allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
+		        scrollMode:"auto", //移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动  ,
 				con: [],
 				menu: [],
 				active: "news_tuijian",
@@ -142,9 +142,9 @@
 				scrollTop:false,
 				isend : false
 			}
-		},  
-	    components: {  
-	      'v-loadmore':Loadmore  // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题  
+		},
+	    components: {
+	      'v-loadmore':Loadmore  // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
 	    },
 		watch: {
 			active: function(newValue) {
@@ -166,7 +166,7 @@
 		},
 		mounted() {
 			this.client = document.documentElement.clientHeight -3;
-      		this.loadPageList();  //初次访问查询列表  
+      		this.loadPageList();  //初次访问查询列表
 			this.getAllList();
 			document.getElementById("soll").addEventListener('scroll', this.isScrollTop)
 			document.getElementById("soll").scrollTop
@@ -194,7 +194,7 @@
 						clearInterval(interval);
 					}
 				},10);
-			}, 
+			},
 			getdata: function(evt){
 				if(this.edit == "编辑"){
 					return false;
@@ -203,7 +203,7 @@
 				}
 			},
 			isMove:function(evt){
-			}, 
+			},
         	datadragEnd:function(evt){
 				if(evt == "热点" || evt == "推荐"){
 					this.move = true;
@@ -220,7 +220,7 @@
 						for(var j = 0; j < data1.data.data.length; j++) {
 							that.list1.push(data1.data.data[j])
 						}
-						
+
 						for(var i = 0; i < that.list2.length; i++) {
 							for(var j = 0; j < that.list1.length; j++) {
 								if(that.list2[i].id == that.list1[j].id) {
@@ -271,7 +271,7 @@
 						url: '/web-editor-web/channel/save.do',
 						dataType: 'json',
 						success: function(data1) {
-							
+
 						}
 					})
 				}
@@ -313,50 +313,50 @@
 					}
 				})
 			},
-	      loadTop:function() { //组件提供的下拉触发方法  
-	        //下拉加载  
+	      loadTop:function() { //组件提供的下拉触发方法
+	        //下拉加载
 	        var that = this;
 	        that.downwarp = true;
         	this.topStatus = "loading";
 			setTimeout(function() {
 				that.searchCondition.pageNo = 1;
 				that.searchCondition.pageSize = 10;
-		        that.loadPageList();  
-		        that.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位  
+		        that.loadPageList();
+		        that.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
 			}, 1500);
-	      },  
+	      },
 	      loadBottom:function() {
 	      	this.animent = true;
         	this.bottomStatus = "loading";
 			if (this.pagenone < this.searchCondition.pageNo) {
-	        	this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位  
+	        	this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
         		this.bottomStatus = "";
-				return false; 
+				return false;
 			}else{
-		        // 上拉加载  
+		        // 上拉加载
 	        	this.downwarp = true;
 	        	var that = this;
 				setTimeout(function() {
-			        that.more();// 上拉触发的分页查询  
-		        	that.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位  
+			        that.more();// 上拉触发的分页查询
+		        	that.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
 				}, 1500);
 			}
-	      },  
-	      loadPageList:function (){  
-	          // 查询数据  
+	      },
+	      loadPageList:function (){
+	          // 查询数据
 				var _that = this;
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.searchCondition
 				}).then(function(res) {
 					_that.pageList = [];
-	          		// 是否还有下一页，加个方法判断，没有下一页要禁止上拉  
+	          		// 是否还有下一页，加个方法判断，没有下一页要禁止上拉
 					_that.pagenone = res.data.data.length/10;
 					if (_that.pagenone < _that.searchCondition.pageNo) {
 						_that.isend = true;
 					}else{
 						_that.isend = false;
 					}
-					_that.isHaveMore(true); 
+					_that.isHaveMore(true);
 					for(var j = 0; j < res.data.data.length; j++) {
 						_that.pageList.push(res.data.data[j])
 					}
@@ -364,16 +364,16 @@
 						_that.title_tj = false;
 					}, 800);
 				})
-	          
-	            _that.$nextTick(function () {  
-	            // iphone在使用-webkit-overflow-scrolling属性，移动端弹性滚动效果时会屏蔽loadmore的上拉加载效果，  
-	            _that.scrollMode = "touch";  
-	        });  
-	      },  
-	      more:function (){  
-	          //分页查询  
+
+	            _that.$nextTick(function () {
+	            // iphone在使用-webkit-overflow-scrolling属性，移动端弹性滚动效果时会屏蔽loadmore的上拉加载效果，
+	            _that.scrollMode = "touch";
+	        });
+	      },
+	      more:function (){
+	          //分页查询
 				var _that = this;
-	       		 _that.searchCondition.pageNo = parseInt(_that.searchCondition.pageNo) + 1;  
+	       		 _that.searchCondition.pageNo = parseInt(_that.searchCondition.pageNo) + 1;
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.searchCondition
 				}).then(function(res) {
@@ -387,14 +387,14 @@
 						_that.isend = false;
 					}
 				})
-	      },  
+	      },
 	      isHaveMore:function(isHaveMore){
-	        // 是否还有下一页，如果没有就禁止上拉刷新  
-	        this.allLoaded = true; //true是禁止上拉加载  
-	        if(isHaveMore){  
-	          this.allLoaded = false;  
-	        }  
-	      } 
+	        // 是否还有下一页，如果没有就禁止上拉刷新
+	        this.allLoaded = true; //true是禁止上拉加载
+	        if(isHaveMore){
+	          this.allLoaded = false;
+	        }
+	      }
 		}
 	}
 </script>
@@ -403,24 +403,24 @@
 	.item {
 		display: inline-block;
 	}
-	
+
 	.nav {
 		padding: 10px 0 4px 10px;
 		border-bottom: 1px solid #ccc;
 		padding-right: 30px;
 	}
-	
+
 	.link {
 		color: inherit;
 		padding: 20px;
 		display: block;
 	}
-	
+
 	.class-a {
 		border-bottom: 2px solid #3385e3 !important;
 		border-radius: 0;
 	}
-	
+
 	.bu_style {
 		border-radius: 0 !important;
 		border-bottom: 2px solid #fff;
@@ -446,7 +446,7 @@
 		height: 100px;
 		border-bottom: 1px solid #ccc;
 	}
-	
+
 	.label-name {
 		position: absolute;
 		left: 10px;
@@ -458,7 +458,7 @@
 	    padding: 2px 0;
         line-height: 23px
 	}
-	
+
 	.time-name {
 		position: absolute;
 		left: 10px;
@@ -484,7 +484,7 @@
 		top: 3px;
 		left: 0;
 	}
-	
+
 	#model_logo {
 		position: fixed;
 		top: 43px;
@@ -494,7 +494,7 @@
 		cursor: pointer;
 		z-index: 9999;
 	}
-	
+
 	.color-item {
 		float: left;
 		min-width: 75px;
@@ -510,12 +510,12 @@
 		font-size: 1.6rem;
 		position: relative;
 	}
-	
+
 	.page-tab-container {
 		padding-top: 80px;
 	}
 	/*菜单*/
-	
+
 	.header {
 		z-index: 9990;
 		position: fixed;
@@ -532,7 +532,7 @@
 		display: -webkit-box;
 		display: box;
 	}
-	
+
 	.scrollx {
 		height: 36px;
 		overflow: hidden;
@@ -542,18 +542,18 @@
 		box-flex: 1;
 	    padding-right: 30px;
 	}
-	
+
 	.scrollx-content {
 		width: 100%;
 		overflow-x: auto;
 		white-space: nowrap;
 	}
-	
+
 	.nav {
 		padding: 0 0px 0 10px;
 	}
 	.shade{
-	    position: fixed;    
+	    position: fixed;
 	    top: 58px;
 	    height: 112px;
 	    width: 185px;
@@ -571,14 +571,14 @@
 		vertical-align: middle;
 		color: #666666;
 	}
-	
+
 	.nav .active {
 		border-bottom: 2px solid #285FB1;
 		font-size: 1.8rem;
 		color: #285FB1;
 	}
 	/*动画淡入 淡出*/
-	
+
 	@-webkit-keyframes fadeIn {
 		50% {
 			opacity: 0.5;
@@ -593,7 +593,7 @@
 			/*结尾状态 透明度为1*/
 		}
 	}
-	
+
 	.animation_in {
 		-webkit-animation-name: fadeIn;
 		/*动画名称*/
@@ -604,7 +604,7 @@
 		-webkit-animation-delay: 0s;
 		/*延迟时间*/
 	}
-	
+
 	@-webkit-keyframes fadeout {
 		100% {
 			opacity: 1;
@@ -619,7 +619,7 @@
 			/*结尾状态 透明度为1*/
 		}
 	}
-	
+
 	.animation_out {
 		-webkit-animation-name: fadeout;
 		/*动画名称*/
@@ -645,7 +645,7 @@
 	    background: url(/static/img/Group4.png) no-repeat;
 	    vertical-align: middle;
 	}
-	
+
 	.downwarp-progress1 {
 	    display: inline-block;
 	    width: 33px;
@@ -702,4 +702,23 @@
 	    top: -80px;
     	margin: 12px 0;
 	}
+  .nmlgb{
+    display: inline-block;
+    width:19px;
+    height: 19px;
+    background: url("./../../../static/img/Group6.png") no-repeat;
+    position: absolute;
+    right:15px;top: 50%;
+    margin-top:-9px;
+  }
+  #h_back{
+    display: inline-block;
+    width:10px;
+    height: 16px;
+    background: url('./../../../static/img/Back.png') no-repeat;
+    position: absolute;
+    left:15px;
+    top: 50%;
+    margin-top:-8px;
+  }
 </style>

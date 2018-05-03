@@ -5,9 +5,6 @@
 </template>
 
 <script>
-  import './assets/css/mescroll.min.css'
-  import './assets/css/swiper-3.3.1.min.css'
-
 export default {
   name: 'App'
 }

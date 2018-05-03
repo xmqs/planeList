@@ -7,8 +7,6 @@ import'mint-ui/lib/style.css'
 import VueDND from 'awe-dnd'
 
 import draggable from 'vuedraggable'
-import require from '../static/js/require.js'
-import Sortable from '../static/js/Sortable.js'
 
 Vue.use(VueDND)
 Vue.use(Mint);
@@ -21,4 +19,3 @@ Vue.component('draggable', draggable);
 	  router,
 	  render: h => h(App)
 	})
-

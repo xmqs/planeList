@@ -2,10 +2,10 @@
 	<!--选择要看的新闻类型-->
 	<div id="home">
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<header>
 			口岸新闻
 			<router-link :to="{path: '/kaxw/kaxw_list'}">
-				<span style="display: inline-block;width:10px;height: 16px;background: url(/static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
+				<span id="h_back"></span>
 			</router-link>
 		</header>
 		<!--内容-->
@@ -15,7 +15,7 @@
 				<div class="content_box">
 					<h3 class="news_title">{{contents.sourceLabel}}</h3>
 					<p class="title_time">{{contents.createTime | formatDate}}<span class="inline_block padding_z_10">{{contents.author}}</span></p>
-					
+
 					<div class="contt" v-html='contents.htmlContent'>
 					</div>
 
@@ -26,7 +26,7 @@
 							<p class="font_16 black_3">为你推荐</p>
 						</li>
 						<li v-for="item in tuijian" class="table_view_cell media">
-							<img class="pull_right" src="/static/img/Rectangle18.png" />
+							<img class="pull_right" src="./../../../static/img/Rectangle18.png" />
 							<div class="media_body">
 								<p class="font_16 font_ellipsis_multiLine">{{item.sourceLabel}}</p>
 								<p class="source_time">{{item.author}}<span class="inline_block padding_z_10">{{item.createTime | formatDate}}</span></p>
@@ -50,9 +50,9 @@
 				sourceId: "",
 				contents: "",
 				tuijian:[],
-		        tuijianCondition:{  //推荐属性  
+		        tuijianCondition:{  //推荐属性
 		    	  channelAlias:"news_tuijian",
-		          pageNo:"",  
+		          pageNo:"",
 		          pageSize:3
 		        },
 			}
@@ -80,8 +80,8 @@
 			}).then(function(data) {
 				That.contents = data.data.data;
 			})
-			
-            // 查询数据  
+
+            // 查询数据
 			axios.get('/web-editor-web/channel/list.do?', {
 				params: That.tuijianCondition
 			}).then(function(res) {
@@ -102,47 +102,47 @@
 
 <style scoped>
 	/***详情页面样式****/
-	
+
 	.font_18 {
 		font-size: 1.8rem;
 	}
-	
+
 	.font_16 {
 		font-size: 1.6rem;
 	}
-	
+
 	.font_12 {
 		font-size: 1.2rem;
 	}
-	
+
 	.inline_block {
 		display: inline-block;
 	}
-	
+
 	.padding_z_10 {
 		padding-left: 1rem;
 	}
-	
+
 	.padding_x_10 {
 		padding-bottom: 1rem;
 	}
-	
+
 	.black {
 		color: #000000;
 	}
-	
+
 	.black_3 {
 		color: #333333;
 	}
-	
+
 	.dark_grey {
 		color: #999999;
 	}
-	
+
 	.bg_body_white {
 		background-color: #FFFFFF;
 	}
-	
+
 	.content_box {
     text-align: justify;
     word-break: break-all;
@@ -151,7 +151,7 @@
     color: black;
     line-height: 34px;
 	}
-	
+
 	.news_header {
 		background: #285FB1;
 		text-align: center;
@@ -160,31 +160,31 @@
 		color: #FFFFFF;
 		position: relative;
 	}
-	
+
 	.news_title {
 		font-weight: 400;
 		padding-bottom: 0.6rem;
 		font-size: 1.8rem;
 		color: #000000;
 	}
-	
+
 	.title_time {
 		color: #999999;
 		font-size: 1.2rem;
 		padding-bottom: 0.7rem;
 	}
-	
+
 	.news_p {
 		padding: 0.7rem 0;
 		text-align: justify;
 	}
-	
+
 	._wrap {
 		word-break: break-all;
 		word-wrap: break-word;
 	}
 	/***允许换行*****/
-	
+
 	.align-items {
 		display: -webkit-flex;
 		display: flex;
@@ -193,7 +193,7 @@
 	}
 	/***自动垂直居中***/
 	/**推荐列表**/
-	
+
 	.table_view {
 		position: relative;
 		margin-top: 0;
@@ -202,11 +202,11 @@
 		list-style: none;
 		background-color: #fff;
 	}
-	
+
 	.table_view:before {
 		top: -1px;
 	}
-	
+
 	.table_view:before {
 		position: absolute;
 		top: 0;
@@ -218,45 +218,45 @@
 		transform: scaleY(.5);
 		background-color: #c8c7cc;
 	}
-	
+
 	.table_view .media,
 	.table_view .media_body {
 		overflow: hidden;
 	}
-	
+
 	.table_view_cell {
 		position: relative;
 		overflow: hidden;
 		padding: 11px 15px;
 		-webkit-touch-callout: none;
 	}
-	
+
 	.pull_right {
 		margin-left: 10px;
 	}
-	
+
 	.table_view .media_object {
 		border-radius: 0.1875rem;
 	}
-	
+
 	.media_object {
 		line-height: 42px;
 		max-width: 42px;
 		height: 42px;
 	}
-	
+
 	.pull_right {
 		float: right;
 	}
-	
+
 	img {
 		border: 0;
 	}
-	
+
 	.media_body {
 		overflow: hidden;
 	}
-	
+
 	.table_view_cell:after {
 		position: absolute;
 		right: 15px;
@@ -268,7 +268,7 @@
 		transform: scaleY(.5);
 		background-color: #c8c7cc;
 	}
-	
+
 	.font_ellipsis_multiLine {
 		/***文字超出指定行数显示省略号***/
 		display: -webkit-box;
@@ -279,7 +279,7 @@
 		font-size: 14px !important;
 		color: #555;
 	}
-	
+
 	.source_time {
 		font-size: 1.2rem;
 		color: #999999;
