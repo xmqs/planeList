@@ -318,9 +318,9 @@
 	.search-words li,.hot-words li{
 		padding-left:16px;
 		margin-bottom:25px;
-		line-height: 15px;
-		font-size: 1.5rem;
-		color: #333333;
+		line-height: 15px;    
+		font-size: 14px;
+    	color: #6d6d6d;
 	}
 	.search-words li:nth-of-type(odd){
 		border-right:1px dotted #333;

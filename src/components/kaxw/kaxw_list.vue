@@ -35,8 +35,13 @@
 								<mt-cell class="mt-cell-st" v-for="(element,index) in pageList" :key="index">
 									<router-link :to="{path: '/kaxw/kaxw_details/'+element.sourceId}">
 										<div style="color: #666666">
-											<img v-if="element.hasAttachFile" class="pd-img" src="/static/img/Rectangle18.png">
-											<p class="label-name">{{element.sourceLabel}}</p>
+											<div v-if="element.cover">
+												<img class="pd-img"  :src="element.cover">
+												<p style="width: 58%;" class="label-name">{{element.sourceLabel}}</p>
+											</div>
+											<div v-else>
+												<p class="label-name">{{element.sourceLabel}}</p>
+											</div>
 											<p class="time-name">{{element.author}} {{element.createTime | formatDate}}</p>
 										</div>
 									</router-link>
@@ -50,7 +55,7 @@
 					    </div>
 
 							<div v-show="isend" class="ending">
-								-- EDN --
+								-- END --
 							</div>
 			    		<div slot="bottom" style="position: relative;top: -80px;" class="mint-loadmore-bottom">
 					      <span v-show="bottomStatus == 'loading'" :class="{ 'rotate': bottomStatus === 'drop' }">
@@ -71,13 +76,12 @@
 				</div>
 				<div class="content_box2">
 					<div id="example" v-cloak>
-						<div class="shade"></div>
 						<draggable :list="list2" :move="getdata" @update="datadragEnd" :options="{animation: 200,handle:'.dargDiv'}">
 							<transition-group name="list-complete" >
-								<div v-for="element in list2" v-on:click="isMove(element.label)" :key="element.label"  class="list-complete-item ui-col ui-col-25 text_center padding_6">
+								<div v-for="element in list2" :key="element.label"  class="list-complete-item ui-col ui-col-25 text_center padding_6">
 									<div class="styleclass dargDiv others">
 										<p>{{element.label}}</p>
-										<i v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
+										<i v-if="element.movable == 0" v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
 									</div>
 								</div>
 							</transition-group>
@@ -103,7 +107,6 @@
     import {Loadmore} from 'mint-ui';
     import { Toast } from 'mint-ui'
 	import { formatDate } from '../../assets/js/date.js';
-	import require from '../../../static/js/require.js'
 	export default {
 		name: "kaxw_list",
 		data() {
@@ -124,16 +127,13 @@
 				isShow: false,
 				edit: "编辑",
 				paixu: "点击进入频道",
-				flag: true,
 				other: false,
 				animation_out: false,
 				animation_in: true,
 				move:false,
 				title_tj:false,
 				client:500,
-				bottomText:"",
 				animent:false,
-				bottomDropText:"",
 				pagenone:"",
 				topStatus: '',
 				downwarp:false,
@@ -196,21 +196,17 @@
 				},10);
 			},
 			getdata: function(evt){
+				if(evt.draggedContext.element.movable == 1){
+					return false;
+				}
 				if(this.edit == "编辑"){
 					return false;
 				}else if (this.move == true) {
 					return false;
 				}
 			},
-			isMove:function(evt){
-			},
         	datadragEnd:function(evt){
-				if(evt == "热点" || evt == "推荐"){
-					this.move = true;
-					return false;
-				}else{
-					this.move = false;
-				}
+				
         	},
 			//获取列表信息
 			getAllList: function() {
@@ -285,6 +281,7 @@
 					this.paixu = "点击进入频道";
 					this.isShow = false;
 				}
+				location.reload();
 			},
 			others: function() {
 				this.animation_out = true;
@@ -341,9 +338,9 @@
 		        	that.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
 				}, 1500);
 			}
-	      },
+	      },  
 	      loadPageList:function (){
-	          // 查询数据
+	          // 查询数据  
 				var _that = this;
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.searchCondition
@@ -360,10 +357,12 @@
 					for(var j = 0; j < res.data.data.length; j++) {
 						_that.pageList.push(res.data.data[j])
 					}
-					_that.title_tj = true;
-					setTimeout(function() {
-						_that.title_tj = false;
-					}, 800);
+		        	if(_that.searchCondition.channelAlias == "news_tuijian"){
+						_that.title_tj = true;
+						setTimeout(function() {
+							_that.title_tj = false;
+						}, 800);
+		        	}
 				})
 
 	            _that.$nextTick(function () {
@@ -473,6 +472,8 @@
 	    position: absolute;
 	    top: 0;
 	    right: 12px;
+	    width: 115px;
+	    height: 75px;
 	}
 	.model_logo span {
 		position: absolute;

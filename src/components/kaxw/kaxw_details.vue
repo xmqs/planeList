@@ -26,7 +26,11 @@
 							<p class="font_16 black_3">为你推荐</p>
 						</li>
 						<li v-for="item in tuijian" class="table_view_cell media">
+<<<<<<< Upstream, based on origin/wyx
 							<img class="pull_right" src="./../../../static/img/Rectangle18.png" />
+=======
+							<img v-if="item.cover" class="pull_right" :src="item.cover" />
+>>>>>>> bb1b5bc 货运查询； 口岸新闻修复
 							<div class="media_body">
 								<p class="font_16 font_ellipsis_multiLine">{{item.sourceLabel}}</p>
 								<p class="source_time">{{item.author}}<span class="inline_block padding_z_10">{{item.createTime | formatDate}}</span></p>
@@ -233,6 +237,8 @@
 
 	.pull_right {
 		margin-left: 10px;
+		width: 115px;
+		height: 75px;
 	}
 
 	.table_view .media_object {
