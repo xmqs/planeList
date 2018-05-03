@@ -668,23 +668,6 @@
 	    -o-animation: rotate 3s linear infinite;
 	    animation: rotate 3s linear infinite;
     }
-   /* @-webkit-keyframes rotate{
-    	from{-webkit-transform: rotate(0deg)
-		}
-		to{-webkit-transform: rotate(360deg)
-	}
-	@-moz-keyframes rotate{
-		from{-moz-transform: rotate(0deg)
-		}
-	    to{-moz-transform: rotate(359deg)
-	    }
-	}
-	@-o-keyframes rotate{
-		from{-o-transform: rotate(0deg)
-		}
-	    to{-o-transform: rotate(359deg)
-	    }
-	}*/
 	@keyframes rotate{
 		from{transform: rotate(-359deg)
 		}
@@ -704,23 +687,4 @@
 	    top: -80px;
     	margin: 12px 0;
 	}
-  .nmlgb{
-    display: inline-block;
-    width:19px;
-    height: 19px;
-    background: url("./../../../static/img/Group6.png") no-repeat;
-    position: absolute;
-    right:15px;top: 50%;
-    margin-top:-9px;
-  }
-  #h_back{
-    display: inline-block;
-    width:10px;
-    height: 16px;
-    background: url('./../../../static/img/Back.png') no-repeat;
-    position: absolute;
-    left:15px;
-    top: 50%;
-    margin-top:-8px;
-  }
 </style>
