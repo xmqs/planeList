@@ -10,13 +10,13 @@ import Flight from "@/components/Flight/flightMain"
 import Destination from "@/components/Flight/destination"
 import MyList from "@/components/Flight/myList"
 import SelectPalne from "@/components/Flight/selectPlane"
-<<<<<<< Upstream, based on origin/wyx
+
 import Changeplane from "@/components/Flight/changeList"
 import PlaneDetail from "@/components/Flight/planeDetail"
-=======
+
 import HbDetails from "@/components/Flight/hbDetails"
 import hwcx from "@/components/hwcx/hwcx"
->>>>>>> 430adf2 新增货运查询模块
+
 
 
 Vue.use(Router)
