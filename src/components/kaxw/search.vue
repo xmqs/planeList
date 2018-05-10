@@ -2,17 +2,17 @@
 	<div id="search_home">
 		<!--模拟的标题-->
 		<div class="header">
-			<form action="javascript:search();" style="margin: 0;" id="from">
-				<div id="" class="flex-box">
-					<div class="flex-item item-input-wrapper">
-						<span @click="searchs" class="search-icon"></span>
-						<input v-model="cons" id="" type="text" v-on:blur="changeCount(cons)" placeholder="请输入搜索关键词" />	
-					</div>
-					<router-link :to="{path:'kaxw_list'}">
-						<p id="search" class="btn-right flex-item item-nosearch">取消</p>
-					</router-link>	
+			<div id="" class="flex-box">
+				<div class="flex-item item-input-wrapper">
+					<span @click="searchs" class="search-icon"></span>
+					<form @submit.prevent="formSubmit" action="javascript:return true">
+					  <input type="search" placeholder="请输入搜索关键词" @keyup.13="searchs()" v-on:blur="changeCount(cons)" v-model="cons">
+					</form>
 				</div>
-			</form>
+				<router-link :to="{path:'kaxw_list/'+'news_tuijian'+'/'+0}">
+					<p id="search" class="btn-right flex-item item-nosearch">取消</p>
+				</router-link>	
+			</div>
 		</div>
 		<!--滑动区域-->
 		<div v-show="others" id="mescroll" class="mescroll">
@@ -42,7 +42,7 @@
 		<div id="sertch-con" class="sertch-con">
 			<ul id="dataList" class="data-list">
 					<li v-for="item in pageList" class="infors">
-						<router-link :to="{path: '/kaxw/kaxw_details/'+item.sourceId}">
+						<router-link :to="{path: '/kaxw/kaxw_details/'+item.sourceId +'/'+ 'news_tuijian'}">
 							<p class="pd-name">{{item.sourceLabel}}</p>
 							<!--<img class="pd-img" src=""/>-->
 							<p class="pd-time">{{item.createTime | formatDate}}</p>
@@ -79,6 +79,9 @@
 			}
 		},
 		methods: {
+			forSubmit () {
+		         return false;
+		    },
 			delect_history: function() {
 				 localStorage.removeItem("search");
 				 this.page_local = []
@@ -175,6 +178,14 @@
 	body{
 		background-color: #F0F0F0;
 	}
+	[contenteditable = "true"], input, textarea {
+	    -webkit-user- select: auto!important;
+	    -khtml-user-select: auto!important;
+	    -moz-user-select: auto!important;
+	    -ms-user-select: auto!important;
+	    -o-user-select: auto!important;
+	    user-select: auto!important;
+	}
 	.header {
 		z-index: 9990;
 		position: fixed;
@@ -200,7 +211,7 @@
 		position: absolute;	
 		width: 13px;
 		height: 13px;
-		background: url(/static/img/Fill1.png) no-repeat;
+		background: url(../../../static/img/Fill1.png) no-repeat;
 		top:50%;
 		margin-top: -7px;
 		left: 30px;
@@ -213,14 +224,12 @@
 		width:calc( 100% - 34px );
 		font-size: 1.2rem;
 		color: #999999;
-		height:28px;
-		line-height:28px;
+		height:33px;
+		line-height:15px;
 		border: 1px solid #fff;
 		border-radius:30px;
 		outline: none;
-		-webkit-appearance: none;
 		vertical-align: middle;
-		
 	}
 	
 	.header .btn-right {
@@ -255,7 +264,7 @@
 		position: absolute;
 		width: 12px;
 		height: 14px;
-		background: url(/static/img/Group2.png) no-repeat;
+		background: url(../../../static/img/Group2.png) no-repeat;
 		right:15px;
 		top: 50%;
 		margin-top: -7px;	
@@ -271,10 +280,10 @@
 	}
 	
 	.hot-title:before{
-		background: url(/static/img/Fill11.png);	
+		background: url(../../../static/img/Fill11.png) no-repeat;
 	}
 	.search-title:before{
-		background: url(/static/img/Group.png);	
+		background: url(../../../static/img/Group.png) no-repeat;
 	}
 	
 	
@@ -296,7 +305,7 @@
 	    -webkit-transition: all 0.4s ease;
 	    -o-transition: all 0.4s ease;
 	    transition: all 0.4s ease;
-	    background: url(/static/img/delect-item.png) no-repeat;
+	    background: url(../../../static/img/delect-item.png) no-repeat;
 	    
 	}
 	.ui-col {

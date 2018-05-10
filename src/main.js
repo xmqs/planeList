@@ -4,11 +4,9 @@ import router from './router'
 import axios from 'axios'
 import Mint from'mint-ui'
 import'mint-ui/lib/style.css'
-import VueDND from 'awe-dnd'
 
 import draggable from 'vuedraggable'
 
-Vue.use(VueDND)
 Vue.use(Mint);
 Vue.config.productionTip = false
 

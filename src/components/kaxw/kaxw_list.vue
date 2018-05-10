@@ -1,26 +1,29 @@
 <template>
 	<div id="home">
-		<p v-show="title_tj" id="recommend" class="recommend">成功为您推荐十条新闻</p>
+		<transition name="fade">
+			<p v-show="title_tj" id="recommend" class="recommend">成功为您推荐十条新闻</p>
+		</transition>
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
 			<router-link :to="{path:'/'}">
-			<span style="display: inline-block;width:10px;height: 16px;background: url(/static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
+				<div style="overflow: hidden;color:#285FB1;position: absolute;left: 15px;top: 15px;font-size: 28px;background: url(./static/img/Back.png) no-repeat;padding: 0px 20px 0px 14px;text-align: center;height: 30px;">.</div>
 			</router-link>	
 			<router-link :to="{path:'/kaxw/search'}">
-				<div style="display: inline-block;width:19px;height: 19px;background: url(/static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;""></div>
+				<div style="display: inline-block;width:19px;height: 19px;background: url(./static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;""></div>
 			</router-link>	
 		</header>
 		<!--顶部菜单-->
 		<div class="header">
-			<div class="scrollx mescroll-touch-x">
+			<div class="scrollx mescroll-touch-x" style="width: 100%;">
 				<div id="scrollxContent" class="scrollx-content">
 					<ul id="nav" class="nav">
-						<li v-for="(element,index) in list2" @click="select_item(element.alias)" :class="{'class-a':active === element.alias}">{{element.label}}</li>
+						<li v-for="(element,index) in list2" @click="select_item(active = element.alias)" :class="{'class-a':active === element.alias}">{{element.label}}</li>
 					</ul>
 				</div>
 			</div>
 			<div @click="others()" class="model_logo" id="model_logo">
+				☰
 				<div class="cover"></div>
 				<span></span>
 			</div>
@@ -33,7 +36,7 @@
 						<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
 							<mt-tab-container-item class="bo-p" v-for="(element,index) in menu" v-bind:id="element.alias" :key="index">
 								<mt-cell class="mt-cell-st" v-for="(element,index) in pageList" :key="index">
-									<router-link :to="{path: '/kaxw/kaxw_details/'+element.sourceId}">
+									<router-link :to="{path: '/kaxw/kaxw_details/'+ element.sourceId +'/'+ searchCondition.channelAlias}">
 										<div style="color: #666666">
 											<div v-if="element.cover">
 												<img class="pd-img"  :src="element.cover">
@@ -74,14 +77,18 @@
 					<p><span @click="close()" class="close_column" id="close_column"></span></p>
 					<p class="my_channel">我的频道<span class="font_12 dark_grey padding_z_10" id="explain_">{{paixu}}</span><span v-on:click="bj" class="btn_edit" id="btn_edit">{{edit}}</span></p>
 				</div>
+				<p v-show="dio" style="width: 194px;height: 72px;position: fixed;top: 110px;z-index: 9999;"></p>
 				<div class="content_box2">
 					<div id="example" v-cloak>
-						<draggable :list="list2" :move="getdata" @update="datadragEnd" :options="{animation: 200,handle:'.dargDiv'}">
+						<draggable :list="list2" :move="getdata" @update="datadragEnd" @sort="sort" :options="{animation: 200,handle:'.dargDiv'}">
 							<transition-group name="list-complete" >
-								<div v-for="element in list2" :key="element.label"  class="list-complete-item ui-col ui-col-25 text_center padding_6">
-									<div class="styleclass dargDiv others">
+								<div v-for="element in list2" :key="element.label" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+									<div v-if="element.movable == 0" class="styleclass dargDiv others">
 										<p>{{element.label}}</p>
-										<i v-if="element.movable == 0" v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
+										<i v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
+									</div>
+									<div v-else-if="element.movable == 1" draggable="disable" class="styleclass others">
+										<p>{{element.label}}</p>
 									</div>
 								</div>
 							</transition-group>
@@ -140,7 +147,8 @@
 				bottomStatus:"",
 				bottomDistance:1,
 				scrollTop:false,
-				isend : false
+				isend : false,
+				dio:false
 			}
 		},
 	    components: {
@@ -148,33 +156,45 @@
 	    },
 		watch: {
 			active: function(newValue) {
-				document.getElementById("soll").scrollTop = 0;
-				this.isend = false;
-				this.active = newValue;
-				this.searchCondition.channelAlias = newValue;
-				this.searchCondition.pageNo = 1;
-				this.searchCondition.pageSize = 10;
-				this.loadPageList();
-				this.bottomStatus = "";
+				if (this.$route.params.flag == 1) {
+					this.active = this.$route.params.con;
+					this.searchCondition.channelAlias = this.$route.params.con;
+					this.$route.params.flag = 0;
+				}else{
+					document.getElementById("soll").scrollTop = 0;
+					this.isend = false;
+					this.active = newValue;
+					this.searchCondition.channelAlias = newValue;
+					this.searchCondition.pageNo = 1;
+					this.searchCondition.pageSize = 10;
+					this.loadPageList();
+					this.bottomStatus = "";
+				}
 			}
 		},
 		filters: {
 			formatDate(time) {
 				var date = new Date(time);
-				return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
+				return formatDate(date, 'yyyy-MM-dd');
 			}
 		},
 		mounted() {
+			this.loadPageList();
 			this.client = document.documentElement.clientHeight -3;
-      		this.loadPageList();  //初次访问查询列表
-			this.getAllList();
 			document.getElementById("soll").addEventListener('scroll', this.isScrollTop)
 			document.getElementById("soll").scrollTop
 		},
 		created() {
+			this.active = this.$route.params.con;
+			this.searchCondition.channelAlias = this.$route.params.con;
 			this.getmenu();
 		},
 		methods: {
+			select_item(res){
+			},
+			sort:function(res){
+				console.log(res)
+			},
 			isScrollTop:function(){
 				var that = this;
 				if(document.getElementById("soll").scrollTop > 1000){
@@ -196,9 +216,6 @@
 				},10);
 			},
 			getdata: function(evt){
-				if(evt.draggedContext.element.movable == 1){
-					return false;
-				}
 				if(this.edit == "编辑"){
 					return false;
 				}else if (this.move == true) {
@@ -206,7 +223,7 @@
 				}
 			},
         	datadragEnd:function(evt){
-				
+        		
         	},
 			//获取列表信息
 			getAllList: function() {
@@ -276,30 +293,19 @@
 				this.animation_out = true;
 				this.animation_in = false;
 				this.other = false;
+				this.dio = false;
 				if(this.edit == "完成") {
 					this.edit = "编辑";
 					this.paixu = "点击进入频道";
 					this.isShow = false;
 				}
-				location.reload();
 			},
 			others: function() {
 				this.animation_out = true;
 				this.animation_in = false;
 				this.other = true;
+				this.dio = true;
 				//window.location.href = "/kaxw/kaxw_details"
-			},
-			tolist: function(id) {
-				window.location.href = "/kaxw/kaxw_details"
-			},
-			select_item: function(res) {
-				document.getElementById("soll").scrollTop = 0;
-				this.isend = false;
-				this.active = res;
-				this.searchCondition.channelAlias = res;
-				this.searchCondition.pageNo = 1;
-				this.searchCondition.pageSize = 10;
-				this.bottomStatus = "";
 			},
 			getmenu: function() {
 				var _that = this;
@@ -361,7 +367,7 @@
 						_that.title_tj = true;
 						setTimeout(function() {
 							_that.title_tj = false;
-						}, 800);
+						}, 1700);
 		        	}
 				})
 
@@ -481,20 +487,22 @@
 		z-index: 2;
 		width: 10px;
 		height: 12px;
-		background: url(/static/img/Group5.png);
 		position: relative;
 		top: 3px;
 		left: 0;
 	}
 
-	#model_logo {
+	#model_logo {    
 		position: fixed;
-		top: 43px;
-		right: 0px;
-		padding: 0px 12px;
-		line-height: 40px;
-		cursor: pointer;
-		z-index: 9999;
+	    top: 45px;
+	    right: 0px;
+	    height: 35px;
+	    line-height: 35px;
+	    cursor: pointer;
+	    z-index: 9999;
+	    background-color: #fff;
+	    width: 30px;
+	    font-size: 20px;
 	}
 
 	.color-item {
@@ -632,19 +640,28 @@
 		-webkit-animation-delay: 0s;
 		/*延迟时间*/
 	}
+	.fade-enter-active{
+		transition: opacity 1s
+    }
+	.fade-leave-active {
+		transition: opacity 3s
+    }
+    .fade-enter, .fade-leave-active {
+		opacity: 0
+    }
 	.scrollTop{
 		position: fixed;
 	    bottom: 16px;
 	    right: 18px;
 	    width: 50px;
 	    height: 50px;
-	    background: url(/static/img/mescroll-totop.png) no-repeat;
+	    background: url(../../../static/img/mescroll-totop.png) no-repeat;
 	}
 	.downwarp-progress {
 	    display: inline-block;
 	    width: 33px;
 	    height: 33px;
-	    background: url(/static/img/Group4.png) no-repeat;
+	    background: url(../../../static/img/Group4.png) no-repeat;
 	    vertical-align: middle;
 	}
 
@@ -652,7 +669,7 @@
 	    display: inline-block;
 	    width: 33px;
 	    height: 33px;
-	    background: url(/static/img/jiazai.png) no-repeat;
+	    background: url(../../../static/img/jiazai.png) no-repeat;
 	    vertical-align: middle;
 	}
 	.downwarp-progress-s{

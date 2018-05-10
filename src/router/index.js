@@ -30,13 +30,13 @@ export default new Router({
 		},
 		//口岸新闻列表
 		{
-			path: '/kaxw/kaxw_list',
+			path: '/kaxw/kaxw_list/:con/:flag',
 			name: 'kaxw_list',
 			component: kaxw_list
 		},
 		//口岸新闻详情
 		{
-			path: '/kaxw/kaxw_details/:sourceId',
+			path: '/kaxw/kaxw_details/:sourceId/:cons',
 			name: 'kaxw_details',
 			component: kaxw_details
 		},
