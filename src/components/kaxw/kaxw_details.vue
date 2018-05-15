@@ -4,12 +4,15 @@
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
-			<router-link :to="{path: '/kaxw/kaxw_list'}">
-				<span style="display: inline-block;width:10px;height: 16px;background: url(/static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
+			<router-link :to="{path: '/kaxw/kaxw_list/'+this.$route.params.cons+'/'+1}">
+				<span style="display: inline-block;width:10px;height: 16px;background: url(./static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
 			</router-link>
 		</header>
+		<div style="position: fixed;top:80px;margin-left: 40%;" v-show="lod">
+			正在加载,请稍后...
+		</div>
 		<!--内容-->
-		<div class="page-tab-container">
+		<div v-show="lod1" class="page-tab-container">
 
 			<section style="margin-top: 40px;" class="ui-container">
 				<div class="content_box">
@@ -25,10 +28,8 @@
 						<li class="table_view_cell media">
 							<p class="font_16 black_3">为你推荐</p>
 						</li>
-						<li v-for="item in tuijian" class="table_view_cell media">
-
-							<img class="pull_right" src="./../../../static/img/Rectangle18.png" />
-
+						<li	@click="th_tuijian(item.sourceId)" v-for="item in tuijian" class="table_view_cell media">
+							<img style="width: 113px;height: 74px;" v-if="item.cover" class="pull_right"  :src="item.cover">
 							<div class="media_body">
 								<p class="font_16 font_ellipsis_multiLine">{{item.sourceLabel}}</p>
 								<p class="source_time">{{item.author}}<span class="inline_block padding_z_10">{{item.createTime | formatDate}}</span></p>
@@ -57,9 +58,19 @@
 		          pageNo:"",
 		          pageSize:3
 		        },
+	        	lod:true,
+	        	lod1:false
 			}
 		},
-		motheds: {
+		methods: {
+			th_tuijian(res){
+				//查询详情
+				var That = this;
+				axios.get('/web-editor-web//s/h/query/'+res+'.do', {
+				}).then(function(data) {
+					That.contents = data.data.data;
+				})
+			}
 		},
 		mounted() {
 
@@ -87,16 +98,19 @@
 			axios.get('/web-editor-web/channel/list.do?', {
 				params: That.tuijianCondition
 			}).then(function(res) {
-				console.log(res)
 				for(var j = 0; j < res.data.data.length; j++) {
 					That.tuijian.push(res.data.data[j])
 				}
+				setTimeout(function() {
+					That.lod = false;
+					That.lod1 = true;
+				},500);
 			})
 		},
 		filters: {
 			formatDate(time) {
 				var date = new Date(time);
-				return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
+				return formatDate(date, 'yyyy-MM-dd');
 			}
 		}
 	}
@@ -288,5 +302,24 @@
 		font-size: 1.2rem;
 		color: #999999;
 		padding-top: 1rem;
+	}
+	.downwarp-progress-s{
+	    display: inline-block;
+	    width: 33px;
+	    height: 33px;
+		-webkit-transition-property: -webkit-transform;
+	    -webkit-transition-duration: 1s;
+	    -moz-transition-property: -moz-transform;
+	    -moz-transition-duration: 1s;
+	    -webkit-animation: rotate 3s linear infinite;
+	    -moz-animation: rotate 3s linear infinite;
+	    -o-animation: rotate 3s linear infinite;
+	    animation: rotate 3s linear infinite;
+    }
+	@keyframes rotate{
+		from{transform: rotate(-359deg)
+		}
+	    to{transform: rotate(359deg)
+	    }
 	}
 </style>

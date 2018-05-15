@@ -65,11 +65,7 @@
 				}
 			},
 			toogle_list:function(){//底部列表toggle
-				if (this.ul_list == true) {
-					this.ul_list = false
-				} else{
-					this.ul_list = true
-				}
+				this.ul_list = !this.ul_list
 			},
 			hid:function(){
 				this.ul_list = false
