@@ -4,7 +4,7 @@
       <slot>
         {{this.$route.params.Plane}}
       </slot>
-      <span style="display: inline-block;width:10px;height: 16px;background: url('/static/img/Back.png') no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
+      <span style="display: inline-block;width:10px;height: 16px;background: url('/static/img/Back.png') no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;" @click="headerBack"></span>
     </div>
     <div class="plane_main">
       <div class="ticket">
@@ -79,7 +79,12 @@
 
 <script>
     export default {
-        name: "planeDetail"
+        name: "planeDetail",
+      methods:{
+        headerBack(){
+          this.$router.back(-1);
+        }
+      }
     }
 </script>
 
@@ -93,7 +98,8 @@
     justify-content:center;
   }
   .ticket{
-    width: 98%
+    width: 98%;
+    overflow: hidden;
   }
   .ticket_header{
     background: #fff;

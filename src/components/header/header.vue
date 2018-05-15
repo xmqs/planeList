@@ -1,11 +1,25 @@
 <template>
   <header>
     <slot>
-
     </slot>
-    <span id="h_back"></span>
+    <span id="h_back" @click="headerBack"></span>
   </header>
 </template>
+<script>
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    name: "header",
+    methods:{
+      headerBack(){
+        this.$router.back(-1);
+      }
+    }
+  }
+</script>
 <style>
   header{
     height: 45px;

@@ -1,4 +1,10 @@
 <template>
+  <div>
+    <div class="changePage">
+      <router-link to="destination">按起落地</router-link>
+      <router-link to="myList"  class="page_active">我的关注</router-link>
+    </div>
+
   <ul class="Flight_list">
     <li @click="planeDetail('AQ1039')">
       <div class="list_header">
@@ -73,6 +79,7 @@
       </div>
     </li>
   </ul>
+  </div>
 </template>
 
 <script>
@@ -87,6 +94,34 @@
 </script>
 
 <style scoped>
+
+  .changePage{
+    text-align: center;
+    width: 100%;
+    border-bottom:1px solid #EEEEEE ;
+    background: #fff;
+  }
+  .changePage a{
+    float: left;
+    text-align: center;
+    width: 50%;
+    border-bottom: 2px solid #fff;
+    line-height: 4rem;
+    font-size: 1.6rem;
+    color: #333;
+  }
+  .changePage a.page_active{
+    color: #285FB1;
+    border-bottom: 2px solid #285FB1;
+  }
+  .changePage::after{
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .Flight_list{
+    padding: 0 1rem;
+  }
   .Flight_list li{
     border-bottom: 1px solid #f6f6f6;
     padding: .6rem 0;
