@@ -54,20 +54,14 @@ export default new Router({
 		},
     //航班动态
     {
-      path:'/flight',
-      name:'Flight',
-      component:Flight,
-      redirect: '/flight/destination',
-      children:[{
-        path: '/flight/destination',
-        name: 'Destination',
-        component: Destination,
-      },{
-        path: '/flight/myList',
-        name: 'MyList',
-        component: MyList
-      }
-      ]
+      path: '/flight/destination',
+      name: 'Destination',
+      component: Destination,
+    },
+    {
+      path: '/flight/myList',
+      name: 'MyList',
+      component: MyList
     },
     {
       path: '/flight/selectpalne',
