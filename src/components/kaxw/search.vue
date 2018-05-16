@@ -106,7 +106,6 @@
 								_that.localStorages =_that.cons + ",";
 							}
 							localStorage.setItem("search",_that.localStorages);
-							_that.cons = "";
 					})
 				}
 			},
@@ -131,7 +130,6 @@
 								_that.localStorages =_that.cons + ",";
 							}
 							localStorage.setItem("search",_that.localStorages);
-							_that.cons = "";
 					})
 				}
 			},
@@ -161,6 +159,17 @@
 			var cons = localStorage.getItem("search");
 			if (cons != null) {
 				this.page_local = cons.split(',');
+				var arr1 = this.page_local;
+				var result = [];
+				for(var i = 0; i < arr1.length; i++){
+					for(var j = i + 1; j < arr1.length; j++){
+						if(arr1[i] == arr1[j]){
+							j = ++i;
+						}
+					}
+					result.push(arr1[i]);
+				}
+				this.page_local = result;
 			}
 			this.getlist();
 		},
@@ -322,7 +331,10 @@
 	}
 	.search-words,.hot-words{
 		width: 100%;
-		
+	}
+	.search-words{
+        height: 140px;
+    	overflow-y: auto;
 	}
 	.search-words li,.hot-words li{
 		padding-left:16px;
