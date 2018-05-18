@@ -5,7 +5,7 @@
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
 			<router-link :to="{path: '/kaxw/kaxw_list/'+this.$route.params.cons+'/'+1}">
-				<span style="display: inline-block;width:10px;height: 16px;background: url(./static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
+				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
 		</header>
 		<div style="position: fixed;top:80px;margin-left: 40%;" v-show="lod">
@@ -119,6 +119,9 @@
 <style scoped>
 	/***详情页面样式****/
 
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	.font_18 {
 		font-size: 1.8rem;
 	}

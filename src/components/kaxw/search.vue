@@ -4,7 +4,7 @@
 		<div class="header">
 			<div id="" class="flex-box">
 				<div class="flex-item item-input-wrapper">
-					<span @click="searchs" class="search-icon"></span>
+					<img @click="searchs" class="search-icon" src="../../../static/img/Fill1.png"/>
 					<form @submit.prevent="formSubmit" action="javascript:return true">
 					  <input type="search" placeholder="请输入搜索关键词" @keyup.13="searchs()" v-on:blur="changeCount(cons)" v-model="cons">
 					</form>
@@ -18,21 +18,21 @@
 		<div v-show="others" id="mescroll" class="mescroll">
 			<div class="bgWhite" style="margin-bottom:10px;">
 				<p class="search-title">
+					<img style="height: 14px;" src="../../../static/img/Group.png"/>
 					历史记录
 					<span class="edit_over" id="edit_over">完成</span>
-					<span @click="delect_history" id="delects_box" class="delect_history"></span>
+					<span @click="isDel = !isDel" id="delects_box" class="delect_history"></span>
 				</p>
 				
 				<ul class="search-words clearfix" id="search-words">
-					<li v-for="item in page_local" class="ui-col ui-col-50 delect-item">
-						{{item}}
-						<i class="delect-icon"></i>
+					<li v-for="(item,index) in page_local" class="ui-col ui-col-50 delect-item">
+						<div style="width: 80%;white-space: nowrap;text-overflow:ellipsis;overflow:hidden;" @click="search_cons(item)">{{item}}</div><i v-if="isDel" @click="deletejilu(index)" class="delect-icon" style="display: inline;"></i>
 					</li>
 				</ul>
 			</div>	
 			<!--描述：热门新闻-->
 			<div v-show="others" class="bgWhite">
-				<p class="hot-title">热门新闻 </p>
+				<p class="hot-title"><img style="height: 14px;" src="../../../static/img/Fill11.png"/>&nbsp;热门新闻 </p>
 				<ul class="hot-words clearfix">
 					<li v-for="item in remen" @click="search_cons(item.sourceLabel)" class="ui-col ui-col-50">{{item.sourceLabel}}</li>
 				</ul>
@@ -75,16 +75,20 @@
 		        cons:"",
 		        pageList:[],
 		        others : true,
-		        remen:[]
+		        remen:[],
+		        isDel:false,
+		        searcharr:0,
 			}
 		},
 		methods: {
 			forSubmit () {
 		         return false;
 		    },
-			delect_history: function() {
-				 localStorage.removeItem("search");
-				 this.page_local = []
+			deletejilu: function(res) {
+				this.page_local.splice(res,1);
+				this.searcharr = 0;
+				localStorage.removeItem("search");
+				localStorage.setItem("search",this.page_local);
 			},
 			search_cons: function(con) {
 				var _that = this;
@@ -100,12 +104,9 @@
 									_that.pageList.push(res.data.data[j])
 								}
 							}
-							if (localStorage.getItem("search") != null) {
-								_that.localStorages =localStorage.getItem("search") + _that.cons + ",";
-							}else{
-								_that.localStorages =_that.cons + ",";
-							}
-							localStorage.setItem("search",_that.localStorages);
+							_that.page_local.push(_that.cons);
+							localStorage.removeItem("search");
+							localStorage.setItem("search",_that.page_local);
 					})
 				}
 			},
@@ -124,12 +125,9 @@
 									_that.pageList.push(res.data.data[j])
 								}
 							}
-							if (localStorage.getItem("search") != null) {
-								_that.localStorages =localStorage.getItem("search") + _that.cons + ",";
-							}else{
-								_that.localStorages =_that.cons + ",";
-							}
-							localStorage.setItem("search",_that.localStorages);
+							_that.page_local.push(_that.cons);
+							localStorage.removeItem("search");
+							localStorage.setItem("search",_that.page_local);
 					})
 				}
 			},
@@ -153,7 +151,6 @@
 		    }
 		},
 		mounted() {
-			
 		},
 		created: function() {
 			var cons = localStorage.getItem("search");
@@ -170,19 +167,27 @@
 					result.push(arr1[i]);
 				}
 				this.page_local = result;
+				if(this.page_local[0].length == 0){
+					this.page_local.splice(0,1);
+				}
 			}
+			
 			this.getlist();
 		},
 		filters: {
 			formatDate(time) {
 				var date = new Date(time);
-				return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
+				return formatDate(date, 'yyyy-MM-dd');
 			}
 		}
 	}
 </script>
 
 <style scoped>
+	
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	/*模拟的标题*/
 	body{
 		background-color: #F0F0F0;
@@ -194,6 +199,7 @@
 	    -ms-user-select: auto!important;
 	    -o-user-select: auto!important;
 	    user-select: auto!important;
+	    -webkit-appearance: none;
 	}
 	.header {
 		z-index: 9990;
@@ -220,7 +226,6 @@
 		position: absolute;	
 		width: 13px;
 		height: 13px;
-		background: url(../../../static/img/Fill1.png) no-repeat;
 		top:50%;
 		margin-top: -7px;
 		left: 30px;
@@ -252,7 +257,7 @@
 	/*历史搜索*/
 	
 	.search-title,.hot-title{
-		padding: 20px 0 20px 18px;
+		padding: 20px 0 20px 7px;
 		font-size: 1.5rem;
 		color:#333333;
 		position: relative;
@@ -260,7 +265,6 @@
 	.search-title:before,.hot-title:before{
 		display: inline-block;
 		content: "";
-		width: 15px;
 		height: 15px;
 		margin-right:12px;
 		vertical-align: middle;
@@ -289,10 +293,8 @@
 	}
 	
 	.hot-title:before{
-		background: url(../../../static/img/Fill11.png) no-repeat;
 	}
 	.search-title:before{
-		background: url(../../../static/img/Group.png) no-repeat;
 	}
 	
 	
@@ -304,7 +306,6 @@
 	
 	
 	.delect-icon{
-		display: none;
 		position: absolute;
 	    width:9px;
 	    height:9px;
@@ -333,7 +334,7 @@
 		width: 100%;
 	}
 	.search-words{
-        height: 140px;
+        max-height: 140px;
     	overflow-y: auto;
 	}
 	.search-words li,.hot-words li{
@@ -413,6 +414,7 @@
 	.mescroll {
 	    width: 100%;
 	    height: 100%;
+	    padding-bottom: 20px;
 	    overflow-y: auto;
 	}
 	

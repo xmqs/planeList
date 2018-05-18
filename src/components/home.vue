@@ -3,8 +3,7 @@
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
-			<span style="display: inline-block;width:10px;height: 16px;background: url(./static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
-			<!--<span style="display: inline-block;width:19px;height: 19px;background: url(../../../static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;"></span>-->
+			<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../static/img/Back.png"/>
 		</header>
 		<div class="page-tab-container">
 			<div style="position: absolute;top: 57px;width: 100%;" class="">
@@ -53,74 +52,18 @@
 		},
 		methods: {
 			token(){
-				var retData;
-				var test;
-				var that = this;
-				var params = {
-		            "appId": "elecPort"
-		        };
-		        //调用原生方法
-		        auth.getAccessToken(JSON.stringify(params));
-	            //原生回调
-			    function getAccessTokenCallback(resopnse) {
-			        retData = JSON.parse(resopnse);
-			    }
-			    function getUserInfoByToken() {
-			        var params = {
-			            "accessToken": retData.data.accessToken,
-			            "appId": "elecPort"
-			        };
-			        auth.getUserInfoByToken(JSON.stringify(params));
-			    }
-		        function getUserInfoByTokenCallback(params) {
-					$axios({
-					    method: 'post',
-					    url:'/znmhH5/auth/getUserInfo',
-					    data:{
-					    	resp : params
-					    }
-					}).then((res)=>{
-					    testinfo();
-					});
-			    }
-	            function testinfo() {
-			        let test2 = {
-			          data:test.data,
-			          msg:"操作成功",
-			          sign:test.sign,
-			          signType:test.sign_type
-			        };
-			        test = JSON.parse(test);
-			        let test2 = {
-			            msg: "操作成功",
-			            data: test.data,
-			            success: "true",
-			            sign: test.sign,
-			            signType: "RSA"
-			        }
-			        test2 = JSON.stringify(test2);
-			        
-			        $axios({
-					    method: 'post',
-					    url:'/eport-server/auth/mynj/getInfo.do',
-					    data:test2,
-			            dataType: 'json',
-			            contentType: 'Application/json',
-					}).then((res)=>{
-					    that.idNumber = res.idNumber;
-					    that.telephone = res.telephone;
-					});
-					axios.post('/eport-server/checkin/reminder.do', {
-					    idNumber:that.idNumber,
-						telephone:that.telephone
-					})
-					.then(function (response) {
-					    window.location = response.data.data;
-					})
-					.catch(function (error) {
-					    console.log(error);
-					});
-			    }
+				var userinfo = sessionStorage.getItem('userifo');
+				userinfo = JSON.parse(userinfo);
+				axios.post('/eport-server/checkin/reminder.do', {
+				    idNumber:userinfo.idNumber,
+					telephone:userinfo.phone
+				})
+				.then(function (response) {
+				    window.location = response.data.data;
+				})
+				.catch(function (error) {
+				    console.log(error);
+				});
 			}/*,
 			zhiji:function(){
 				var that = this;
@@ -135,7 +78,7 @@
 				.catch(function (error) {
 				    console.log(error);
 				});
-			},*/
+			},*/,
       flightM:function () {
         window.location += "flight";
       }
