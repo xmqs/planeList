@@ -8,12 +8,61 @@
 		<link rel="stylesheet" type="text/css" href="../static/css/repair.css" />
 
 		<link rel="stylesheet" type="text/css" href="../static/css/model.css" />
-
+		<script src="../static/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
 		<div style="height: 100%;" id="app"></div>
 		<!-- built files will be auto injected -->
 	</body>
-
+	<script type="text/javascript">
+		var test = "";
+		var retData;
+		var params = {
+            //"appId" : "mynj_test"
+            "appId": "elecPort"
+        };
+        //调用原生方法
+        auth.getAccessToken(JSON.stringify(params));
+        //原生回调
+	    function getAccessTokenCallback(resopnse) {
+	        retData = JSON.parse(resopnse);
+	        getUserInfoByToken();
+	    }
+	    function getUserInfoByToken() {
+	        var params = {
+	            "accessToken": retData.data.accessToken,
+	            "appId": "elecPort"
+	        };
+	        auth.getUserInfoByToken(JSON.stringify(params));
+	    }
+        function getUserInfoByTokenCallback(params) {
+	        test = params;
+			testinfo();
+	    }
+	    function testinfo() {
+	        test = JSON.parse(test);
+	        let test2 = {
+	            msg: "操作成功",
+	            data: test.data,
+	            success: "true",
+	            sign: test.sign,
+	            signType: "RSA"
+	        }
+	        test2 = JSON.stringify(test2);
+	        $.ajax({
+	            url: '/eport-server/auth/mynj/getInfo.do',
+	            data: test2,
+	            type: 'post',
+	            dataType: 'json',
+	            contentType: 'Application/json',
+	            success: function (data) {
+	            	sessionStorage.setItem("userifo",JSON.stringify(data.data));	
+	            },
+	            error: function (err) {
+	                
+	            },
+	        });
+	    }
+	</script>
 </html>

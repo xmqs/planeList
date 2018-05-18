@@ -3,8 +3,7 @@
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
-			<span style="display: inline-block;width:10px;height: 16px;background: url(./static/img/Back.png) no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;"></span>
-			<!--<span style="display: inline-block;width:19px;height: 19px;background: url(../../../static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;"></span>-->
+			<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../static/img/Back.png"/>
 		</header>
 		<div class="page-tab-container">
 			<div style="position: absolute;top: 57px;width: 100%;" class="">
@@ -14,26 +13,28 @@
 					</div>
 				</router-link>
 
-				<div @click="zhiji" style="width: 100%;margin-top: 13px;">
+				<div @click="token" style="width: 100%;margin-top: 13px;">
 					<mt-button style="width: 100%;" type="default">手机值机</mt-button>
 				</div>
-
-        <router-link :to="{path:'flight/Destination'}">
-          <div style="width: 100%;margin-top: 13px;">
-            <mt-button style="width: 100%;" type="default">航班动态</mt-button>
-          </div>
-        </router-link>
-
+		        <router-link :to="{path:'flight/Destination'}">
+		          <div style="width: 100%;margin-top: 13px;">
+		            <mt-button style="width: 100%;" type="default">航班动态</mt-button>
+		          </div>
+		        </router-link>
 				<router-link :to="{path:'hwcx/hwcx'}">
 				<div style="width: 100%;margin-top: 13px;">
 					<mt-button style="width: 100%;" type="default">货物查询</mt-button>
 				</div>
 				</router-link>
+				<router-link :to="{path:'cwty/cwty_list/'+'tab-container1'}">
+					<div style="width: 100%;margin-top: 13px;">
+						<mt-button style="width: 100%;" type="default">宠物托运</mt-button>
+					</div>
+				</router-link>
 			</div>
 		</div>
 	</div>
 </template>
-
 <script>
 	import axios from "axios";
 	export default {
@@ -51,9 +52,22 @@
       auth.getAccessToken({appId:"elecPort"});
 		},
 		created() {
-
 		},
 		methods: {
+			token(){
+				var userinfo = sessionStorage.getItem('userifo');
+				userinfo = JSON.parse(userinfo);
+				axios.post('/eport-server/checkin/reminder.do', {
+				    idNumber:userinfo.idNumber,
+					telephone:userinfo.phone
+				})
+				.then(function (response) {
+				    window.location = response.data.data;
+				})
+				.catch(function (error) {
+				    console.log(error);
+				});
+			}/*,
 			zhiji:function(){
 				var that = this;
 				axios.post('/eport-server/checkin/reminder.do', {
@@ -67,7 +81,7 @@
 				.catch(function (error) {
 				    console.log(error);
 				});
-			},
+			},*/,
       flightM:function () {
         window.location += "flight";
       }

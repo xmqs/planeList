@@ -2,7 +2,7 @@
 	<div id="hwcx" @click="hid">
 		<mt-header style="font-size: 17px;height:45px;background-color:#285FB1;" title="货运查询">
 			<router-link :to="{path:'/'}" slot="left">
-		    	<mt-button icon="back"></mt-button>
+		    	<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
 		</mt-header>
 		<div class="content-box">

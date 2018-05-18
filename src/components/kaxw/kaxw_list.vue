@@ -7,10 +7,10 @@
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			口岸新闻
 			<router-link :to="{path:'/'}">
-				<div style="overflow: hidden;color:#285FB1;position: absolute;left: 15px;top: 15px;font-size: 28px;background: url(./static/img/Back.png) no-repeat;padding: 0px 20px 0px 14px;text-align: center;height: 30px;">.</div>
+				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>	
 			<router-link :to="{path:'/kaxw/search'}">
-				<div style="display: inline-block;width:19px;height: 19px;background: url(./static/img/Group6.png) no-repeat;position: absolute;right:15px;top: 50%;margin-top:-9px;""></div>
+				<img style="height: 19px;position: absolute;right:15px;top: 50%;margin-top:-9px;" src="./../../../static/img/Group6.png"/>
 			</router-link>	
 		</header>
 		<!--顶部菜单-->
@@ -35,7 +35,7 @@
 			    	:bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
 						<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
 							<mt-tab-container-item class="bo-p" v-for="(element,index) in menu" v-bind:id="element.alias" :key="index">
-								<mt-cell class="mt-cell-st" v-for="(element,index) in pageList" :key="index">
+								<div class="mt-cell mt-cell-st" v-for="(element,index) in pageList" :key="index">
 									<router-link :to="{path: '/kaxw/kaxw_details/'+ element.sourceId +'/'+ searchCondition.channelAlias}">
 										<div style="color: #666666">
 											<div v-if="element.cover">
@@ -48,12 +48,12 @@
 											<p class="time-name">{{element.author}} {{element.createTime | formatDate}}</p>
 										</div>
 									</router-link>
-								</mt-cell>
+								</div>
 							</mt-tab-container-item>
 						</mt-tab-container>
 			    		<div slot="top" class="mint-loadmore-top">
 					      <span v-show="topStatus == 'loading'" :class="{ 'rotate': topStatus === 'drop' }">
-					      	<p class="downwarp-progress" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);"></p>
+					      	<img class="downwarp-progress" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);" src="../../../static/img/Group4.png"/>
 					      </span>
 					    </div>
 
@@ -63,7 +63,7 @@
 			    		<div slot="bottom" style="position: relative;top: -80px;" class="mint-loadmore-bottom">
 					      <span v-show="bottomStatus == 'loading'" :class="{ 'rotate': bottomStatus === 'drop' }">
 					      	<span id="">正在努力加载</span>
-					      	<p class="downwarp-progress1" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);"></p>
+					      	<img class="downwarp-progress1" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);" src="../../../static/img/Oval6.png"/>
 					      </span>
 					    </div>
 			    </v-loadmore>
@@ -77,7 +77,7 @@
 					<p><span @click="close()" class="close_column" id="close_column"></span></p>
 					<p class="my_channel">我的频道<span class="font_12 dark_grey padding_z_10" id="explain_">{{paixu}}</span><span v-on:click="bj" class="btn_edit" id="btn_edit">{{edit}}</span></p>
 				</div>
-				<p v-show="dio" style="width: 194px;height: 72px;position: fixed;top: 110px;z-index: 9999;"></p>
+				<p v-show="dio" style="width:285px;position: fixed;top: 110px;left: -100px;z-index: 9999;height: 5rem;"></p>
 				<div class="content_box2">
 					<div id="example" v-cloak>
 						<draggable :list="list2" :move="getdata" @update="datadragEnd" @sort="sort" :options="{animation: 200,handle:'.dargDiv'}">
@@ -188,6 +188,7 @@
 			this.active = this.$route.params.con;
 			this.searchCondition.channelAlias = this.$route.params.con;
 			this.getmenu();
+			this.getAllList();
 		},
 		methods: {
 			select_item(res){
@@ -352,7 +353,7 @@
 					params: _that.searchCondition
 				}).then(function(res) {
 					_that.pageList = [];
-	          		// 是否还有下一页，加个方法判断，没有下一页要禁止上拉
+	          		// 是否还有下一页，没有下一页要禁止上拉
 					_that.pagenone = res.data.data.length/10;
 					if (_that.pagenone < _that.searchCondition.pageNo) {
 						_that.isend = true;
@@ -363,12 +364,15 @@
 					for(var j = 0; j < res.data.data.length; j++) {
 						_that.pageList.push(res.data.data[j])
 					}
-		        	if(_that.searchCondition.channelAlias == "news_tuijian"){
-						_that.title_tj = true;
-						setTimeout(function() {
-							_that.title_tj = false;
-						}, 1700);
-		        	}
+					if(sessionStorage.getItem('recommend') == null){
+			        	if(_that.searchCondition.channelAlias == "news_tuijian"){
+			        		sessionStorage.setItem("recommend",'recommend');
+							_that.title_tj = true;
+							setTimeout(function() {
+								_that.title_tj = false;
+							}, 1700);
+			        	}
+					}
 				})
 
 	            _that.$nextTick(function () {
@@ -406,6 +410,9 @@
 </script>
 
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	.item {
 		display: inline-block;
 	}
@@ -461,8 +468,9 @@
 		text-overflow: ellipsis;
 		color: #333333;
 	    height: 50px;
-	    padding: 2px 0;
-        line-height: 23px
+        padding: 2px 5px 2px 2px;
+        line-height: 23px;
+        font-size: 1.6rem;
 	}
 
 	.time-name {
@@ -661,21 +669,17 @@
 	    display: inline-block;
 	    width: 33px;
 	    height: 33px;
-	    background: url(../../../static/img/Group4.png) no-repeat;
 	    vertical-align: middle;
 	}
 
 	.downwarp-progress1 {
 	    display: inline-block;
-	    width: 33px;
-	    height: 33px;
-	    background: url(../../../static/img/jiazai.png) no-repeat;
 	    vertical-align: middle;
+	    width: 16px;
+	    height: 16px;
 	}
 	.downwarp-progress-s{
 	    display: inline-block;
-	    width: 33px;
-	    height: 33px;
 		-webkit-transition-property: -webkit-transform;
 	    -webkit-transition-duration: 1s;
 	    -moz-transition-property: -moz-transform;
@@ -703,5 +707,8 @@
 	    text-align: center;
 	    top: -80px;
     	margin: 12px 0;
+	}
+	.titile_back{
+	    background: url("./../../../static/img/palne_a.png") center;
 	}
 </style>

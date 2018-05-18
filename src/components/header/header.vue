@@ -34,14 +34,4 @@
     font-size: 1.8rem;
     line-height: 45px;
   }
-    #h_back{
-      display: inline-block;
-      width:10px;
-      height: 16px;
-      background: url('./../../../static/img/Back.png') no-repeat;
-      position: absolute;
-      left:15px;
-      top: 50%;
-      margin-top:-8px;
-    }
 </style>
