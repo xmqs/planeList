@@ -16,6 +16,19 @@ import PlaneDetail from "@/components/Flight/planeDetail"
 /*货物查询*/
 import hwcx from "@/components/hwcx/hwcx"
 
+/*宠物托运*/
+
+import cwty_list from "@/components/cwty/cwty_list.vue"
+import IndexList from "@/components/cwty/IndexList.vue"
+import cwty_inp from "@/components/cwty/cwty_inp.vue"
+import chiose_rad from "@/components/chiose_rad/chiose_rad.vue"
+import calendar from "@/components/chiose_rad/calendar.vue"
+import myzh from "@/components/chiose_rad/myzh.vue"
+import servers from "@/components/cwty/servers.vue"
+import serversDetails from "@/components/cwty/serversDetails.vue"
+import checked from "@/components/cwty/checked.vue"
+import rate from "@/components/cwty/rate.vue"
+import petDetails from "@/components/cwty/petDetails.vue"
 
 Vue.use(Router)
 
@@ -75,5 +88,65 @@ export default new Router({
       name: 'PlaneDetail',
       component: PlaneDetail,
     }
+    /*宠物托运*/
+   ,
+		{
+			path: '/cwty/cwty_list/:con',
+			name: 'cwty_list',
+			component: cwty_list,
+		},
+		{
+			path: '/cwty/servers',
+			name: 'servers',
+			component: servers,
+		},
+		{
+			path: '/cwty/petDetails',
+			name: 'petDetails',
+			component: petDetails,
+		},
+		{
+			path: '/cwty/rate',
+			name: 'rate',
+			component: rate,
+		},
+		{
+			path: '/cwty/serversDetails',
+			name: 'serversDetails',
+			component: serversDetails,
+		},
+		{
+			path: '/cwty/checked',
+			name: 'checked',
+			component: checked,
+		},
+		{
+			path: '/cwty/cwty_inp',
+			name: 'cwty_inp',
+			component: cwty_inp,
+			meta: {
+		        keepAlive: true
+		    }
+		},
+		{
+			path: '/cwty/IndexList',
+			name: 'IndexList',
+			component: IndexList,
+		},
+		{
+			path: '/chiose_rad/chiose_rad',
+			name: 'chiose_rad',
+			component: chiose_rad,
+		},
+		{
+			path: '/calendar/calendar',
+			name: 'calendar',
+			component: calendar,
+		},
+		{
+			path: '/chiose_rad/myzh',
+			name: 'myzh',
+			component: myzh,
+		}
   ]
 })

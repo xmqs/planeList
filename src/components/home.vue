@@ -16,17 +16,20 @@
 				<div @click="token" style="width: 100%;margin-top: 13px;">
 					<mt-button style="width: 100%;" type="default">手机值机</mt-button>
 				</div>
-
-        <router-link :to="{path:'flight/Destination'}">
-          <div style="width: 100%;margin-top: 13px;">
-            <mt-button style="width: 100%;" type="default">航班动态</mt-button>
-          </div>
-        </router-link>
-
+		        <router-link :to="{path:'flight/Destination'}">
+		          <div style="width: 100%;margin-top: 13px;">
+		            <mt-button style="width: 100%;" type="default">航班动态</mt-button>
+		          </div>
+		        </router-link>
 				<router-link :to="{path:'hwcx/hwcx'}">
 				<div style="width: 100%;margin-top: 13px;">
 					<mt-button style="width: 100%;" type="default">货物查询</mt-button>
 				</div>
+				</router-link>
+				<router-link :to="{path:'cwty/cwty_list/'+'tab-container1'}">
+					<div style="width: 100%;margin-top: 13px;">
+						<mt-button style="width: 100%;" type="default">宠物托运</mt-button>
+					</div>
 				</router-link>
 			</div>
 		</div>
