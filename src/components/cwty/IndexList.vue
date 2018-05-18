@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<mt-index-list v-if="lists"  :show-indicator="false">
-			<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey">
+			<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
 			    <div class="citys" v-for="(element,index) in ele.cities" :title="element.name">
 			    	<div @click="bus(element.name)" class="routes">
 			    		{{element.name}}
@@ -64,7 +64,7 @@
 								code:"NKG",
 								pinyin:"binzhou",
 								name:"滨州"
-							 
+
 							}
 						]
 					},
@@ -75,7 +75,7 @@
 								code:"NKG",
 								pinyin:"changsha",
 								name:"长沙"
-							 
+
 							}
 						]
 					},
@@ -86,7 +86,7 @@
 								code:"NKG",
 								pinyin:"foshan",
 								name:"佛山"
-							 
+
 							}
 						]
 					},
@@ -97,7 +97,7 @@
 								code:"NKG",
 								pinyin:"ganzhou",
 								name:"赣州"
-							 
+
 							}
 						]
 					},
@@ -108,7 +108,7 @@
 								code:"NKG",
 								pinyin:"hangzhou",
 								name:"杭州"
-							 
+
 							}
 						]
 					},
@@ -119,7 +119,7 @@
 								code:"NKG",
 								pinyin:"jiangsu",
 								name:"江苏"
-							 
+
 							}
 						]
 					},
@@ -130,7 +130,7 @@
 								code:"NKG",
 								pinyin:"loudi",
 								name:"娄底"
-							 
+
 							}
 						]
 					},
@@ -141,7 +141,7 @@
 								code:"NKG",
 								pinyin:"minjiang",
 								name:"闽江"
-							 
+
 							}
 						]
 					},
@@ -152,7 +152,7 @@
 								code:"NKG",
 								pinyin:"nanjing",
 								name:"南京"
-							 
+
 							}
 						]
 					},
@@ -163,7 +163,7 @@
 								code:"NKG",
 								pinyin:"rizhao",
 								name:"日照"
-							 
+
 							}
 						]
 					}
@@ -201,13 +201,13 @@
 			}
 		},
 		mounted() {
-			
+
 		},
 		created: function() {
-			
+
 		},
 		filters: {
-			
+
 		}
 	}
 </script>
