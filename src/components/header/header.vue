@@ -1,11 +1,25 @@
 <template>
   <header>
     <slot>
-
     </slot>
-    <img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
+    <span id="h_back" @click="headerBack"></span>
   </header>
 </template>
+<script>
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    name: "header",
+    methods:{
+      headerBack(){
+        this.$router.back(-1);
+      }
+    }
+  }
+</script>
 <style>
   header{
     height: 45px;

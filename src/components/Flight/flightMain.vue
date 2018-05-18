@@ -1,8 +1,5 @@
 <template>
   <div id="flight">
-    <nav-header>
-      航班动态
-    </nav-header>
     <div class="changePage">
       <router-link to="destination" v-bind:class="{'page_active':pageNum==0}" @click.native="changePage(0)">按起落地</router-link>
       <router-link to="myList" v-bind:class="{'page_active':pageNum==1}" @click.native="changePage(1)">我的关注</router-link>
@@ -14,8 +11,6 @@
 </template>
 
 <script>
-  import NavHeader from "@/components/header/header"
-
     export default {
       data(){
         return{
@@ -23,9 +18,6 @@
         }
       },
       name: "flight",
-      components:{
-        NavHeader
-      },
       methods:{
         changePage(index){
           this.pageNum = index;
@@ -36,8 +28,10 @@
 
 <style>
   /*头部*/
+  .content{
+    background-color: #fff;
+  }
   .changePage{
-    margin-top: 45px;
     text-align: center;
     width: 100%;
     border-bottom:1px solid #EEEEEE ;
