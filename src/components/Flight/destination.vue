@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="changePage">
-      <router-link to="destination" class="page_active">按起落地</router-link>
-      <router-link to="myList" >我的关注</router-link>
+      <div class="page_active">按起落地</div>
+      <div @click="changePage()">我的关注</div>
     </div>
     <ul class="content">
       <li>
         <p class="li_p_title">航班号</p>
-        <input class="li_udp_input" type="text" placeholder="请输入航班号，如MU4527">
+        <input class="li_udp_input" type="text" placeholder="请输入航班号，如MU4527" >
       </li>
       <li class="chage_destination">
         <div class="destination left_destination">
@@ -23,7 +23,7 @@
         </div>
       </li>
       <li>
-        <router-link :to="{path:'selectpalne'}">
+        <router-link :to="{name:'SelectPalne'}">
           <p class="li_p_title">航空公司</p>
           <div class="li_udp_div">
             {{planeCom}}
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+  import Bus from './bus.js'
 
     export default {
       name: "destination",
@@ -56,11 +57,14 @@
         }
       },
       mounted(){
-        if (sessionStorage.getItem("Destination")){
+        /*if (sessionStorage.getItem("Destination")){
           this.planeCom = sessionStorage.getItem("Destination");
         }else if (this.$route.params.PlaneName) {
             this.planeCom = this.$route.params.PlaneName;
-          }
+          }*/
+        Bus.$on('msg', (e) => {
+          this.$set(this.$data, 'planeCom', e);
+        })
       },
       methods:{
         changeBack(){
@@ -71,7 +75,19 @@
           setTimeout(()=>{
             this.changing = false;
           },1000)
+        },
+        changePage(){
+          console.log(1);
+          this.$router.replace({path:'/flight/myList'});
         }
+      },
+      beforeRouteLeave(to,from,next){
+        if (to.name == "home"){
+          from.meta.keepAlive = false;
+        }else{
+          from.meta.keepAlive = true;
+        }
+        next();
       }
     }
 </script>
@@ -84,7 +100,7 @@
     border-bottom:1px solid #EEEEEE ;
     background: #fff;
   }
-  .changePage a{
+  .changePage div{
     float: left;
     text-align: center;
     width: 50%;
@@ -93,7 +109,7 @@
     font-size: 1.6rem;
     color: #333;
   }
-  .changePage a.page_active{
+  .changePage div.page_active{
     color: #285FB1;
     border-bottom: 2px solid #285FB1;
   }

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="changePage">
-      <router-link to="destination">按起落地</router-link>
-      <router-link to="myList"  class="page_active">我的关注</router-link>
+      <div  @click="changePage()">按起落地</div>
+      <div class="page_active">我的关注</div>
     </div>
 
   <ul class="Flight_list">
@@ -88,6 +88,9 @@
       methods:{
         planeDetail(Plane){
           this.$router.push({name:'PlaneDetail', params: { Plane: Plane} })
+        },
+        changePage(){
+          this.$router.replace({path:'/flight/destination'});
         }
       }
     }
@@ -101,7 +104,7 @@
     border-bottom:1px solid #EEEEEE ;
     background: #fff;
   }
-  .changePage a{
+  .changePage div{
     float: left;
     text-align: center;
     width: 50%;
@@ -110,7 +113,7 @@
     font-size: 1.6rem;
     color: #333;
   }
-  .changePage a.page_active{
+  .changePage div.page_active{
     color: #285FB1;
     border-bottom: 2px solid #285FB1;
   }

@@ -65,6 +65,7 @@
 </template>
 
 <script>
+  import Bus from './bus.js'
   import NavHeader from "@/components/header/header"
     export default {
         name: "selectPlane",
@@ -73,8 +74,9 @@
       },
       methods:{
         changePlane(PlaneName){
-          sessionStorage.setItem("Destination", PlaneName);
-          this.$router.push({name:'Destination', params: { PlaneName: PlaneName} })
+          //sessionStorage.setItem("Destination", PlaneName);
+          Bus.$emit('msg', PlaneName);
+          this.$router.back(-1);
         }
       },
     }
