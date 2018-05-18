@@ -22,7 +22,7 @@
 					  		<span class="zhuren">宠物主人：{{list.ownerName}}</span>
 					  		<span class="sfsb">已申报</span>
 				  		</div>
-				  		<div class="ele2" @click="bus(list.id)">
+				  		<div class="ele2" @click="bus(list)">
 				  			<div class="ele2-1">
 				  				<img class="pet-img" src="../../../static/img/gou1.png"/>
 				  			</div>
@@ -103,7 +103,7 @@
 				  	</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container4">  
-				  	<div v-if="status == 40 && list != undefined" class="ele">
+				  	<div v-if="status == 50 && list != undefined" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{list.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
@@ -179,7 +179,7 @@
 				} else if (newValue == 'tab-container3'){
 					this.status = 30;
 				} else if (newValue == 'tab-container4'){
-					this.status = 40;
+					this.status = 50;
 				}
 				this.getList();
 			}
@@ -214,7 +214,7 @@
 				})
 			},
 			bus (res) {
-		        Bus.$emit('id', res)
+		        Bus.$emit('list', res)
 		        this.$router.push({path: '/cwty/petDetails'})
 		    },
 			select_item(res){

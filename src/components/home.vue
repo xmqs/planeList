@@ -2,7 +2,7 @@
 	<div id="home">
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			口岸新闻
+			电子口岸
 			<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../static/img/Back.png"/>
 		</header>
 		<div class="page-tab-container">

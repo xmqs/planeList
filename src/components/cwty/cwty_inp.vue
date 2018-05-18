@@ -298,7 +298,7 @@
 						dataType: 'json',
 						headers: {
 				            'Content-Type': 'application/json;charset=UTF-8'
-				       },
+				        },
 						then: function(data1) {
 							Toast("申报成功")
 						}

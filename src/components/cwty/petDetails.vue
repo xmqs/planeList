@@ -109,7 +109,7 @@
 			}
 		},
 		mounted() {
-		    Bus.$on('id', (e) => {
+		    Bus.$on('list', (e) => {
 		    	console.log(e)
 		    })
 		},
