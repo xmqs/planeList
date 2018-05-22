@@ -7,7 +7,7 @@
     <ul class="content">
       <li>
         <p class="li_p_title">航班号</p>
-        <input class="li_udp_input" type="text" placeholder="请输入航班号，如MU4527" >
+        <input class="li_udp_input" type="text" placeholder="请输入航班号，如MU4527" v-model="planeNumber">
       </li>
       <li class="chage_destination">
         <div class="destination left_destination">
@@ -53,7 +53,8 @@
         return{
           planeCom:'请选择',
           plane_back:false,
-          changing:false
+          changing:false,
+          planeNumber:'',
         }
       },
       mounted(){
@@ -83,7 +84,8 @@
       },
       beforeRouteLeave(to,from,next){
         if (to.name == "home"){
-          from.meta.keepAlive = false;
+          this.planeCom = "请选择";
+          this.planeNumber = "";
         }else{
           from.meta.keepAlive = true;
         }
