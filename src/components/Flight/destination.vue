@@ -106,14 +106,14 @@
     float: left;
     text-align: center;
     width: 50%;
-    border-bottom: 2px solid #fff;
-    line-height: 4rem;
-    font-size: 1.6rem;
+    font-size:32px;
+    border-bottom: 5px solid #fff;
+    line-height: 100px;
     color: #333;
   }
   .changePage div.page_active{
     color: #285FB1;
-    border-bottom: 2px solid #285FB1;
+    border-bottom: 5px solid #285FB1;
   }
   .changePage::after{
     content: "";
@@ -136,87 +136,94 @@
     width: 20%;
   }
   .destination .dest{
-    font-size:2rem;
+    height:56px;
+    font-size:40px;
+    font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    font-weight: normal;
+    line-height:56px;
+    margin-top: 10px;
   }
   .destination p{
-    font-size: 1.4rem;
-    height:2.4rem;
+    height:33px;
+    font-size:24px;
+    font-family:PingFangSC-Regular;
     color:rgba(153,153,153,1);
-    line-height:2.4rem;
+    line-height:33px;
   }
   /*.left_destination{
     height: 4rem;
   }
+
+
   .right_destination{
     height: 4rem;
   }*/
   .icon_destination{
-    height: 5rem;
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items:center;
+    height: 64px;
+    width: 66px;
+    padding-top: 18px;
   }
   .icon_destination img{
-    width: 3rem;
-    height: 3rem;
+    width: 66px;
+    height: 64px;
   }
   .li_p_title{
-    font-size: 1.4rem;
-    width:6rem;
-    height:2.4rem;
+    font-size:24px;
+    font-family:PingFangSC-Regular;
     color:rgba(153,153,153,1);
-    line-height:2.4rem;
+    line-height:33px;
   }
   .li_udp_input{
     width:100%;
-    font-size:2rem;
+    font-size:40px;
     color:#333;
     border: 0;
     outline: 0;
+    margin-top: 10px;
+    height:56px;
     -webkit-user-select:auto;
   }
 
   .li_udp_div{
-    width:100%;
-    font-size:2rem;
-    color:#333333;
-    border: 0;
+    height:56px;
+    font-size:40px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+    line-height:56px;
+    margin-top: 10px;
   }
   .isToday{
-    font-size:1rem;
+    font-size:24px;
     color:rgba(255,144,18,1);
-    line-height:2.75rem;
+    line-height:33px;
   }
   .c_button{
-    width:96%;
-    margin-left: 2%;
-    height:4rem;
-    background:rgba(40,95,177,1);
-    border-radius: 0.33rem ;
     border: 0;
-    margin-top: 2rem;
+    margin-top: 60px;
     color: #fff;
-    font-size: 1.6rem;
+    font-size:34px;
+    margin-left: 40px;
+    width:670px;
+    height:92px;
+    background:rgba(40,95,177,1);
+    border-radius: 4px ;
   }
   .content{
-    padding: 0 1rem;
+    padding: 0 32px;
   }
   .content li{
-    padding: .4rem 0;
     border-bottom: 1px solid #EEEEEE;
+    height: 132px;
+    padding-top: 17px;
   }
   .content li.chage_destination{
     display:flex;
     display: -webkit-flex;
     justify-content:space-between;
-    padding-bottom: .6rem;
     position: relative;
-    height: 6rem;
+    height: 132px;
     background: url("./../../../static/img/rollPlane.png") center no-repeat;
-    background-size: 3rem;
+    background-size: 64px;
   }
   .change{
     transition: all 1s;

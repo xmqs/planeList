@@ -9,7 +9,8 @@
     <li @click="planeDetail('AQ1039')">
       <div class="list_header">
         <img src="./../../../static/img/com_icon.png">
-        <span class="company">中国国际航空</span><span class="planeNum">AQ1039</span>
+        <span class="company">中国国际航空</span>
+        <span class="planeNum">AQ1039</span>
       </div>
       <div class="list_body">
         <div class="list_page">
@@ -45,7 +46,8 @@
     <li>
       <div class="list_header">
         <img src="./../../../static/img/com_icon.png">
-        <span class="company">中国国际航空</span><span class="planeNum">AQ1039</span>
+        <span class="company">中国国际航空</span>
+        <span class="planeNum">AQ1039</span>
       </div>
       <div class="list_body">
         <div class="list_page">
@@ -108,14 +110,14 @@
     float: left;
     text-align: center;
     width: 50%;
-    border-bottom: 2px solid #fff;
-    line-height: 4rem;
-    font-size: 1.6rem;
+    font-size:32px;
+    border-bottom: 5px solid #fff;
+    line-height: 100px;
     color: #333;
   }
   .changePage div.page_active{
     color: #285FB1;
-    border-bottom: 2px solid #285FB1;
+    border-bottom: 5px solid #285FB1;
   }
   .changePage::after{
     content: "";
@@ -123,35 +125,37 @@
     display: table;
   }
   .Flight_list{
-    padding: 0 1rem;
+    padding: 0 32px;
   }
   .Flight_list li{
     border-bottom: 1px solid #f6f6f6;
-    padding: .6rem 0;
-    padding-bottom: 1rem;
+    height: 160px;
+    padding-top: 15px;
   }
   /**列表头部*/
   .list_header{
     display:flex;
     display: -webkit-flex;
     align-items:center;
-    height: 3rem;
   }
   .list_header img{
-    height:1.2rem;
+    height:24px;
     display: inline-block;
-    margin-right: .4rem;
+    margin-right: 10px;
   }
   .company{
-    font-size:1.4rem;
+    height:33px;
+    font-size:24px;
+    font-family:PingFangSC-Regular;
     color:rgba(153,153,153,1);
-    line-height: 1.6rem;
-    margin-right: .6rem;
+    line-height:33px;
   }
   .planeNum{
-    font-size:1.4rem;
+    font-size:24px;
+    font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    line-height: 1.6rem;
+    line-height:33px;
+    margin-left: 10px;
   }
   /*列表主体*/
   .list_body{
@@ -159,25 +163,27 @@
     display: -webkit-flex;
     align-items:center;
     justify-content:space-between;
-    padding: .4rem 0;
+    margin-top: 30px;
   }
   .plane_up{
-    width: 1.4rem;
-    margin-right: 1rem;
+    width: 28px;
+    margin-right:21px;
   }
   .plane_down{
-    width: 1.4rem;
-    margin-left: 1rem;
+    width: 26px;
+    margin-left: 20px;
   }
   .planeFrom{
-    font-size:1.6rem;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    line-height:2.4rem;
+    line-height:45px;
   }
   .planeTo{
-    font-size:1.6rem;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    line-height:2.4rem;
+    line-height:45px;
   }
   .list_page{
     display: flex;
@@ -185,10 +191,9 @@
     align-items:center;
   }
   .planeTime{
-    font-size:1.2rem;
+    font-size:22px;
     color:rgba(51,51,51,1);
-    padding-bottom: .6rem;
-    padding-right: .8rem;
+    padding:0 20px 8px 20px;
     background: url("./../../../static/img/line_to.png") bottom no-repeat;
     background-size: 100%;
   }
