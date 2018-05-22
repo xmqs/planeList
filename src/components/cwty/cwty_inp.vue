@@ -18,7 +18,14 @@
 			</div>
 			<div class="ele1">
 				<span class="tit">宠物照片</span>
-				<img class="pet-img" src="../../../static/img/Group 5.png"/>
+				<el-upload
+				  class="avatar-uploader"
+				  action="/web-editor-web/public/upload/upload.do"
+				  :show-file-list="false"
+				  :on-success="handleAvatarSuccess">
+				  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+				  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+				</el-upload>
 				<img class="po_right" style="padding: 38px 8px 42px 22px;top:4;" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
@@ -129,6 +136,7 @@
 		name: "cwty_input",
 		data() {
 			return {
+				imageUrl: '',
 				/*属性*/
 				dz:"",
 				smfw:false,
@@ -190,15 +198,17 @@
 		},
 	    beforeRouteLeave(to, from, next) {
 	        // 设置下一个路由的 meta
-	        if(to.name == 'cwty_list'){
-	        	to.meta.keepAlive = false;
-	        }
+        	to.meta.keepAlive = true;
 	        next();
 	    },
 	    activated() {
 			
 		},
 		methods: {
+			handleAvatarSuccess(res, file) {
+		        console.log(res.data)
+		        this.imageUrl = res.data;
+		    },
 			chip1(){
 				this.chip = '是'
 			},
@@ -283,7 +293,7 @@
 							petCertificate:this.sfblgz,
 							petChip:xfzrxp,
 							petName:this.cwmz,
-							petPicture:[],
+							petPicture:this.imageUrl,
 							petSize:this.sizes,
 							petType:this.varietys,
 							petVaccineLastTime:this.myz,
@@ -307,20 +317,20 @@
 			}
 		},
 		mounted() {
+		},
+		created: function() {
 		    Bus.$on('area', (e) => {
 		    	this.area = e;
 		    })
 		    Bus.$on('myz', (e) => {
-		　　　　　this.myz = e;
+		　　　　this.myz = e;
 		    })
 		    Bus.$on('riqi', (e) => {
-		　　　　　this.riqi = e;
+		　　　　this.riqi = e;
 		    })
 		    Bus.$on('varietys', (e) => {
-		　　　　　this.varietys = e;
+		　　　　this.varietys = e;
 		    })
-		},
-		created: function() {
 		},
 		filters: {
 			
@@ -438,4 +448,40 @@
 	    height: 45px;
 	    font-size: 16px;
 	}
+	
+.avatar-uploader{
+    width: 90px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    height: 94px;
+}
+	  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 64pt;
+    height: 64pt;
+    line-height: 64pt;
+    margin-top: 3px;
+    text-align: center;
+    float: right;
+  }
+ .avatar{
+    width: 64pt;
+    height: 64pt;
+    display: block;
+    margin-top: 5px;
+    float: right;
+    margin-right: 18px;
+}
 </style>

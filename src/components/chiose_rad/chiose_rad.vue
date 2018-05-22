@@ -32,7 +32,9 @@ export default {
     },
 	methods:{
 		bus (res) {
-	        Bus.$emit('varietys', res)
+		    setTimeout(() => {
+	        	Bus.$emit('varietys', res)
+		    }, 30)
 	        this.$router.back(-1)
 	    },
         variety(res){

@@ -97,7 +97,10 @@
 				cwnl:"",
 				cwmz:"",
 				cwpz:"",
-				sfxy:"1"
+				sfxy:"",
+
+				list:[],
+				ids:"",
 			}
 		},
 	    activated() {
@@ -106,14 +109,41 @@
 		methods: {
 			goback(){
 				this.$router.back(-1)
+			},
+			getdetails(){
+				var that = this;
+				axios.get('/eport-server/delivery/pet/queryOrderById.do', {
+					params: {
+						orderNo :'3C9559D9CE7D4FEE90308DF15E11DC16'
+					}
+				}).then(function(data) {
+					that.area = data.data.data.endCity;
+					that.riqi = data.data.data.flightDate;
+					that.sfxysmfu = data.data.data.homeDelivery;
+					that.sfzh = data.data.data.ownerIdNo;
+					that.zrxm = data.data.data.ownerName;
+					that.hzxx = data.data.data.ownerPassport;
+					that.lxfs = data.data.data.ownerTelNo;
+					that.cwnl = data.data.data.petAge;
+					that.cwpz = data.data.data.petBreed;
+					that.sfblgz = data.data.data.petCertificate;
+					that.xfzrxp = data.data.data.petChip;
+					that.cwmz = data.data.data.petName;
+					that.sizes = data.data.data.petSize;
+					that.varietys = data.data.data.petType;
+					that.myz = data.data.data.petVaccineLastTime;
+					that.cwzl = data.data.data.petWeight;
+					that.fhd = data.data.data.startCity;
+				})
 			}
 		},
 		mounted() {
 		    Bus.$on('list', (e) => {
-		    	console.log(e)
+		    	this.ids = e;
 		    })
 		},
 		created: function() {
+			this.getdetails();
 		},
 		filters: {
 			

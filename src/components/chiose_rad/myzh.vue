@@ -6,17 +6,18 @@
 		</header>
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<p class="tit">上传免疫证</p>
-			<div style="width: 100px;height: 100px;" class="">
-				<el-upload
-				  class="avatar-uploader"
-				  action="https://jsonplaceholder.typicode.com/posts/"
-				  :show-file-list="false"
-				  :on-success="handleAvatarSuccess"
-				  :before-upload="beforeAvatarUpload">
-				  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-				  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
-			</div>
+			<el-upload
+			  action="/web-editor-web/public/upload/upload.do"
+			  list-type="picture-card"
+			  :limit="limits"
+			  :on-preview="handlePictureCardPreview"
+			  :on-remove="handleRemove">
+			  <i class="el-icon-plus"></i>
+			</el-upload>
+			<el-dialog :visible.sync="dialogVisible">
+			  <img width="100%" :src="dialogImageUrl" alt="">
+			</el-dialog>
+			
 			<div @click="openPicker" class="time_select">{{mydate}}</div>
 			<template>
 			  <mt-datetime-picker
@@ -35,25 +36,30 @@
 </template>
 <script>
 import 'element-ui/lib/theme-chalk/index.css';
+import axios from "axios";
 import Bus from '../cwty/bus.js'
 export default {
     name: "chiose_rad",
     data(){
 	    return{
 	        varietys:"",
-	        gou1:true,
-	        gou2:false,
 	        value1:"",
 	        startDate: new Date(),
 	        mydate:"日期选择",
-	        imageUrl: ''
+	        imgList: [],
+	        size: 0,
+			limits:1,//图片上传数量
+			dialogImageUrl: '',
+        	dialogVisible: false
 	    }
    },
 	methods:{
 		bus (res) {
-	        Bus.$emit('myz', res)
+		    setTimeout(() => {
+		        Bus.$emit('myz', res)
+		    }, 30)
 	        this.$router.back(-1)
-	    },
+	   },
         openPicker() {
 	        this.$refs.picker.open();
 	    },
@@ -64,21 +70,15 @@ export default {
 		    this.varietys = this.mydate;
 			console.log(this.mydate)
 	    } ,
-	    handleAvatarSuccess(res, file) {
-	        this.imageUrl = URL.createObjectURL(file.raw);
-	    },
-	    beforeAvatarUpload(file) {
-	        /*const isJPG = file.type === 'image/jpeg';
-	        const isLt2M = file.size / 1024 / 1024 < 2;
-	
-	        if (!isJPG) {
-	          this.$message.error('上传头像图片只能是 JPG 格式!');
-	        }
-	        if (!isLt2M) {
-	          this.$message.error('上传头像图片大小不能超过 2MB!');
-	        }
-	        return isJPG && isLt2M;*/
-	    }
+		//图片上传
+		 handleRemove(file, fileList) {
+	        console.log(file, fileList);
+	      },
+	      handlePictureCardPreview(file) {
+	        this.dialogImageUrl = file.url;
+	        this.dialogVisible = true;
+	      }
+		
 	},
 	created: function() {
         
@@ -109,31 +109,5 @@ export default {
 	    padding: 14px 0;
 	}
 	/*图片上传*/
-	.avatar-uploader .el-upload {
-	    border: 1px dashed #d9d9d9;
-	    border-radius: 6px;
-	    cursor: pointer;
-	    position: relative;
-	    overflow: hidden;
-	  }
-	  .avatar-uploader .el-upload:hover {
-	    border-color: #409EFF;
-	  }
-	  .avatar-uploader-icon {
-	    font-size: 28px;
-	    color: #8c939d;
-	    width: 100px;
-	    height: 100px;
-	    line-height: 100px;
-	    border: 1px dashed #ccc;
-	    margin-left: 14px;
-	    text-align: center;
-	  }
-	  .avatar {
-	    width: 100px;
-	    height: 100px;
-	    display: block;
-	    border: 1px dashed #ccc;
-	    margin-left: 14px;
-	  }
+
 </style>

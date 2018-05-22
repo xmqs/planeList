@@ -20,21 +20,20 @@
 		  		</div>
 	  			<div class="ele3">
 	  				<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
-	  					<tr>
-	  						<td class="ele3-1" style="width: 22%;"><div class="order_time">04-25<br />11:04</div><img class="yuan" src="../../../static/img/yuan.png"/></td>
-	  						<td style="width: 75%;"><div class="state">已托运</div><div class="stateCon">宠物已托运，运单号463746383</div></td>
+	  					<tr v-for="(element,index) in logistics" v-if="index == 0">
+	  						<td class="ele3-1" style="width: 22%;"><div class="order_time">{{element.date}}<br />11:04</div><img class="yuan" src="../../../static/img/yuan.png"/></td>
+	  						<td style="">
+	  							<div class="state">{{element.title}}</div>
+	  							<div style="min-height: 90px;border-right: 0px solid #ccc;border-left: 2px dotted #777;" class="stateCon">{{element.detail}}
+	  								<div style="margin: 7px 0 0 -19px;">
+	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  								</div>
+	  							</div>
+	  						</td>
 	  					</tr>
-	  					<tr>
-	  						<td class="ele3-1" style="width: 22%;"><div class="order_time order_time1">04-25<br />11:04</div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
-	  						<td style="width: 75%;"><div class="state order_time1-1">已托运</div><div class="stateCon order_time1-1">宠物已托运，运单号463746383</div></td>
-	  					</tr>
-	  					<tr>
-	  						<td class="ele3-1" style="width: 22%;"><div class="order_time order_time1">04-25<br />11:04</div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
-	  						<td style="width: 75%;"><div class="state order_time1-1">已托运</div><div class="stateCon order_time1-1">宠物已托运，运单号463746383</div></td>
-	  					</tr>
-	  					<tr>
-	  						<td class="ele3-1" style="width: 22%;"><div class="order_time order_time1 order_time2">04-25<br />11:04</div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
-	  						<td style="width: 75%;"><div class="state order_time1-1">已托运</div><div class="stateCon order_time1-1">宠物已托运，运单号463746383</div></td>
+	  					<tr v-else-if="index != 0">
+	  						<td class="ele3-1" style="width: 22%;border-right: 1px solid #ccc;"><div class="order_time order_time1"><br />11:04</div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
+	  						<td style="width: 75%;"><div class="state order_time1-1">{{element.title}}</div><div class="stateCon order_time1-1">{{element.detail}}</div></td>
 	  					</tr>
 	  				</table>
 	  			</div>
@@ -44,15 +43,32 @@
 </template>
 
 <script>
+	import axios from "axios"
 export default {
     name: "checked",
     data(){
 	    return{
 	        varietys:"1",
+	        logistics:[],
+	        petimg1:'',
+	        petimg2:'',
 	    }
     },
+	created() {
+		this.getList();
+	},
 	methods:{
-		
+		getList(){
+			var that = this;
+			axios.get('/eport-server/delivery/queryDelivery.do', {
+				params: {
+					id:'2C4C19420DBF4C25820933B787AB0088',
+					tyep:'1'
+				}
+			}).then(function(data) {
+				that.logistics = data.data.data.logistics;
+			})
+		}
 	}
 }
 </script>
@@ -133,13 +149,11 @@ export default {
 	}
 	.order_time{
 	    height: 100px;
-	    border-right: 2px dotted #777;
 	    text-align: center;
 	    color: #285FB1;
 	    font-size: 14px;
 	}
 	.order_time1{
-	    border-right: 1px solid #ccc;
 	    color: #999 !important;
 	}
 	.order_time1-1{
@@ -147,6 +161,9 @@ export default {
 	}
 	.order_time2{
 		border-right: 0px dotted #777 !important;
+	}
+	table tr:last-child td{
+		border-right: 0px solid #ccc !important;
 	}
 	.state{
 		padding-left: 20px;
@@ -159,14 +176,18 @@ export default {
 	}
 	.stateCon{
 		padding-left: 20px;
-	    height:80px;
 	    text-align: left;
 	    color: #285FB1;
 	    font-size: 14px;
 	}
 	.yuan{
 		position: absolute;
-	    top: -9px;
+	    top: 2px;
 	    left: 72px;
+	}
+	.petimg{
+		width: 45px;
+		height: 45px;
+	    margin-left: 20px;
 	}
 </style>

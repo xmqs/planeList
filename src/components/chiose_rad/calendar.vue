@@ -115,7 +115,9 @@
 		},
 		methods: {
 			bus (res) {
-		        Bus.$emit('riqi', res)
+			    setTimeout(() => {
+			        Bus.$emit('riqi', res)
+			    }, 30)
 		        this.$router.back(-1)
 		    },
 			selectDay(data){

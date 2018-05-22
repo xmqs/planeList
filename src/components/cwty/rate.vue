@@ -1,35 +1,118 @@
-
 <template>
-<div class="">
-	<el-upload
-	  action="https://jsonplaceholder.typicode.com/posts/"
-	  list-type="picture-card"
-	  :on-preview="handlePictureCardPreview"
-	  :on-remove="handleRemove">
-	  <i class="el-icon-plus"></i>
-	</el-upload>
-	<el-dialog :visible.sync="dialogVisible">
-	  <img width="100%" :src="dialogImageUrl" alt="">
-	</el-dialog>
-</div>
+  <div id="rate">
+  	<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+			托运详情
+			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container4'}">
+				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
+			</router-link>
+		</header>
+    <div id="ele">
+    	<div class="ele ele_1">
+    		<div class="ele1">
+    			<img style="width: 50px;height: 50px;" src="../../../res/img/Rectangle183.png"/>
+    		</div>
+    		<div style="margin-left: 14px;" class="ele1 ele1_1">
+    			综合评价
+    		</div>
+    		<div class="ele1 ele1_1">
+    			<el-rate
+    				:texts='arr'
+					  v-model="value3"
+					  change="score"
+					  show-text>
+					</el-rate>
+    		</div>
+    </div>
+    <div class="ele">
+    	<textarea name="" v-model="texts" placeholder="亲！评价一下吧…"></textarea>
+    </div>
+    <div class="ele">
+    	<button @click="fabu" class="shenbao">发布评价</button>
+    </div>
+    </div>
+  </div>
 </template>
+
 <script>
 	import 'element-ui/lib/theme-chalk/index.css';
+	import axios from "axios";
   export default {
+    name: 'rate',
     data() {
       return {
-        dialogImageUrl: '',
-        dialogVisible: false
-      };
+      	value3: null,
+      	arr:['差', '比较差', '一般', '比较好', '好'],
+      	texts:""
+      }
     },
     methods: {
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
+    	score(){
+    	},
+      fabu(){
+				axios({
+					method: 'POST',
+					data:{
+						detail:this.texts,
+						orderNo:'3C9559D9CE7D4FEE90308DF15E11DC16',
+						score:this.value3
+					},
+        	url: '/eport-server/delivery/order/evaluate.do',
+					dataType: 'json',
+					headers: {
+			            'Content-Type': 'application/json;charset=UTF-8'
+			        },
+					success: function(data1) {
+						
+					}
+				})
       }
     }
   }
 </script>
+<style scoped>
+	#rate{
+		
+	}
+	#ele{
+		margin-top: 45px;
+		width: 100%;
+    position: fixed;
+    height: 100%;
+    background: #F5F5F5;
+	}
+  .ele{
+  	
+  }
+  .ele1{
+  	float: left;
+  }
+  .ele_1{
+  	    height: 66px;
+    padding: 7px;
+    background: #fff;
+  }
+  .ele1_1{
+  	    font-size: 15px;
+  	    padding: 9px;
+    margin-top: 10px;
+  }
+  textarea{
+  	    width: 100%;
+    height: 180px;
+    resize: none;
+    border: 0;
+    border-top: 1px solid #ccc;
+    padding: 7px;
+    font-size: 14px;
+  }
+	.shenbao{
+	    border: 0;
+	    background: #285fb1;
+	    color: #fff;
+	    width: 90%;
+	    height: 45px;
+	    font-size: 16px;
+    	margin-left: 5%;
+    	margin-top: 14px;
+	}
+</style>

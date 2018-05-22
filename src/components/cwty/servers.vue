@@ -2,54 +2,83 @@
 	<div id="servers">
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			选择服务
-			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container2'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-			</router-link>
+				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 		</header>
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<ul>
-				<li>
-					<div class="tishi">购买笼子及包装</div>
-					<div class="yaoqiu">符合民航运输要求的笼子</div>
+				<li v-for="(element,index) in lists">
+					<div class="tishi">{{element.title}}</div>
+					<div class="yaoqiu">{{element.description}}</div>
 					<div class="allradio">
-						<label><input type="radio" name="price"><i>✓</i>普通￥20</label><br>
-        				<label style="position: relative;top: -24px;left: 180px;"><input type="radio" name="price" checked><i>✓</i>加急￥28</label><br>
-					</div>
-				</li>
-				<li>
-					<div class="tishi">购买笼子及包装</div>
-					<div class="yaoqiu">符合民航运输要求的笼子</div>
-					<div class="allradio">
-						<label><input type="radio" name="price1"><i>✓</i>普通￥20</label><br>
-        				<label style="position: relative;top: -24px;left: 180px;"><input type="radio" name="price1" checked><i>✓</i>加急￥28</label><br>
+						<label  v-for="(ele,index) in element.options" v-if="ele.checked != null" style="float: left;"><input class="cwtyCost" :id='ele.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label><br>
+        				<label v-for="(ele,index) in element.options" v-if="ele.checked == null" style="float: left;"><input class="cwtyCost" :id='ele.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label><br />
 					</div>
 				</li>
 			</ul>
 		</div>
 	</div>
 </template>
-
 <script>
+import jquery from "../../../static/js/jquery-3.3.1.min.js";
+import axios from "axios";
+import { formatDate } from '../../assets/js/date.js';
+import Bus from './bus.js'
 export default {
     name: "servers",
     data(){
 	    return{
 	        varietys:"1",
 	        value:"1",
-	        options : [{  
-	            label: '普通￥20',  
-	            value: '1'
-            },  
-            {  
-	            label: '加急￥28',  
-	            value: '2'  
-            }]  
+	        lists:[],
 	    }
     },
 	methods:{
 		check: function(){  
             console.log(this.value)  
-        } 
+        },
+		getList(){
+			var that = this;
+			axios.get('/eport-server/delivery/queryServices.do', {
+				params: {
+					id:'3C9559D9CE7D4FEE90308DF15E11DC16',
+					type:'1'
+				}
+			}).then(function(data) {
+				that.lists = data.data.data;
+			})
+		},
+		goback(){
+			var sers = [];
+			var cost = 0;
+			$(".cwtyCost:checked").each(function(i,obj){
+				var ser = {};
+				ser.serviceId = this.id;
+				ser.value = this.value;
+				sers.push(ser)
+				cost += Number(this.value)
+			});
+			axios({
+				method: 'POST',
+				data:{
+					allCost:cost,
+					orderNo:'3C9559D9CE7D4FEE90308DF15E11DC16',
+					services:sers,
+					type:'1'
+				},
+	            url: '/eport-server/delivery/saveServices.do',
+				dataType: 'json',
+				headers: {
+		            'Content-Type': 'application/json;charset=UTF-8'
+		        },
+				success: function(data1) {
+					
+				}
+			})
+			this.$router.back(-1)
+		},
+	},
+	created() {
+		this.getList();
 	}
 }
 </script>
@@ -87,12 +116,13 @@ export default {
 	.allradio{
 		white-space: nowrap;
 	    margin: 7px 2px 2px 8px;
-	    padding: 14px 0 0 0;
 	    border-top: 1px solid #dfdfdf;
+	    line-height: 15px;
 	}
     label {
 		font-size: 17px;
 		color: #333;
+	    margin-right: 17%;
     }
     label i {
         font-size: 12px;
@@ -112,18 +142,18 @@ export default {
     }
      
     input[type="radio"]+ i {
-	    width: 16px;
-	    height: 16px;
+	    width: 19px;
+	    height: 19px;
 	    border-radius: 50%;
-        font-size: 18px;
+	    font-size: 24px;
     }
      
     input[type="radio"]:checked+ i {
         background: #285FB1;
-	    width: 16px;
-	    height: 16px;
+	    width: 19px;
+	    height: 19px;
 	    border-radius: 50%;
-        font-size: 18px;
+	    font-size: 24px;
     }
      
     input[type="radio"]:disabled+ i {

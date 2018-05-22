@@ -41,138 +41,14 @@
 				lists:true,
 				result:false,
 				resultCitys:[],
-				arealist:[
-					{
-						firstKey: "A",
-						cities:[
-							{
-								code:"安庆",
-								pinyin:"anqing",
-								name:"安庆"
-							},
-							{
-								code:"安徽",
-								pinyin:"anhui",
-								name:"安徽"
-							}
-						]
-					},
-					{
-						firstKey: "B",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"binzhou",
-								name:"滨州"
-
-							}
-						]
-					},
-					{
-						firstKey: "C",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"changsha",
-								name:"长沙"
-
-							}
-						]
-					},
-					{
-						firstKey: "F",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"foshan",
-								name:"佛山"
-
-							}
-						]
-					},
-					{
-						firstKey: "G",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"ganzhou",
-								name:"赣州"
-
-							}
-						]
-					},
-					{
-						firstKey: "H",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"hangzhou",
-								name:"杭州"
-
-							}
-						]
-					},
-					{
-						firstKey: "J",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"jiangsu",
-								name:"江苏"
-
-							}
-						]
-					},
-					{
-						firstKey: "L",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"loudi",
-								name:"娄底"
-
-							}
-						]
-					},
-					{
-						firstKey: "M",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"minjiang",
-								name:"闽江"
-
-							}
-						]
-					},
-					{
-						firstKey: "N",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"nanjing",
-								name:"南京"
-
-							}
-						]
-					},
-					{
-						firstKey: "R",
-						cities:[
-							{
-								code:"NKG",
-								pinyin:"rizhao",
-								name:"日照"
-
-							}
-						]
-					}
-				]
+				arealist:[]
 			}
 		},
 		methods: {
 			bus (res) {
-		        Bus.$emit('area', res)
+			    setTimeout(() => {
+			        Bus.$emit('area', res)
+			    }, 30)
 		        this.$router.back(-1)
 		    },
 			selectArea(){
@@ -198,13 +74,20 @@
 					this.result = false;
 					this.lists = true;
 				}
+			},
+			getList(){
+				var that = this;
+				axios.get('/eport-server/delivery/flight/queryCities.do').then(function(data) {
+					that.arealist = data.data;
+				})
 			}
+			
 		},
 		mounted() {
 
 		},
 		created: function() {
-
+			this.getList()
 		},
 		filters: {
 

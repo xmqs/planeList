@@ -22,7 +22,7 @@
 					  		<span class="zhuren">宠物主人：{{list.ownerName}}</span>
 					  		<span class="sfsb">已申报</span>
 				  		</div>
-				  		<div class="ele2" @click="bus(list)">
+				  		<div class="ele2" @click="bus(list.id)">
 				  			<div class="ele2-1">
 				  				<img class="pet-img" src="../../../static/img/gou1.png"/>
 				  			</div>
@@ -209,7 +209,7 @@
 			            'Content-Type': 'application/json;charset=UTF-8'
 			        },
 					success: function(data1) {
-						alert(1)
+						
 					}
 				})
 			},
