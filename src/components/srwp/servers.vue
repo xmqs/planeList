@@ -10,8 +10,8 @@
 					<div class="tishi">{{element.title}}</div>
 					<div class="yaoqiu">{{element.description}}</div>
 					<div class="allradio">
-						<label  v-for="(ele,index) in element.options" v-if="ele.checked != null" style="float: left;"><input class="cwtyCost" :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label><br>
-        				<label v-for="(ele,index) in element.options" v-if="ele.checked == null" style="float: left;"><input class="cwtyCost" :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label><br />
+						<label  v-for="(ele,index) in element.options" v-if="ele.checked != null" style="float: left;"><input class="cwtyCost" :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+        				<label v-for="(ele,index) in element.options" v-if="ele.checked == null" style="float: left;"><input class="cwtyCost" :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
 					</div>
 				</li>
 			</ul>
@@ -42,7 +42,7 @@ export default {
 			axios.get('/eport-server/delivery/queryServices.do', {
 				params: {
 					id:this.orderNo,
-					type:'1'
+					type:'2'
 				}
 			}).then(function(data) {
 				that.lists = data.data.data;
@@ -58,24 +58,25 @@ export default {
 				sers.push(ser)
 				cost += Number(this.value)
 			});
-			axios({
-				method: 'POST',
-				data:{
-					allCost:cost,
-					orderNo:this.orderNo,
-					services:sers,
-					type:'1'
-				},
-	            url: '/eport-server/delivery/saveServices.do',
-				dataType: 'json',
-				headers: {
-		            'Content-Type': 'application/json;charset=UTF-8'
-		        },
-				then: function(data1) {
-					
+			var that = this;
+			axios.post("/eport-server/delivery/saveServices.do", {
+				allCost:cost,
+				orderNo:that.orderNo,
+				services:sers,
+				type:'2'
+			}).then((res) => {		
+				console.log(res)
+				if(res.status == 200) {	
+				that.$router.push({name: 'srwp_list',
+					params:{ 
+						res:'tab-container2'
+					}
+				})
+				}else{
+					Toast("提交失败");
 				}
-			})
-			this.$router.push({path: '/cwty/cwty_list/'+'tab-container2'})
+			}, (res) => {							
+			});
 		},
 	},
 	created: function(){
@@ -115,7 +116,7 @@ export default {
 	}
 	li{    
 		list-style: none;
-	    height: 145px;
+	    min-height: 145px;
 	    background: #fff;
 	    border-bottom: 11px solid #f5f5f5;
 	}

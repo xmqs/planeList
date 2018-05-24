@@ -1,14 +1,14 @@
 <template>
-	<div id="kaxw_list">
+	<div id="srwp_list">
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			宠物申报平台
+			私人物品申报平台
 			<router-link :to="{path:'/'}">
 				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
 		</header>
 		<div id="con">  
-			<div class="nav">  
+			<div class="nav">
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>  
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交</mt-button>  
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container3'}" @click.native.prevent="select_item('tab-container3')">待托运</mt-button>  
@@ -19,15 +19,21 @@
 				<mt-tab-container-item id="tab-container1">  
 				  	<div v-for="ele in list" v-if="status == 10 || ele != undefined" class="ele">
 				  		<div class="ele1">
-					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
+					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已申报</span>
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
-				  			</div>
 				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
+					  			<p class="pet-name">
+					  				<span v-for="(ele1,index) in ele.packages">
+										<span v-if="index == 0">
+											{{ele1.name}}
+										</span>
+										<span v-else>
+											,{{ele1.name}}
+										</span>
+									</span>
+					  			</p>
 					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
 					  			<p class="pet-time">{{ele.createTime}}</p>
 				  			</div>
@@ -39,24 +45,30 @@
 				  	<div v-else class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
-				  	<router-link :to="{path: '/cwty/cwty_inp'}">
+				  	<router-link :to="{path: '/srwp/srwp_inp'}">
 						<header style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-							+ 托运宠物
+							+ 托运物品
 						</header>
 					</router-link>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
 				  	<div v-for="ele in list" v-if="status == 20 || ele != undefined" class="ele">
 				  		<div class="ele1">
-					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
+					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
-				  			</div>
 				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
+					  			<p class="pet-name">
+					  				<span v-for="(ele1,index) in ele.packages">
+										<span v-if="index == 0">
+											{{ele1.name}}
+										</span>
+										<span v-else>
+											,{{ele1.name}}
+										</span>
+									</span>
+					  			</p>
 					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
 					  			<p class="pet-time">{{ele.createTime}}</p>
 				  			</div>
@@ -72,15 +84,21 @@
 				<mt-tab-container-item id="tab-container3">  
 				  	<div v-for="ele in list" v-if="status == 30 || ele != undefined" class="ele">
 				  		<div class="ele1">
-					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
+					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
-				  			</div>
 				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
+					  			<p class="pet-name">
+					  				<span v-for="(ele1,index) in ele.packages">
+										<span v-if="index == 0">
+											{{ele1.name}}
+										</span>
+										<span v-else>
+											,{{ele1.name}}
+										</span>
+									</span>
+					  			</p>
 					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
 					  			<p class="pet-time">{{ele.createTime}}</p>
 				  			</div>
@@ -97,15 +115,21 @@
 				<mt-tab-container-item id="tab-container4">  
 				  	<div v-for="ele in list" v-if="status == 50 || ele != undefined" class="ele">
 				  		<div class="ele1">
-					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
+					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
-				  			</div>
 				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
+					  			<p class="pet-name">
+					  				<span v-for="(ele1,index) in ele.packages">
+										<span v-if="index == 0">
+											{{ele1.name}}
+										</span>
+										<span v-else>
+											,{{ele1.name}}
+										</span>
+									</span>
+					  			</p>
 					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
 					  			<p class="pet-time">{{ele.createTime}}</p>
 				  			</div>
@@ -132,17 +156,17 @@
 	import { formatDate } from '../../assets/js/date.js';
 	import Bus from './bus.js'
 	export default {
-		name: "kaxw_list",
+		name: "srwp_list",
 		data() {
 			return {
-				active: 'tab-container1',
+				active: '',
 				widthData:0,
 				status:10,
 				list:[]
 			}
 		},  
 	    components: {  
-	      'v-loadmore':Loadmore  // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题  
+	      'v-loadmore':Loadmore 
 	    },
 		watch: {
 		},
@@ -152,13 +176,6 @@
 		mounted() {
 			
 		},
-	    beforeRouteLeave(to, from, next) {
-	        // 设置下一个路由的 meta
-	        if(to.name == 'cwty_inp'){
-		        to.meta.keepAlive = true;
-	        }
-	        next();
-	    },
 		watch: {
 			active: function(newValue) {
 				if (newValue == 'tab-container1') {
@@ -170,12 +187,13 @@
 				} else if (newValue == 'tab-container4'){
 					this.status = 50;
 				}
+				
 				this.getList();
 			}
 		},
 		created() {
 			this.login();
-			this.active = this.$route.params.con;
+			this.active = this.$route.params.res;
 			if (this.active == 'tab-container1') {
 				this.status = 10;
 			} else if (this.active == 'tab-container2'){
@@ -215,22 +233,23 @@
 			    setTimeout(() => {
 			        Bus.$emit('list', res)
 			    }, 30)
-		        this.$router.push({path: '/cwty/petDetails'})
+		        this.$router.push({path: '/srwp/srwpDetails'})
 		    },
 			update (res) {
 			    setTimeout(() => {
 			        Bus.$emit('updateId', res)
 			    }, 30)
-		        this.$router.push({path: '/cwty/cwty_upd'})
+		        this.$router.push({path: '/srwp/srwp_upd'})
 		    },
 			select_item(res){
 				this.active = res;
 			},
 			tyxq(res){
-				setTimeout(() => {
-					Bus.$emit('element', res)
-			    }, 30)
-				this.$router.push({path: '/cwty/checked'})
+				this.$router.push({name: 'srwpchecked',
+					params:{ 
+						testid:res
+					}
+				})
 			},
 			text(res,img){
 			    setTimeout(() => {
@@ -242,19 +261,19 @@
 			    setTimeout(() => {
 					Bus.$emit('serversId', res)
 			    }, 30)
-				this.$router.push({path: '/cwty/servers'})
+				this.$router.push({path: '/srwp/servers'})
 			},
 			serversDetails(res){
 			    setTimeout(() => {
-					Bus.$emit('serversDetailsId', res)
+					Bus.$emit('DetailsId', res)
 			    }, 30)
-				this.$router.push({path: '/cwty/serversDetails'})
+				this.$router.push({path: '/srwp/serversDetails'})
 			},
 			getList(){
 				var that = this;
-				axios.get('/eport-server/delivery/pet/queryOrders.do', {
+				axios.get('/eport-server/delivery/luggage/queryOrders.do', {
 					params: {
-						status:this.status
+						status:that.status
 					}
 				}).then(function(data) {
 					that.list = [];
@@ -362,7 +381,7 @@
 		padding: 7px;
 	}
 	.pet-name{
-		font-size: 13pt;
+		font-size: 19px;
     	color: #333;
 	}
 	.pet-where{
@@ -370,6 +389,7 @@
 	    bottom: 72px;
 	    font-size: 14px;
 	    color: #999;
+        top: 100px;
 	}
 	.pet-time{
 	    position: absolute;

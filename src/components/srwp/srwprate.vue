@@ -2,8 +2,8 @@
   <div id="rate">
   	<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			托运详情
-			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container4'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
+			<router-link :to="{path: '/srwp/srwp_list/'+'tab-container4'}">
+				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
 		</header>
     <div id="ele">
@@ -49,6 +49,13 @@
       }
     },
     methods: {
+		goback(){
+			this.$router.push({name: 'srwp_list',
+					params:{ 
+						res:'tab-container4'
+					}
+				})
+			},
     	score(){
     	},
       fabu(){
@@ -68,7 +75,7 @@
 					then: function(data1) {
 						Toast("评价成功");
 				    setTimeout(() => {
-							that.$router.push({path: '/cwty/cwty_list/'+'tab-container4'})
+							that.$router.push({path: '/srwp/srwp_list/'+'tab-container4'})
 				    },2000)
 					}
 				})

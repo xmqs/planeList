@@ -3,7 +3,7 @@
 	<div id="cwty_input">
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			宠物申报
+			宠物申报修改
 			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container1'}">
 				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
@@ -61,10 +61,8 @@
 			</div>
 			<div class="ele">
 				<label class="tit">免疫证</label>
-			  	<router-link :to="{name:'myzh'}">
-					<input readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" />
-					<img class="po_right" src="../../../static/img/Shape.png"/>
-				</router-link>
+				<input @click="clickMyz(myz1)" readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" />
+				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
 				<label class="tit">发货地</label>
@@ -108,7 +106,7 @@
 				<span class="tit">是否需要上门服务</span>
 				<mt-switch @change="serve_switch" class="my-switch" v-model="smfw"></mt-switch>
 			</div>
-			<div v-show="addr" class="ele">
+			<div v-show="smfw == true" class="ele">
 				<label class="tit">地址</label>
 				<input class="inps1" type="text" placeholder="请输入地址" v-model="dz" />
 			</div>
@@ -133,7 +131,12 @@
 				imageUrl: '../../../static/img/dogDemo.png',
 				imageUrl1: [],
 				petdemo:true,
+				img_list: [{
+	                name: 'food.jpeg',
+	                url : 'https://afp.alicdn.com/afp-creative/creative/u124884735/25886150024b52129eccc929cb7682a9.png',
+	            }],
 				/*属性*/
+				ids:'',
 				dz:"",
 				smfw:false,
 				hzxx:"",
@@ -207,6 +210,12 @@
 			
 		},
 		methods: {
+			clickMyz(res){
+				setTimeout(() => {
+			        Bus.$emit('myzarr', res)
+			    }, 30)
+				this.$router.push({path: '/chiose_rad/myzh'})
+			},
 			clickcwzp(res){
 				setTimeout(() => {
 			        Bus.$emit('oldCwzp', res)
@@ -219,6 +228,18 @@
 			    }, 30)
 				this.$router.push({path: '/chiose_rad/chiose_rad'})
 			},
+			handleAvatarSuccess(res, file) {
+		        console.log(res.data)
+		    	this.lod = false;
+		        this.imageUrl = res.data;
+		        this.imageUrl1.push(res.data);
+		    },
+		    handleprogress(){
+		    },
+		    handbefore(){
+		    	this.lod = true;
+		        this.petdemo = false;
+		    },
 			chip1(){
 				this.chip = '是'
 			},
@@ -291,6 +312,7 @@
 						xfzrxp = 0
 					}
 					axios.post("/eport-server/delivery/pet/saveOrder.do", {
+						id:this.ids,
 						endCity:this.area,
 						flightDate:this.riqi,
 						homeDelivery:sfxysmfu,
@@ -310,6 +332,7 @@
 						petVaccinePics:this.myz1,
 						petWeight:this.cwzl,
 						startCity:this.fhd,
+						homeAddress:this.dz
 					}).then((res) => {		
 						console.log(res)
 						if(res.status == 200) {	
@@ -334,9 +357,53 @@
 					});*/
 					
 				}
+			},
+			getdetails(){
+				var that = this;
+				axios.get('/eport-server/delivery/pet/queryOrderById.do', {
+					params: {
+						orderNo :this.ids
+					}
+				}).then(function(data) {
+					that.myz1 = data.data.data.petVaccinePics;
+					that.imageUrl = data.data.data.petPicture[0];
+					that.imageUrl1 = data.data.data.petPicture;
+					that.area = data.data.data.endCity;
+					that.riqi = data.data.data.flightDate;
+					if (data.data.data.homeDelivery == 0) {
+						that.smfw = false
+					} else{
+						that.smfw = true
+					}
+					that.sfzh = data.data.data.ownerIdNo;
+					that.zrxm = data.data.data.ownerName;
+					that.hzxx = data.data.data.ownerPassport;
+					that.lxfs = data.data.data.ownerTelNo;
+					that.cwnl = data.data.data.petAge;
+					that.cwpz = data.data.data.petBreed;
+					that.sfblgz = data.data.data.petCertificate;
+					if (data.data.data.petChip == 0) {
+						that.chip = '否'
+					} else{
+						that.chip = '是'
+					}
+					that.cwmz = data.data.data.petName;
+					that.sizes = data.data.data.petSize;
+					that.varietys = data.data.data.petType;
+					that.myz = data.data.data.petVaccineLastTime;
+					that.cwzl = data.data.data.petWeight;
+					that.fhd = data.data.data.startCity;
+					that.dz = data.data.data.homeAddress;
+				})
 			}
 		},
 		mounted() {
+		    Bus.$on('updateId', (e) => {
+		    	this.ids = e;
+		    })
+		    setTimeout(() => {
+		        this.getdetails();
+		    },100)
 		},
 		created: function() {
 		    Bus.$on('area', (e) => {
@@ -345,6 +412,7 @@
 		    })
 		    Bus.$on('myz', (e,el) => {
 		　　　　this.myz = e;
+				this.myz1 = [];
 				this.myz1.push(el);
 				document.getElementById("soll").scrollTop = 300;
 		    })
@@ -359,6 +427,8 @@
 		　　　　this.imageUrl1 = e;
 				if (e[0] != undefined) {
 					this.imageUrl = e[0];
+				}else{
+					this.imageUrl = '../../../static/img/dogDemo.png';
 				}
 		    })
 		},

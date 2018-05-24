@@ -31,6 +31,9 @@
 						<mt-button style="width: 100%;" type="default">宠物托运</mt-button>
 					</div>
 				</router-link>
+				<div @click="goback()" style="width: 100%;margin-top: 13px;">
+					<mt-button style="width: 100%;" type="default">私人物品</mt-button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -49,11 +52,18 @@
 
 		},
 		mounted() {
-      auth.getAccessToken({appId:"elecPort"});
+        	auth.getAccessToken({appId:"elecPort"});
 		},
 		created() {
 		},
 		methods: {
+			goback(){
+				this.$router.push({name: 'srwp_list',
+					params:{ 
+						res:'tab-container1'
+					}
+				})
+			},
 			token(){
 				var userinfo = sessionStorage.getItem('userifo');
 				userinfo = JSON.parse(userinfo);

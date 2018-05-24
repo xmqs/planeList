@@ -21,14 +21,29 @@ import hwcx from "@/components/hwcx/hwcx"
 import cwty_list from "@/components/cwty/cwty_list.vue"
 import IndexList from "@/components/cwty/IndexList.vue"
 import cwty_inp from "@/components/cwty/cwty_inp.vue"
+import cwty_upd from "@/components/cwty/cwty_upd.vue"
 import chiose_rad from "@/components/chiose_rad/chiose_rad.vue"
 import calendar from "@/components/chiose_rad/calendar.vue"
 import myzh from "@/components/chiose_rad/myzh.vue"
+import cwzp from "@/components/chiose_rad/cwzp.vue"
 import servers from "@/components/cwty/servers.vue"
 import serversDetails from "@/components/cwty/serversDetails.vue"
 import checked from "@/components/cwty/checked.vue"
 import rate from "@/components/cwty/rate.vue"
 import petDetails from "@/components/cwty/petDetails.vue"
+/*私人物品*/
+
+import srwp_list from "@/components/srwp/srwp_list.vue"
+import srwp_inp from "@/components/srwp/srwp_inp.vue"
+import srwp_upd from "@/components/srwp/srwp_upd.vue"
+import srwpDetails from "@/components/srwp/srwpDetails.vue"
+import wplist from "@/components/srwp/wplist.vue"
+import disWplist from "@/components/srwp/disWplist.vue"
+import srwpIndexList from "@/components/srwp/IndexList.vue"
+import srwpservers from "@/components/srwp/servers.vue"
+import srwpserversDetails from "@/components/srwp/serversDetails.vue"
+import srwpchecked from "@/components/srwp/srwpchecked.vue"
+import srwprate from "@/components/srwp/srwprate.vue"
 
 Vue.use(Router)
 
@@ -126,6 +141,14 @@ export default new Router({
 			component: cwty_inp,
 			meta: {
 		        keepAlive: true
+		  }
+		},
+		{
+			path: '/cwty/cwty_upd',
+			name: 'cwty_upd',
+			component: cwty_upd,
+			meta: {
+		        keepAlive: true
 		    }
 		},
 		{
@@ -147,6 +170,70 @@ export default new Router({
 			path: '/chiose_rad/myzh',
 			name: 'myzh',
 			component: myzh,
+		},
+		{
+			path: '/chiose_rad/cwzp',
+			name: 'cwzp',
+			component: cwzp,
+		},
+		/*私人物品*/
+		{
+			path: '/srwp/srwp_list',
+			name: 'srwp_list',
+			component: srwp_list
+		},
+		{
+			path: '/srwp/srwp_inp',
+			name: 'srwp_inp',
+			component: srwp_inp,
+		},
+		{
+			path: '/srwp/srwp_upd',
+			name: 'srwp_upd',
+			component: srwp_upd,
+			meta: {
+		        keepAlive: true
+		  }
+		},
+		{
+			path: '/srwp/srwpDetails',
+			name: 'srwpDetails',
+			component: srwpDetails
+		},
+		{
+			path: '/srwp/wplist',
+			name: 'wplist',
+			component: wplist,
+		},
+		{
+			path: '/srwp/disWplist',
+			name: 'disWplist',
+			component: disWplist,
+		},
+		{
+			path: '/srwp/IndexList',
+			name: 'srwpIndexList',
+			component: srwpIndexList,
+		},
+		{
+			path: '/srwp/servers',
+			name: 'srwpservers',
+			component: srwpservers,
+		},
+		{
+			path: '/srwp/serversDetails',
+			name: 'srwpserversDetails',
+			component: srwpserversDetails,
+		},
+		{
+			path: '/srwp/srwpchecked',
+			name: 'srwpchecked',
+			component: srwpchecked,
+		},
+		{
+			path: '/srwp/srwprate',
+			name: 'srwprate',
+			component: srwprate,
 		}
   ]
 })

@@ -49,18 +49,20 @@ export default {
         }
 	},
     created: function() {
-		this.varietys = this.$route.params.cons;
-		if(this.varietys != ""){
-	    	if (this.varietys == "狗") {
-	    		this.gou1 = true;
-	    		this.gou2 = false;
-				this.varietys = "狗"
-	    	} else if (this.varietys == "猫"){
-	    		this.gou1 = false;
-	    		this.gou2 = true;
-				this.varietys = "猫"
-	    	}
-		}
+	    Bus.$on('varietys', (e) => {
+	    	this.varietys = e;
+			if(this.varietys != ""){
+		    	if (this.varietys == "狗") {
+		    		this.gou1 = true;
+		    		this.gou2 = false;
+					this.varietys = "狗"
+		    	} else if (this.varietys == "猫"){
+		    		this.gou1 = false;
+		    		this.gou2 = true;
+					this.varietys = "猫"
+		    	}
+			}
+	    })
 	},
 }
 </script>

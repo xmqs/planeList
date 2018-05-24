@@ -8,11 +8,11 @@
 		<!--内容-->
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<div class="ele1">
-				<img class="pet-img pet-inf" src="../../../static/img/Group 5.png"/>
+				<img class="pet-img pet-inf" :src="cwzp"/>
 				<div class="pet-inf pet-inf1">
-					<div class="pet_name">嘟嘟</div>
-					<div class="pet_pz">品种:金毛犬；年龄:8岁；体重:16公斤</div>
-					<div class="pet_tx">体型:中型犬</div>
+					<div class="pet_name">{{cwmz}}</div>
+					<div class="pet_pz">品种:{{cwpz}}；年龄:{{cwnl}}；体重:{{cwzl}}</div>
+					<div class="pet_tx">体型:{{sizes}}</div>
 				</div>
 			</div>
 			<div class="ele">
@@ -62,7 +62,7 @@
 				<label class="tit">是否需要上门服务</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfxy" />
 			</div>
-			<div v-if="sfxy != ''" class="ele">
+			<div v-if="sfxy == '是'" class="ele">
 				<label class="tit">地址</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="dz" />
 			</div>
@@ -80,6 +80,7 @@
 			return {
 				/*属性*/
 				dz:"",
+				cwzp:'',
 				smfw:false,
 				hzxx:"",
 		        varietys:"",
@@ -114,12 +115,17 @@
 				var that = this;
 				axios.get('/eport-server/delivery/pet/queryOrderById.do', {
 					params: {
-						orderNo :'3C9559D9CE7D4FEE90308DF15E11DC16'
+						orderNo :this.ids
 					}
 				}).then(function(data) {
+					that.cwzp = data.data.data.petPicture[0];
 					that.area = data.data.data.endCity;
 					that.riqi = data.data.data.flightDate;
-					that.sfxysmfu = data.data.data.homeDelivery;
+					if (data.data.data.homeDelivery == 0) {
+						that.sfxy = '否'
+					} else{
+						that.sfxy = '是'
+					}
 					that.sfzh = data.data.data.ownerIdNo;
 					that.zrxm = data.data.data.ownerName;
 					that.hzxx = data.data.data.ownerPassport;
@@ -127,13 +133,18 @@
 					that.cwnl = data.data.data.petAge;
 					that.cwpz = data.data.data.petBreed;
 					that.sfblgz = data.data.data.petCertificate;
-					that.xfzrxp = data.data.data.petChip;
+					if (data.data.data.petChip == 0) {
+						that.chip = '否'
+					} else{
+						that.chip = '是'
+					}
 					that.cwmz = data.data.data.petName;
 					that.sizes = data.data.data.petSize;
 					that.varietys = data.data.data.petType;
 					that.myz = data.data.data.petVaccineLastTime;
 					that.cwzl = data.data.data.petWeight;
 					that.fhd = data.data.data.startCity;
+					that.dz = data.data.data.homeAddress;
 				})
 			}
 		},
@@ -141,9 +152,11 @@
 		    Bus.$on('list', (e) => {
 		    	this.ids = e;
 		    })
+		    setTimeout(() => {
+		        this.getdetails();
+		    },100)
 		},
 		created: function() {
-			this.getdetails();
 		},
 		filters: {
 			

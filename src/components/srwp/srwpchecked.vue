@@ -1,21 +1,21 @@
 <template>
-	<div id="checked">
+	<div id="srwpchecked">
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			托运详情
-			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container3'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-			</router-link>
+			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 		</header>
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<div id="overflow">
 		  		<div class="ele2">
 		  			<div class="ele2-1">
-		  				<img class="pet-img" :src="list.petPicture[0]"/>
+		  				<img class="pet-img" :src="list.petPicture"/>
 		  			</div>
 		  			<div class="ele2-1 ele2-2">
-			  			<p class="pet-name">{{list.petName}}</p>
+			  			<p class="pet-name">已托运</p>
+			  			<p class="pet-time">
+			  				<span v-for="eles in list1">{{eles.name}}</span>
+			  			</p>
 			  			<p class="pet-where">{{list.startCity}}->{{list.endCity}}</p>
-			  			<p class="pet-time">{{list.createTime}}</p>
 		  			</div>
 		  		</div>
 	  			<div class="ele3">
@@ -46,33 +46,44 @@
 	import axios from "axios"
 import Bus from '../cwty/bus.js'
 export default {
-    name: "checked",
+    name: "srwpchecked",
     data(){
 	    return{
 	        varietys:"1",
 	        logistics:[],
 	        petimg1:'',
 	        petimg2:'',
-	        list:[]
+	        list:[],
+	        list1:[],
 	    }
     },
 	created: function() {
-		this.getList();
-	    Bus.$on('element', (e) => {
-	    	console.log(e)
-	    	this.list = e;
-	    })
+	    this.list = this.$route.params.testid;
+	    this.list1 = this.$route.params.testid.packages;
+	    setTimeout(() => {
+    		this.getList();
+	    }, 100)
 	},
 	methods:{
+		goback(){
+			this.$router.push({name: 'srwp_list',
+				params:{ 
+					res:'tab-container3'
+				}
+			})
+		},
 		getList(){
 			var that = this;
+			var id = that.list.id;
 			axios.get('/eport-server/delivery/queryDelivery.do', {
 				params: {
-					id:'2C4C19420DBF4C25820933B787AB0088',
-					tyep:'1'
+					id:id,
+					tyep:'2'
 				}
 			}).then(function(data) {
-				that.logistics = data.data.data.logistics;
+				if(data.data.data != null){
+					that.logistics = data.data.data.logistics;
+				}
 			})
 		}
 	}
@@ -132,18 +143,17 @@ export default {
 	}
 	.pet-name{
 		font-size: 14pt;
-    	color: #333;
+    	color: #237cd7;
 	}
 	.pet-where{
-	    margin-top: 23px;
-	    font-size: 14px;
+	    margin-top: 4px;
+	    font-size: 15px;
 	    color: #999;
 	}
 	.pet-time{
-		position: relative;
-	    top: -65px;
-	    left: 200px;
+	    font-size: 15px;
 	    color: #999;
+	    margin-top: 5px;
 	}
 	.ele3{
 		width: 100%;

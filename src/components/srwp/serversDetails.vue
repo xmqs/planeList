@@ -2,9 +2,7 @@
 	<div id="serversDetails">
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			服务详情
-			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container3'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-			</router-link>
+			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 		</header>
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<p class="points1">如需更改服务请拨打电话025-521637463</p>
@@ -90,12 +88,19 @@ export default {
 	    }
     },
 	methods:{
+		goback(){
+			this.$router.push({name: 'srwp_list',
+				params:{ 
+					res:'tab-container3'
+				}
+			})
+		},
 		getList(){//获取服务列表
 			var that = this;
 			axios.get('/eport-server/delivery/queryServices.do', {
 				params: {
-					id:this.orderNo,
-					type:'1'
+					id:that.orderNo,
+					type:'2'
 				}
 			}).then(function(data) {
 				that.lists = data.data.data;
@@ -112,7 +117,7 @@ export default {
 			var that = this;
 			axios.get('/eport-server/delivery/pet/queryOrderById.do', {
 				params: {
-					orderNo :this.orderNo
+					orderNo :that.orderNo
 				}
 			}).then(function(data) {
 				that.petPicture = data.data.data.petPicture[0];
@@ -124,7 +129,7 @@ export default {
 		}
 	},
 	created: function(){
-	    Bus.$on('serversDetailsId', (e) => {
+	    Bus.$on('DetailsId', (e) => {
 	    	this.orderNo = e;
 	    })
 	    setTimeout(() => {
