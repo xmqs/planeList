@@ -74,9 +74,7 @@ export default {
 		
 	},
 	created: function() {
-	    Bus.$on('myzarr', (e) => {
-	　　　　this.imageUrl = e[0];
-	    })
+	  this.imageUrl = this.$route.params.con;
 	}
 }
 </script>
@@ -126,6 +124,8 @@ export default {
 	.avatar{
 	    margin: 0 14px 14px 14px;
     	border: 1px solid #f8f8f8;
+    	width: 93px;
+    	height: 89px;
 	}
 	.downwarp{
 		position: absolute;

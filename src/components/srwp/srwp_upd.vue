@@ -15,7 +15,7 @@
 				<span class="">物品信息</span>
 			</div>
 			<div class="ele">
-				<label class="tit">物品清单</label>
+				<span class="tit">物品清单</span>
 				<div style="line-height: 33px;" @click="wplist(packages)" class="inps">
 					<span v-for="(ele,index) in packages">
 						<span v-if="index == 0">
@@ -30,15 +30,15 @@
 			</div>
 			<div class="ele">
 				<label class="tit">总重量(kg)</label>
-				<input class="inps" type="text" placeholder="请输入物品总重量" v-model="weight" />
+				<input class="inps" type="number" placeholder="请输入物品总重量" v-model="weight" />
 			</div>
 			<div class="ele">
 				<label class="tit">外包装尺寸(米)</label>
 				<input class="inps" type="text" placeholder="请输入外包装尺寸" v-model="size" />
 			</div>
-			<div class="ele">
+			<div @click="sheet1(0)" class="ele">
 				<label class="tit">发货地</label>
-				<input class="inps" type="text" placeholder="请输入发货地" v-model="startCity" />
+				<input readonly="readonly" class="inps" type="text" v-model="startCity" />
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
@@ -102,7 +102,7 @@
 			</div>
 			<div class="ele">
 				<label class="tit">联系方式</label>
-				<input class="inps" type="text" placeholder="请输入联系方式" v-model="ownerTelNo" />
+				<input class="inps" type="number" placeholder="请输入联系方式" v-model="ownerTelNo" />
 			</div>
 			<div class="ele">
 				<label class="tit">护照信息</label>
@@ -117,9 +117,10 @@
 				<input class="inps1" type="text" placeholder="请输入地址" v-model="homeAddress" />
 			</div>
 			<div class="ele-s">
-				<button @click="shenbao" class="shenbao">申报</button>
+				<button v-if="!unbind" @click="shenbao" class="shenbao">申报</button>
 			</div>
 		</div>
+		<mt-actionsheet :actions="actions" closeOnClickModal="sheetVisible1" v-model="sheetVisible2" cancel-text="取消"></mt-actionsheet>
 	</div>
 </template>
 <script>
@@ -149,9 +150,24 @@
 		        ids:'',
 				/*属性结束*/
 				value:"",
+				switch1:false,
 				homeDelivery:false,
 				addr:false,
 		        packagesName:'',
+				actions:[],
+				unbind:false,
+				actions0:[{
+			        name: '北京',
+			        method: this.fhd1
+			      }, {
+			        name: '上海',
+			        method: this.fhd2
+			      }, {
+			        name: '南京',
+			        method: this.fhd3
+			      }],
+		        sheetVisible2: false,
+		        sheetVisible1:false
 			}
 		},
 	    beforeRouteLeave(to, from, next) {
@@ -174,6 +190,7 @@
 						res:'tab-container1'
 					}
 				})
+				location.reload();
 			},
 			//图片上传
 			deleteImg(res){
@@ -197,6 +214,21 @@
 		    handbefore2(){
 		    	
 		    },
+			fhd1(){
+				this.startCity = '北京'
+			},
+			fhd2(){
+				this.startCity = '上海'
+			},
+			fhd3(){
+				this.startCity = '南京'
+			},
+			sheet1(n){
+				if (n == 0) {
+					this.actions = this.actions0;
+				}
+				this.sheetVisible2 = !this.sheetVisible2;
+			},
 			wplist(res){
 				setTimeout(() => {
 			        Bus.$emit('wplist', res)
@@ -204,13 +236,68 @@
 				this.$router.push({path: '/srwp/wplist'})
 			},
 			serve_switch(){
-				this.homeDelivery = !this.homeDelivery;
-				this.addr = !this.addr;
+				this.switch1 = !this.switch1;
+				if (this.switch1 == true) {
+					this.addr = false;
+				}else{
+					this.addr = true;
+				}
 			},
 			shenbao(){
 				var check = true;
+				if(this.packages.length == 0){
+					Toast('请填写物品清单')
+					check = false;
+					return;
+				}
+				var input = document.querySelectorAll('.inps');
+				var label = document.getElementsByTagName('label');
+				this.travelList = [];
 				this.travelList.push(this.travelList1);
 				this.travelList.push(this.travelList2);
+				for(var i =0;i < input.length;i++){
+				    if (input[i].value == "") {
+				    	Toast('请填写'+label[i].innerHTML)
+				    	check = false;
+				    	return;
+				    }
+				}
+				if(this.bigPackageList.length == 0){
+					Toast('请上传大件物品照片')
+					check = false;
+					return;
+				}
+				if(this.travelList2 == "" || this.travelList1 == ""){
+					Toast('请上传电子机票行程单')
+					check = false;
+					return;
+				}
+				var regName =/^[\u4e00-\u9fa5]{2,4}$/; 
+				if(!this.ownerName.match(cardIdReg)){
+					Toast('姓名填写有误')
+					return;
+				}
+            	var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+            	if(!this.ownerTelNo.match(telReg)){
+            		Toast('请输入正确的电话号码')
+					return;
+            	}
+            	var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+           	 	if(!this.ownerIdNo.match(cardIdReg)){
+            		Toast('请输入正确的身份证号码')
+					return;
+            	}
+           	 	var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
+           	 	if(!this.ownerPassport.match(ownerPassport)){
+			        Toast('护照号码填写有误')
+					return;
+			    }
+           	 	var homeDelivery;
+				if(this.homeDelivery == false){
+					homeDelivery = 0;
+				}else{
+					homeDelivery = 1;
+				}
 				if (check) {
 					axios.post("/eport-server/delivery/luggage/saveOrder.do", {
 						id:this.ids,
@@ -223,12 +310,21 @@
 						ownerIdNo:this.ownerIdNo,
 						ownerPassport:this.ownerPassport,
 						homeAddress:this.homeAddress,
+						homeDelivery:homeDelivery,
 						ownerTelNo:this.ownerTelNo,
 						bigPackageList:this.bigPackageList,
 						travelList:this.travelList,
 					}).then((res) => {		
 						if(res.status == 200) {	
 							Toast("申报成功");
+							setTimeout(()=>{
+								this.$router.push({name: 'srwp_list',
+									params:{ 
+										res:'tab-container1'
+									}
+								})
+								location.reload();
+							},1500);
 						}else{
 							Toast("申报失败");
 						}

@@ -39,12 +39,10 @@
 			<div class="ele">
 				<label class="tit">发货地</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="请输入发货地" v-model="startCity" />
-				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
 				<label class="tit">目的城市</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="请输入发货地" v-model="endCity" />
-				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="points">
 				<span class="">主人信息</span>
@@ -66,10 +64,10 @@
 				<input readonly="readonly" class="inps" type="text" placeholder="请输入护照信息" v-model="ownerPassport" />
 			</div>
 			<div class="ele">
-				<span class="tit">是否需要上门服务</span>
-				<mt-switch @change="serve_switch" class="my-switch" v-model="homeDelivery"></mt-switch>
+				<label class="tit">是否需要上门服务</label>
+				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfxy" />
 			</div>
-			<div v-show="addr" class="ele">
+			<div v-if="sfxy == '是'" class="ele">
 				<label class="tit">地址</label>
 				<input readonly="readonly" class="inps1" type="text" placeholder="请输入地址" v-model="homeAddress" />
 			</div>
@@ -101,10 +99,10 @@
 		        travelList2:'',
 		        travelList:[],
 		        ids:'',
+		        sfxy:'',
 				/*属性结束*/
 				value:"",
 				homeDelivery:false,
-				addr:false,
 		        packagesName:'',
 			}
 		},
@@ -138,25 +136,11 @@
 		    handbefore2(){
 		    	
 		    },
-			wplist(res){
-				setTimeout(() => {
-			        Bus.$emit('wplist', res)
-			    }, 30)
-				this.$router.push({path: '/srwp/wplist'})
-			},
 			disWplist(res){
 				setTimeout(() => {
-			        Bus.$emit('disWplist', res)
+			        Bus.$emit('disWplist', res,this.ids)
 			    }, 30)
 				this.$router.push({path: '/srwp/disWplist'})
-			},
-			serve_switch(){
-				this.switch1 = !this.switch1;
-				if (this.switch1 == true) {
-					this.addr = true;
-				}else{
-					this.addr = false;
-				}
 			},
 			getDetails(){
 				var that = this;
@@ -175,16 +159,14 @@
 					that.ownerPassport = data.data.data.ownerPassport;
 					that.homeAddress = data.data.data.homeAddress;
 					that.switch1 = data.data.data.homeDelivery;
+					if (data.data.data.homeDelivery == 1) {
+						that.sfxy = '是'
+					} else{
+						that.sfxy = '否'
+					}
 					that.ownerTelNo = data.data.data.ownerTelNo;
 					that.bigPackageList = data.data.data.bigPackageList;
 					that.travelList = data.data.data.travelList;
-					if (data.data.data.homeDelivery == false) {
-						that.homeDelivery = false;
-						that.addr = false;
-					} else{
-						that.homeDelivery = true;
-						that.addr = true;
-					}
 				})
 			}
 		},
@@ -194,6 +176,9 @@
 		    })
 		    Bus.$on('wplist1', (e) => {
 		    	this.packages = e;
+		    })
+		    Bus.$on('wplistID', (e) => {
+		    	this.ids = e;
 		    })
 		},
 		created: function() {

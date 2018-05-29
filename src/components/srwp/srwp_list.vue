@@ -1,5 +1,8 @@
 <template>
 	<div id="srwp_list">
+		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+			正在加载,请稍后...
+		</div>
 		<!--头部临时用-->
 		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			私人物品申报平台
@@ -74,7 +77,7 @@
 				  			</div>
 				  		</div>
 				  		<div class="ele3">
-			  				<button @click="serversId(ele.id)" class="update_b">更该服务</button>
+			  				<button @click="serversId(ele.id)" class="update_b">选择服务</button>
 				  		</div>
 				  	</div> 
 				  	<div v-else class="kong">
@@ -159,10 +162,11 @@
 		name: "srwp_list",
 		data() {
 			return {
-				active: '',
+				active: 'tab-container1',
 				widthData:0,
 				status:10,
-				list:[]
+				list:[],
+				lod:true
 			}
 		},  
 	    components: {  
@@ -174,7 +178,10 @@
 			
 		},
 		mounted() {
-			
+			if (this.active == undefined) {
+				this.active = 'tab-container1'
+			}
+			this.select_item(this.active);
 		},
 		watch: {
 			active: function(newValue) {
@@ -278,6 +285,9 @@
 				}).then(function(data) {
 					that.list = [];
 					that.list = data.data.data;
+					setTimeout(()=>{
+						that.lod = false;
+					},700);
 				})
 			}
 		}
@@ -383,17 +393,21 @@
 	.pet-name{
 		font-size: 19px;
     	color: #333;
+    	    padding: 0 !important;
+    width: 90px;
+    line-height: 23px;
 	}
 	.pet-where{
 		position: absolute;
-	    bottom: 72px;
+	    bottom: 50px;
 	    font-size: 14px;
 	    color: #999;
+	    padding: 0 !important;
         top: 100px;
 	}
 	.pet-time{
 	    position: absolute;
-	    top: 66px;
+	    top: 55px;
 	    right: 10px;
 	    color: #999;
 	}

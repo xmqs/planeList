@@ -9,9 +9,11 @@
 				<li v-for="(element,index) in lists">
 					<div class="tishi">{{element.title}}</div>
 					<div class="yaoqiu">{{element.description}}</div>
-					<div class="allradio">
-						<label  v-for="(ele,index) in element.options" v-if="ele.checked != null" style="float: left;"><input class="cwtyCost" :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label><br>
-        				<label v-for="(ele,index) in element.options" v-if="ele.checked == null" style="float: left;"><input class="cwtyCost" :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label><br />
+					<div @click="cost1" class="allradio">
+						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;">
+							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+        				<label v-else style="float: left;">
+        					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
 					</div>
 				</li>
 			</ul>
@@ -19,8 +21,8 @@
 	</div>
 </template>
 <script>
-import jquery from "../../../static/js/jquery-3.3.1.min.js";
 import axios from "axios";
+import { Toast } from 'mint-ui';
 import { formatDate } from '../../assets/js/date.js';
 import Bus from './bus.js'
 export default {
@@ -31,12 +33,60 @@ export default {
 	        value:"1",
 	        lists:[],
 	        orderNo:"",
+	        cost:'',
 	    }
     },
 	methods:{
+		checked(obj){
+			var myv=obj.target.attributes["v"].nodeValue;
+			if (myv==0){
+				obj.target.setAttribute("v",1);
+	            obj.target.checked=true;
+	        }else{
+				obj.target.setAttribute("v",0);
+	            obj.target.checked=false;
+	        } 
+		},
+		cost1(){
+			this.cost = 0;
+			var boxes1 = document.getElementsByTagName("input");
+		    for(var i=0;i<boxes1.length;i++){
+		        if(boxes1[i].checked == true){
+					this.cost += Number(boxes1[i].value)
+		        }
+		    }
+		},
 		check: function(){  
             console.log(this.value)  
         },
+		submit(){
+			this.cost = 0;
+			var sers = [];
+			var boxes = document.getElementsByTagName("input");
+		    for(var i=0;i<boxes.length;i++){
+		        if(boxes[i].checked == true){
+					var ser = {};
+					ser.serviceId = boxes[i].id;
+					ser.value = boxes[i].value;
+					sers.push(ser)
+					this.cost += Number(boxes[i].value)
+		        }
+		    }
+			var that = this;
+			axios.post("/eport-server/delivery/saveServices.do", {
+				allCost:that.cost,
+				orderNo:that.orderNo,
+				services:sers,
+				type:'2'
+			}).then((res) => {		
+				if(res.status == 200) {	
+					Toast("提交成功");
+				}else{
+					Toast("提交失败");
+				}
+			}, (res) => {							
+			});
+		},
 		getList(){//获取服务列表
 			var that = this;
 			axios.get('/eport-server/delivery/queryServices.do', {
@@ -48,33 +98,7 @@ export default {
 				that.lists = data.data.data;
 			})
 		},
-		goback(){//返回并保存服务
-			var sers = [];
-			var cost = 0;
-			$(".cwtyCost:checked").each(function(i,obj){//遍历被选中的服务
-				var ser = {};
-				ser.serviceId = this.id;
-				ser.value = this.value;
-				sers.push(ser)
-				cost += Number(this.value)
-			});
-			axios({
-				method: 'POST',
-				data:{
-					allCost:cost,
-					orderNo:this.orderNo,
-					services:sers,
-					type:'1'
-				},
-	            url: '/eport-server/delivery/saveServices.do',
-				dataType: 'json',
-				headers: {
-		            'Content-Type': 'application/json;charset=UTF-8'
-		        },
-				then: function(data1) {
-					
-				}
-			})
+		goback(){
 			this.$router.push({path: '/cwty/cwty_list/'+'tab-container2'})
 		},
 	},
@@ -108,10 +132,11 @@ export default {
 		padding: 0;
 	}
 	ul{
-		    overflow: auto;
-    height: 100%;
-    position: fixed;
-    padding-bottom: 34px;
+	    overflow: auto;
+	    height: 100%;
+	    position: fixed;
+	    padding-bottom: 34px;    
+	    width: 100%;
 	}
 	li{    
 		list-style: none;

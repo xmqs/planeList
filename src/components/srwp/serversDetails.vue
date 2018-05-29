@@ -28,9 +28,9 @@
 						<div class="yaoqiu">根据距离收取相应费用</div>
 						<div class="price">普通￥20</div>
 		  			</div>-->
-		  			<div class="ele2-4">
+		  			<div v-if="homeAddress != null" class="ele2-4">
 						<div class="addr">地址</div>
-						<div class="addr addr1">南京市玄武区大道</div>
+						<div class="addr addr1">{{homeAddress}}</div>
 		  			</div>
 		  		</div>
 		  		<div class="ele4">
@@ -85,6 +85,7 @@ export default {
 	        petName:'',
 	        startCity:'',
 	        createTime:'',
+	        homeAddress:'',
 	    }
     },
 	methods:{
@@ -125,6 +126,7 @@ export default {
 				that.petName = data.data.data.petName;
 				that.startCity = data.data.data.startCity;
 				that.createTime = data.data.data.createTime
+				that.homeAddress = data.data.data.homeAddress
 			})
 		}
 	},

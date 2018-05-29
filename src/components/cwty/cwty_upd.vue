@@ -36,13 +36,14 @@
 				<label class="tit">宠物名字</label>
 				<input class="inps" type="text" placeholder="请输入宠物名字" v-model="cwmz" />
 			</div>
-			<div class="ele">
+			<div @click="sheet1(3)" class="ele">
 				<label class="tit">宠物年龄</label>
-				<input class="inps" type="text" placeholder="请输入宠物年龄" v-model="cwnl" />
+				<input readonly="readonly" class="inps" type="text" placeholder="请输入宠物年龄" v-model="cwnl" />
+				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
 				<label class="tit">宠物重量(公斤)</label>
-				<input class="inps" type="text" placeholder="请输入宠物重量(公斤)" v-model="cwzl" />
+				<input class="inps" type="number" placeholder="请输入宠物重量(公斤)" v-model="cwzl" />
 			</div>
 			<div @click="sheet1(1)" class="ele">
 				<label class="tit">体型尺寸</label>
@@ -50,7 +51,7 @@
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div @click="sheet1(2)" class="ele">
-				<label class="tit">是否已办理狗证</label>
+				<label class="tit">是否办理狗(猫)证</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfblgz" />
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
@@ -64,9 +65,9 @@
 				<input @click="clickMyz(myz1)" readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" />
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
-			<div class="ele">
+			<div @click="sheet1(4)" class="ele">
 				<label class="tit">发货地</label>
-				<input class="inps" type="text" placeholder="请输入发货地" v-model="fhd" />
+				<input readonly="readonly" class="inps" type="text" v-model="fhd" />
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
@@ -96,7 +97,7 @@
 			</div>
 			<div class="ele">
 				<label class="tit">联系方式</label>
-				<input class="inps" type="text" placeholder="请输入联系方式" v-model="lxfs" />
+				<input class="inps" type="number" placeholder="请输入联系方式" v-model="lxfs" />
 			</div>
 			<div class="ele">
 				<label class="tit">护照信息</label>
@@ -192,6 +193,28 @@
 			        name: '否',
 			        method: this.sfblgz2
 			      }],
+				actions3:[{
+			        name: '宠物年龄'
+			      },{
+			        name: '小于1岁',
+			        method: this.cwnl1
+			      }, {
+			        name: '1岁',
+			        method: this.cwnl2
+			      }, {
+			        name: '2岁',
+			        method: this.cwnl3
+			      }],
+				actions4:[{
+			        name: '北京',
+			        method: this.fhd1
+			      }, {
+			        name: '上海',
+			        method: this.fhd2
+			      }, {
+			        name: '南京',
+			        method: this.fhd3
+			      }],
 		        sheetVisible2: false,
 		        sheetVisible1:false
 			}
@@ -261,6 +284,24 @@
 			sfblgz2() {
 		        this.sfblgz = '否'
 		    },
+			cwnl1(){
+				this.cwnl = '小于1岁'
+			},
+			cwnl2(){
+				this.cwnl = '1岁'
+			},
+			cwnl3(){
+				this.cwnl = '2岁'
+			},
+			fhd1(){
+				this.fhd = '北京'
+			},
+			fhd2(){
+				this.fhd = '上海'
+			},
+			fhd3(){
+				this.fhd = '南京'
+			},
 			serve_switch(){
 				this.switch1 = !this.switch1;
 				if (this.switch1 == true) {
@@ -276,20 +317,49 @@
 					this.actions = this.actions2;
 				} else if (n == 0){
 					this.actions = this.actions0;
+				} else if (n == 3){
+					this.actions = this.actions3;
+				} else if (n == 4){
+					this.actions = this.actions4;
 				}
 				this.sheetVisible2 = !this.sheetVisible2;
 			},
 			shenbao(){
 				var check = true;
+				if(this.imageUrl1.length == 0){
+					Toast('请上传宠物照片')
+					check = false;
+					return;
+				}
 				var input = document.querySelectorAll('.inps');
 				var label = document.getElementsByTagName('label');
-				/*for(var i =0;i < input.length;i++){
+				for(var i =0;i < input.length;i++){
 				    if (input[i].value == "") {
 				    	Toast('请填写'+label[i].innerHTML)
 				    	check = false;
 				    	return;
 				    }
-				}*/
+				}
+				var regName =/^[\u4e00-\u9fa5]{2,4}$/; 
+				if(!this.zrxm.match(regName)){
+					Toast('姓名填写有误')
+					return;
+				}
+            	var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+            	if(!this.lxfs.match(telReg)){
+            		Toast('请输入正确的电话号码')
+					return;
+            	}
+            	var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+           	 	if(!this.sfzh.match(cardIdReg)){
+            		Toast('请输入正确的身份证号码')
+					return;
+            	}
+           	 	var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
+           	 	if(!this.hzxx.match(ownerPassport)){
+			        Toast('护照号码填写有误')
+					return;
+			    }
 				if (this.smfw == true) {
 					var input = document.querySelectorAll('.inps1');
 					if (input[0].value == "") {
@@ -334,9 +404,12 @@
 						startCity:this.fhd,
 						homeAddress:this.dz
 					}).then((res) => {		
-						console.log(res)
 						if(res.status == 200) {	
 							Toast("申报成功");
+							setTimeout(()=>{
+								this.$router.push({path: '/cwty/cwty_list/'+'tab-container1'})
+								location.reload();
+							},1500);
 						}else{
 							Toast("申报失败");
 						}
@@ -496,7 +569,7 @@
 		color: #333;
 	}
 	.inps{
-	    width: 60%;
+	    width: 55%;
 	    position: absolute;
 	    right: 7px;
 	    top: 8px;

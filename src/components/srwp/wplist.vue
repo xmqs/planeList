@@ -9,10 +9,10 @@
 		<!--内容-->
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<div v-show="add1" class="soll1">
-				<div v-for="ele in packages" class="ele">
+				<div v-for="(ele,index) in packages" class="ele">
 					<div class="ele1 name">{{ele.name}}</div>
 					<div class="ele1 intp">数量：{{ele.count}}&nbsp;&nbsp;&nbsp;&nbsp;形式价格：{{ele.price}}&nbsp;&nbsp;&nbsp;&nbsp;箱号：{{ele.boxNo}}</div>
-					<img class="tanhao" src="../../../static/img/tanhao.png"/>
+					<img @click="update(index)" class="tanhao" src="../../../static/img/tanhao.png"/>
 				</div>
 				<div @click="add" class="ele_1">
 					<img class="yuanjia" src="../../../static/img/ajia.png"/>
@@ -28,15 +28,15 @@
 				</div>
 				<div class="add2_ele">
 					<label class="add2_tit">数量</label>
-					<input class="add2_inps" type="text" placeholder="请输入数量" v-model="count" />
+					<input class="add2_inps" type="number" placeholder="请输入数量" v-model="count" />
 				</div>
 				<div class="add2_ele">
 					<label class="add2_tit">形式价格(元)</label>
-					<input class="add2_inps" type="text" placeholder="请输入形式价格" v-model="price" />
+					<input class="add2_inps" type="number" placeholder="请输入形式价格" v-model="price" />
 				</div>
 				<div class="add2_ele">
 					<label class="add2_tit">箱号</label>
-					<input class="add2_inps" type="text" placeholder="请输入箱号" v-model="boxNo" />
+					<input class="add2_inps" type="number" placeholder="请输入箱号" v-model="boxNo" />
 				</div>
 			</div>
 		</div>
@@ -45,6 +45,7 @@
 
 <script>
 	import axios from "axios";
+	import { Toast } from 'mint-ui';
 	import { formatDate } from '../../assets/js/date.js';
 	import Bus from './bus.js'
 	export default {
@@ -57,13 +58,25 @@
 				count:'',
 				price:'',
 				boxNo:'',
-				packages:[]
+				packages:[],
+				deleteid:9999,
 			}
 		},
 	    activated() {
 	    	
 		},
 		methods: {
+			update(res){
+				this.deleteid = res;
+				var obj = this.packages[res]
+				console.log(this.packages[res])
+				this.name = obj.name;
+				this.count = obj.count;
+				this.price = obj.price;
+				this.boxNo = obj.boxNo;
+				this.add1 = !this.add1;
+				this.add2 = !this.add2;
+			},
 			add(){
 				this.name = '';
 				this.count = '';
@@ -73,11 +86,39 @@
 				this.add2 = !this.add2;
 			},
 			complete(){
+				var input = document.querySelectorAll('.add2_inps');
+				var label = document.querySelectorAll('.add2_tit');
+				for(var i =0;i < input.length;i++){
+				    if (input[i].value == "") {
+				    	Toast('请填写'+label[i].innerHTML)
+				    	check = false;
+				    	return;
+				    }
+				}
+				var name =/^[\u4e00-\u9fa5]+$/; 
+				var num =/^[0-9]*$/;
+				if(!this.name.match(name)){
+					Toast('中文名输入有误')
+					return;
+				}
+				if(!this.count.match(num)){
+					Toast('数量输入有误')
+					return;
+				}
+				if(!this.price.match(num)){
+					Toast('形式价格输入有误')
+					return;
+				}
+				if(!this.boxNo.match(num)){
+					Toast('箱号输入有误')
+					return;
+				}
 				var pack = {};
 				pack.name = this.name;
 				pack.count = this.count;
 				pack.price = this.price;
 				pack.boxNo = this.boxNo;
+				this.packages.splice(this.deleteid, 1);
 				this.packages.push(pack)
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
@@ -190,11 +231,12 @@
 	    left: 10px;
 	}
 	.tips{
-		    width: 90%;
-    text-align: left;
-    margin: 15px auto;
-    color: #999;
+	    width: 90%;
+	    text-align: left;
+	    margin: 15px auto;
+	    color: #999;
         font-size: 13px;
+        line-height: 25px;
 	}
 	/*新增*/
 	.add2_ele{

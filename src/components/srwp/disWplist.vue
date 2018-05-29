@@ -11,7 +11,6 @@
 				<div v-for="ele in packages" class="ele">
 					<div class="ele1 name">{{ele.name}}</div>
 					<div class="ele1 intp">数量：{{ele.count}}&nbsp;&nbsp;&nbsp;&nbsp;形式价格：{{ele.price}}&nbsp;&nbsp;&nbsp;&nbsp;箱号：{{ele.boxNo}}</div>
-					<img class="tanhao" src="../../../static/img/tanhao.png"/>
 				</div>
 			</div>
 			<p v-show="add1" class="tips">友情提示：可以发送excel表格版本的物品清单至邮箱 27362829@163.com</p>
@@ -51,7 +50,8 @@
 				count:'',
 				price:'',
 				boxNo:'',
-				packages:[]
+				packages:[],
+				ids:''
 			}
 		},
 	    activated() {
@@ -59,12 +59,16 @@
 		},
 		methods: {
 			bad(res){
+				setTimeout(() => {
+			        Bus.$emit('wplistID',this.ids)
+			    }, 30)
 				this.$router.back(-1)
 			}
 		},
 		mounted() {
-		    Bus.$on('disWplist', (e) => {
+		    Bus.$on('disWplist', (e,ids) => {
 		    	this.packages = e;
+		    	this.ids = ids;
 		    })
 		},
 		created: function() {
@@ -149,6 +153,7 @@
     text-align: left;
     margin: 15px auto;
     color: #999;
+        line-height: 25px;
         font-size: 13px;
 	}
 	/*新增*/

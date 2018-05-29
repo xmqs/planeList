@@ -53,25 +53,21 @@
     	},
       fabu(){
       	var that = this;
-				axios({
-					method: 'POST',
-					data:{
+				axios.post("/eport-server/delivery/order/evaluate.do", {
 						detail:that.texts,
 						orderno:that.ids,
 						score:that.value3
-					},
-        	url: '/eport-server/delivery/order/evaluate.do',
-					dataType: 'json',
-					headers: {
-			            'Content-Type': 'application/json;charset=UTF-8'
-			        },
-					then: function(data1) {
-						Toast("评价成功");
+				}).then((res) => {		
+					if(res.status == 200) {	
 				    setTimeout(() => {
 							that.$router.push({path: '/cwty/cwty_list/'+'tab-container4'})
 				    },2000)
+					}else{
+						Toast("评价失败");
+				    return;
 					}
-				})
+				}, (res) => {							
+				});
       }
     },
 		created: function() {

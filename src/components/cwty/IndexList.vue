@@ -15,13 +15,11 @@
 		    	</router-link>
 			</div>
 		</div>
-		<mt-index-list v-if="lists"  :show-indicator="false">
+		<mt-index-list v-if="lists"  :show-indicator="true">
 			<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
-			    <div class="citys" v-for="(element,index) in ele.cities" :title="element.name">
-			    	<div @click="bus(element.name)" class="routes">
-			    		{{element.name}}
-			    	</div>
-			    </div>
+				<span @click="bus(element.name)" v-for="(element,index) in ele.cities">
+					<mt-cell :title="element.name"></mt-cell>
+				</span>
 			</mt-index-section>
 		</mt-index-list>
 	</div>

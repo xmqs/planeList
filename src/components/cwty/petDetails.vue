@@ -11,8 +11,8 @@
 				<img class="pet-img pet-inf" :src="cwzp"/>
 				<div class="pet-inf pet-inf1">
 					<div class="pet_name">{{cwmz}}</div>
-					<div class="pet_pz">品种:{{cwpz}}；年龄:{{cwnl}}；体重:{{cwzl}}</div>
-					<div class="pet_tx">体型:{{sizes}}</div>
+					<div class="pet_pz">品种:{{cwpz}}；年龄:{{cwnl}}；体重:{{cwzl}}公斤； 体型:{{sizes}}</div>
+					<div class="pet_tx"></div>
 				</div>
 			</div>
 			<div class="ele">
@@ -121,10 +121,10 @@
 					that.cwzp = data.data.data.petPicture[0];
 					that.area = data.data.data.endCity;
 					that.riqi = data.data.data.flightDate;
-					if (data.data.data.homeDelivery == 0) {
-						that.sfxy = '否'
-					} else{
+					if (data.data.data.homeDelivery == 1) {
 						that.sfxy = '是'
+					} else{
+						that.sfxy = '否'
 					}
 					that.sfzh = data.data.data.ownerIdNo;
 					that.zrxm = data.data.data.ownerName;
@@ -274,5 +274,13 @@
 	    line-height: 25px;
 	    font-size: 15px;
 	    color: #999;
+	}
+	.pet_pz{
+		word-wrap: break-word;
+	}
+	.pet-inf1{
+    position: absolute;
+    right: 0;
+    width: 72%;
 	}
 </style>
