@@ -20,7 +20,7 @@
 			<div class="page-tab-container" v-bind:style="{width: widthData}">  
 			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
 				<mt-tab-container-item id="tab-container1">  
-				  	<div v-for="ele in list" v-if="status == 10 || ele != undefined" class="ele">
+				  	<div v-for="ele in list" v-if="status == 10" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已申报</span>
@@ -39,7 +39,7 @@
 				  			<button @click="update(ele.id)" class="update_b">编辑</button>
 				  		</div>
 				  	</div>
-				  	<div v-else class="kong">
+				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
 				  	<router-link :to="{path: '/cwty/cwty_inp'}">
@@ -49,7 +49,7 @@
 					</router-link>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
-				  	<div v-for="ele in list" v-if="status == 20 || ele != undefined" class="ele">
+				  	<div v-for="ele in list" v-if="status == 20" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
@@ -68,12 +68,12 @@
 			  				<button @click="serversId(ele.id)" class="update_b">更该服务</button>
 				  		</div>
 				  	</div> 
-				  	<div v-else class="kong">
+				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">  
-				  	<div v-for="ele in list" v-if="status == 30 || ele != undefined" class="ele">
+				  	<div v-for="ele in list" v-if="status == 30" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
@@ -93,12 +93,12 @@
 			  				<button @click="serversDetails(ele.id)" style="border-color: #999;color: #333;" class="update_b">服务详情</button>
 				  		</div>
 				  	</div>
-				  	<div v-else class="kong">
+				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container4">  
-				  	<div v-for="ele in list" v-if="status == 50 || ele != undefined" class="ele">
+				  	<div v-for="ele in list" v-if="status == 50" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
@@ -118,7 +118,7 @@
 			  				<p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p>
 				  		</div>
 				  	</div>
-				  	<div v-else class="kong">
+				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
 				</mt-tab-container-item>  

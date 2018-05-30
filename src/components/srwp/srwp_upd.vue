@@ -117,7 +117,7 @@
 				<input class="inps1" type="text" placeholder="请输入地址" v-model="homeAddress" />
 			</div>
 			<div class="ele-s">
-				<button v-if="!unbind" @click="shenbao" class="shenbao">申报</button>
+				<button @click="unbind && shenbao()" class="shenbao">申报</button>
 			</div>
 		</div>
 		<mt-actionsheet :actions="actions" closeOnClickModal="sheetVisible1" v-model="sheetVisible2" cancel-text="取消"></mt-actionsheet>
@@ -155,7 +155,7 @@
 				addr:false,
 		        packagesName:'',
 				actions:[],
-				unbind:false,
+				unbind:true,
 				actions0:[{
 			        name: '北京',
 			        method: this.fhd1
@@ -244,6 +244,10 @@
 				}
 			},
 			shenbao(){
+				this.unbind = false;
+				setTimeout(()=>{
+					this.unbind = true;
+				},3000);
 				var check = true;
 				if(this.packages.length == 0){
 					Toast('请填写物品清单')
@@ -356,6 +360,7 @@
 					if (data.data.data.homeDelivery == false) {
 						that.homeDelivery = false;
 						that.addr = false;
+						that.homeAddress = '';
 					} else{
 						that.homeDelivery = true;
 						that.addr = true;

@@ -112,7 +112,7 @@
 				<input class="inps1" type="text" placeholder="请输入地址" v-model="dz" />
 			</div>
 			<div class="ele-s">
-				<button @click="shenbao" class="shenbao">申报</button>
+				<button @click="unbind && shenbao()" class="shenbao">申报</button>
 			</div>
 		</div>
 		<mt-actionsheet :actions="actions" closeOnClickModal="sheetVisible1" v-model="sheetVisible2" cancel-text="取消"></mt-actionsheet>
@@ -158,6 +158,7 @@
 				cwmz:"",
 				cwpz:"",
 				/*属性结束*/
+				unbind:true,
 				value:"",
 				switch1:false,
 				addr:false,
@@ -325,6 +326,10 @@
 				this.sheetVisible2 = !this.sheetVisible2;
 			},
 			shenbao(){
+				this.unbind = false;
+				setTimeout(()=>{
+					this.unbind = true;
+				},3000);
 				var check = true;
 				if(this.imageUrl1.length == 0){
 					Toast('请上传宠物照片')
@@ -443,8 +448,10 @@
 					that.imageUrl1 = data.data.data.petPicture;
 					that.area = data.data.data.endCity;
 					that.riqi = data.data.data.flightDate;
+					that.dz = data.data.data.homeAddress;
 					if (data.data.data.homeDelivery == 0) {
 						that.smfw = false
+						that.dz = ''
 					} else{
 						that.smfw = true
 					}
@@ -466,7 +473,6 @@
 					that.myz = data.data.data.petVaccineLastTime;
 					that.cwzl = data.data.data.petWeight;
 					that.fhd = data.data.data.startCity;
-					that.dz = data.data.data.homeAddress;
 				})
 			}
 		},

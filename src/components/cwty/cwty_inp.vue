@@ -112,7 +112,7 @@
 				<input class="inps1" type="text" placeholder="请输入地址" v-model="dz" />
 			</div>
 			<div class="ele-s">
-				<button @click="shenbao" class="shenbao">申报</button>
+				<button @click="unbind && shenbao()" class="shenbao">申报</button>
 			</div>
 		</div>
 		<mt-actionsheet :actions="actions" closeOnClickModal="sheetVisible1" v-model="sheetVisible2" cancel-text="取消"></mt-actionsheet>
@@ -153,6 +153,7 @@
 				cwmz:"",
 				cwpz:"",
 				/*属性结束*/
+				unbind:true,
 				value:"",
 				switch1:false,
 				addr:false,
@@ -309,6 +310,10 @@
 				})
 			},
 			shenbao(){
+				this.unbind = false;
+				setTimeout(()=>{
+					this.unbind = true;
+				},3000);
 				var check = true;
 				var input = document.querySelectorAll('.inps');
 				var label = document.getElementsByTagName('label');
@@ -392,7 +397,7 @@
 							Toast("申报成功");
 							setTimeout(()=>{
 								this.$router.push({path: '/cwty/cwty_list/'+'tab-container1'})
-								location.reload();
+								this.unbind = true;
 							},1500);
 						}else{
 							Toast("申报失败");
