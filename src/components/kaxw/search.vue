@@ -207,8 +207,8 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 44px;
-		line-height: 44px;
+		height: 90px;
+		line-height: 85px;
 		text-align: center;
 		border-bottom: 1px solid #eee;
 		background-color: #F0F0F0;
@@ -224,22 +224,22 @@
 	.search-icon{
 		display: inline-block;
 		position: absolute;	
-		width: 13px;
-		height: 13px;
+		width: 28px;
+		height: 28px;
 		top:50%;
-		margin-top: -7px;
+		margin-top: -13px;
 		left: 30px;
 	}
 	.item-nosearch{
 		flex:0 0 32px;
 	}
 	.header input {
-		padding-left: 34px;
+		padding-left: 54px;
 		width:calc( 100% - 34px );
-		font-size: 1.2rem;
+		font-size: 24px;
 		color: #999999;
-		height:33px;
-		line-height:15px;
+		height:60px;
+		line-height:60px;
 		border: 1px solid #fff;
 		border-radius:30px;
 		outline: none;
@@ -257,10 +257,11 @@
 	/*历史搜索*/
 	
 	.search-title,.hot-title{
-		padding: 20px 0 20px 7px;
-		font-size: 1.5rem;
-		color:#333333;
+		padding: 40px 20px 20px 23px;
 		position: relative;
+		font-size:30px;
+		font-family:PingFangSC-Medium;
+		color:rgba(51,51,51,1);
 	}
 	.search-title:before,.hot-title:before{
 		display: inline-block;
@@ -275,8 +276,8 @@
 	/*删除按钮*/
 	.delect_history{
 		position: absolute;
-		width: 12px;
-		height: 14px;
+		width: 32px;
+		height: 34px;
 		background: url(../../../static/img/Group2.png) no-repeat;
 		right:15px;
 		top: 50%;
@@ -307,11 +308,11 @@
 	
 	.delect-icon{
 		position: absolute;
-	    width:9px;
-	    height:9px;
+	    width:19px;
+	    height:19px;
 	    right: 18px;
 	    top: 50%;
-	    margin-top: -4.5px;
+	    margin-top: -8.5px;
 	    -webkit-transition: all 0.4s ease;
 	    -o-transition: all 0.4s ease;
 	    transition: all 0.4s ease;
@@ -338,11 +339,14 @@
     	overflow-y: auto;
 	}
 	.search-words li,.hot-words li{
-		padding-left:16px;
+		padding-left:36px;
 		margin-bottom:25px;
-		line-height: 15px;    
-		font-size: 14px;
-    	color: #6d6d6d;
+		line-height: 30px;    
+		height:30px;
+    	font-size:30px;
+		font-family:PingFangSC-Regular;
+		color:rgba(51,51,51,1);
+		line-height:30px;
 	}
 	.search-words li:nth-of-type(odd){
 		border-right:1px dotted #333;
@@ -353,7 +357,7 @@
 	
 	.mescroll {
 		position: fixed;
-		top: 44px;
+		top: 104px;
 		bottom: 0;
 		height: auto;
 	}
@@ -363,11 +367,14 @@
 	
 	.data-list li {
 		position: relative;
-		padding: 10px 8px 10px 10px;
+		padding: 20px 26px 20px 28px;
 		border-bottom: 1px solid #eee;
+		font-size:30px;
+		font-family:PingFangSC-Regular;
+		color:rgba(51,51,51,1);
 	}
 	.data-list{
-		margin-top: 44px;
+		margin-top: 90px;
 	}
 	.data-list .pd-img {
 		position: absolute;
@@ -377,15 +384,18 @@
 		height: 80px;
 	}
 	.pd-time{
+		font-size:25px;
 	    margin-top: 10px;
         color: #929292;
 	}
 	.data-list .pd-name {
-		font-size: 16px;
-		line-height: 20px;
+		line-height: 40px;
 		height: 40px;
-		overflow: hidden;
+		margin-top: 10px;
 	    color: #333;
+        overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
 	}
 	
 	.data-list .pd-price {

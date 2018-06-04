@@ -136,10 +136,13 @@
 
 	.inline_block {
 		display: inline-block;
+		font-size:24px;
+	font-family:PingFangSC-Regular;
+	color:rgba(153,153,153,1);
 	}
 
 	.padding_z_10 {
-		padding-left: 1rem;
+		padding-left: 0rem;
 	}
 
 	.padding_x_10 {
@@ -168,7 +171,6 @@
     word-wrap: break-word;
     font-size: 1.6rem;
     color: black;
-    line-height: 34px;
 	}
 
 	.news_header {
@@ -246,7 +248,7 @@
 	.table_view_cell {
 		position: relative;
 		overflow: hidden;
-		padding: 11px 15px;
+		padding: 21px 25px;
 		-webkit-touch-callout: none;
 	}
 
@@ -287,7 +289,7 @@
 		content: '';
 		-webkit-transform: scaleY(.5);
 		transform: scaleY(.5);
-		background-color: #c8c7cc;
+		background-color: #ebebeb;
 	}
 
 	.font_ellipsis_multiLine {
@@ -297,8 +299,9 @@
 		-webkit-line-clamp: 2;
 		/**指定行数**/
 		overflow: hidden;
-		font-size: 14px !important;
-		color: #555;
+		font-size: 32px !important;
+		font-family:PingFangSC-Regular;
+		color:rgba(51,51,51,1);
 	}
 
 	.source_time {

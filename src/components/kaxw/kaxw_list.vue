@@ -60,7 +60,7 @@
 							<div v-show="isend" class="ending">
 								-- END --
 							</div>
-			    		<div slot="bottom" style="position: relative;top: -80px;" class="mint-loadmore-bottom">
+			    		<div slot="bottom" style="position: relative;top: -25px;" class="mint-loadmore-bottom">
 					      <span v-show="bottomStatus == 'loading'" :class="{ 'rotate': bottomStatus === 'drop' }">
 					      	<span id="">正在努力加载</span>
 					      	<img class="downwarp-progress1" :class="{'downwarp-progress-s':downwarp}" style="transform: rotate(1069.2deg);" src="../../../static/img/Oval6.png"/>
@@ -418,9 +418,10 @@
 	}
 
 	.nav {
-		padding: 10px 0 4px 10px;
+		padding: 10px 0 4px 20px;
 		border-bottom: 1px solid #ccc;
-		padding-right: 30px;
+		padding-right: 40px;
+		height: 72px;
 	}
 
 	.link {
@@ -430,7 +431,8 @@
 	}
 
 	.class-a {
-		border-bottom: 2px solid #3385e3 !important;
+		border-bottom: 17px solid #3385e3 !important;
+		padding: 8px 37px 0px 37px !important;
 		border-radius: 0;
 	}
 
@@ -456,38 +458,46 @@
 	}
 	.mt-cell-st {
 		position: relative;
-		height: 100px;
-		border-bottom: 1px solid #ccc;
+		width:750px;
+		height:192px;
+		background:rgba(255,255,255,1);
+		border-bottom: 1px solid #E8E8E8;
 	}
 
 	.label-name {
 		position: absolute;
 		left: 10px;
-		top: 15px;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		color: #333333;
-	    height: 50px;
-        padding: 2px 5px 2px 2px;
-        line-height: 23px;
-        font-size: 1.6rem;
+        margin: 29px 54px 29px 32px;
+        font-size:32px;
+		font-family:PingFangSC-Regular;
+		color:rgba(51,51,51,1);
+		line-height:47px;
+	    height: 94px;
+	    
+	    display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp:2;
+		overflow: hidden;
 	}
 
 	.time-name {
 		position: absolute;
-		left: 10px;
-		bottom: 10px;
-		font-size: 1.2rem;
-	    margin-top: 8px;
-	    color: #999999;
+		left: 40px;
+		bottom: 25px;
+	    font-size:24px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
+		line-height:24px;
 	}
 	.pd-img{
 		margin-top: 13px;
 	    position: absolute;
-	    top: 0;
-	    right: 12px;
-	    width: 115px;
-	    height: 75px;
+        top: 10px;
+    	right: 33px; 
+	    width: 224px;
+    	height: 146px;
 	}
 	.model_logo span {
 		position: absolute;
@@ -502,15 +512,15 @@
 
 	#model_logo {    
 		position: fixed;
-	    top: 45px;
+	    top: 95px;
 	    right: 0px;
-	    height: 35px;
-	    line-height: 35px;
+	    height: 55px;
+	    line-height: 60px;
 	    cursor: pointer;
 	    z-index: 9999;
 	    background-color: #fff;
-	    width: 30px;
-	    font-size: 20px;
+	    width: 50px;
+	    font-size: 40px;
 	}
 
 	.color-item {
@@ -530,7 +540,7 @@
 	}
 
 	.page-tab-container {
-		padding-top: 80px;
+		padding-top: 158px;
 	}
 	/*菜单*/
 
@@ -538,11 +548,11 @@
 		z-index: 9990;
 		position: fixed;
 		/*top:0;TODO*/
-		top: 45px;
+		top: 88px;
 		left: 0;
 		width: 100%;
-		height: 36px;
-		line-height: 16px;
+		height: 72px;
+		line-height: 60px;
 		text-align: center;
 		background-color: white;
 		border-bottom: 1px solid #eee;
@@ -552,7 +562,7 @@
 	}
 
 	.scrollx {
-		height: 36px;
+		height: 72px;
 		overflow: hidden;
 		position: relative;
 		-moz-box-flex: 1;
@@ -582,7 +592,7 @@
 	}
 	.nav li {
 		display: inline-block;
-		padding: 10px 12px 8px 12px;
+		padding: 8px 37px 17px 37px;
 		font-size: 1.6rem;
 		margin-bottom: 30px;
 		/*把水平滚动条撑到外面,达到隐藏的目的*/
@@ -659,10 +669,10 @@
     }
 	.scrollTop{
 		position: fixed;
-	    bottom: 16px;
-	    right: 18px;
-	    width: 50px;
-	    height: 50px;
+	    bottom: 46px;
+	    right: 48px;
+	    width: 100px;
+	    height: 100px;
 	    background: url(../../../static/img/mescroll-totop.png) no-repeat;
 	}
 	.downwarp-progress {
@@ -700,13 +710,14 @@
 	    width: 100%;
 	    overflow: auto;
 	    height: 100%;
+        padding-bottom: 78px;
 	}
 	.ending{
 		position: relative;
 	    width: 100%;
 	    text-align: center;
 	    top: -80px;
-    	margin: 12px 0;
+    	margin: 32px 0;
 	}
 	.titile_back{
 	    background: url("./../../../static/img/palne_a.png") center;

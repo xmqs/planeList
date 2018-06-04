@@ -315,9 +315,10 @@
 	    padding: 0 0px 0 10px;
 	    background: #fff;
 	    position: fixed;
-	    top: 45px;
+	    top: 90px;
 	    z-index: 3;
 	    width: 100%;
+	    height: 72px;
 	}
 	.nav .active {    
 		border-bottom: 2px solid #285FB1;
@@ -325,15 +326,15 @@
 	    color: #285FB1;
 	}
 	.page-tab-container{    
-		margin-top: 79px;
+		margin-top: 159px;
 	    position: fixed;
 	    width: 100%;
 	    height: 100%;
 	    overflow-y: auto;
-	    padding-bottom: 115px;
+	    padding-bottom: 255px;
 	}
 	.class-a {
-		border-bottom: 2px solid #285FB1 !important;
+		border-bottom:4px solid #285FB1 !important;
 		border-radius: 0;
 		color: #285FB1;
 	}
@@ -346,7 +347,10 @@
 		width: 23%;
 	    border: 0;
 	    background: #fff;
-        font-size: 16px;
+	    height: 68px;
+		font-size:32px;
+		font-family:PingFangSC-Regular;
+		color:rgba(102,102,102,1);
 	}
 	.tips:active{    
 	    background: #fff;
@@ -362,12 +366,14 @@
 	.ele{
 		width: 100%;
 		position: relative;
-		height: 207px;
+		height: 355px;
 		background: #fff;
-        border-bottom: 10px solid #f5f5f5;
+        border-bottom: 15px solid #f5f5f5;
 	}
 	.ele1{
-	    padding: 9px 10px;
+	    height: 80px;
+	    line-height: 80px;
+	    padding: 0 25px;
     	font-size: 13pt;
 	}
 	.sfsb{
@@ -376,9 +382,13 @@
 	    font-size: 13pt;
 	}
 	.ele2{
-		height: 80pt;
-        padding: 12px 12px 7px 12px;
+		height: 180px;
 	    background-color: #FAFAFA;
+	    padding: 0 18px;
+	}
+	.ele3{
+		height: 80px;
+		width: 100%;
 	}
 	.pet-img{
 	    width: 67pt;
@@ -386,47 +396,54 @@
 	}
 	.ele2-1{
 		float: left;
+		padding: 25px;
 	}
 	.ele2-2{
 		padding: 7px;
 	}
-	.pet-name{    font-size: 19px;
-    color: #333;
-    padding: 0 !important;
-    width: 160px;
-    line-height: 22px;
-    height: 46px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
+	.pet-name{
+		width: 250px;
+	    padding: 0 !important;
+	    margin-top: 30px;
+	    font-size:32px;
+		font-family:PingFangSC-Medium;
+		color:rgba(51,51,51,1);
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
 	.pet-where{
 		position: absolute;
-	    font-size: 14px;
-	    color: #999;
+	    bottom: 95px;
 	    padding: 0 !important;
-        bottom: 60px;
+	    
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.pet-time{
 	    position: absolute;
-	    top: 55px;
-	    right: 10px;
-	    color: #999;
+	    top: 120px;
+	    right: 18px;
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.update_b{
 		float: right;
 	    background: #fff;
 	    outline: none;
-	    border: 1px solid #285FB1;
-	    color: #285FB1;
-	    border-radius: 6px;
-	    margin:8px;
-	    height: 33px;
-	    width: 92px;
+	    border-radius:12px;
+		border:1px solid rgba(40,95,177,1);
+	    border-radius: 10px;
+	    margin:14px;
+	    height: 54px;
+	    width: 150px;
 	    line-height: 33px;
 	    text-align: center;
-	    font-size: 15px;
+	    
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(40,95,177,1);
 	}
 </style>
