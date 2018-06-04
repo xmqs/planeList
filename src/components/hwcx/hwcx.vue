@@ -51,7 +51,7 @@
 			}
 		},
 		created: function() {
-			
+
 		},
 		methods: {
 			kangkou:function(res,con){//口岸选择
@@ -92,7 +92,7 @@
 				}
 			},
 		    getlist:function(){
-	            // 查询数据  
+	            // 查询数据
 				/*var _that = this;
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.remenCondition
@@ -107,9 +107,6 @@
 </script>
 
 <style scope>
-	body{
-		background-color: #F5F5F5;
-	}
 	#hwcx{
 		margin: 0;
 		height: 100%;
