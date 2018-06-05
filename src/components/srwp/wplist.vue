@@ -192,33 +192,33 @@
 		margin-top: 0;
 	}
 	.ele{
-        margin: 7px 10px 0px 10px;
+        margin: 7px 10px 0px 17px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 74px;
-	    line-height: 34px;
-	    font-size: 16px;
+	    height: 120px;
+	    line-height: 53px;
+	    font-size: 30px;
 	}
 	.tanhao{
-	    width: 28px;
+	    width: 43px;
 	    position: absolute;
-	    top: 17px;
-	    right: 3px;
+	    top: 27px;
+	    right: 13px;
 	}
 	.name{
-	    font-size: 17px;
+	    font-size: 32px;
     	color: #333;
 	}
 	.intp{
 	    color: #9b9b9b;
-    	font-size: 15px;
+    	font-size: 28px;
 	}
 	.yuanjia{
-	    width: 20px;
+	    width: 37px;
 	}
 	.ele_1{
-		padding: 10px;
-    font-size: 17px;
+		padding: 25px;
+    font-size: 32px;
     color: #333;
 	}
 	.po_right{
@@ -231,21 +231,21 @@
 	    left: 10px;
 	}
 	.tips{
-	    width: 90%;
-	    text-align: left;
-	    margin: 15px auto;
-	    color: #999;
-        font-size: 13px;
-        line-height: 25px;
+		    width: 90%;
+    text-align: left;
+    margin: 15px auto;
+    color: #999;
+        line-height: 45px;
+        font-size: 27px;
 	}
 	/*新增*/
 	.add2_ele{
 	    margin: 0px 10px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 46px;
-	    line-height: 45px;
-	    font-size: 16px;
+	    height: 90px;
+	    line-height: 90px;
+	    font-size: 32px;
 	}
 	.add2_tit{
 		color: #333;
@@ -255,10 +255,10 @@
 	    position: absolute;
 	    right: 7px;
 	    top: 8px;
-	    height: 30px;
+	    height: 80px;
 	    border: 0;
 	    outline: none;
-	    font-size: 16px;
+	    font-size: 32px;
 	    color: #777;
 	}
 </style>

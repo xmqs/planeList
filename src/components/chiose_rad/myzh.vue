@@ -143,4 +143,9 @@ export default {
 	    -o-animation: rotate 3s linear infinite;
 	    animation: rotate 3s linear infinite;
     }
+    .el-input--prefix .el-input__inner {
+    padding-left: 4vw;
+    height: 40px;
+    font-size: 15px;
+}
 </style>

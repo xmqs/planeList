@@ -110,12 +110,12 @@
 		margin-top: 0;
 	}
 	.ele{
-        margin: 7px 10px 0px 10px;
+        margin: 7px 10px 0px 17px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 74px;
-	    line-height: 34px;
-	    font-size: 16px;
+	    height: 120px;
+	    line-height: 53px;
+	    font-size: 30px;
 	}
 	.tanhao{
 	    width: 28px;
@@ -124,19 +124,19 @@
 	    right: 3px;
 	}
 	.name{
-	    font-size: 17px;
+	    font-size: 32px;
     	color: #333;
 	}
 	.intp{
 	    color: #9b9b9b;
-    	font-size: 15px;
+    	font-size: 28px;
 	}
 	.yuanjia{
 	    width: 20px;
 	}
 	.ele_1{
 		padding: 10px;
-    font-size: 17px;
+    font-size: 30px;
     color: #333;
 	}
 	.po_right{
@@ -153,8 +153,8 @@
     text-align: left;
     margin: 15px auto;
     color: #999;
-        line-height: 25px;
-        font-size: 13px;
+        line-height: 45px;
+        font-size: 27px;
 	}
 	/*新增*/
 	.add2_ele{

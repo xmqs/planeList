@@ -71,10 +71,10 @@ export default {
 		background-color: #F5F5F5;
 	}
 	li{
-    	height: 50px;
-	    line-height: 50px;
+    	height: 90px;
+	    line-height: 90px;
 	    margin: 0px 12px 0px 12px;
-	    font-size: 16px;
+	    font-size: 32px;
 	    border-bottom: 1px solid #e7e7e7;
 	    padding-left: 4PX;
 	}

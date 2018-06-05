@@ -19,8 +19,7 @@
 			</ul>
 		</div>
 		<div class="serversOK">
-			<div class="allcost">合计金额:<span style="color: #285fb1;">￥{{cost}}</span></div>
-			<div @click="submit" class="submit">提交服务</div>
+			<button @click="submit()" class="shenbao">提交服务</button>
 		</div>
 	</div>
 </template>
@@ -160,28 +159,42 @@ export default {
 	}
 	li{    
 		list-style: none;
-	    min-height: 145px;
+	    min-height: 228px;
 	    background: #fff;
 	    border-bottom: 11px solid #f5f5f5;
 	}
+	.shenbao{
+	    border: 0;
+	    background: #285fb1;
+	    width: 100%;
+	    height: 92px;
+	    font-size:34px;
+		font-family:PingFangSC-Regular;
+		color:rgba(255,255,255,1);
+	}
 	div{
-		padding: 7px;
-		font-size: 17px;
+		padding: 13px;
+		font-size: 32px;
 		color: #333;
 	}
 	.yaoqiu{
 		color: #999;
-    	font-size: 14px;
+    	font-size: 28px;
+		padding-left: 25px;
+	}
+	.tishi{
+    	font-size: 32px;
+		padding-left: 25px;
 	}
 	.allradio{
 		white-space: nowrap;
 	    margin: 18px 2px 2px 8px;
 	    border-top: 1px solid #dfdfdf;
-	    line-height: 28px;
-        height: 48px;
+	    line-height: 68px;
+        height: 88px;
 	}
     label {
-		font-size: 17px;
+		font-size: 32px;
 		color: #333;
 	    margin-right: 17%;
     }
@@ -203,18 +216,18 @@ export default {
     }
      
     input[type="radio"]+ i {
-	    width: 19px;
-	    height: 19px;
+	    width: 40px;
+	    height: 40px;
 	    border-radius: 50%;
-	    font-size: 24px;
+	    font-size: 48px;
     }
      
     input[type="radio"]:checked+ i {
         background: #285FB1;
-	    width: 19px;
-	    height: 19px;
+	    width: 40px;
+	    height: 40px;
 	    border-radius: 50%;
-	    font-size: 24px;
+	    font-size: 48px;
     }
      
     input[type="radio"]:disabled+ i {
@@ -225,14 +238,14 @@ export default {
         background: #ccc;
     }
     .serversOK{
-		padding: 0;
 		height: 50px;
 	    line-height: 31px;
 	    background: #fff;
 	    text-align: right;
 	    position: fixed;
 	    width: 100%;
-	    bottom: 0;
+	    bottom: 90px;
+        padding: 25px 30px;
 	}
 	.submit{
 	    width: 120px;

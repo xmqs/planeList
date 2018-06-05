@@ -558,8 +558,8 @@
 	}
 	.my-switch{
 	    position: absolute;
-	    top: 9px;
-	    right: 2px;
+	    top: 23px;
+	    right: 12px;
 	}
 	.ele-s{
 	    padding: 25px 19px;
@@ -568,10 +568,11 @@
 	.shenbao{
 	    border: 0;
 	    background: #285fb1;
-	    color: #fff;
 	    width: 100%;
-	    height: 45px;
-	    font-size: 16px;
+	    height: 92px;
+	    font-size:34px;
+		font-family:PingFangSC-Regular;
+		color:rgba(255,255,255,1);
 	}
 	
 .avatar-uploader{
@@ -645,5 +646,14 @@
 	    -webkit-box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
 	    box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
 	    content: ""!important; 
+	}
+	.mint-actionsheet-button, .mint-actionsheet-listitem {
+	    display: block;
+	    width: 100%;
+	    height: 90px;
+	    line-height: 70px;
+	    font-size:28px;
+	    color: #333;
+	    background-color: #fff;
 	}
 </style>

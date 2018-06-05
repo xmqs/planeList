@@ -1,7 +1,7 @@
 <template>
 	<div id="IndexList">
 		<div class="inp">
-			<span @click="goback" style="position: absolute;top: -1px;left: 2px;padding: 12px;">
+			<span @click="goback" style="position: absolute;top: 6px;left: 0px;padding: 8px;">
 				<img src="../../../static/img/back1.png"/>
 			</span>
 			<input class="inp_s" type="text" v-model="area" @keyup="selectArea"/>
@@ -18,7 +18,7 @@
 		<mt-index-list v-if="lists"  :show-indicator="true">
 			<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
 				<span @click="bus(element.name)" v-for="(element,index) in ele.cities">
-					<mt-cell :title="element.name"></mt-cell>
+					<mt-cell class="sp" :title="element.name"></mt-cell>
 				</span>
 			</mt-index-section>
 		</mt-index-list>
@@ -97,29 +97,30 @@
 <style>
 	.inp{
 	    width: 100%;
-    	padding: 7px 22px 7px 47px;
+    	padding: 17px 32px 17px 67px;
 	}
 	.inp_s{
 	    width: 100%;
-	    height: 30px;
+	    height: 65px;
 	    border: 1px solid #e9e9e9;
 	    border-radius: 4px;
 	    background: #e8e8e8;
-	    padding: 0 3px;
-	    font-size: 15px;
+	    padding: 10 13px;
+	    font-size: 32px;
 	}
 	.mint-cell-text{
 		color: #333;
+	    font-size: 32px;
 	}
 	.mint-indexsection-index {
 	    margin: 0;
-	    padding: 10px 14px;
+	    padding: 20px 24px !important;
 	    background-color: #f5f5f5;
 	}
 	.mint-indexlist-nav{
 		background-color: #474747;
 	    height: 80%;
-	    line-height: 15px;
+	    line-height: 32px;
 	    border-radius: 8px;
 	    color: #fff;
 	    position: absolute;
@@ -135,20 +136,20 @@
 	    align-items: center;
 	    float: left;
 	    width: 100%;
-	    height: 40px;
+	    height: 80px;
 	    background: #fff;
-	    font-size: 16px;
-	    padding-left: 7px;
+	    font-size: 32px;
+	    padding-left:30px;
 	}
 	p{
 		padding: 0px 12px 0px 12px !important;
     	line-height: 43px;
 	}
 	.routes{
-		height: 40px;
+		height: 80px;
 	    width: 100%;
         color: #333;
-	    line-height: 40px;
+	    line-height: 80px;
 	}
 	.routes1{
 		border-bottom: 1px solid #f1f1f1;
@@ -158,5 +159,9 @@
 	}
 	a {
 	    width: 100%;
+	}
+	.sp{
+	    height: 60px;
+	    display: inline-block;
 	}
 </style>

@@ -161,8 +161,9 @@ export default {
 	    padding-bottom: 15px;
 	}
 	.ele2{
-		height: 80pt;
-        padding: 12px 12px 7px 12px;
+		position: relative;
+		height: 200px;
+        padding: 28px 28px 20px 28px;
 	    background-color: #fff;
 	}
 	.ele3{
@@ -179,15 +180,17 @@ export default {
 	    color: #333;
 	}
 	.points1{
-	    color: #FFB540;
 	    background: #fff5e5;
-	    font-size: 13px;
-	    line-height: 22px;
-	    padding: 7px 12px;
+	    line-height: 80px;
+	    padding: 0px 22px;
+	    height: 80px;
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(255,181,64,1);
 	}
 	.pet-img{
-	    width: 67pt;
-    	height: 64pt;
+	    width: 150px;
+    	height: 142px;
 	}
 	.ele2-1{
 		float: left;
@@ -206,22 +209,30 @@ export default {
 	    color: #333;
 	}
 	.ele2-2{
-		padding: 7px;
+		padding: 7px 7px 7px 17px;
 	}
 	.pet-name{
-		font-size: 14pt;
-    	color: #333;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+		width: 240px;
+		font-size:32px;
+		font-family:PingFangSC-Medium;
+		color:rgba(51,51,51,1);
 	}
 	.pet-where{
-	    margin-top: 23px;
-	    font-size: 14px;
-	    color: #999;
+	    margin-top: 42px;
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.pet-time{
-		position: relative;
-	    top: -65px;
-	    left: 200px;
-	    color: #999;
+		position: absolute;
+	    top: 40px;
+	    right: 20px;
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	
 	.tishi,.yaoqiu{
