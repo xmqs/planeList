@@ -657,3 +657,10 @@
 	    background-color: #fff;
 	}
 </style>
+<style type="text/css">
+	.mint-actionsheet-button, .mint-actionsheet-listitem {
+	    height: 80px;
+	    line-height: 80px;
+	    font-size: 30px;
+	}
+</style>
