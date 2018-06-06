@@ -22,7 +22,7 @@
       <ul class="slide" v-for="(month,index1) in monthlist">
         <p style="width: 100%;text-align: center;padding: 7px 0;font-size:18px;">{{list[index1][0]}}年{{list[index1][1]}}月</p>
         <ul v-for="(week,index2) in month" class="first_row">
-          <li v-for="(day,index3) in week" v-bind:class="{'preday':pred(index2,day),'nextday':nextd(index2,day),'untap':untap(index1,index2,day),'istoday':istodya(index1,index2,day)}" v-on:touchend="test3(index1,index2,day)" v-on:touchstart="test5" v-on:touchmove="test4">{{day}}</li>
+          <li v-for="(day,index3) in week" v-bind:class="{'active':((list[index1][0]>lyear||list[index1][1]>lmonth)||(list[index1][0]==lyear&&list[index1][1]==lmonth&&day>=lday))&&(list[index1][0]==ayear&&list[index1][1]==amonth&&day==aday&&(((index2 <= 1 && day <= 14)&&!(index2 >= 3 && day > 14))||index2 == 2||((index2 >= 3 && day > 14)&&!(index2 <= 1 && day < 7)))),'preday':pred(index2,day),'nextday':nextd(index2,day),'untap':untap(index1,index2,day),'istoday':istodya(index1,index2,day)}" v-on:touchend="test3(index1,index2,day)" v-on:touchstart="test5" v-on:touchmove="test4">{{day}}</li>
         </ul>
       </ul>
       </div>
@@ -67,7 +67,15 @@
             tapSY:0,
             tapEY:0,
             riqi:'',
-			varietys:"",
+						varietys:"",
+            //点击日期存储
+            ayear:0,
+            amonth:0,
+            aday:0,
+            //时间界限
+            lyear:0,
+            lmonth:0,
+            lday:0,
           }
       },
       created(){
@@ -182,10 +190,19 @@
           if((this.tapstaic < 1) || (this.tapstaic < 6 && l<10)){
             //点击事件
             if(index2 == 0&&day > 7){
+              this.ayear = this.list[index1][0];
+              this.amonth = this.list[index1-1][1];
+              this.aday = day
               this.varietys = this.list[index1][0]+"年"+this.list[index1-1][1]+"月"+day+"日";
             }else if(index2 > 3 && day < 14){
+              this.ayear = this.list[index1][0];
+              this.amonth = this.list[index1+1][1];
+              this.aday = day
               this.varietys = this.list[index1][0]+"年"+this.list[index1+1][1]+"月"+day+"日";
             }else {
+              this.ayear = this.list[index1][0];
+              this.amonth = this.list[index1][1];
+              this.aday = day
               this.varietys = this.list[index1][0] + "年" + this.list[index1][1] + "月" + day+"日";
             }
           }
@@ -364,6 +381,10 @@
   *{
     -webkit-overflow-scrolling: touch;
     font-family: PingFangSC;
+  }
+  .active{
+    color: #fff!important;
+    background: #285fb1;
   }
   .picker_header{
     display: flex;
