@@ -80,9 +80,9 @@ export default {
 	    background: #fff;
 	}
 	.tit{
-	    font-size: 16px;
+	    font-size: 32px;
 	    color: #333;
-	    padding: 14px;
+	    padding: 24px !important;
 	}
 	.time_select{
 	    margin: 14px;
@@ -110,8 +110,8 @@ export default {
 	.avatar{
 	    margin: 0 14px 14px 14px;
     	border: 1px solid #f8f8f8;
-	    width: 80px;
-	    height: 80px;
+	    width: 160px;
+	    height: 160px;
 	}
 	.el-icon-plus{
 	    position: relative;
@@ -124,9 +124,9 @@ export default {
 	}
 	.delect-i{
 		position: absolute;
-	    top: -6px;
-	    right: 6px;
-	    width: 25px;
+	    top: -12px;
+	    right: -2px;
+	    width: 50px;
 	}
 	.item{
 		position: relative;
