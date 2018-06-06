@@ -647,11 +647,13 @@
 	    box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
 	    content: ""!important; 
 	}
-</style>
-<style type="text/css">
-	.mint-actionsheet-button, .mint-actionsheet-listitem{
-		height: 80px;
-		line-height: 80px;
-		font-size: 32px;
+	.mint-actionsheet-button, .mint-actionsheet-listitem {
+	    display: block;
+	    width: 100%;
+	    height: 90px;
+	    line-height: 70px;
+	    font-size:28px;
+	    color: #333;
+	    background-color: #fff;
 	}
 </style>

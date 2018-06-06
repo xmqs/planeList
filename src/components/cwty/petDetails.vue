@@ -182,13 +182,11 @@
     }
   }
 	p{
+		color: #FFB540;
 	    background: #fff5e5;
-	    line-height: 40px;
-	    padding: 15px 12px;
-	    height: 150px;
-	    font-size:26px;
-		font-family:PingFangSC-Regular;
-		color:rgba(255,181,64,1);
+	    font-size: 13px;
+	    line-height: 22px;
+	    padding: 7px 12px;
 	}
 	#soll{
 	    position: fixed;
@@ -197,60 +195,47 @@
 	    height: 100%;
 	}
 	.points{
-	    padding: 20px;
-	    height: 80px;
-	    line-height: 45px;
+	    padding: 10px;
+	    height: 40px;
+	    line-height: 23px;
+	    font-size: 16px;
 	    background-color: #eee;
-	    font-size:28px;
-		font-family:PingFangSC-Regular;
-		color:rgba(170,170,170,1);
+	    color: #a5a5a5;
 	}
 	.ele1{
-	    margin: 0 20px;
+	    margin: 0 10px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 160px;
-	    line-height: 160px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
+	    height: 95px;
+	    line-height: 95px;
+	    font-size: 16px;
 	}
 	.ele{
-	    margin: 0px 20px;
+	    margin: 0px 10px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 80px;
-	    line-height: 80px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
+	    height: 44px;
+	    line-height: 44px;
+	    font-size: 16px;
 	}
 	.tit{
 		color: #333;
 	}
 	.inps{
-	    width: 55%;
-	    position: absolute;
-	    right: 7px;
-	    top: 10px;
-	    height: 45px;
-	    border: 0;
-	    outline: none;
-	    font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:#939393;
-	}
-	.inps1{
 	    width: 60%;
 	    position: absolute;
 	    right: 7px;
-	    top: 10px;
-	    height: 45px;
+	    top: 8px;
+	    height: 30px;
 	    border: 0;
 	    outline: none;
-	    font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:#939393;
+	    font-size: 16px;
+	    color: #777;
+	}
+	.pet-img{
+	    margin-top: 7px;
+	    width: 64pt;
+	    height: 60pt;
 	}
 	.po_right{
 		position: absolute;
@@ -261,8 +246,8 @@
 	}
 	.my-switch{
 	    position: absolute;
-	    top: 23px;
-	    right: 12px;
+	    top: 9px;
+	    right: 2px;
 	}
 	.ele-s{
 	    padding: 25px 19px;
@@ -271,16 +256,9 @@
 	.shenbao{
 	    border: 0;
 	    background: #285fb1;
+	    color: #fff;
 	    width: 100%;
-	    height: 92px;
-	    font-size:34px;
-		font-family:PingFangSC-Regular;
-		color:rgba(255,255,255,1);
-	}
-	.pet-img{
-	    margin-top: 7px;
-	    width: 160px;
-	    height: 160px !important;
+	    height: 45px;
 	}
 	.pet-inf{
 		float: left;
@@ -290,16 +268,15 @@
    		font-weight: 600;
 	}
 	.pet-inf{
-		height: 180px;
-	    padding: 12px;
+		height: 94px;
+	    padding: 9px;
 	    margin: 0;
-	    line-height: 45px;
-	    font-size: 32px;
+	    line-height: 25px;
+	    font-size: 15px;
 	    color: #999;
 	}
 	.pet_pz{
 		word-wrap: break-word;
-	    font-size: 28px;
 	}
 	.pet-inf1{
     position: absolute;

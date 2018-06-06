@@ -90,9 +90,9 @@ export default {
 	    background: #fff;
 	}
 	.tit{
-	    font-size: 32px;
+	    font-size: 16px;
 	    color: #333;
-	    padding: 24px !important;
+	    padding: 14px;
 	}
 	.time_select{
 	    margin: 14px;
@@ -124,8 +124,8 @@ export default {
 	.avatar{
 	    margin: 0 14px 14px 14px;
     	border: 1px solid #f8f8f8;
-    	width: 170px;
-    	height: 175px;
+    	width: 93px;
+    	height: 89px;
 	}
 	.downwarp{
 		position: absolute;
@@ -142,39 +142,10 @@ export default {
 	    -moz-animation: rotate 3s linear infinite;
 	    -o-animation: rotate 3s linear infinite;
 	    animation: rotate 3s linear infinite;
-	    width: 65vw;
     }
     .el-input--prefix .el-input__inner {
     padding-left: 4vw;
     height: 40px;
     font-size: 15px;
 }
-</style>
-<style type="text/css">
-	.el-input--prefix .el-input__inner {
-	    height: 78px !important;
-	    font-size: 30px !important;
-	}
-	.el-date-picker .el-picker-panel__content {
-	    width: 97%
-	}
-	.el-date-picker {
-	    width: 600px;
-	}
-	.el-date-table td span {
-	    width: 90px;
-	    height:100px;
-	    font-size: 30px;
-	}
-	.el-date-table td, .el-date-table td div {
-	    height: 1vw;
-	    -webkit-box-sizing: border-box;
-	    box-sizing: border-box;
-	}
-	.el-date-table td {
-	    width: 4.267vw;
-	    padding: 5.533vw 0;
-	    text-align: center;
-	    cursor: pointer;
-	}
 </style>
