@@ -88,6 +88,7 @@
         this.rmonth = date.getMonth()+1;
         this.rday = date.getDate()
 
+        this.varietys = this.year+"年"+this.month+"月"+this.day+"日";
 
         this.monthlist = this.createMonthList(this.year,this.month);
       },
@@ -382,10 +383,6 @@
     -webkit-overflow-scrolling: touch;
     font-family: PingFangSC;
   }
-  .active{
-    color: #fff!important;
-    background: #285fb1;
-  }
   .picker_header{
     display: flex;
     justify-content: space-around;
@@ -480,5 +477,9 @@
   }
   .istoday{
     color: #0d9bf2;
+  }
+  .active{
+    color: #fff!important;
+    background: #285FB1;
   }
 </style>
