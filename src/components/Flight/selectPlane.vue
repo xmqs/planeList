@@ -1,65 +1,8 @@
 <template>
   <div>
-    <nav-header>
-      航班动态
-    </nav-header>
     <ul class="change_plane">
-
-      <li>所有</li>
-      <li>奥凯航空有限公司</li>
-      <li>澳门航空公司</li>
-      <li>成都航空有限公司</li>
-      <li class="onclick" @click="changePlane('春秋航空公司')">春秋航空公司</li>
-      <li>大韩航空公司</li>
-      <li>德国汉莎航空公司</li>
-      <li>东海航空</li>
-      <li>多彩贵州航空有限公司</li>
-      <li>菲律宾菲鹰航空有限公司</li>
-      <li>韩国韩亚航空公司</li>
-      <li>所有</li>
-      <li>奥凯航空有限公司</li>
-      <li>澳门航空公司</li>
-      <li>成都航空有限公司</li>
-      <li>春秋航空公司</li>
-      <li>大韩航空公司</li>
-      <li>德国汉莎航空公司</li>
-      <li>东海航空</li>
-      <li>多彩贵州航空有限公司</li>
-      <li>菲律宾菲鹰航空有限公司</li>
-      <li>韩国韩亚航空公司</li>
-      <li>所有</li>
-      <li>奥凯航空有限公司</li>
-      <li>澳门航空公司</li>
-      <li>成都航空有限公司</li>
-      <li>春秋航空公司</li>
-      <li>大韩航空公司</li>
-      <li>德国汉莎航空公司</li>
-      <li>东海航空</li>
-      <li>多彩贵州航空有限公司</li>
-      <li>菲律宾菲鹰航空有限公司</li>
-      <li>韩国韩亚航空公司</li>
-      <li>所有</li>
-      <li>奥凯航空有限公司</li>
-      <li>澳门航空公司</li>
-      <li>成都航空有限公司</li>
-      <li>春秋航空公司</li>
-      <li>大韩航空公司</li>
-      <li>德国汉莎航空公司</li>
-      <li>东海航空</li>
-      <li>多彩贵州航空有限公司</li>
-      <li>菲律宾菲鹰航空有限公司</li>
-      <li>韩国韩亚航空公司</li>
-      <li>所有</li>
-      <li>奥凯航空有限公司</li>
-      <li>澳门航空公司</li>
-      <li>成都航空有限公司</li>
-      <li>春秋航空公司</li>
-      <li>大韩航空公司</li>
-      <li>德国汉莎航空公司</li>
-      <li>东海航空</li>
-      <li>多彩贵州航空有限公司</li>
-      <li>菲律宾菲鹰航空有限公司</li>
-      <li>韩国韩亚航空公司</li>
+      <li @click="changenone()">所有</li>
+      <li v-for="item in splist" @click="changePlane(item)" v-bind:class="{'onclick':inipname.namecn == item.namecn}">{{item.namecn}}</li>
     </ul>
   </div>
 </template>
@@ -67,15 +10,42 @@
 <script>
   import Bus from './bus.js'
   import NavHeader from "@/components/header/header"
+  import axios from "axios"
     export default {
-        name: "selectPlane",
+      name: "selectPlane",
+      data(){
+        return{
+          splist:[],
+          inipname:{},
+        }
+      },
       components:{
           NavHeader
       },
+      mounted(){
+        axios.post('/eport-server/airFlight/getAirlineList.do').then((response)=> {
+          this.splist = response.data.data;
+        }).catch((error)=> {
+          console.log(error)
+        });
+        if(this.$route.query.pname != "请选择"){
+            this.inipname = this.$route.query.pname;
+            console.log(this.inipname);
+        }
+      },
       methods:{
         changePlane(PlaneName){
+          console.log(PlaneName);
           //sessionStorage.setItem("Destination", PlaneName);
           Bus.$emit('msg', PlaneName);
+          this.$router.back(-1);
+        },
+        changenone(){
+          //sessionStorage.setItem("Destination", PlaneName);
+          Bus.$emit('msg', {
+            namecn:"请选择",
+            code:"",
+          });
           this.$router.back(-1);
         }
       },
@@ -83,13 +53,6 @@
 </script>
 
 <style scoped>
-  header{
-    position: fixed;
-    top: 0;
-  }
-  .change_plane{
-    margin-top: 45px;
-  }
   .change_plane li{
     background:rgba(255,255,255,1);
     font-size:1.6rem;

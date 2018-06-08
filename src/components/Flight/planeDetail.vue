@@ -2,15 +2,15 @@
   <div class="planeDetail">
     <div style="height: 45px;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 1.8rem;line-height: 45px;">
       <slot>
-        {{this.$route.params.Plane}}
+        {{this.$route.params.detail.FlightIdentity}}
       </slot>
-      <span style="display: inline-block;width:10px;height: 16px;background: url('/static/img/Back.png') no-repeat;position: absolute;left:15px;top: 50%;margin-top:-8px;" @click="headerBack"></span>
+      <span style="display: inline-block;width:10px;height: 16px;background: url('/static/img/Back.png') no-repeat;background-size:10px;position: absolute;left:15px;top: 50%;margin-top:-8px;" @click="headerBack"></span>
     </div>
     <div class="plane_main">
       <div class="ticket">
         <div class="ticket_header">
           <img src="./../../../static/img/com_icon.png" alt="">
-          <span class="ticket_plane_name">中国国际航空</span>
+          <span class="ticket_plane_name">{{this.$route.params.detail.AirlineIATACode}}</span>
           <div class="radius_in_lb"></div>
           <div class="radius_in_rb"></div>
         </div>
@@ -19,43 +19,46 @@
           <div class="ticket_body_page1">
             <div class="page_from">
               <p>出发地</p>
-              <p>南京</p>
+              <p>{{this.$route.params.detail.IATAOriginAirport}}</p>
             </div>
             <div class="page_bt">
               <img src="./../../../static/img/Fill.png" alt="">
-              <p>经停站：喜马拉雅山</p>
+              <p>经停站：{{this.$route.params.detail.IATAViaAirport}}</p>
             </div>
             <div class="page_from">
               <p>目的地</p>
-              <p>四字文本</p>
+              <p>{{this.$route.params.detail.IATADestAirport}}</p>
             </div>
           </div>
           <div class="ticket_body_page2">
             <div class="time1">
-              航班日期：2018年4月27日
+              航班日期：{{this.$route.params.detail.EstimatedLandingTakeoffDateTime.slice(0,11)}}
             </div>
             <div class="time_list">
               <div>
                 <p>实际起飞</p>
-                <p>16:42</p>
+                <p v-if='this.$route.params.detail.ActualLandingTakeoffDateTime'>{{this.$route.params.detail.ActualLandingTakeoffDateTime.slice(11,16)}}</p>
+                <p v-if='!this.$route.params.detail.ActualLandingTakeoffDateTime'>---</p>
               </div>
               <div>
                 <p>预计起飞</p>
-                <p>16:30</p>
+                <p v-if='this.$route.params.detail.EstimatedLandingTakeoffDateTime'>{{this.$route.params.detail.EstimatedLandingTakeoffDateTime.slice(11,16)}}</p>
+                <p v-if='!this.$route.params.detail.EstimatedLandingTakeoffDateTime'>---</p>
               </div>
               <div>
                 <p>计划起飞</p>
-                <p>16:30</p>
+                <p v-if='this.$route.params.detail.ScheduledLandingTakeoffDateTime'>{{this.$route.params.detail.ScheduledLandingTakeoffDateTime.slice(11,16)}}</p>
+                <p v-if='!this.$route.params.detail.ScheduledLandingTakeoffDateTime'>---</p>
               </div>
             </div>
             <div class="time_list">
               <div>
                 <p>航站楼&nbsp;&nbsp;&nbsp;</p>
-                <p>T2</p>
+                <p>{{this.$route.params.detail.FlightTerminalID}}</p>
               </div>
               <div>
                 <p>登机口&nbsp;&nbsp;&nbsp;</p>
-                <p>20</p>
+                <p>{{this.$route.params.detail.GateID}}</p>
               </div>
               <div>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -65,8 +68,8 @@
           </div>
 
           <div class="ticket_footer">
-            <span>航班号CA1314</span>
-            <span>计划</span>
+            <span>航班号{{this.$route.params.detail.FlightIdentity}}</span>
+            <span>{{this.$route.params.detail.FlightStatus}}</span>
           </div>
         </div>
         <div class="ticket_btn">
@@ -84,15 +87,18 @@
         headerBack(){
           this.$router.back(-1);
         }
+      },
+      mounted(){
+        window.scrollTo(0,0);
+        console.log(this.$route.params);
       }
     }
 </script>
 
 <style scoped>
   .plane_main{
-    min-height: 100vh;
     background: linear-gradient(to bottom, #1F3661 0%,#233760 100%);
-    padding-top: 45px;
+    padding-top: 90px;
     display: flex;
     display: -webkit-flex;
     justify-content:center;
@@ -184,8 +190,8 @@
   .page_from p:last-child{
     font-size:3rem;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow:ellipsis;
+    overflow-x: scroll;
+    overflow-y: hidden;
   }
   .page_bt{
     color: #333333;

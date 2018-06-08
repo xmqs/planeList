@@ -6,12 +6,14 @@ import kaxw_list from "@/components/kaxw/kaxw_list.vue"
 import kaxw_details from "@/components/kaxw/kaxw_details.vue"
 import search from "@/components/kaxw/search.vue"
 
-
+/*航班动态*/
 import Destination from "@/components/Flight/destination"
 import MyList from "@/components/Flight/myList"
 import SelectPalne from "@/components/Flight/selectPlane"
 import Changeplane from "@/components/Flight/changeList"
 import PlaneDetail from "@/components/Flight/planeDetail"
+import cityList from "@/components/Flight/cityList"
+import searchList from "@/components/Flight/searchList"
 
 /*货物查询*/
 import hwcx from "@/components/hwcx/hwcx"
@@ -82,11 +84,19 @@ export default new Router({
       path: '/flight/destination',
       name: 'Destination',
       component: Destination,
+      meta:{
+        keepAlive: true
+      }
     },
     {
       path: '/flight/myList',
       name: 'MyList',
       component: MyList
+    },
+    {
+      path: '/flight/cityList',
+      name: 'cityList',
+      component: cityList
     },
     {
       path: '/flight/selectpalne',
@@ -102,9 +112,16 @@ export default new Router({
       path: '/flight/planeDetail',
       name: 'PlaneDetail',
       component: PlaneDetail,
-    }
+    },
+    {
+      path: '/flight/searchList',
+      name: 'searchList',
+      component: searchList,
+      meta:{
+        keepAlive: true
+      }
+    },
     /*宠物托运*/
-   ,
 		{
 			path: '/cwty/cwty_list/:con',
 			name: 'cwty_list',

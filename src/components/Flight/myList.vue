@@ -5,97 +5,104 @@
       <div class="page_active">我的关注</div>
     </div>
 
-  <ul class="Flight_list">
-    <li @click="planeDetail('AQ1039')">
-      <div class="list_header">
-        <img src="./../../../static/img/com_icon.png">
-        <span class="company">中国国际航空</span>
-        <span class="planeNum">AQ1039</span>
-      </div>
-      <div class="list_body">
-        <div class="list_page">
-          <img src="./../../../static/img/up.png" alt="" class="plane_up">
-          <div class="planeFrom">南京</div>
+    <ul class="Flight_list">
+      <li v-for="item in list" v-if="item.ServiceType!==''">
+        <div class="list_header">
+          <img :src='item.AirLineImg+"@3x.png"'>
+          <span class="company">{{item.AirlineIATACode}}</span>
+          <span class="planeNum">{{item.FlightIdentity}}</span>
+          <span class="isServiceType" v-if="item.ServiceType==0">货机</span>
         </div>
-        <div class="planeTime">预计07:55起飞</div>
-        <div class="list_page">
-          <div class="planeTo">深圳</div>
-          <img src="./../../../static/img/down.png" alt="" class="plane_down">
+        <div class="list_body">
+          <div class="list_page"  @click="toplaneDetail(item)">
+            <div class="planeFrom">{{item.IATAOriginAirport}}</div>
+          </div>
+          <div class="planeTS"  @click="toplaneDetail(item)"  >
+            <div class="planeTime" v-if="item.EstimatedLandingTakeoffDateTime">预计 {{item.EstimatedLandingTakeoffDateTime.slice(11,16)}} 起飞</div>
+            <div class="planeStatic" v-if="item.FlightStatus!=='延误/计划航班'">{{item.FlightStatus}}</div>
+            <div class="planeStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误</div>
+          </div>
+          <div class="list_page"  @click="toplaneDetail(item)">
+            <div class="planeTo">{{item.IATADestAirport}}</div>
+          </div>
+          <div class="line"></div>
+          <div class="focus">
+            <div v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
+              <img src="./../../../static/img/unfocus.png" alt="">
+              <p class="focustatic">未关注</p>
+            </div>
+            <div v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
+              <img src="./../../../static/img/focus.png" alt="">
+              <p class="focustatic">已关注</p>
+            </div>
+          </div>
         </div>
-        <div class="planeStatus yw">延误</div>
-      </div>
-    </li>
-    <li>
-      <div class="list_header">
-        <img src="./../../../static/img/com_icon.png">
-        <span class="company">中国国际航空</span><span class="planeNum">AQ1039</span>
-      </div>
-      <div class="list_body">
-        <div class="list_page">
-          <img src="./../../../static/img/up.png" alt="" class="plane_up">
-          <div class="planeFrom">南京</div>
-        </div>
-        <div class="planeTime">预计07:55起飞</div>
-        <div class="list_page">
-          <div class="planeTo">深圳</div>
-          <img src="./../../../static/img/down.png" alt="" class="plane_down">
-        </div>
-        <div class="planeStatus zc">起飞</div>
-      </div>
-    </li>
-    <li>
-      <div class="list_header">
-        <img src="./../../../static/img/com_icon.png">
-        <span class="company">中国国际航空</span>
-        <span class="planeNum">AQ1039</span>
-      </div>
-      <div class="list_body">
-        <div class="list_page">
-          <img src="./../../../static/img/up.png" alt="" class="plane_up">
-          <div class="planeFrom">南京</div>
-        </div>
-        <div class="planeTime">预计07:55起飞</div>
-        <div class="list_page">
-          <div class="planeTo">深圳</div>
-          <img src="./../../../static/img/down.png" alt="" class="plane_down">
-        </div>
-        <div class="planeStatus zc">起飞</div>
-      </div>
-    </li>
-    <li>
-      <div class="list_header">
-        <img src="./../../../static/img/com_icon.png">
-        <span class="company">中国国际航空</span><span class="planeNum">AQ1039</span>
-      </div>
-      <div class="list_body">
-        <div class="list_page">
-          <img src="./../../../static/img/up.png" alt="" class="plane_up">
-          <div class="planeFrom">南京</div>
-        </div>
-        <div class="planeTime">预计07:55起飞</div>
-        <div class="list_page">
-          <div class="planeTo">深圳</div>
-          <img src="./../../../static/img/down.png" alt="" class="plane_down">
-        </div>
-        <div class="planeStatus zc">起飞</div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "myList",
-      methods:{
-        planeDetail(Plane){
-          this.$router.push({name:'PlaneDetail', params: { Plane: Plane} })
-        },
-        changePage(){
-          this.$router.replace({path:'/flight/destination'});
-        }
+  import axios from "axios";
+  export default {
+    name: "myList",
+    data(){
+      return{
+        list:[],
       }
-    }
+    },
+    mounted(){
+      axios.post('/eport-server/airFlight/getFollowFlightList.do',{
+        userId:"wyxtest"
+      }).then((response)=> {
+        this.list = response.data.data.list;
+        console.log(this.list);
+      }).catch((error)=> {
+        console.log(error)
+      });
+    },
+    methods:{
+      planeDetail(Plane){
+        this.$router.push({name:'PlaneDetail', params: { Plane: Plane} })
+      },
+      toplaneDetail(res){
+        this.$router.push({name:'PlaneDetail',params:{detail:res}});
+      },
+      changePage(){
+        this.$router.replace({path:'/flight/destination'});
+      },
+      changefocus(num){
+        axios.post('/eport-server/airFlight/followAirFlight.do',{
+          flightIdentity:num,
+          userId:"wyxtest"
+        }).then((response)=> {
+          for (let i = 0;i<this.list.length;i++){
+            if(this.list[i].FlightIdentity == num){
+              this.list[i].isFollow = true;
+            }
+          }
+          console.log(response);
+        }).catch((error)=> {
+          console.log(error)
+        });
+      },
+      changeunfocus(num){
+        axios.post('/eport-server/airFlight/cancelFollowAirFlight.do',{
+          flightIdentity:num,
+          userId:"wyxtest"
+        }).then((response)=> {
+          for (let i = 0;i<this.list.length;i++){
+            if(this.list[i].FlightIdentity == num){
+              this.list[i].isFollow = false;
+            }
+          }
+          console.log(response);
+        }).catch((error)=> {
+          console.log(error)
+        });
+      }
+    },
+  }
 </script>
 
 <style scoped>
@@ -132,6 +139,67 @@
     height: 160px;
     padding-top: 15px;
   }
+
+  .Time{
+    font-size:44px;
+    font-family:PingFangSC-Light;
+    color:rgba(51,51,51,1);
+    line-height:44px;
+  }
+  changePage{
+    text-align: center;
+    width: 100%;
+    border-bottom:1px solid #EEEEEE ;
+    background: #fff;
+  }
+  .changePage div{
+    float: left;
+    text-align: center;
+    width: 50%;
+    font-size:32px;
+    border-bottom: 5px solid #fff;
+    line-height: 100px;
+    color: #333;
+  }
+  .isServiceType{
+    font-size:20px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+    background: #285FB1;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 10px;
+  }
+  .focus img{
+    width: 33px;
+  }
+  .focustatic{
+    font-size:22px;
+    font-family:PingFangSC-Regular;
+    color:rgba(153,153,153,1);
+    line-height:30px;
+  }
+  .changePage div.page_active{
+    color: #285FB1;
+    border-bottom: 5px solid #285FB1;
+  }
+  .changePage::after{
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .Flight_list{
+    padding: 0 32px;
+  }
+  .Flight_list li{
+    border-bottom: 1px solid #f6f6f6;
+    height: 200px;
+    padding-top: 21px;
+    background: url("./../../../static/img/line.png") no-repeat;
+    background-position: 516px center;
+    background-size: 1px 120px;
+  }
   /**列表头部*/
   .list_header{
     display:flex;
@@ -163,7 +231,7 @@
     display: -webkit-flex;
     align-items:center;
     justify-content:space-between;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .plane_up{
     width: 28px;
@@ -174,28 +242,58 @@
     margin-left: 20px;
   }
   .planeFrom{
-    font-size:32px;
+    font-size:44px;
     font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    line-height:45px;
+    line-height:44px;
+    white-space: nowrap;
+    max-width: 180px;
+    overflow-x:scroll;
+    overflow-y: hidden;
   }
   .planeTo{
-    font-size:32px;
+    font-size:44px;
     font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    line-height:45px;
+    line-height:44px;
+    white-space: nowrap;
+    max-width: 180px;
+    overflow-x:scroll;
+    overflow-y: hidden;
   }
   .list_page{
-    display: flex;
-    display: -webkit-flex;
-    align-items:center;
+    text-align: center;
+  }
+  .planeTS{
+    text-align: center;
   }
   .planeTime{
+    height:22px;
     font-size:22px;
-    color:rgba(51,51,51,1);
-    padding:0 20px 8px 20px;
-    background: url("./../../../static/img/line_to.png") bottom no-repeat;
-    background-size: 100%;
+    font-family:PingFangSC-Regular;
+    color:rgba(153,153,153,1);
+    line-height:22px;
+    margin-bottom: 10px;
+  }
+  .planeStatic{
+    width: 205px;
+    height:52px;
+    font-size:30px;
+    font-family:PingFangSC-Regular;
+    color:rgba(38,205,121,1);
+    line-height:52px;
+    background: url("./../../../static/img/plbg.png") center no-repeat;
+    background-size: 205px;
+  }
+  .planeStatic2{
+    width: 205px;
+    height:52px;
+    font-size:30px;
+    font-family:PingFangSC-Regular;
+    color:#FF8800;
+    line-height:52px;
+    background: url("./../../../static/img/ywbg.png") center no-repeat;
+    background-size: 205px;
   }
   .planeStatus{
     font-size:1.47rem;
@@ -206,5 +304,9 @@
   }
   .zc{
     color:rgba(38,205,121,1);
+  }
+  .focus{
+    width: 168px;
+    text-align: center;
   }
 </style>

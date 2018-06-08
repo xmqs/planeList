@@ -10,36 +10,36 @@
         <input class="li_udp_input" type="text" placeholder="请输入航班号，如MU4527" v-model="planeNumber">
       </li>
       <li class="chage_destination">
-        <div class="destination left_destination">
+        <div class="destination left_destination" @click="choseCity(planeFrom.name)">
           <p>出发地</p>
-          <div class="dest dest_f">南京</div>
+          <div class="dest dest_f">{{planeFrom.name}}</div>
         </div>
         <div class="icon_destination" @click="changeFT">
           <img src="./../../../static/img/rollcoin.png" alt=""  v-bind:class="{'change':changing}">
         </div>
-        <div class="destination right_destination">
+        <div class="destination right_destination" @click="choseCity(planeTo.name)">
           <p>目的地</p>
-          <div class="dest dest_t">昆明</div>
+          <div class="dest dest_t">{{planeTo.name}}</div>
         </div>
       </li>
       <li>
-        <router-link :to="{name:'SelectPalne'}">
+        <router-link :to="{name:'SelectPalne',query:{pname:planeCom}}">
           <p class="li_p_title">航空公司</p>
           <div class="li_udp_div">
-            {{planeCom}}
+            {{planeCom.namecn}}
           </div>
         </router-link>
       </li>
       <li>
         <p class="li_p_title">航空日期</p>
         <div class="li_udp_div">
-          04月02日
+          {{this.time[1]}}月{{this.time[2]}}日
           <span class="isToday">今天</span>
         </div>
       </li>
     </ul>
-    <button class="c_button">
-      确定
+    <button class="c_button" @click="getAirFlight">
+      查询
     </button>
   </div>
 </template>
@@ -51,20 +51,42 @@
       name: "destination",
       data(){
         return{
-          planeCom:'请选择',
+          planeCom:{
+            namecn:"请选择",
+            code:""
+          },
           plane_back:false,
           changing:false,
           planeNumber:'',
+          planeFrom:{
+            name:"南京",
+            code:"",
+          },
+          planeTo:{
+            name:"请选择",
+            code:"",
+          },
+          time:[],
+          changging:false,
         }
       },
       mounted(){
-        /*if (sessionStorage.getItem("Destination")){
-          this.planeCom = sessionStorage.getItem("Destination");
-        }else if (this.$route.params.PlaneName) {
-            this.planeCom = this.$route.params.PlaneName;
-          }*/
+        let date =new Date();
+        this.time = [date.getFullYear(),date.getMonth()+1,date.getDate()];
         Bus.$on('msg', (e) => {
           this.$set(this.$data, 'planeCom', e);
+          this.planeCom = e;
+        })
+        Bus.$on('choseCity', (e) => {
+          if(e!=="南京"){
+            if(this.planeTo !== "南京"){
+              this.$set(this.$data, 'planeTo', e);
+              this.planeTo = e;
+            }else{
+              this.$set(this.$data, 'planeFrom', e);
+              this.planeFrom = e;
+            }
+          }
         })
       },
       methods:{
@@ -72,22 +94,58 @@
           this.plane_back = !this.plane_back;
         },
         changeFT(){
+          if(this.changging){
+            return;
+          }
+          let f = this.planeFrom;
+          let t = this.planeTo;
+          this.planeFrom = t;
+          this.planeTo = f;
+          this.changging = true;
           this.changing = true;
           setTimeout(()=>{
             this.changing = false;
+            this.changging = false;
           },1000)
         },
         changePage(){
-          console.log(1);
           this.$router.replace({path:'/flight/myList'});
+        },
+        getAirFlight(){
+          this.$router.push({name:'searchList',params:{planeNumber:this.planeNumber,planeFrom:this.planeFrom,planeTo:this.planeTo,planeCom:this.planeCom}});
+          //console.log(this.planeNumber + " "+this.planeFrom + " "+this.planeTo + " "+this.planeCom );
+        },
+        //选择城市
+        choseCity(city){
+          if(city == "南京"){
+            return
+          }
+          this.$router.push({path:'/flight/cityList'});
         }
       },
       beforeRouteLeave(to,from,next){
         if (to.name == "home"){
-          this.planeCom = "请选择";
+          this.planeCom = {
+            namecn:"请选择",
+            code:""
+          };
           this.planeNumber = "";
+          this.planeTo = {
+            name:"请选择",
+            code:""
+          };
+          this.planeFrom = {
+            name:"南京",
+            code:""
+          };
         }else{
           from.meta.keepAlive = true;
+        }
+        next();
+      },
+      beforeRouteEnter(to,from,next){
+        if(from.name == "searchList"){
+          from.meta.keepAlive = false;
         }
         next();
       }
@@ -142,6 +200,10 @@
     color:rgba(51,51,51,1);
     line-height:56px;
     margin-top: 10px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 130px;
+    white-space: nowrap;
   }
   .destination p{
     height:33px;
