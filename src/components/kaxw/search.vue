@@ -9,7 +9,7 @@
 					  <input type="search" placeholder="请输入搜索关键词" @keyup.13="searchs()" v-on:blur="changeCount(cons)" v-model="cons">
 					</form>
 				</div>
-				<router-link :to="{path:'kaxw_list/'+'news_tuijian'+'/'+0}">
+				<router-link :to="{path:'kaxw_list/'+'news_tuijian'}">
 					<p id="search" class="btn-right flex-item item-nosearch">取消</p>
 				</router-link>	
 			</div>
@@ -25,7 +25,7 @@
 				</p>
 				
 				<ul class="search-words clearfix" id="search-words">
-					<li v-for="(item,index) in page_local" class="ui-col ui-col-50 delect-item">
+					<li style="height: 20px;line-height: 20px;" v-for="(item,index) in page_local" class="ui-col ui-col-50 delect-item">
 						<div style="width: 80%;white-space: nowrap;text-overflow:ellipsis;overflow:hidden;" @click="search_cons(item)">{{item}}</div><i v-if="isDel" @click="deletejilu(index)" class="delect-icon" style="display: inline;"></i>
 					</li>
 				</ul>
@@ -210,8 +210,7 @@
 		height: 90px;
 		line-height: 85px;
 		text-align: center;
-		border-bottom: 1px solid #eee;
-		background-color: #F0F0F0;
+		background-color: #f5f5f5;
 	}
 	.header .flex-box{
 		display: flex;
@@ -220,6 +219,7 @@
 	.item-input-wrapper{
 		flex: 1;
 		position: relative;
+		top: 2px;
 	}
 	.search-icon{
 		display: inline-block;
@@ -244,20 +244,21 @@
 		border-radius:30px;
 		outline: none;
 		vertical-align: middle;
+	    margin-top: 5px;
 	}
 	
 	.header .btn-right {
 		margin: 0 16px 0 0;
 		color: #285FB1;
 		font-size: 1.6rem;
-		margin-top: 2px;
+		margin-top: 6px;
 	}
 	
 	
 	/*历史搜索*/
 	
 	.search-title,.hot-title{
-		padding: 40px 20px 20px 23px;
+		padding: 40px 20px 30px 23px;
 		position: relative;
 		font-size:30px;
 		font-family:PingFangSC-Medium;
@@ -336,20 +337,21 @@
 	}
 	.search-words{
         max-height: 140px;
-    	overflow-y: auto;
+	    min-height: 35px;
 	}
 	.search-words li,.hot-words li{
 		padding-left:36px;
+		padding-right:20px;
 		margin-bottom:25px;
 		line-height: 30px;    
-		height:30px;
+		height:50px;
     	font-size:30px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
-		line-height:30px;
+		font-family:PingFangSC;
+		color:#333;
+		line-height:50px;
 	}
 	.search-words li:nth-of-type(odd){
-		border-right:1px dotted #333;
+	    border-right: 1px dashed #666;
 	}
 	
 	

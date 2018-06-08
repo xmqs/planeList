@@ -1,10 +1,10 @@
 <template>
 	<div id="servers">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!--<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			选择服务
 				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		</header>-->
+		<div id="soll" class="page-tab-container">
 			<ul>
 				<li v-for="(element,index) in lists">
 					<div class="tishi">{{element.title}}</div>

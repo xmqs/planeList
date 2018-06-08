@@ -1,10 +1,6 @@
 <template>
 	<div id="chiose_rad">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			免疫证号
-			<img @click="bus(value1,imageUrl)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		<div id="soll" class="page-tab-container">
 			<p class="tit">上传免疫证</p>
 			<el-upload
 			  class="avatar-uploader"
@@ -17,7 +13,7 @@
 			  <i v-if="lod2" style="opacity: 0;" v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</el-upload>
 			<img v-if="lod" class="downwarp downwarp-progress-s" src="../../../static/img/Oval6.png"/>
-			<div class="block">
+			<div @click="gettime" class="block">
 			    <el-date-picker
 			      v-model="value1"
 			      type="date"
@@ -45,18 +41,10 @@ export default {
 	    }
    },
 	methods:{
-		bus (res,imageUrl) {
-			if(res != ""){
-				res = new Date(res);
-	    		res=res.getFullYear() + '年' + (res.getMonth() + 1) + '月' + res.getDate() + '日'
-			}else{
-				res = new Date();
-	    		res=res.getFullYear() + '年' + (res.getMonth() + 1) + '月' + res.getDate() + '日'
-			}
+	    gettime(){
 		    setTimeout(() => {
-		        Bus.$emit('myz', res,imageUrl)
+		        Bus.$emit('myz', this.value1,this.imageUrl)
 		    }, 30)
-	        this.$router.back(-1)
 	    },
 		//图片上传
 		handleAvatarSuccess(res, file) {
@@ -64,6 +52,9 @@ export default {
 	   		this.lod2 = false;
 	   		this.imageUrl = '';
 	        this.imageUrl = res.data;
+		    setTimeout(() => {
+		        Bus.$emit('myz', this.value1,this.imageUrl)
+		    }, 30)
 	   },
 	   handbefore(){
 	   		this.lod = true;
