@@ -15,6 +15,8 @@ import PlaneDetail from "@/components/Flight/planeDetail"
 import cityList from "@/components/Flight/cityList"
 import searchList from "@/components/Flight/searchList"
 
+/*酒店*/
+import hotel from "@/components/hotel/hotel"
 /*货物查询*/
 import hwcx from "@/components/hwcx/hwcx"
 
@@ -46,6 +48,10 @@ import srwpservers from "@/components/srwp/servers.vue"
 import srwpserversDetails from "@/components/srwp/serversDetails.vue"
 import srwpchecked from "@/components/srwp/srwpchecked.vue"
 import srwprate from "@/components/srwp/srwprate.vue"
+
+/*手机值机*/
+import phoneflight from "@/components/phoneflight/phoneflight.vue"
+
 
 Vue.use(Router)
 
@@ -254,6 +260,16 @@ export default new Router({
 			path: '/srwp/srwprate',
 			name: 'srwprate',
 			component: srwprate,
+		},
+		{
+			path: '/hotel/hotel',
+			name: 'hotel',
+			component: hotel,
+		},
+		{
+			path: '/phoneflight/phoneflight',
+			name: 'phoneflight',
+			component: phoneflight,
 		}
   ]
 })

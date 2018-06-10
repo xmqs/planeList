@@ -9,9 +9,7 @@
 					  <input type="search" placeholder="请输入搜索关键词" @keyup.13="searchs()" v-on:blur="changeCount(cons)" v-model="cons">
 					</form>
 				</div>
-				<router-link :to="{path:'kaxw_list/'+'news_tuijian'}">
-					<p id="search" class="btn-right flex-item item-nosearch">取消</p>
-				</router-link>	
+				<p @click="backlist" id="search" class="btn-right flex-item item-nosearch">取消</p>
 			</div>
 		</div>
 		<!--滑动区域-->
@@ -81,6 +79,9 @@
 			}
 		},
 		methods: {
+			backlist(){
+				this.$router.push({path:'kaxw_list/'+'news_tuijian/0'})
+			},
 			forSubmit () {
 		         return false;
 		    },
@@ -248,10 +249,12 @@
 	}
 	
 	.header .btn-right {
-		margin: 0 16px 0 0;
-		color: #285FB1;
-		font-size: 1.6rem;
-		margin-top: 6px;
+	    margin: 0 2.133vw 0 0;
+	    color: #285fb1;
+	    font-size: 3.413vw;
+	    font-size: 1.1rem;
+	    margin-top: 3.4vw;
+	    white-space: nowrap;
 	}
 	
 	

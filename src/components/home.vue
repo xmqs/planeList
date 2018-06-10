@@ -109,6 +109,7 @@
 				
 			},
 			gokaxw(){
+		        //this.$router.push({path: '/hotel/hotel'})
 		        this.$router.push({path: '/kaxw/kaxw_list/'+'news_tuijian'+'/'+0})
 			},
 			gokaxwdetails(res){

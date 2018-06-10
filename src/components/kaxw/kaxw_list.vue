@@ -32,16 +32,18 @@
 						<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
 							<mt-tab-container-item class="bo-p" v-for="(element,index) in menu" v-bind:id="element.alias" :key="index">
 								<div @click="godetails(element.sourceId,searchCondition.channelAlias)" class="mt-cell mt-cell-st" v-for="(element,index) in pageList" :key="index">
-									<div style="color: #666666">
-										<div v-if="element.cover">
-											<img class="pd-img"  :src="element.cover">
-											<p style="width: 58%;" class="label-name">{{element.sourceLabel}}</p>
+					          		<!--<a :href ="'/kaxw/kaxw_details?id='+element.sourceId">-->
+										<div style="color: #666666">
+											<div v-if="element.cover">
+												<img class="pd-img"  :src="element.cover">
+												<p style="width: 58%;" class="label-name">{{element.sourceLabel}}</p>
+											</div>
+											<div v-else>
+												<p class="label-name">{{element.sourceLabel}}</p>
+											</div>
+											<p class="time-name">{{element.author}} {{element.createTime | formatDate}}</p>
 										</div>
-										<div v-else>
-											<p class="label-name">{{element.sourceLabel}}</p>
-										</div>
-										<p class="time-name">{{element.author}} {{element.createTime | formatDate}}</p>
-									</div>
+									<!--</a>-->
 								</div>
 							</mt-tab-container-item>
 						</mt-tab-container>
@@ -179,6 +181,10 @@
 		},
 		created() {
 			this.active = this.$route.params.con;
+			if(sessionStorage.getItem('state') != null){
+				let obj = JSON.parse(sessionStorage.getItem('state'));
+				this.active = obj[2];
+			}
 			this.searchCondition.channelAlias = this.$route.params.con;
 			this.getmenu();
 			this.getAllList();
@@ -194,6 +200,7 @@
 	        	this.myscrollTop = document.getElementById("soll").scrollTop;
 				state.push(this.myscrollTop);
 				state.push(this.searchCondition.pageSize);
+				state.push(this.active);
         		sessionStorage.setItem('state',JSON.stringify(state));
 				this.$router.push({path: '/kaxw/kaxw_details/'+sourceId +'/'+ res})
 			},
