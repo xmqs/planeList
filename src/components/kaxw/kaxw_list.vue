@@ -4,13 +4,9 @@
 			<p v-show="title_tj" id="recommend" class="recommend">成功为您推荐十条新闻</p>
 		</transition>
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			口岸新闻
-			<router-link :to="{path:'/'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-			</router-link>	
+		<header style="height: 44px;background:#EFEFF4;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 30px;">
 			<router-link :to="{path:'/kaxw/search'}">
-				<img style="height: 19px;position: absolute;right:15px;top: 50%;margin-top:-9px;" src="./../../../static/img/Group6.png"/>
+				<div class="searchdetails"><img style="width: 15px;position: relative;top: 3px;" src="../../../static/img/Fill1.png"/>&nbsp;请输入搜索关键字</div>
 			</router-link>	
 		</header>
 		<!--顶部菜单-->
@@ -31,23 +27,21 @@
 		<!--内容-->
 		<div class="page-tab-container" :class="{client}">
 		    <div id="soll" class="is_top">
-			    <v-loadmore :top-method="loadTop" :bottomDistance="bottomDistance"
+			    <v-loadmore :topDistance='60' :top-method="loadTop" :bottomDistance="bottomDistance"
 			    	:bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
 						<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
 							<mt-tab-container-item class="bo-p" v-for="(element,index) in menu" v-bind:id="element.alias" :key="index">
-								<div class="mt-cell mt-cell-st" v-for="(element,index) in pageList" :key="index">
-									<router-link :to="{path: '/kaxw/kaxw_details/'+ element.sourceId +'/'+ searchCondition.channelAlias}">
-										<div style="color: #666666">
-											<div v-if="element.cover">
-												<img class="pd-img"  :src="element.cover">
-												<p style="width: 58%;" class="label-name">{{element.sourceLabel}}</p>
-											</div>
-											<div v-else>
-												<p class="label-name">{{element.sourceLabel}}</p>
-											</div>
-											<p class="time-name">{{element.author}} {{element.createTime | formatDate}}</p>
+								<div @click="godetails(element.sourceId,searchCondition.channelAlias)" class="mt-cell mt-cell-st" v-for="(element,index) in pageList" :key="index">
+									<div style="color: #666666">
+										<div v-if="element.cover">
+											<img class="pd-img"  :src="element.cover">
+											<p style="width: 58%;" class="label-name">{{element.sourceLabel}}</p>
 										</div>
-									</router-link>
+										<div v-else>
+											<p class="label-name">{{element.sourceLabel}}</p>
+										</div>
+										<p class="time-name">{{element.author}} {{element.createTime | formatDate}}</p>
+									</div>
 								</div>
 							</mt-tab-container-item>
 						</mt-tab-container>
@@ -148,7 +142,8 @@
 				bottomDistance:1,
 				scrollTop:false,
 				isend : false,
-				dio:false
+				dio:false,
+				myscrollTop:0,
 			}
 		},
 	    components: {
@@ -156,20 +151,18 @@
 	    },
 		watch: {
 			active: function(newValue) {
-				if (this.$route.params.flag == 1) {
+				/*if (this.$route.params.flag == 1) {
 					this.active = this.$route.params.con;
 					this.searchCondition.channelAlias = this.$route.params.con;
 					this.$route.params.flag = 0;
-				}else{
-					document.getElementById("soll").scrollTop = 0;
+				}else{*/
+					this.pageList = [];
 					this.isend = false;
 					this.active = newValue;
 					this.searchCondition.channelAlias = newValue;
-					this.searchCondition.pageNo = 1;
-					this.searchCondition.pageSize = 10;
 					this.loadPageList();
 					this.bottomStatus = "";
-				}
+				//}
 			}
 		},
 		filters: {
@@ -192,6 +185,17 @@
 		},
 		methods: {
 			select_item(res){
+				this.pageList = [];
+				this.myscrollTop = 0;
+				this.searchCondition.pageSize = 10;
+			},
+			godetails(sourceId,res){
+				var state = [];
+	        	this.myscrollTop = document.getElementById("soll").scrollTop;
+				state.push(this.myscrollTop);
+				state.push(this.searchCondition.pageSize);
+        		sessionStorage.setItem('state',JSON.stringify(state));
+				this.$router.push({path: '/kaxw/kaxw_details/'+sourceId +'/'+ res})
 			},
 			sort:function(res){
 				console.log(res)
@@ -214,7 +218,7 @@
 						that.scrollTop = false;
 						clearInterval(interval);
 					}
-				},10);
+				},2);
 			},
 			getdata: function(evt){
 				if(this.edit == "编辑"){
@@ -347,15 +351,21 @@
 			}
 	      },  
 	      loadPageList:function (){
-	          // 查询数据  
 				var _that = this;
+				if(sessionStorage.getItem('state') != null){
+					let obj = JSON.parse(sessionStorage.getItem('state'));
+					_that.myscrollTop = obj[0];
+					_that.searchCondition.pageSize = obj[1];
+	        		sessionStorage.removeItem('state');
+				}
+	            // 下拉刷新 查询数据 
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.searchCondition
 				}).then(function(res) {
 					_that.pageList = [];
 	          		// 是否还有下一页，没有下一页要禁止上拉
-					_that.pagenone = res.data.data.length/10;
-					if (_that.pagenone < _that.searchCondition.pageNo) {
+					_that.pagenone = res.data.data.length;
+					if (_that.pagenone < _that.searchCondition.pageSize) {
 						_that.isend = true;
 					}else{
 						_that.isend = false;
@@ -373,6 +383,10 @@
 							}, 1700);
 			        	}
 					}
+					console.log(_that.myscrollTop)
+				    setTimeout(() => {
+						document.getElementById("soll").scrollTop = _that.myscrollTop;
+				    },100)
 				})
 
 	            _that.$nextTick(function () {
@@ -383,18 +397,14 @@
 	      more:function (){
 	          //分页查询
 				var _that = this;
-	       		 _that.searchCondition.pageNo = parseInt(_that.searchCondition.pageNo) + 1;
+	       		_that.searchCondition.pageSize = parseInt(_that.searchCondition.pageSize) + 10;
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.searchCondition
 				}).then(function(res) {
+					_that.pageList = [];
 					_that.animent = false;
 					for(var j = 0; j < res.data.data.length; j++) {
 						_that.pageList.push(res.data.data[j])
-					}
-					if (_that.pagenone < _that.searchCondition.pageNo) {
-						_that.isend = true;
-					}else{
-						_that.isend = false;
 					}
 				})
 	      },
@@ -417,13 +427,6 @@
 		display: inline-block;
 	}
 
-	.nav {
-		padding: 10px 0 4px 20px;
-		border-bottom: 1px solid #ccc;
-		padding-right: 40px;
-		height: 72px;
-	}
-
 	.link {
 		color: inherit;
 		padding: 20px;
@@ -431,15 +434,29 @@
 	}
 
 	.class-a {
-		border-bottom: 17px solid #3385e3 !important;
-		padding: 8px 37px 0px 37px !important;
-		border-radius: 0;
+		border-bottom: 14px solid #3385e3 !important;
+		padding: 4px 37px 0px 37px !important;
+		border-radius: 0 !important;
+		color: #285fb1 !important;
+		font-size: 36px !important;
 	}
 
 	.bu_style {
 		border-radius: 0 !important;
 		border-bottom: 2px solid #fff;
 		margin-right: 10px;
+	}
+	.searchdetails{
+		background: rgb(255, 255, 255);
+	    outline: none;
+	    width: 88%;
+	    height: 60px;
+	    border-radius: 14px;
+	    text-align: center;
+	    margin: 12px auto;
+	    font-size: 28px;
+	    color: #999;
+	    font-family: PingFangSC;
 	}
 	.recommend {
 	    z-index: 9900;
@@ -488,7 +505,7 @@
 		bottom: 25px;
 	    font-size:24px;
 		font-family:PingFangSC-Regular;
-		color:rgba(153,153,153,1);
+		color:#999;
 		line-height:24px;
 	}
 	.pd-img{
@@ -540,7 +557,7 @@
 	}
 
 	.page-tab-container {
-		padding-top: 158px;
+		padding-top: 160px;
 	}
 	/*菜单*/
 
@@ -576,10 +593,6 @@
 		overflow-x: auto;
 		white-space: nowrap;
 	}
-
-	.nav {
-		padding: 0 0px 0 10px;
-	}
 	.shade{
 	    position: fixed;
 	    top: 58px;
@@ -593,8 +606,8 @@
 	.nav li {
 		display: inline-block;
 		padding: 8px 37px 17px 37px;
-		font-size: 1.6rem;
-		margin-bottom: 30px;
+		font-size: 32px;
+		margin-bottom: 10px;
 		/*把水平滚动条撑到外面,达到隐藏的目的*/
 		vertical-align: middle;
 		color: #666666;
@@ -677,16 +690,16 @@
 	}
 	.downwarp-progress {
 	    display: inline-block;
-	    width: 33px;
-	    height: 33px;
+	    width: 50px;
+	    height: 50px;
 	    vertical-align: middle;
 	}
 
 	.downwarp-progress1 {
 	    display: inline-block;
 	    vertical-align: middle;
-	    width: 16px;
-	    height: 16px;
+	    width: 40px;
+	    height: 40px;
 	}
 	.downwarp-progress-s{
 	    display: inline-block;

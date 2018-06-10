@@ -1,10 +1,6 @@
 <template>
 	<div id="chiose_rad">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			宠物种类
-			<img @click="bus(varietys)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		<div id="soll" class="page-tab-container">
 			<ul>
 				<li @click="variety('狗')">
 					<span>狗</span>
@@ -31,12 +27,6 @@ export default {
 	    }
     },
 	methods:{
-		bus (res) {
-		    setTimeout(() => {
-	        	Bus.$emit('varietys', res)
-		    }, 30)
-	        this.$router.back(-1)
-	    },
         variety(res){
         	this.varietys = res;
         	if (res == "狗") {
@@ -46,6 +36,9 @@ export default {
         		this.gou1 = false;
         		this.gou2 = true;
         	}
+		    setTimeout(() => {
+	        	Bus.$emit('varietys', res)
+		    }, 30)
         }
 	},
     created: function() {

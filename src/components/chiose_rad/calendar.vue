@@ -1,9 +1,5 @@
 <template xmlns:>
   <div>
-  	<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-		航班日期
-		<img @click="bus(varietys)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-	</header>
     <div class="year_month">
       <li class="month">
         <ul class="picker_header">
@@ -103,12 +99,6 @@
           },10)
       },
       methods:{			
-      	bus (res) {
-		    setTimeout(() => {
-		        Bus.$emit('riqi', res)
-		    }, 30)
-	        this.$router.back(-1)
-	    },
         createMonthList(y,m){
           let month = [];
           if(m == 1){
@@ -210,6 +200,9 @@
           this.tapstaic = 0;
           this.tapEY = 0;
           this.tapSY = 0;
+			    setTimeout(() => {
+			        Bus.$emit('riqi', this.varietys)
+			    }, 30)
         },
         test4(e){
           this.tapstaic++;
@@ -459,7 +452,6 @@
   }
   .year_month{
     position: fixed;
-    top: 90px;
     width: 100%;
     height: 70px;
     background: #285fb1;

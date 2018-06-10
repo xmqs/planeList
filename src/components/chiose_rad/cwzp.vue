@@ -1,10 +1,6 @@
 <template>
 	<div id="chiose_rad">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			宠物照片
-			<img @click="bus(imageUrl1)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		<div id="soll" class="page-tab-container">
 			<p class="tit">宠物照片</p>
 			<el-upload
 			  class="avatar-uploader"
@@ -42,17 +38,14 @@ export default {
 		deleteImg(res){
 			this.imageUrl1.splice(res,1)
 		},
-		bus (imageUrl1) {
-		    setTimeout(() => {
-		        Bus.$emit('cwzp',imageUrl1)
-		    }, 30)
-	        this.$router.back(-1)
-	    },
 		//图片上传
 		handleAvatarSuccess(res, file) {
 	   		this.lod = false;
 	        this.imageUrl = res.data;
 	        this.imageUrl1.push(res.data);
+		    setTimeout(() => {
+		        Bus.$emit('cwzp',this.imageUrl1)
+		    }, 30)
 	   },
 	   handbefore(){
 	   		this.lod = true;

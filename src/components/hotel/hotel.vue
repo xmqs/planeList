@@ -2,18 +2,16 @@
 	<!--选择要看的新闻类型-->
 	<div id="home">
 		<!--头部临时用-->
-		<div style="position: fixed;top:80px;margin-left: 40%;" v-show="lod">
+		<!--<div style="position: fixed;top:80px;margin-left: 40%;" v-show="lod">
 			正在加载,请稍后...
-		</div>
+		</div>-->
 		<!--内容-->
 		<div v-show="lod1" class="page-tab-container">
-
 			<section class="ui-container">
 				<div class="content_box">
-					<h3 class="news_title">{{contents.sourceLabel}}</h3>
-					<p class="title_time">{{contents.createTime | formatDate}}<span class="inline_block padding_z_10">{{contents.author}}</span></p>
-
-					<div class="contt" v-html='contents.htmlContent'>
+					<h3 class="news_title">南京禄口国际机场铂尔曼大酒店</h3>
+					<div class="contt">
+						南京禄口机场铂尔曼大酒店坐落于南京禄口国际机场两座航 站楼之间的中心位置。酒店至出发大厅步行仅需30秒钟，乘 搭地铁至市区仅需30分钟，酒店地下层的交通中心同时为...
 					</div>
 
 				</div>
@@ -22,11 +20,11 @@
 						<li class="table_view_cell media">
 							<p class="font_16 black_3">为你推荐</p>
 						</li>
-						<li	@click="th_tuijian(item.sourceId)" v-for="item in tuijian" class="table_view_cell media">
-							<img style="width: 113px;height: 74px;" v-if="item.cover" class="pull_right"  :src="item.cover">
+						<li v-for="item in 10" class="table_view_cell media">
+							<img style="width: 113px;height: 74px;" class="pull_right" src="../../../static/img/Rectangle181.png">
 							<div class="media_body">
-								<p class="font_16 font_ellipsis_multiLine">{{item.sourceLabel}}</p>
-								<p class="source_time">{{item.author}}<span class="inline_block padding_z_10">{{item.createTime | formatDate}}</span></p>
+								<p class="font_16 font_ellipsis_multiLine">南京禄口机场铂尔曼大酒店的 蔬菜果园开园啦，可食地景…</p>
+								<p class="source_time">2018-03-15</p>
 							</div>
 						</li>
 					</ul>
@@ -57,49 +55,13 @@
 			}
 		},
 		methods: {
-			th_tuijian(res){
-				//查询详情
-				var That = this;
-				axios.get('/web-editor-web//s/h/query/'+res+'.do', {
-				}).then(function(data) {
-					That.contents = data.data.data;
-				})
-			}
+			
 		},
 		mounted() {
 
 		},
 		created: function() {
-			var That = this;
-			axios.get('/web-editor-web/stat/r.jpg', {
-				params: {
-					dd: That.$route.params.sourceId,
-					tp:0,
-					url:window.location.href,
-					ua:navigator.userAgent,
-					refer:document.referrer
-				}
-			}).then(function(data) {
-
-			})
-			//查询详情
-			axios.get('/web-editor-web//s/h/query/'+this.$route.params.sourceId+'.do', {
-			}).then(function(data) {
-				That.contents = data.data.data;
-			})
-
-            // 查询数据
-			axios.get('/web-editor-web/channel/list.do?', {
-				params: That.tuijianCondition
-			}).then(function(res) {
-				for(var j = 0; j < res.data.data.length; j++) {
-					That.tuijian.push(res.data.data[j])
-				}
-				setTimeout(function() {
-					That.lod = false;
-					That.lod1 = true;
-				},500);
-			})
+			
 		},
 		filters: {
 			formatDate(time) {
