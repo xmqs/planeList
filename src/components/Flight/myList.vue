@@ -19,8 +19,12 @@
           </div>
           <div class="planeTS"  @click="toplaneDetail(item)"  >
             <div class="planeTime" v-if="item.EstimatedLandingTakeoffDateTime">预计 {{item.EstimatedLandingTakeoffDateTime.slice(11,16)}} 起飞</div>
-            <div class="planeStatic" v-if="item.FlightStatus!=='延误/计划航班'">{{item.FlightStatus}}</div>
+            <div class="planeStatic" v-if="item.FlightStatus=='起飞'">起飞</div>
+            <div class="planeStatic" v-if="item.FlightStatus=='计划航班'">计划航班</div>
+            <div class="planeStatic2" v-if="item.FlightStatus=='降落'">降落</div>
             <div class="planeStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误</div>
+            <div class="planeStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</div>
+            <div class="planeStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</div>
           </div>
           <div class="list_page"  @click="toplaneDetail(item)">
             <div class="planeTo">{{item.IATADestAirport}}</div>
@@ -53,7 +57,7 @@
     },
     mounted(){
       axios.post('/eport-server/airFlight/getFollowFlightList.do',{
-        userId:"wyxtest"
+        userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
       }).then((response)=> {
         this.list = response.data.data.list;
         console.log(this.list);
@@ -74,7 +78,7 @@
       changefocus(num){
         axios.post('/eport-server/airFlight/followAirFlight.do',{
           flightIdentity:num,
-          userId:"wyxtest"
+          userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
         }).then((response)=> {
           for (let i = 0;i<this.list.length;i++){
             if(this.list[i].FlightIdentity == num){
@@ -89,7 +93,7 @@
       changeunfocus(num){
         axios.post('/eport-server/airFlight/cancelFollowAirFlight.do',{
           flightIdentity:num,
-          userId:"wyxtest"
+          userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
         }).then((response)=> {
           for (let i = 0;i<this.list.length;i++){
             if(this.list[i].FlightIdentity == num){
@@ -293,6 +297,16 @@
     color:#FF8800;
     line-height:52px;
     background: url("./../../../static/img/ywbg.png") center no-repeat;
+    background-size: 205px;
+  }
+  .planeStatic3{
+    width: 205px;
+    height:52px;
+    font-size:30px;
+    font-family:PingFangSC-Regular;
+    color:#ccc;
+    line-height:52px;
+    background: url("./../../../static/img/nonePlane.png") center no-repeat;
     background-size: 205px;
   }
   .planeStatus{

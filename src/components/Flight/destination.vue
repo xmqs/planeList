@@ -41,6 +41,9 @@
     <button class="c_button" @click="getAirFlight">
       查询
     </button>
+    <button class="d_button" @click="getAirFlight">
+      查询当日国际航班
+    </button>
   </div>
 </template>
 
@@ -261,6 +264,17 @@
     width:670px;
     height:92px;
     background:rgba(40,95,177,1);
+    border-radius: 4px ;
+  }
+  .d_button{
+    border: 1px solid #285FB1;
+    margin-top: 40px;
+    color: #285FB1;
+    font-size:34px;
+    margin-left: 40px;
+    width:670px;
+    height:92px;
+    background:#fff;
     border-radius: 4px ;
   }
   .content{
