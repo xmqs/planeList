@@ -9,12 +9,11 @@
 					  <input type="search" placeholder="请输入搜索关键词" @keyup.13="searchs()" v-on:blur="changeCount(cons)" v-model="cons">
 					</form>
 				</div>
-				<p @click="backlist" id="search" class="btn-right flex-item item-nosearch">取消</p>
 			</div>
 		</div>
 		<!--滑动区域-->
 		<div v-show="others" id="mescroll" class="mescroll">
-			<div class="bgWhite" style="margin-bottom:10px;">
+			<div class="bgWhite" style="margin-bottom:10px;padding-top: 2vw !important;">
 				<p class="search-title">
 					<img style="height: 14px;" src="../../../static/img/Group.png"/>
 					历史记录
@@ -29,7 +28,7 @@
 				</ul>
 			</div>	
 			<!--描述：热门新闻-->
-			<div v-show="others" class="bgWhite">
+			<div style="border-top: 7px solid #f5f5f5;" v-show="others" class="bgWhite">
 				<p class="hot-title"><img style="height: 14px;" src="../../../static/img/Fill11.png"/>&nbsp;热门新闻 </p>
 				<ul class="hot-words clearfix">
 					<li v-for="item in remen" @click="search_cons(item.sourceLabel)" class="ui-col ui-col-50">{{item.sourceLabel}}</li>
@@ -237,7 +236,7 @@
 	.header input {
 		padding-left: 54px;
 		width:calc( 100% - 34px );
-		font-size: 24px;
+		font-size: 3.733vw;
 		color: #999999;
 		height:60px;
 		line-height:60px;
@@ -261,7 +260,7 @@
 	/*历史搜索*/
 	
 	.search-title,.hot-title{
-		padding: 40px 20px 30px 23px;
+		padding: 40px 20px 30px 23px !important;
 		position: relative;
 		font-size:30px;
 		font-family:PingFangSC-Medium;

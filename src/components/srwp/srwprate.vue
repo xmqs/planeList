@@ -1,11 +1,11 @@
 <template>
   <div id="rate">
-  	<!--<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+  	<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			托运详情
 			<router-link :to="{path: '/srwp/srwp_list/'+'tab-container4'}">
 				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
-		</header>-->
+		</header>
     <div id="ele">
     	<div class="ele ele_1">
     		<div class="ele1">
@@ -93,6 +93,7 @@
     position: fixed;
     height: 100%;
     background: #F5F5F5;
+    padding-top: 88px;
 	}
   .ele{
   	

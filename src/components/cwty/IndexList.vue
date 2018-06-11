@@ -118,13 +118,13 @@
 	    background-color: #f5f5f5;
 	}
 	.mint-indexlist-nav{
-		background-color: #474747;
+		background-color: #474747 !important;
 	    height: 80%;
 	    line-height: 32px;
 	    border-radius: 8px;
 	    color: #fff;
 	    position: absolute;
-	    top: 10%;
+	    top: 10% !important;
 	}
 	.citys{
         color: #333;

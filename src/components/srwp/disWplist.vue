@@ -1,10 +1,10 @@
 <template>
 	<div id="pet_details">
 		<!--头部临时用-->
-		<!--<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 99;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 99;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			物品清单
 			<img @click="bad(packages)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>-->
+		</header>
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
 			<div v-show="add1" class="soll1">
@@ -102,6 +102,7 @@
 	    overflow: auto;
 	    height: 100%;
 	    background: #F5F5F5;
+        padding-top: 88px;
 	}
 	.soll1,.add2{
 		background: #fff;

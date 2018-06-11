@@ -80,11 +80,15 @@
 							<transition-group name="list-complete" >
 								<div v-for="element in list2" :key="element.label" class="list-complete-item ui-col ui-col-25 text_center padding_6">
 									<div v-if="element.movable == 0" class="styleclass dargDiv others">
-										<p>{{element.label}}</p>
+										<p style="font-size: 0.5rem;" v-if="element.label.length > 6" >{{element.label}}</p>
+										<p style="font-size: 0.7rem;" v-if="element.label.length > 4 && element.label.length < 7" >{{element.label}}</p>
+										<p style="font-size: 1.1rem;" v-if="element.label.length < 5">{{element.label}}</p>
 										<i v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
 									</div>
 									<div v-else-if="element.movable == 1" draggable="disable" class="styleclass others">
-										<p>{{element.label}}</p>
+										<p style="font-size: 0.5rem;" v-if="element.label.length > 6" >{{element.label}}</p>
+										<p style="font-size: 0.7rem;" v-if="element.label.length > 4 && element.label.length < 7" >{{element.label}}</p>
+										<p style="font-size: 1.1rem;" v-if="element.label.length < 5">{{element.label}}</p>
 									</div>
 								</div>
 							</transition-group>
@@ -95,7 +99,9 @@
 					<p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10"><!--点击进入频道--></span></p>
 					<ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6">
 						<li class="styleclass dargDiv others">
-							<p>{{ele.label}}</p>
+							<p style="font-size: 0.5rem;" v-if="ele.label.length > 6" >{{ele.label}}</p>
+							<p style="font-size: 0.7rem;" v-if="ele.label.length > 4 && ele.label.length < 7" >{{ele.label}}</p>
+							<p style="font-size: 1.1rem;" v-if="ele.label.length < 5">{{ele.label}}</p>
 							<i v-show="isShow" v-on:click="add(ele.id)" class="tianjia"></i>
 						</li>
 					</ul>
@@ -460,7 +466,7 @@
 	    height: 60px;
 	    border-radius: 14px;
 	    text-align: center;
-	    margin: 12px auto;
+	    margin: 1.8vw auto;
 	    font-size: 28px;
 	    color: #999;
 	    font-family: PingFangSC;
@@ -485,7 +491,7 @@
 		width:750px;
 		height:192px;
 		background:rgba(255,255,255,1);
-		border-bottom: 1px solid #E8E8E8;
+		border-bottom: 1px solid #EEEEEE;
 	}
 
 	.label-name {
@@ -493,7 +499,7 @@
 		left: 10px;
 		overflow: hidden;
 		text-overflow: ellipsis;
-        margin: 29px 54px 29px 32px;
+        margin: 29px 53px 29px 15px;
         font-size:32px;
 		font-family:PingFangSC-Regular;
 		color:rgba(51,51,51,1);

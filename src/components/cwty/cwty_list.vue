@@ -43,9 +43,9 @@
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
 				  	<router-link :to="{path: '/cwty/cwty_inp'}">
-						<header style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+						<div style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 							+ 托运宠物
-						</header>
+						</div>
 					</router-link>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  

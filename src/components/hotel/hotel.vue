@@ -104,14 +104,20 @@
 				})
 			},
 			more(){
-				this.clamp = !this.clamp;
-				this.mores = false;
+				//document.getElementById("contt").style.animation = "mynewmove 4s 2";
 				document.getElementById("contt").style.height='3511px';
+				setTimeout(()=>{
+					this.clamp = !this.clamp;
+					this.mores = false;
+				},1000);
 			},
 			less(){
-				this.clamp = !this.clamp;
-				this.mores = true;
+				//document.getElementById("contt").style.animation = "mynewmove 4s 2";
 				document.getElementById("contt").style.height='93px';
+				setTimeout(()=>{
+					this.clamp = !this.clamp;
+					this.mores = true;
+				},1000);
 			},
 			godetails(res){
 				window.location.href='http://localhost:9900/#/kaxw/kaxw_list/news_tuijian/0';
@@ -134,6 +140,7 @@
 		width: 100%;
 		height: 100%;
 	}
+	
 	*{
 	  -webkit-overflow-scrolling: touch;
 	  font-family: PingFangSC;
@@ -184,7 +191,8 @@
 	.bg_body_white {
 		background-color: #FFFFFF;
 	}
-	.contt{    
+	.contt{
+	    transition:height 1s;
 		font-size: 3.82vw;
 	    font-weight: Light;
 	    color: #333;

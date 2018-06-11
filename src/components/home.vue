@@ -39,6 +39,11 @@
 						</div>
 					</div>
 				</div>
+				<div style="height: 61px;padding-left: 21px;font-size: 18px;color: #333;border-bottom: 1px solid #f5f5f5;border-top: 10px solid #f5f5f5;margin-top: -6px;">
+					<div style="height: 20px;border-left: 4px solid rgb(40, 95, 177);margin-top: 18px;line-height: 20px;">
+						&nbsp;&nbsp;资讯
+					</div>
+				</div>
 				<div class="mt-cell mt-cell-st" @click="gokaxwdetails(element.sourceId)" v-for="(element,index) in pageList" :key="index">
 					<div style="color: #666666">
 						<div v-if="element.cover">
@@ -351,7 +356,7 @@
 	    font-size: 28px;
 	}
 	.tips{
-		width: 50%;
+		width: 49.5%;
 		float: left;
 		height: 110px;
 		line-height: 110px;
@@ -373,7 +378,7 @@
 	    top: 30px;
 	    left: 34px;
 	    height: 50px;
-	    width: 45px;
+	    width: 47px;
 	}
 	.icontitle{
 	    margin-left: 104px;

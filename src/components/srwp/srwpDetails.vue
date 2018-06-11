@@ -2,10 +2,10 @@
 	<!--选择要看的新闻类型-->
 	<div id="srwp_input">
 		<!--头部临时用-->
-		<!--<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			物品申报
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>-->
+		</header>
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
 			<div class="points1">
@@ -229,6 +229,7 @@
 	    width: 100%;
 	    overflow: auto;
 	    height: 100%;
+        padding-top: 88px;
 	}
 	.points{
 	    padding: 20px;

@@ -1,9 +1,9 @@
 <template>
 	<div id="serversDetails">
-		<!--<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			服务详情
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>-->
+		</header>
 		<div id="soll" class="page-tab-container">
 			<p class="points1">如需更改服务请拨打电话025-521637463</p>
 			<div id="overflow">
@@ -158,6 +158,7 @@ export default {
 		padding: 0;
 		width: 100%;
 		height: 100%;
+        padding-top: 88px;
 	}
 	#overflow{
 		width: 100%;
