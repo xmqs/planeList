@@ -82,7 +82,7 @@
 
 <script>
     export default {
-        name: "planeDetail",
+      name: "planeDetail",
       methods:{
         headerBack(){
           this.$router.back(-1);
@@ -90,7 +90,6 @@
       },
       mounted(){
         window.scrollTo(0,0);
-        console.log(this.$route.params);
       }
     }
 </script>

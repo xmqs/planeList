@@ -78,8 +78,8 @@
           this.planeCom = e;
         })
         Bus.$on('choseCity', (e) => {
-          if(e!=="南京"){
-            if(this.planeTo !== "南京"){
+          if(e.name!=="南京"){
+            if(this.planeTo.name !== "南京"){
               this.$set(this.$data, 'planeTo', e);
               this.planeTo = e;
             }else{
@@ -113,7 +113,6 @@
         },
         getAirFlight(){
           this.$router.push({name:'searchList',params:{planeNumber:this.planeNumber,planeFrom:this.planeFrom,planeTo:this.planeTo,planeCom:this.planeCom}});
-          //console.log(this.planeNumber + " "+this.planeFrom + " "+this.planeTo + " "+this.planeCom );
         },
         //选择城市
         choseCity(city){
@@ -143,12 +142,6 @@
         }
         next();
       },
-      beforeRouteEnter(to,from,next){
-        if(from.name == "searchList"){
-          from.meta.keepAlive = false;
-        }
-        next();
-      }
     }
 </script>
 

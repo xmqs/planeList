@@ -14,6 +14,7 @@ import Changeplane from "@/components/Flight/changeList"
 import PlaneDetail from "@/components/Flight/planeDetail"
 import cityList from "@/components/Flight/cityList"
 import searchList from "@/components/Flight/searchList"
+import testScroll from "@/components/Flight/testScroll"
 
 /*货物查询*/
 import hwcx from "@/components/hwcx/hwcx"
@@ -112,6 +113,11 @@ export default new Router({
       path: '/flight/planeDetail',
       name: 'PlaneDetail',
       component: PlaneDetail,
+    },
+    {
+      path: '/flight/testScroll',
+      name: 'testScroll',
+      component: testScroll,
     },
     {
       path: '/flight/searchList',

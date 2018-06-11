@@ -35,7 +35,7 @@
         </li>
         <infinite-loading @infinite="infiniteHandler">
           <span slot="no-more">
-            没有更多的航班了
+            没有航班了
           </span>
           <span slot="no-results">
             没有查询到对应航班
@@ -62,19 +62,25 @@
           }
       },
       mounted(){
-          this.list=[];
-          if(this.$route.params.planeFrom.name == "南京"){
-            this.direction = "D";
-          }else{
-            this.direction = "A";
+
+      },
+      activated(){
+          if(this.$route.params.planeCom||this.$route.params.planeFrom||this.$route.params.planeTo||this.$route.params.planeNumber){
+            this.list=[];
+            this.pageNumber = 1;
+            if(this.$route.params.planeFrom.name == "南京"){
+              this.direction = "D";
+            }else{
+              this.direction = "A";
+            }
+
+            this.planeCom = this.$route.params.planeCom.code;
+            this.planeFrom = this.$route.params.planeFrom.code;
+            this.planeTo = this.$route.params.planeTo.code;
+            this.planeNumber = this.$route.params.planeNumber;
+
+            this.infiniteHandler();
           }
-
-          this.planeCom = this.$route.params.planeCom.code;
-          this.planeFrom = this.$route.params.planeFrom.code;
-          this.planeTo = this.$route.params.planeTo.code;
-          this.planeNumber = this.$route.params.planeNumber;
-
-
       },
       methods:{
         infiniteHandler($state) {
@@ -135,16 +141,6 @@
       },
       components: {
         InfiniteLoading,
-      },
-
-      beforeRouteLeave(to,from,next){
-        if (to.name == "PlaneDetail"){
-          from.meta.keepAlive = true;
-          next();
-        }else{
-          from.meta.keepAlive = false;
-          next();
-        }
       },
     }
 </script>
