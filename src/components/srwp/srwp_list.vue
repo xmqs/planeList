@@ -318,6 +318,7 @@
 	    z-index: 3;
 	    width: 100%;
 	    height: 72px;
+		top: 90px;
 	}
 	.nav .active {    
 		border-bottom: 2px solid #285FB1;
@@ -325,7 +326,7 @@
 	    color: #285FB1;
 	}
 	.page-tab-container{    
-		margin-top: 90px;
+		margin-top: 21vw;
 	    position: fixed;
 	    width: 100%;
 	    height: 100%;
