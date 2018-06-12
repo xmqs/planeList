@@ -2,11 +2,11 @@
 	<!--选择要看的新闻类型-->
 	<div id="srwp_input">
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			物品申报
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
-		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+		</header> -->
+		<div style="position: fixed;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
 			正在加载,请稍后...
 		</div>
 		<!--内容-->
@@ -178,23 +178,15 @@
 			}
 		},
 		mounted() {
+		},
+		created: function() {
 		    Bus.$on('area', (e) => {
 		    	this.endCity = e;
 		    })
 		    Bus.$on('wplist1', (e) => {
 		    	this.packages = e;
 		    })
-		    Bus.$on('wplistID', (e) => {
-		    	this.ids = e;
-		    })
-		},
-		created: function() {
-		    Bus.$on('updateId', (e) => {
-		    	this.ids = e;
-		    })
-		    Bus.$on('list', (e) => {
-		    	this.ids = e;
-		    })
+			this.ids = this.$route.params.id;
 		    setTimeout(() => {
 		        this.getDetails();
 		    },100)
@@ -239,7 +231,6 @@
 	    width: 100%;
 	    overflow: auto;
 	    height: 100%;
-        padding-top: 88px;
 	}
 	.points{
 	    padding: 20px;

@@ -1,11 +1,11 @@
 <template>
 	<div id="pet_details">
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 99;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!--<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 99;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			物品清单
 			<img @click="bad(packages)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			<span v-show="add2" @click="complete" style="position: absolute;right: 13px;font-size: 16px;">完成</span>
-		</header>
+		</header>-->
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
 			<div v-show="add1" class="soll1">
@@ -37,6 +37,9 @@
 				<div class="add2_ele">
 					<label class="add2_tit">箱号</label>
 					<input class="add2_inps" type="number" placeholder="请输入箱号" v-model="boxNo" />
+				</div>
+				<div class="serversOK">
+					<button @click="submit()" class="shenbao">保存</button>
 				</div>
 			</div>
 		</div>
@@ -85,7 +88,7 @@
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
 			},
-			complete(){
+			submit(){
 				var input = document.querySelectorAll('.add2_inps');
 				var label = document.querySelectorAll('.add2_tit');
 				for(var i =0;i < input.length;i++){
@@ -122,17 +125,10 @@
 				this.packages.push(pack)
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
-			},
-			bad(res){
-				if (this.add1 == true) {
-					setTimeout(() => {
-				        Bus.$emit('wplist1', res)
-				    }, 30)
-					this.$router.back(-1)
-				} else{
-					this.add1 = !this.add1;
-					this.add2 = !this.add2;
-				}
+
+				setTimeout(() => {
+					Bus.$emit('wplist1', res)
+				}, 30)
 			},
 			getdetails(){
 				var that = this;
@@ -195,7 +191,6 @@
 	    overflow: auto;
 	    height: 100%;
 	    background: #F5F5F5;
-        padding-top: 88px;
 	}
 	.soll1,.add2{
 		background: #fff;
@@ -272,5 +267,15 @@
 	    outline: none;
 	    font-size: 32px;
 	    color: #777;
+	}
+	.shenbao{
+		border: 0;
+		background: #285fb1;
+		width: 90%;
+		height: 12.267vw;
+		font-size: 4.533vw;
+		font-family: PingFangSC-Regular;
+		color: #fff;
+		margin: 3% 0 3% 5%;
 	}
 </style>

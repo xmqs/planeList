@@ -176,7 +176,7 @@
 </style>
 <style>
 .mint-indexlist-navitem {
-    padding: .267vw 2vw !important;
+    padding: .267vw 1.7vw !important;
     font-size: 4.2vw !important;
 }
 .sp {

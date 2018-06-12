@@ -57,228 +57,228 @@ import phoneflight from "@/components/phoneflight/phoneflight.vue"
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-    //口岸新闻列表
-    {
-      path: '/kaxw/kaxw_list/:con/:flag',
-      name: 'kaxw_list',
-      component: kaxw_list
-    },
-    //口岸新闻详情
-    {
-      path: '/kaxw/kaxw_details/:sourceId/:cons',
-      name: 'kaxw_details',
-      component: kaxw_details
-    },
-    //查询
-    {
-      path: '/kaxw/search',
-      name: 'search',
-      component: search
-    },
-    //货物查询
-    {
-      path: '/hwcx/hwcx',
-      name: 'hwcx',
-      component: hwcx
-    },
-    //航班动态
-    {
-      path: '/flight/destination',
-      name: 'Destination',
-      component: Destination,
-      meta:{
-        keepAlive: true
-      }
-    },
-    {
-      path: '/flight/myList',
-      name: 'MyList',
-      component: MyList
-    },
-    {
-      path: '/flight/cityList',
-      name: 'cityList',
-      component: cityList
-    },
-    {
-      path: '/flight/selectpalne',
-      name: 'SelectPalne',
-      component: SelectPalne,
-    },
-    {
-      path: '/flight/changeplane',
-      name: 'Changeplane',
-      component: Changeplane,
-    },
-    {
-      path: '/flight/planeDetail',
-      name: 'PlaneDetail',
-      component: PlaneDetail,
-      meta:{
-        keepAlive:true
-      }
-    },
-    {
-      path: '/flight/testScroll',
-      name: 'testScroll',
-      component: testScroll,
-    },
-    {
-      path: '/flight/searchList',
-      name: 'searchList',
-      component: searchList,
-      meta:{
-        keepAlive: true
-      }
-    },
-    /*宠物托运*/
-		{
-			path: '/cwty/cwty_list/:con',
-			name: 'cwty_list',
-			component: cwty_list,
-		},
-		{
-			path: '/cwty/servers',
-			name: 'servers',
-			component: servers,
-		},
-		{
-			path: '/cwty/petDetails',
-			name: 'petDetails',
-			component: petDetails,
-		},
-		{
-			path: '/cwty/rate',
-			name: 'rate',
-			component: rate,
-		},
-		{
-			path: '/cwty/serversDetails',
-			name: 'serversDetails',
-			component: serversDetails,
-		},
-		{
-			path: '/cwty/checked',
-			name: 'checked',
-			component: checked,
-		},
-		{
-			path: '/cwty/cwty_inp',
-			name: 'cwty_inp',
-			component: cwty_inp,
-			meta: {
-		        keepAlive: true
-		  }
-		},
-		{
-			path: '/cwty/cwty_upd',
-			name: 'cwty_upd',
-			component: cwty_upd,
-			meta: {
-		        keepAlive: true
-		    }
-		},
-		{
-			path: '/cwty/IndexList',
-			name: 'IndexList',
-			component: IndexList,
-		},
-		{
-			path: '/chiose_rad/chiose_rad',
-			name: 'chiose_rad',
-			component: chiose_rad,
-		},
-		{
-			path: '/calendar/calendar',
-			name: 'calendar',
-			component: calendar,
-		},
-		{
-			path: '/chiose_rad/myzh',
-			name: 'myzh',
-			component: myzh,
-			meta: {
-		        keepAlive: true
-		  }
-		},
-		{
-			path: '/chiose_rad/cwzp',
-			name: 'cwzp',
-			component: cwzp,
-		},
-		/*私人物品*/
-		{
-			path: '/srwp/srwp_list',
-			name: 'srwp_list',
-			component: srwp_list
-		},
-		{
-			path: '/srwp/srwp_inp',
-			name: 'srwp_inp',
-			component: srwp_inp,
-		},
-		{
-			path: '/srwp/srwp_upd',
-			name: 'srwp_upd',
-			component: srwp_upd,
-			meta: {
-		        keepAlive: true
-		  }
-		},
-		{
-			path: '/srwp/srwpDetails',
-			name: 'srwpDetails',
-			component: srwpDetails
-		},
-		{
-			path: '/srwp/wplist',
-			name: 'wplist',
-			component: wplist,
-		},
-		{
-			path: '/srwp/disWplist',
-			name: 'disWplist',
-			component: disWplist,
-		},
-		{
-			path: '/srwp/IndexList',
-			name: 'srwpIndexList',
-			component: srwpIndexList,
-		},
-		{
-			path: '/srwp/servers',
-			name: 'srwpservers',
-			component: srwpservers,
-		},
-		{
-			path: '/srwp/serversDetails',
-			name: 'srwpserversDetails',
-			component: srwpserversDetails,
-		},
-		{
-			path: '/srwp/srwpchecked',
-			name: 'srwpchecked',
-			component: srwpchecked,
-		},
-		{
-			path: '/srwp/srwprate',
-			name: 'srwprate',
-			component: srwprate,
-		},
-		{
-			path: '/hotel/hotel',
-			name: 'hotel',
-			component: hotel,
-		},
-		{
-			path: '/phoneflight/phoneflight',
-			name: 'phoneflight',
-			component: phoneflight,
-		}
-  ]
+    routes: [{
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        //口岸新闻列表
+        {
+            path: '/kaxw/kaxw_list/:con/:flag',
+            name: 'kaxw_list',
+            component: kaxw_list
+        },
+        //口岸新闻详情
+        {
+            path: '/kaxw/kaxw_details/:sourceId/:cons',
+            name: 'kaxw_details',
+            component: kaxw_details
+        },
+        //查询
+        {
+            path: '/kaxw/search',
+            name: 'search',
+            component: search
+        },
+        //货物查询
+        {
+            path: '/hwcx/hwcx',
+            name: 'hwcx',
+            component: hwcx
+        },
+        //航班动态
+        {
+            path: '/flight/destination',
+            name: 'Destination',
+            component: Destination,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/flight/myList',
+            name: 'MyList',
+            component: MyList
+        },
+        {
+            path: '/flight/cityList',
+            name: 'cityList',
+            component: cityList
+        },
+        {
+            path: '/flight/selectpalne',
+            name: 'SelectPalne',
+            component: SelectPalne,
+        },
+        {
+            path: '/flight/changeplane',
+            name: 'Changeplane',
+            component: Changeplane,
+        },
+        {
+            path: '/flight/planeDetail',
+            name: 'PlaneDetail',
+            component: PlaneDetail,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/flight/testScroll',
+            name: 'testScroll',
+            component: testScroll,
+        },
+        {
+            path: '/flight/searchList',
+            name: 'searchList',
+            component: searchList,
+            meta: {
+                keepAlive: true
+            }
+        },
+        /*宠物托运*/
+        {
+            path: '/cwty/cwty_list/:con',
+            name: 'cwty_list',
+            component: cwty_list,
+        },
+        {
+            path: '/cwty/servers',
+            name: 'servers',
+            component: servers,
+        },
+        {
+            path: '/cwty/petDetails',
+            name: 'petDetails',
+            component: petDetails,
+        },
+        {
+            path: '/cwty/rate',
+            name: 'rate',
+            component: rate,
+        },
+        {
+            path: '/cwty/serversDetails',
+            name: 'serversDetails',
+            component: serversDetails,
+        },
+        {
+            path: '/cwty/checked',
+            name: 'checked',
+            component: checked,
+        },
+        {
+            path: '/cwty/cwty_inp',
+            name: 'cwty_inp',
+            component: cwty_inp,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/cwty/cwty_upd',
+            name: 'cwty_upd',
+            component: cwty_upd,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/cwty/IndexList',
+            name: 'IndexList',
+            component: IndexList,
+        },
+        {
+            path: '/chiose_rad/chiose_rad',
+            name: 'chiose_rad',
+            component: chiose_rad,
+        },
+        {
+            path: '/calendar/calendar',
+            name: 'calendar',
+            component: calendar,
+        },
+        {
+            path: '/chiose_rad/myzh',
+            name: 'myzh',
+            component: myzh,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/chiose_rad/cwzp',
+            name: 'cwzp',
+            component: cwzp,
+        },
+        /*私人物品*/
+        {
+            path: '/srwp/srwp_list',
+            name: 'srwp_list',
+            component: srwp_list
+        },
+        {
+            path: '/srwp/srwp_inp',
+            name: 'srwp_inp',
+            component: srwp_inp,
+        },
+        {
+            path: '/srwp/srwp_upd',
+            name: 'srwp_upd',
+            component: srwp_upd,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/srwp/srwpDetails/:id',
+            name: 'srwpDetails',
+            component: srwpDetails
+        },
+        {
+            path: '/srwp/wplist',
+            name: 'wplist',
+            component: wplist,
+        },
+        {
+            path: '/srwp/disWplist',
+            name: 'disWplist',
+            component: disWplist,
+        },
+        {
+            path: '/srwp/IndexList',
+            name: 'srwpIndexList',
+            component: srwpIndexList,
+        },
+        {
+            path: '/srwp/servers/:id',
+            name: 'srwpservers',
+            component: srwpservers,
+        },
+        {
+            path: '/srwp/serversDetails/:id',
+            name: 'srwpserversDetails',
+            component: srwpserversDetails,
+        },
+        {
+            path: '/srwp/srwpchecked/:id',
+            name: 'srwpchecked',
+            component: srwpchecked,
+        },
+        {
+            path: '/srwp/srwprate/:id',
+            name: 'srwprate',
+            component: srwprate,
+        },
+        {
+            path: '/hotel/hotel',
+            name: 'hotel',
+            component: hotel,
+        },
+        {
+            path: '/phoneflight/phoneflight',
+            name: 'phoneflight',
+            component: phoneflight,
+        }
+    ]
 })

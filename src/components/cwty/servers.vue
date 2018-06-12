@@ -11,7 +11,7 @@
 					<div class="yaoqiu">{{element.description}}</div>
 					<div @click="cost1" class="allradio">
 						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;"  :key="ele">
-							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i style="color:#285fb1">✓</i>{{ele.title}}</label>
         				<label v-else style="float: left;">
         					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
 					</div>
@@ -189,12 +189,12 @@ export default {
 		margin-right: 17%;
     }
     label i {
-        font-size: 12px;
+        font-size: 4vw;
         display: inline-block;
-        width: 12px;
-        height: 12px;
+        width: 24px;
+        height: 24px;
         text-align: center;
-        line-height: 12px;
+        line-height: 24px;
         color: #fff;
         vertical-align: middle;
         margin: -2px 2px 1px 0px;
@@ -213,11 +213,13 @@ export default {
     }
      
     input[type="radio"]:checked+ i {
-        width: 5.533vw;
+		width: 5.533vw;
 		height: 5.533vw;
 		border-radius: 50%;
 		font-size: 6.2vw;
 		text-align: left;
+		color: #fff;
+		background: #285fb1;
     }
      
     input[type="radio"]:disabled+ i {

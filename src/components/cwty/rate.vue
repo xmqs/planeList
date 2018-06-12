@@ -135,5 +135,9 @@
     color: #c0c4cc;
     transition: .3s;
 }
+.el-rate__text {
+    font-size: 3.867vw;
+    vertical-align: middle;
+}
 </style>
 

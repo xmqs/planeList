@@ -4,12 +4,12 @@
 			正在加载,请稍后...
 		</div>
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			私人物品申报平台
 			<router-link :to="{path:'/'}">
 				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
-		</header>
+		</header> -->
 		<div id="con">  
 			<div class="nav">
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>  
@@ -20,27 +20,29 @@
 			<div class="page-tab-container" v-bind:style="{width: widthData}">  
 			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
 				<mt-tab-container-item id="tab-container1">  
-				  	<div v-for="ele in list" v-if="status == 10" class="ele" :key="ele">
+				  	<div v-for="ele in list" v-if="status == 10" class="ele" :key="ele.id">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已申报</span>
 				  		</div>
-				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages" :key="index">
-										<span v-if="index == 0">
-											{{ele1.name}}
+						<a :href ="'/H5/index.html#/srwp/srwpDetails/'+ele.id">
+							<div class="ele2">
+								<div class="ele2-1 ele2-2">
+									<p class="pet-name">
+										<span v-for="(ele1,index) in ele.packages" :key="index">
+											<span v-if="index == 0">
+												{{ele1.name}}
+											</span>
+											<span v-else>
+												,{{ele1.name}}
+											</span>
 										</span>
-										<span v-else>
-											,{{ele1.name}}
-										</span>
-									</span>
-					  			</p>
-					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
-					  			<p class="pet-time">{{ele.createTime}}</p>
-				  			</div>
-				  		</div>
+									</p>
+									<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
+									<p class="pet-time">{{ele.createTime}}</p>
+								</div>
+							</div>
+						</a>
 				  		<div class="ele3">
 				  			<button @click="update(ele.id)" class="update_b">编辑</button>
 				  		</div>
@@ -60,24 +62,29 @@
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
 				  		</div>
-				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages" :key="index">
-										<span v-if="index == 0">
-											{{ele1.name}}
+						<a :href ="'/H5/index.html#/srwp/srwpDetails/'+ele.id">
+							<div class="ele2">
+								<div class="ele2-1 ele2-2">
+									<p class="pet-name">
+										<span v-for="(ele1,index) in ele.packages" :key="index">
+											<span v-if="index == 0">
+												{{ele1.name}}
+											</span>
+											<span v-else>
+												,{{ele1.name}}
+											</span>
 										</span>
-										<span v-else>
-											,{{ele1.name}}
-										</span>
-									</span>
-					  			</p>
-					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
-					  			<p class="pet-time">{{ele.createTime}}</p>
-				  			</div>
-				  		</div>
+									</p>
+									<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
+									<p class="pet-time">{{ele.createTime}}</p>
+								</div>
+							</div>
+						</a>
 				  		<div class="ele3">
-			  				<button @click="serversId(ele.id)" class="update_b">选择服务</button>
+							<a :href ="'/H5/index.html#/srwp/servers/'+ele.id">
+			  					<button class="update_b">选择服务</button>
+			  					<!-- <button @click="serversId(ele.id)" class="update_b">选择服务</button> -->
+							</a>
 				  		</div>
 				  	</div> 
 				  	<div v-if="list.length == 0" class="kong">
@@ -90,25 +97,34 @@
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
 				  		</div>
-				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages" :key="index">
-										<span v-if="index == 0">
-											{{ele1.name}}
+						<a :href ="'/H5/index.html#/srwp/srwpDetails/'+ele.id">
+							<div class="ele2">
+								<div class="ele2-1 ele2-2">
+									<p class="pet-name">
+										<span v-for="(ele1,index) in ele.packages" :key="index">
+											<span v-if="index == 0">
+												{{ele1.name}}
+											</span>
+											<span v-else>
+												,{{ele1.name}}
+											</span>
 										</span>
-										<span v-else>
-											,{{ele1.name}}
-										</span>
-									</span>
-					  			</p>
-					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
-					  			<p class="pet-time">{{ele.createTime}}</p>
-				  			</div>
-				  		</div>
+									</p>
+									<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
+									<p class="pet-time">{{ele.createTime}}</p>
+								</div>
+							</div>
+						</a>
 				  		<div class="ele3">
-		  					<button @click="tyxq(ele)" class="update_b">托运详情</button>
-			  				<button @click="serversDetails(ele.id)" style="border-color: #999;color: #333;" class="update_b">服务详情</button>
+							<a :href ="'/H5/index.html#/srwp/srwpchecked/'+ele.id">
+			  					<button class="update_b">托运详情</button>
+			  					<!-- <button @click="tyxq(ele)" class="update_b">托运详情</button> -->
+							</a>
+							<a :href ="'/H5/index.html#/srwp/serversDetails/'+ele.id">
+			  					<button style="border-color: #999;color: #333;" class="update_b">服务详情</button>
+			  					<!-- <button @click="serversDetails(ele.id)" style="border-color: #999;color: #333;" class="update_b">服务详情</button> -->
+							</a>
+			  				
 				  		</div>
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
@@ -121,25 +137,35 @@
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
 				  		</div>
-				  		<div class="ele2" @click="bus(ele.id)">
-				  			<div class="ele2-1 ele2-2">
-					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages" :key="index">
-										<span v-if="index == 0">
-											{{ele1.name}}
+						  
+						<a :href ="'/H5/index.html#/srwp/srwpDetails/'+ele.id">
+							<div class="ele2">
+								<div class="ele2-1 ele2-2">
+									<p class="pet-name">
+										<span v-for="(ele1,index) in ele.packages" :key="index">
+											<span v-if="index == 0">
+												{{ele1.name}}
+											</span>
+											<span v-else>
+												,{{ele1.name}}
+											</span>
 										</span>
-										<span v-else>
-											,{{ele1.name}}
-										</span>
-									</span>
-					  			</p>
-					  			<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
-					  			<p class="pet-time">{{ele.createTime}}</p>
-				  			</div>
-				  		</div>
+									</p>
+									<p class="pet-where">{{ele.startCity}}->{{ele.endCity}}</p>
+									<p class="pet-time">{{ele.createTime}}</p>
+								</div>
+							</div>
+						</a>
 				  		<div class="ele3">
-			  				<p @click="text(ele.id,ele.petPicture[0])" class="update_b">评价</p>
-			  				<p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p>
+							<a :href ="'/H5/index.html#/srwp/srwprate/'+ele.id">	
+			  					<button class="update_b">评价</button>
+			  					<!-- <p @click="text(ele.id)" class="update_b">评价</p> -->
+							</a>
+							<a :href ="'/H5/index.html#/srwp/srwpchecked/'+ele.id">
+			  					<button style="border-color: #999;color: #333;" class="update_b">托运详情</button>
+			  					<!-- <p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p> -->
+							</a>
+			  				
 				  		</div>
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
@@ -178,10 +204,7 @@
 			
 		},
 		mounted() {
-			if (this.active == undefined) {
-				this.active = 'tab-container1'
-			}
-			this.select_item(this.active);
+
 		},
 		watch: {
 			active: function(newValue) {
@@ -200,7 +223,6 @@
 		},
 		created() {
 			this.login();
-			this.active = this.$route.params.res;
 			if (this.active == 'tab-container1') {
 				this.status = 10;
 			} else if (this.active == 'tab-container2'){
@@ -321,20 +343,19 @@
 	    z-index: 3;
 	    width: 100%;
 	    height: 72px;
-		top: 90px;
 	}
-	.nav .active {    
+	.nav .active {
 		border-bottom: 2px solid #285FB1;
 	    font-size: 1.8rem;
 	    color: #285FB1;
 	}
 	.page-tab-container{    
-		margin-top: 21vw;
+		margin-top: 9vw;
 	    position: fixed;
 	    width: 100%;
 	    height: 100%;
 	    overflow-y: auto;
-	    padding-bottom: 255px;
+	    padding-bottom: 19.2vw;
 	}
 	.class-a {
 		border-bottom:4px solid #285FB1 !important;
@@ -440,11 +461,10 @@
 		border:1px solid rgba(40,95,177,1);
 	    border-radius: 10px;
 	    margin:14px;
-	    height: 54px;
+		height: 7.2vw;
 	    width: 150px;
-	    line-height: 33px;
 	    text-align: center;
-	    
+	    line-height: 7vw;
 	    font-size:26px;
 		font-family:PingFangSC-Regular;
 		color:rgba(40,95,177,1);
