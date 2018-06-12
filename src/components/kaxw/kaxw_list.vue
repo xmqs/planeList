@@ -296,15 +296,15 @@
 					for(var j = 0; j < list2.length; j++) {
 						list3.push(list2[j].id)
 					}
-					axios({
-						method: 'POST',
-						data: list3,
-						url: '/web-editor-web/channel/save.do',
-						dataType: 'json',
-						success: function(data1) {
-
-						}
+					var that = this;
+					axios.post('/web-editor-web/channel/save.do',list3, {
 					})
+					.then(function (response) {
+						
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
 				}
 			},
 			close: function() {
@@ -317,6 +317,7 @@
 					this.paixu = "点击进入频道";
 					this.isShow = false;
 				}
+				this.$router.go(0);
 			},
 			others: function() {
 				this.animation_out = true;
@@ -325,9 +326,11 @@
 				this.dio = true;
 				//window.location.href = "/kaxw/kaxw_details"
 			},
-			getmenu: function() {
+			getmenu() {
 				var _that = this;
 				axios.get('/web-editor-web/channel/query.do', {}).then(function(res) {
+					_that.menu = [];
+					_that.list2 = [];
 					for(var j = 0; j < res.data.data.length; j++) {
 						_that.menu.push(res.data.data[j])
 						_that.list2.push(res.data.data[j])
@@ -413,6 +416,23 @@
 	       		_that.searchCondition.pageSize = parseInt(_that.searchCondition.pageSize) + 10;
 				axios.get('/web-editor-web/channel/list.do?', {
 					params: _that.searchCondition
+				}).then(function(res) {
+					_that.pageList = [];
+					_that.animent = false;
+					for(var j = 0; j < res.data.data.length; j++) {
+						_that.pageList.push(res.data.data[j])
+					}
+				})
+	      },
+	      refnav(){
+	          //分页查询
+				var _that = this;
+				axios.get('/web-editor-web/channel/list.do?', {
+					params:{
+						channelAlias: 'news_tuijian',
+						pageNo: 1,
+						pageSize: 10
+					}
 				}).then(function(res) {
 					_that.pageList = [];
 					_that.animent = false;

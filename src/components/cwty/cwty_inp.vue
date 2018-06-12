@@ -459,6 +459,14 @@
 		font-family: PingFangSC;
 	  -webkit-overflow-scrolling: touch;
 	}
+	input, textarea {
+		-khtml-user-select: auto!important;
+		-moz-user-select: auto!important;
+		-ms-user-select: auto!important;
+		-o-user-select: auto!important;
+		user-select: auto!important;
+		-webkit-appearance: none;
+	}
 	p{
 	    background: #fff5e5;
 	    line-height: 40px;

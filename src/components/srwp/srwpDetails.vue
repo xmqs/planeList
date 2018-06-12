@@ -6,6 +6,9 @@
 			物品申报
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 		</header>
+		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+			正在加载,请稍后...
+		</div>
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
 			<div class="points1">
@@ -104,6 +107,7 @@
 				value:"",
 				homeDelivery:false,
 		        packagesName:'',
+				lod:true
 			}
 		},
 	    activated() {
@@ -167,6 +171,9 @@
 					that.ownerTelNo = data.data.data.ownerTelNo;
 					that.bigPackageList = data.data.data.bigPackageList;
 					that.travelList = data.data.data.travelList;
+					setTimeout(()=>{
+						that.lod = false;
+					},100);
 				})
 			}
 		},

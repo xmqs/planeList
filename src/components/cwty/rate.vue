@@ -9,7 +9,7 @@
     <div id="ele">
     	<div class="ele ele_1">
     		<div class="ele1">
-    			<img style="width: 50px;height: 50px;" src="../../../res/img/Rectangle183.png"/>
+    			<img style="width: 40px;height: 4	0px;" src="../../../res/img/Rectangle183.png"/>
     		</div>
     		<div style="margin-left: 14px;" class="ele1 ele1_1">
     			综合评价
@@ -85,7 +85,7 @@
 		
 	}
 	#ele{
-		margin-top: 45px;
+		margin-top: 14vw;
 		width: 100%;
     position: fixed;
     height: 100%;
@@ -98,32 +98,42 @@
   	float: left;
   }
   .ele_1{
-  	    height: 66px;
+		height: 17.8vw;
     padding: 7px;
     background: #fff;
+		padding-left: 3vw;
   }
   .ele1_1{
-  	    font-size: 15px;
+  		font-size: 4.2vw;
   	    padding: 9px;
     margin-top: 10px;
   }
   textarea{
-  	    width: 100%;
-    height: 180px;
+    width: 100%;
+    height: 48vw;
     resize: none;
     border: 0;
     border-top: 1px solid #ccc;
-    padding: 7px;
-    font-size: 14px;
+    padding: 1.933vw;
+    font-size: 3.77vw;
   }
 	.shenbao{
 	    border: 0;
 	    background: #285fb1;
 	    color: #fff;
 	    width: 90%;
-	    height: 45px;
-	    font-size: 16px;
+			height: 11vw;
+   		font-size: 4.133vw;
     	margin-left: 5%;
     	margin-top: 14px;
 	}
 </style>
+<style>
+.el-rate__icon {
+    font-size: 5.7vw;
+    margin-right: .8vw;
+    color: #c0c4cc;
+    transition: .3s;
+}
+</style>
+

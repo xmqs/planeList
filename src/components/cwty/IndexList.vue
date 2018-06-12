@@ -100,7 +100,7 @@
 	}
 	.inp{
 	    width: 100%;
-    	padding: 17px 32px 17px 67px;
+    	padding: 17px 14px 17px 67px;
 	}
 	.inp_s{
 	    width: 100%;
@@ -128,12 +128,12 @@
 	}
 	.mint-indexlist-nav{
 		background-color: #474747 !important;
-	    height: 85%;
+	    height: 95%;
 	    line-height: 32px;
 	    border-radius: 8px;
 	    color: #fff;
 	    position: absolute;
-	    top: 10% !important;
+	    top: 1px !important;
 	}
 	.citys{
         color: #333;
@@ -176,8 +176,8 @@
 </style>
 <style>
 .mint-indexlist-navitem {
-    padding: .267vw 1vw !important;
-    font-size: 3.6vw !important;
+    padding: .267vw 2vw !important;
+    font-size: 4.2vw !important;
 }
 .sp {
     height:12vw !important;

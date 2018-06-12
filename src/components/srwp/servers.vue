@@ -163,9 +163,9 @@ export default {
 	}
 	li{    
 		list-style: none;
-	    min-height: 228px;
-	    background: #fff;
-	    border-bottom: 11px solid #f5f5f5;
+		height: 31.333vw;
+		background: #fff;
+		border-bottom: 1.467vw solid #f5f5f5;
 	}
 	.shenbao{
 	    border: 0;
@@ -177,9 +177,10 @@ export default {
 		color:rgba(255,255,255,1);
 	}
 	div{
-		padding: 13px;
-		font-size: 32px;
+		padding: .933vw;
+		font-size: 4.267vw;
 		color: #333;
+		padding-left: 3vw;
 	}
 	.yaoqiu{
 		color: #999;
@@ -192,15 +193,15 @@ export default {
 	}
 	.allradio{
 		white-space: nowrap;
-	    margin: 18px 2px 2px 8px;
-	    border-top: 1px solid #dfdfdf;
-	    line-height: 68px;
-        height: 88px;
+		margin: 2.4vw .267vw .267vw 0.067vw;
+		border-top: 1px solid #dfdfdf;
+		line-height: 9.733vw;
+		height: 10.4vw;
 	}
     label {
-		font-size: 32px;
+		font-size: 4vw;
 		color: #333;
-	    margin-right: 17%;
+		margin-right: 17%;
     }
     label i {
         font-size: 12px;
@@ -227,11 +228,11 @@ export default {
     }
      
     input[type="radio"]:checked+ i {
-        background: #285FB1;
-	    width: 40px;
-	    height: 40px;
-	    border-radius: 50%;
-	    font-size: 48px;
+        width: 5.533vw;
+		height: 5.533vw;
+		border-radius: 50%;
+		font-size: 6.2vw;
+		text-align: left;
     }
      
     input[type="radio"]:disabled+ i {

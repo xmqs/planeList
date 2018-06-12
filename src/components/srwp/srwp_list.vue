@@ -287,7 +287,7 @@
 					that.list = data.data.data;
 					setTimeout(()=>{
 						that.lod = false;
-					},700);
+					},100);
 				})
 			}
 		}

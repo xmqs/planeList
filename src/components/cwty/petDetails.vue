@@ -5,6 +5,9 @@
 			订单详情
 				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 		</header>
+		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+			正在加载,请稍后...
+		</div>
 		<!--内容-->
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<div class="ele1">
@@ -102,6 +105,7 @@
 
 				list:[],
 				ids:"",
+				lod:true
 			}
 		},
 	    activated() {
@@ -145,6 +149,9 @@
 					that.cwzl = data.data.data.petWeight;
 					that.fhd = data.data.data.startCity;
 					that.dz = data.data.data.homeAddress;
+					setTimeout(()=>{
+						that.lod = false;
+					},100);
 				})
 			}
 		},

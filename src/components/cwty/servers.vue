@@ -18,6 +18,9 @@
 				</li>
 			</ul>
 		</div>
+		<div class="serversOK">
+			<button @click="submit()" class="shenbao">提交服务</button>
+		</div>
 	</div>
 </template>
 <script>
@@ -133,40 +136,57 @@ export default {
 	}
 	#soll{
 		padding: 0;
+        padding-top: 88px;
 	}
 	ul{
+		-webkit-overflow-scrolling: touch;
 	    overflow: auto;
 	    height: 100%;
 	    position: fixed;
-	    padding-bottom: 34px;    
-	    width: 100%;
+	    padding-bottom: 96px;
+        width: 100%;
 	}
 	li{    
 		list-style: none;
-	    height: 145px;
-	    background: #fff;
-	    border-bottom: 11px solid #f5f5f5;
+		height: 31.333vw;
+		background: #fff;
+		border-bottom: 1.467vw solid #f5f5f5;
+	}
+	.shenbao{
+	    border: 0;
+	    background: #285fb1;
+	    width: 100%;
+	    height: 92px;
+	    font-size:34px;
+		font-family:PingFangSC-Regular;
+		color:rgba(255,255,255,1);
 	}
 	div{
-		padding: 7px;
-		font-size: 17px;
+		padding: .933vw;
+		font-size: 4.267vw;
 		color: #333;
+		padding-left: 3vw;
 	}
 	.yaoqiu{
 		color: #999;
-    	font-size: 14px;
+    	font-size: 28px;
+		padding-left: 25px;
+	}
+	.tishi{
+    	font-size: 32px;
+		padding-left: 25px;
 	}
 	.allradio{
 		white-space: nowrap;
-	    margin: 18px 2px 2px 8px;
-	    border-top: 1px solid #dfdfdf;
-	    line-height: 28px;
-        height: 48px;
+		margin: 2.4vw .267vw .267vw 0.067vw;
+		border-top: 1px solid #dfdfdf;
+		line-height: 9.733vw;
+		height: 10.4vw;
 	}
     label {
-		font-size: 17px;
+		font-size: 4vw;
 		color: #333;
-	    margin-right: 17%;
+		margin-right: 17%;
     }
     label i {
         font-size: 12px;
@@ -182,22 +202,22 @@ export default {
     }
      
     input[type="radio"] {
-        display: none;
+    	display: none;
     }
      
     input[type="radio"]+ i {
-	    width: 19px;
-	    height: 19px;
+	    width: 40px;
+	    height: 40px;
 	    border-radius: 50%;
-	    font-size: 24px;
+	    font-size: 48px;
     }
      
     input[type="radio"]:checked+ i {
-        background: #285FB1;
-	    width: 19px;
-	    height: 19px;
-	    border-radius: 50%;
-	    font-size: 24px;
+        width: 5.533vw;
+		height: 5.533vw;
+		border-radius: 50%;
+		font-size: 6.2vw;
+		text-align: left;
     }
      
     input[type="radio"]:disabled+ i {
@@ -207,4 +227,29 @@ export default {
     input[type="radio"]:checked:disabled+ i {
         background: #ccc;
     }
+    .serversOK{
+		height: 50px;
+	    line-height: 31px;
+	    background: #fff;
+	    text-align: right;
+	    position: fixed;
+	    width: 100%;
+	    bottom: 90px;
+        padding: 25px 30px;
+	}
+	.submit{
+	    width: 120px;
+	    text-align: center;
+	    line-height: 50px;
+	    float: right;
+	    background: #285fb1;
+	    height: 50px;
+	    padding: 0;
+	    color: #fff;
+	}
+	.allcost{
+		padding: 0;
+    float: left;
+    padding: 10px 0 8px 15px;
+	}
 </style>

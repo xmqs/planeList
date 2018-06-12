@@ -28,7 +28,7 @@
 						<div class="yaoqiu">根据距离收取相应费用</div>
 						<div class="price">普通￥20</div>
 		  			</div>-->
-		  			<div v-if="homeAddress != null" class="ele2-4">
+		  			<div class="ele2-4">
 						<div class="addr">地址</div>
 						<div class="addr addr1">{{homeAddress}}</div>
 		  			</div>
@@ -208,11 +208,12 @@ export default {
 	    margin-bottom: 12px;
 	}
 	.ele2-4{
-        width: 100%;
-	    height: 24px;
-	    line-height: 25px;
-	    font-size: 16px;
-	    color: #333;
+		width: 100%;
+		height: 8.2vw;
+		line-height: 8.2vw;
+		font-size: 4.133vw;
+		color: #333;
+		padding-left: 2vw;
 	}
 	.ele2-2{
 		padding: 7px;

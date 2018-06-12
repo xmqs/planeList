@@ -65,7 +65,7 @@
 				  			</div>
 				  		</div>
 				  		<div class="ele3">
-			  				<button @click="serversId(ele.id)" class="update_b">更该服务</button>
+			  				<button @click="serversId(ele.id)" class="update_b">选择服务</button>
 				  		</div>
 				  	</div> 
 				  	<div v-if="list.length == 0" class="kong">
@@ -189,7 +189,10 @@
 			} else if (this.active == 'tab-container4'){
 				this.status = 50;
 			}
-			this.getList();
+			
+			setTimeout(() => {
+				this.getList();
+			}, 500)
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
@@ -265,7 +268,7 @@
 					that.list = data.data.data;
 					setTimeout(()=>{
 						that.lod = false;
-					},700);
+					},100);
 				})
 			}
 		}
@@ -415,11 +418,10 @@
 		border:1px solid rgba(40,95,177,1);
 	    border-radius: 10px;
 	    margin:14px;
-	    height: 54px;
+		height: 7.2vw;
 	    width: 150px;
-	    line-height: 33px;
 	    text-align: center;
-	    
+	    line-height: 7vw;
 	    font-size:26px;
 		font-family:PingFangSC-Regular;
 		color:rgba(40,95,177,1);
