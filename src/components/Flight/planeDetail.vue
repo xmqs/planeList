@@ -92,7 +92,7 @@
               <img src="./../../../static/img/PageTP2.png" alt="">
               <p>登记路线</p>
             </div>
-            <div>
+            <div @click="tohotel">
               <img src="./../../../static/img/PageTP3.png" alt="">
               <p>机场酒店</p>
             </div>
@@ -110,6 +110,9 @@
     export default {
       name: "planeDetail",
       methods:{
+        tohotel(){
+          this.$router.push({name:'hotel'});
+        },
         headerBack(){
           this.$router.back(-1);
         },

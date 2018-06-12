@@ -115,7 +115,7 @@
         changefocus(num){
           axios.post('/eport-server/airFlight/followAirFlight.do',{
             flightIdentity:num,
-            userId:JSON.parse(sessionStorage.getItem('userifo ')).idNumber
+            userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
           }).then((response)=> {
             for (let i = 0;i<this.list.length;i++){
               if(this.list[i].FlightIdentity == num){
