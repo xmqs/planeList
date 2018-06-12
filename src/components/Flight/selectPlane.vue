@@ -54,16 +54,16 @@
 
 <style scoped>
   .change_plane li{
-    background:rgba(255,255,255,1);
-    font-size:1.6rem;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
-    line-height:2.75rem;
-    padding: .6rem 1.4rem;
+    line-height:45px;
     border-bottom: 1px solid #eee;
+    padding: 22px 32px;
   }
   .change_plane li.onclick{
     color:rgba(40,95,177,1);
     background: url("./../../../static/img/plane_click.png") 96% no-repeat;
-    background-size: 1.6rem ;
+    background-size: 32px;
   }
 </style>

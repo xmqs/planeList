@@ -119,6 +119,9 @@ export default new Router({
       path: '/flight/planeDetail',
       name: 'PlaneDetail',
       component: PlaneDetail,
+      meta:{
+        keepAlive:true
+      }
     },
     {
       path: '/flight/testScroll',
