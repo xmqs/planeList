@@ -81,7 +81,18 @@
 
 <style scoped>
 	*{
+	  -webkit-overflow-scrolling: touch;
+	}
+	*{
 		font-family: PingFangSC;
+	}
+	input, textarea {
+		-khtml-user-select: auto!important;
+		-moz-user-select: auto!important;
+		-ms-user-select: auto!important;
+		-o-user-select: auto!important;
+		user-select: auto!important;
+		-webkit-appearance: none;
 	}
 	 @component-namespace page {
     @component actionsheet {

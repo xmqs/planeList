@@ -14,7 +14,7 @@
 			<div class="scrollx mescroll-touch-x" style="width: 100%;">
 				<div id="scrollxContent" class="scrollx-content">
 					<ul id="nav" class="nav">
-						<li v-for="(element,index) in list2" @click="select_item(active = element.alias)" :class="{'class-a':active === element.alias}">{{element.label}}</li>
+						<li v-for="(element,index) in list2" @click="select_item(active = element.alias)" :class="{'class-a':active === element.alias}" :key="index">{{element.label}}</li>
 					</ul>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 				</div>
 				<div class="content_box3">
 					<p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10"><!--点击进入频道--></span></p>
-					<ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+					<ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6" :key="ele">
 						<li class="styleclass dargDiv others">
 							<p style="font-size: 0.5rem;" v-if="ele.label.length > 6" >{{ele.label}}</p>
 							<p style="font-size: 0.7rem;" v-if="ele.label.length > 4 && ele.label.length < 7" >{{ele.label}}</p>

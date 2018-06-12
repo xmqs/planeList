@@ -166,21 +166,11 @@
 
 <style scoped>
 	*{
+	  -webkit-overflow-scrolling: touch;
+	}
+	*{
 		font-family: PingFangSC;
 	}
-	 @component-namespace page {
-    @component actionsheet {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:first-child {
-          margin-bottom: 20px;
-        }
-      }
-    }
-  }
 	p{
 	    background: #fff5e5;
 	    line-height: 40px;

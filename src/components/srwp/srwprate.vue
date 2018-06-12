@@ -85,6 +85,9 @@
   }
 </script>
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	#rate{
 		
 	}

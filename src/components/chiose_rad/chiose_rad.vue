@@ -67,6 +67,9 @@ export default {
 }
 </script>
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	#soll{
 		background-color: #F5F5F5;
 	}

@@ -7,7 +7,7 @@
 			<input class="inp_s" type="text" v-model="area" @keyup="selectArea"/>
 		</div>
 		<div v-if="result" class="inp1">
-			<div v-for="(ele,index) in resultCitys" class="citys">
+			<div v-for="(ele,index) in resultCitys" class="citys" :key="index">
 				<router-link :to="{path: '/cwty/cwty_inp'}">
 			    	<div @click="bus(ele)" class="routes routes1">
 			    		{{ele}}
@@ -17,7 +17,7 @@
 		</div>
 		<mt-index-list v-if="lists"  :show-indicator="true">
 			<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
-				<span @click="bus(element.name)" v-for="(element,index) in ele.cities">
+				<span @click="bus(element.name)" v-for="(element,index) in ele.cities" :key="index">
 					<mt-cell class="sp" :title="element.name"></mt-cell>
 				</span>
 			</mt-index-section>
@@ -95,6 +95,9 @@
 </script>
 
 <style>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	.inp{
 	    width: 100%;
     	padding: 17px 32px 17px 67px;
@@ -105,8 +108,14 @@
 	    border: 1px solid #e9e9e9;
 	    border-radius: 4px;
 	    background: #e8e8e8;
+		-webkit-appearance: none;
 	    padding: 10 13px;
-	    font-size: 32px;
+		font-size: 32px;
+		-khtml-user-select: auto!important;
+		-moz-user-select: auto!important;
+		-ms-user-select: auto!important;
+		-o-user-select: auto!important;
+		user-select: auto!important;
 	}
 	.mint-cell-text{
 		color: #333;
@@ -119,7 +128,7 @@
 	}
 	.mint-indexlist-nav{
 		background-color: #474747 !important;
-	    height: 80%;
+	    height: 85%;
 	    line-height: 32px;
 	    border-radius: 8px;
 	    color: #fff;
@@ -136,20 +145,20 @@
 	    align-items: center;
 	    float: left;
 	    width: 100%;
-	    height: 40px;
+	    height: 80px;
 	    background: #fff;
 	    font-size: 32px;
-	    padding-left: 7px;
+	    padding-left:30px;
 	}
 	p{
 		padding: 0px 12px 0px 12px !important;
     	line-height: 43px;
 	}
 	.routes{
-		height: 40px;
+		height: 80px;
 	    width: 100%;
         color: #333;
-	    line-height: 40px;
+	    line-height: 80px;
 	}
 	.routes1{
 		border-bottom: 1px solid #f1f1f1;
@@ -164,4 +173,18 @@
 	    height: 60px;
 	    display: inline-block;
 	}
+</style>
+<style>
+.mint-indexlist-navitem {
+    padding: .267vw 1vw !important;
+    font-size: 3.6vw !important;
+}
+.sp {
+    height:12vw !important;
+	display: inline-block !important;
+	line-height:12vw !important;
+}
+.mint-cell-wrapper {
+    line-height: 12vw !important;
+}
 </style>

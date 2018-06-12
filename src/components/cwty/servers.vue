@@ -6,11 +6,11 @@
 		</header>
 		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
 			<ul>
-				<li v-for="(element,index) in lists">
+				<li v-for="(element,index) in lists" :key="index">
 					<div class="tishi">{{element.title}}</div>
 					<div class="yaoqiu">{{element.description}}</div>
 					<div @click="cost1" class="allradio">
-						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;">
+						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;"  :key="ele">
 							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
         				<label v-else style="float: left;">
         					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
@@ -116,6 +116,9 @@ export default {
 }
 </script>
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	*{
 		font-family: PingFangSC;
 	}

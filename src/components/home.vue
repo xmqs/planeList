@@ -175,6 +175,9 @@
 	}
 </script>
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
   html {
     -webkit-text-size-adjust: none;
     -moz-text-size-adjust: none;

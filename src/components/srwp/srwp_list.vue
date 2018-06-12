@@ -20,7 +20,7 @@
 			<div class="page-tab-container" v-bind:style="{width: widthData}">  
 			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
 				<mt-tab-container-item id="tab-container1">  
-				  	<div v-for="ele in list" v-if="status == 10" class="ele">
+				  	<div v-for="ele in list" v-if="status == 10" class="ele" :key="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已申报</span>
@@ -28,7 +28,7 @@
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages">
+					  				<span v-for="(ele1,index) in ele.packages" :key="index">
 										<span v-if="index == 0">
 											{{ele1.name}}
 										</span>
@@ -55,7 +55,7 @@
 					</router-link>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
-				  	<div v-for="ele in list" v-if="status == 20" class="ele">
+				  	<div v-for="ele in list" v-if="status == 20" class="ele" :key="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
@@ -63,7 +63,7 @@
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages">
+					  				<span v-for="(ele1,index) in ele.packages" :key="index">
 										<span v-if="index == 0">
 											{{ele1.name}}
 										</span>
@@ -85,7 +85,7 @@
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">
-				  	<div v-for="ele in list" v-if="status == 30" class="ele">
+				  	<div v-for="ele in list" v-if="status == 30" class="ele" :key="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
@@ -93,7 +93,7 @@
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages">
+					  				<span v-for="(ele1,index) in ele.packages" :key="index">
 										<span v-if="index == 0">
 											{{ele1.name}}
 										</span>
@@ -116,7 +116,7 @@
 				  	</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container4">  
-				  	<div v-for="ele in list" v-if="status == 50" class="ele">
+				  	<div v-for="ele in list" v-if="status == 50" class="ele" :key="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
@@ -124,7 +124,7 @@
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">
-					  				<span v-for="(ele1,index) in ele.packages">
+					  				<span v-for="(ele1,index) in ele.packages" :key="index">
 										<span v-if="index == 0">
 											{{ele1.name}}
 										</span>
@@ -295,6 +295,9 @@
 </script>
 
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	*{
 		font-family: PingFangSC;
 	}

@@ -69,6 +69,9 @@ export default {
 }
 </script>
 <style scoped>
+	*{
+	  -webkit-overflow-scrolling: touch;
+	}
 	#chiose_rad{
 		position: fixed;
 		top: 0;

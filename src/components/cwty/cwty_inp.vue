@@ -18,7 +18,7 @@
 			</div>
 			<div class="ele1">
 				<span class="tit">宠物照片</span>
-				<img @click="clickcwzp(imageUrl1)" style="position: absolute;top: 5px;right: 21px;width: 68px;" :src="imageUrl"/>
+				<img @click="clickcwzp(imageUrl1)" style="position: absolute;top: 5px;right: 21px;width: 68px;height: 68px;" :src="imageUrl"/>
 				<img class="po_right" style="padding: 30px 4px 35px 18px;top:4;" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
@@ -457,20 +457,8 @@
 <style scoped>
 	*{
 		font-family: PingFangSC;
+	  -webkit-overflow-scrolling: touch;
 	}
-	 @component-namespace page {
-    @component actionsheet {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:first-child {
-          margin-bottom: 20px;
-        }
-      }
-    }
-  }
 	p{
 	    background: #fff5e5;
 	    line-height: 40px;

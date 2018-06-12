@@ -200,6 +200,9 @@
 
 <style scoped>
 	*{
+	  -webkit-overflow-scrolling: touch;
+	}
+	*{
 		font-family: PingFangSC;
 	}
 	 @component-namespace page {

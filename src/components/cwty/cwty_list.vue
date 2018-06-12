@@ -275,6 +275,7 @@
 <style scoped>
 	*{
 		font-family: PingFangSC;
+	  -webkit-overflow-scrolling: touch;
 	}
 	#con{
 		background: #eee;

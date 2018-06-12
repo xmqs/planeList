@@ -138,6 +138,9 @@ export default {
 </script>
 <style scoped>
 	*{
+	  -webkit-overflow-scrolling: touch;
+	}
+	*{
 		font-family: PingFangSC;
 	}
 	#serversDetails{
