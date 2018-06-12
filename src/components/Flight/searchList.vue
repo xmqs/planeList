@@ -62,7 +62,8 @@
             planeCom:"",
             planeFrom:"",
             planeTo:"",
-            planeNumber:""
+            planeNumber:"",
+            Url:"",
           }
       },
       mounted(){
@@ -78,6 +79,12 @@
               this.direction = "A";
             }
 
+            if(this.$route.params.Int){
+              this.Url = '/eport-server/airFlight/getAirInternatFlight.do'
+            }else{
+              this.Url = '/eport-server/airFlight/getAirFlight.do'
+            }
+
             this.planeCom = this.$route.params.planeCom.code;
             this.planeFrom = this.$route.params.planeFrom.code;
             this.planeTo = this.$route.params.planeTo.code;
@@ -88,7 +95,7 @@
       },
       methods:{
         infiniteHandler($state) {
-          axios.post('/eport-server/airFlight/getAirFlight.do',{
+          axios.post(this.Url,{
             airlineCode:this.planeCom,
             airportCode:this.direction=="D"?this.planeTo:this.planeFrom,
             direction:this.direction,

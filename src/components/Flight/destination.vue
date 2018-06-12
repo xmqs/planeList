@@ -41,7 +41,7 @@
     <button class="c_button" @click="getAirFlight">
       查询
     </button>
-    <button class="d_button" @click="getAirFlight">
+    <button class="d_button" @click="getAirFlightInt">
       查询当日国际航班
     </button>
   </div>
@@ -115,7 +115,10 @@
           this.$router.replace({path:'/flight/myList'});
         },
         getAirFlight(){
-          this.$router.push({name:'searchList',params:{planeNumber:this.planeNumber,planeFrom:this.planeFrom,planeTo:this.planeTo,planeCom:this.planeCom}});
+          this.$router.push({name:'searchList',params:{planeNumber:this.planeNumber,planeFrom:this.planeFrom,planeTo:this.planeTo,planeCom:this.planeCom,Int:false}});
+        },
+        getAirFlightInt(){
+          this.$router.push({name:'searchList',params:{planeNumber:this.planeNumber,planeFrom:this.planeFrom,planeTo:this.planeTo,planeCom:this.planeCom,Int:true}});
         },
         //选择城市
         choseCity(city){
