@@ -1,27 +1,72 @@
 <template>
   <div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>进入四号口</p>
+            <p>Enter the No. 4 mouth</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>查询值机柜台 领取登机牌托运行李</p>
+            <p>Locating Your Check-in Counter</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>安全检查</p>
+            <p>Safety Check</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>候机及登机</p>
+            <p>Waiting for Boarding</p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
     <div id="wrapper" style="touch-action: none;">
       <div id="scroller" class="ignore">
+        <div class="point pt1" :class="{'pta1':active==0}" @click="changePage(0)">
+          <img src="./../../../static/img/point/point@1.png" alt="" width="50%" v-if="active!==0">
+          <img src="./../../../static/img/point/pointActive@1.png" alt="" width="50%" v-if="active==0">
+        </div>
+        <div class="point pt2" :class="{'pta2':active==1}" @click="changePage(1)">
+          <img src="./../../../static/img/point/point@2.png" alt="" width="50%" v-if="active!==1">
+          <img src="./../../../static/img/point/pointActive@2.png" alt="" width="50%" v-if="active==1">
+        </div>
+        <div class="point pt3" :class="{'pta3':active==2}" @click="changePage(2)">
+          <img src="./../../../static/img/point/point@3.png" alt="" width="50%" v-if="active!==2">
+          <img src="./../../../static/img/point/pointActive@3.png" alt="" width="50%" v-if="active==2">
+        </div>
+        <div class="point pt4" :class="{'pta4':active==3}" @click="changePage(3)">
+          <img src="./../../../static/img/point/point@4.png" alt="" width="50%" v-if="active!==3">
+          <img src="./../../../static/img/point/pointActive@4.png" alt="" width="50%" v-if="active==3">
+        </div>
       </div>
-    </div>
-    <div>
-      <button @click="test1">步骤一</button>
-      <button @click="test2">步骤二</button>
-      <button @click="test3">步骤三</button>
-      <button @click="test4">步骤四</button>
     </div>
   </div>
 </template>
 
 <script>
-  import IScroll from "iscroll"
+  import Swiper from "swiper"
+  import "./../../../node_modules/swiper/dist/css/swiper.css"
   import zoom  from "./../../../node_modules/iscroll/build/iscroll-zoom"
     export default {
         name: "testScroll",
       data(){
           return{
             iScroll:{},
-            zoom:2
+            swiper:{},
+            active:0,
           }
       },
       mounted(){
@@ -32,6 +77,19 @@
           mouseWheel: true,
           wheelAction: 'zoom'
         });
+
+        this.swiper = new Swiper('.swiper-container', {
+          autoplay: false,
+          loop:false,
+          pagination: {
+            el: '.swiper-pagination',
+          },
+          on: {
+            slideChangeTransitionEnd: ()=>{
+              this.mapScroll(this.swiper.activeIndex);
+            },
+          },
+        })
       },
       methods:{
         isPassive() {
@@ -45,21 +103,25 @@
           } catch(e) {}
           return supportsPassiveOption;
         },
-        test1(){
-          this.iScroll.zoom(1.5);
-          this.iScroll.scrollTo(-1350, 0, 400);
+        changePage(num){
+          this.swiper.slideTo(num, 1000);
+          this.active = num;
         },
-        test2(){
-          this.iScroll.zoom(1.5);
-          this.iScroll.scrollTo(-1350, -30, 400);
-        },
-        test3(){
-          this.iScroll.zoom(1.5);
-          this.iScroll.scrollTo(-1340, -100, 400);
-        },
-        test4(){
-          this.iScroll.zoom(1.5);
-          this.iScroll.scrollTo(-1190, -207, 400);
+        mapScroll(num){
+          this.active = num;
+          if (num == 0){
+            this.iScroll.zoom(1.5);
+            this.iScroll.scrollTo(-1350, 0, 400);
+          }else if(num == 1){
+            this.iScroll.zoom(1.5);
+            this.iScroll.scrollTo(-1350, -30, 400);
+          }else if(num == 2){
+            this.iScroll.zoom(1.5);
+            this.iScroll.scrollTo(-1340, -100, 400);
+          }else if(num == 3){
+            this.iScroll.zoom(1.5);
+            this.iScroll.scrollTo(-1190, -207, 400);
+          }
         }
       }
     }
@@ -87,7 +149,7 @@
   #wrapper {
     position: absolute;
     z-index: 1;
-    top: 50px;
+    top: 228px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -100,7 +162,7 @@
     z-index: 1;
     width: 3766px;
     height: 1327px;
-    background: url("./../../../static/img/GroupMap.png") no-repeat;
+    background: url("./../../../static/img/planeMap.png") no-repeat;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-transform: translateZ(0);
     -moz-transform: translateZ(0);
@@ -117,5 +179,56 @@
     -ms-text-size-adjust: none;
     -o-text-size-adjust: none;
     text-size-adjust: none;
+  }
+  .swiper-slide{
+    height: 228px;
+    width: 100%;
+    background: #FFF7EA;
+  }
+  .swiper-slide img{
+    width: 260px;
+    height: 178px;
+    border: 10px solid #ffff;
+    margin-top: 14px;
+    margin-left: 34px;
+  }
+  .page_info{
+    display: inline-block;
+  }
+  .point{
+    position: absolute;
+  }
+  .pt1{
+    left: 2032px;
+    top: 320px;
+  }
+  .pt2{
+    left: 2050px;
+    top: 405px;
+  }
+  .pt3{
+    left: 1996px;
+    top: 500px;
+  }
+  .pt4{
+    left: 1800px;
+    top:620px;
+  }
+
+  .pta1{
+    left: 2000px!important;
+    top: 280px!important;
+  }
+  .pta2{
+    left: 2020px!important;
+    top: 360px!important;
+  }
+  .pta3{
+    left: 1980px!important;
+    top: 440px!important;
+  }
+  .pta4{
+    left: 1780px!important;
+    top: 580px!important;
   }
 </style>
