@@ -55,6 +55,7 @@
 				  action="/web-editor-web/public/upload/upload.do"
 				  :show-file-list="false"
 				  :before-upload="handbefore"
+				  :on-error="handleAvatarError"
 				  :on-success="handleAvatarSuccess">
 				  <img class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
 				  <div v-for="(ele,index) in bigPackageList" v-if="bigPackageList" class="item">
@@ -71,6 +72,7 @@
 					  action="/web-editor-web/public/upload/upload.do"
 					  :show-file-list="false"
 					  :before-upload="handbefore1"
+					  :on-error="handleAvatarError"
 					  :on-success="handleAvatarSuccess1">
 					  <img v-if="travelList1" :src="travelList1" class="avatar">
 					  <img v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
@@ -80,6 +82,7 @@
 					  action="/web-editor-web/public/upload/upload.do"
 					  :show-file-list="false"
 					  :before-upload="handbefore2"
+					  :on-error="handleAvatarError"
 					  :on-success="handleAvatarSuccess2">
 					  <img v-if="travelList2" style="margin-left: 34px;" :src="travelList2" class="avatar">
 					  <img v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
@@ -207,7 +210,10 @@
 		    },
 		    handbefore1(){
 		    	
-		    },
+			},
+			handleAvatarError(err, file, fileList){
+				Toast("上传失败");
+			},
 			handleAvatarSuccess2(res, file) {
 		        this.travelList2 = res.data;
 		    },
@@ -238,9 +244,9 @@
 			serve_switch(){
 				this.switch1 = !this.switch1;
 				if (this.switch1 == true) {
-					this.addr = false;
-				}else{
 					this.addr = true;
+				}else{
+					this.addr = false;
 				}
 			},
 			shenbao(){
@@ -322,12 +328,12 @@
 						if(res.status == 200) {	
 							Toast("申报成功");
 							setTimeout(()=>{
-								this.$router.push({name: 'srwp_list',
-									params:{ 
-										res:'tab-container1'
-									}
-								})
-								location.reload();
+								// this.$router.push({name: 'srwp_list',
+								// 	params:{ 
+								// 		res:'tab-container1'
+								// 	}
+								// })
+								// location.reload();
 							},1500);
 						}else{
 							Toast("申报失败");
@@ -357,13 +363,16 @@
 					that.travelList = data.data.data.travelList;
 					that.travelList1 = data.data.data.travelList[0];
 					that.travelList2 = data.data.data.travelList[1];
-					if (data.data.data.homeDelivery == false) {
+					if (data.data.data.homeDelivery == 0) {
 						that.homeDelivery = false;
+						that.switch1 = false;
 						that.addr = false;
 						that.homeAddress = '';
 					} else{
 						that.homeDelivery = true;
+						that.switch1 = true;
 						that.addr = true;
+						that.homeAddress = data.data.data.homeAddress
 					}
 				})
 			}
@@ -479,7 +488,7 @@
 	    width: 55%;
 	    position: absolute;
 	    right: 7px;
-	    top: 10px;
+	    top: 2.5vw;
 	    height: 45px;
 	    border: 0;
 	    outline: none;

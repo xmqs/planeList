@@ -4,12 +4,12 @@
 			正在加载,请稍后...
 		</div>
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			宠物申报平台
 			<router-link :to="{path:'/'}">
 				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
-		</header>
+		</header> -->
 		<div id="con">  
 			<div class="nav">  
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>  
@@ -174,12 +174,16 @@
 				} else if (newValue == 'tab-container4'){
 					this.status = 50;
 				}
+				sessionStorage.setItem("active",newValue)
 				this.getList();
 			}
 		},
 		created() {
 			this.login();
-			this.active = this.$route.params.con;
+			if (sessionStorage.getItem("active") != null) {
+				this.active = sessionStorage.getItem("active");
+				sessionStorage.removeItem("active");
+			}
 			if (this.active == 'tab-container1') {
 				this.status = 10;
 			} else if (this.active == 'tab-container2'){
@@ -297,7 +301,6 @@
 	    padding: 0 0px 0 10px;
 	    background: #fff;
 	    position: fixed;
-	    top: 90px;
 	    z-index: 3;
 	    width: 100%;
 	    height: 72px;
@@ -308,12 +311,13 @@
 	    color: #285FB1;
 	}
 	.page-tab-container{    
-		margin-top: 159px;
+		margin-top: 9.1vw;	
 	    position: fixed;
 	    width: 100%;
 	    height: 100%;
 	    overflow-y: auto;
 	    padding-bottom: 255px;
+		background: #f5f5f5;
 	}
 	.class-a {
 		border-bottom:4px solid #285FB1 !important;

@@ -225,13 +225,12 @@ export default {
     }
      
     input[type="radio"]:checked+ i {
-		width: 5.533vw;
-		height: 5.533vw;
 		border-radius: 50%;
-		font-size: 6.2vw;
-		text-align: left;
-		color: #fff;
-		background: #285fb1;
+    font-size: 6.1vw;
+    text-align: left !important;
+    padding: 0vw 5.5vw 1.5vw 0 !important;
+    color: #fff;
+    background: #285fb1;
     }
      
     input[type="radio"]:disabled+ i {

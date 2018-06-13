@@ -55,6 +55,7 @@
 				  action="/web-editor-web/public/upload/upload.do"
 				  :show-file-list="false"
 				  :before-upload="handbefore"
+				  :on-error="handleAvatarError"
 				  :on-success="handleAvatarSuccess">
 				  <img class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
 				  <div v-for="(ele,index) in bigPackageList" v-if="bigPackageList" class="item">
@@ -71,6 +72,7 @@
 					  action="/web-editor-web/public/upload/upload.do"
 					  :show-file-list="false"
 					  :before-upload="handbefore1"
+					  :on-error="handleAvatarError"
 					  :on-success="handleAvatarSuccess1">
 					  <img v-if="travelList1" :src="travelList1" class="avatar">
 					  <img v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
@@ -80,6 +82,7 @@
 					  action="/web-editor-web/public/upload/upload.do"
 					  :show-file-list="false"
 					  :before-upload="handbefore2"
+					  :on-error="handleAvatarError"
 					  :on-success="handleAvatarSuccess2">
 					  <img v-if="travelList2" style="margin-left: 34px;" :src="travelList2" class="avatar">
 					  <img v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
@@ -143,17 +146,17 @@
 				ownerPassport:'',
 				homeAddress:'',
 				ownerTelNo:'',
-				switch1:false,
 		        bigPackageList:[],
 		        travelList1:'',
 		        travelList2:'',
-		        travelList:[],
-				/*属性结束*/
-				value:"",
 				homeDelivery:false,
 				addr:false,
-				unbind:true,
+		        travelList:[],
 		        packagesName:'',
+				/*属性结束*/
+				value:"",
+				unbind:true,
+				switch1:false,
 				actions:[],
 				actions0:[{
 			        name: '北京',
@@ -204,6 +207,9 @@
 			handleAvatarSuccess1(res, file) {
 		        this.travelList1 = res.data;
 		    },
+			handleAvatarError(err, file, fileList){
+				Toast("上传失败");
+			},
 		    handbefore1(){
 		    	
 		    },
@@ -443,7 +449,7 @@
 	    width: 55%;
 	    position: absolute;
 	    right: 7px;
-	    top: 10px;
+	    top: 2.5vw;
 	    height: 45px;
 	    border: 0;
 	    outline: none;

@@ -8,11 +8,9 @@
 		</div>
 		<div v-if="result" class="inp1">
 			<div v-for="(ele,index) in resultCitys" class="citys" :key="index">
-				<router-link :to="{path: '/cwty/cwty_inp'}">
-			    	<div @click="bus(ele)" class="routes routes1">
-			    		{{ele}}
-			    	</div>
-		    	</router-link>
+				<div @click="bus(ele)" class="routes routes1">
+					{{ele}}
+				</div>
 			</div>
 		</div>
 		<mt-index-list v-if="lists"  :show-indicator="true">

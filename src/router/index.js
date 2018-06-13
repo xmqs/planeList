@@ -201,10 +201,7 @@ export default new Router({
         {
             path: '/chiose_rad/myzh',
             name: 'myzh',
-            component: myzh,
-            meta: {
-                keepAlive: true
-            }
+            component: myzh
         },
         {
             path: '/chiose_rad/cwzp',

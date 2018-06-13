@@ -57,7 +57,7 @@
 					</router-link>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
-				  	<div v-for="ele in list" v-if="status == 20" class="ele" :key="ele">
+				  	<div v-for="ele in list" v-if="status == 20" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
@@ -92,7 +92,7 @@
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">
-				  	<div v-for="ele in list" v-if="status == 30" class="ele" :key="ele">
+				  	<div v-for="ele in list" v-if="status == 30" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
@@ -132,7 +132,7 @@
 				  	</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container4">  
-				  	<div v-for="ele in list" v-if="status == 50" class="ele" :key="ele">
+				  	<div v-for="ele in list" v-if="status == 50" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
@@ -217,12 +217,16 @@
 				} else if (newValue == 'tab-container4'){
 					this.status = 50;
 				}
-				
+				sessionStorage.setItem("active",newValue)
 				this.getList();
 			}
 		},
 		created() {
 			this.login();
+			if (sessionStorage.getItem("active") != null) {
+				this.active = sessionStorage.getItem("active");
+				sessionStorage.removeItem("active");
+			}
 			if (this.active == 'tab-container1') {
 				this.status = 10;
 			} else if (this.active == 'tab-container2'){
@@ -232,7 +236,9 @@
 			} else if (this.active == 'tab-container4'){
 				this.status = 50;
 			}
-			this.getList();
+			setTimeout(() => {
+				this.getList();
+			}, 500)
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {

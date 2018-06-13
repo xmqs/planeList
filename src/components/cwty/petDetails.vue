@@ -1,17 +1,17 @@
 <template>
 	<div id="pet_details">
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 99;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 99;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			订单详情
 				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
+		</header> -->
 		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
 			正在加载,请稍后...
 		</div>
 		<!--内容-->
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		<div id="soll" class="page-tab-container">
 			<div class="ele1">
-				<img class="pet-img pet-inf" :src="cwzp"/>
+				<img style="width:75px;height: 75px;" class="pet-img pet-inf" :src="cwzp"/>
 				<div class="pet-inf pet-inf1">
 					<div class="pet_name">{{cwmz}}</div>
 					<div class="pet_pz">品种:{{cwpz}}；年龄:{{cwnl}}；体重:{{cwzl}}公斤； 体型:{{sizes}}</div>
@@ -309,7 +309,7 @@
 	}
 	.pet-inf1{
     position: absolute;
-    right: 0;
+    left: 23vw;
     width: 72%;
         line-height: 46px;
     font-size: 28px;

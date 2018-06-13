@@ -1,16 +1,18 @@
 <template>
 	<div id="chiose_rad">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
             宠物照片
             <img @click="bus(imageUrl1)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-        </header>
-        <div style="padding-top: 45px;" id="soll" class="page-tab-container">
+        </header> -->
+        <div id="soll" class="page-tab-container">
 			<p class="tit">宠物照片</p>
 			<el-upload
 			  class="avatar-uploader"
 			  action="/web-editor-web/public/upload/upload.do"
+			  accept="image/jpeg,image/gif,image/png,image/bmp"
 			  :show-file-list="false"
 			  :before-upload="handbefore"
+			  :on-error="handleAvatarError"
 			  :on-success="handleAvatarSuccess">
 			  <img class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
 			  <div v-for="(ele,index) in imageUrl1" v-if="imageUrl1" class="item">
@@ -20,7 +22,7 @@
 			</el-upload>
 		</div>
 		<div v-if="lod" class="dio">
-			<img class="downwarp downwarp-progress-s" src="../../../static/img/Oval6.png"/>
+			<img class="rotate downwarp downwarp-progress-s" style="transform: rotate(1069.2deg);" src="../../../static/img/Oval6.png"/>
 		</div>
 	</div>
 </template>
@@ -28,6 +30,7 @@
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from "axios";
 import Bus from '../cwty/bus.js'
+import { Toast } from 'mint-ui';
 export default {
     name: "chiose_rad",
     data(){
@@ -41,6 +44,9 @@ export default {
 	methods:{
 		deleteImg(res){
 			this.imageUrl1.splice(res,1)
+            setTimeout(() => {
+                Bus.$emit('cwzp',this.imageUrl1)
+            }, 30)
 		},
         bus (imageUrl1) {
             setTimeout(() => {
@@ -53,13 +59,19 @@ export default {
 	   		this.lod = false;
 	        this.imageUrl = res.data;
 	        this.imageUrl1.push(res.data);
+            setTimeout(() => {
+                Bus.$emit('cwzp',this.imageUrl1)
+            }, 30)
 	   },
-	   handbefore(){
+	    handleAvatarError(err, file, fileList){
+	   		this.lod = false;
+	    	this.lod1 = true;
+		   	Toast("上传失败");
+	    },
+	   handbefore(file){
 	   		this.lod = true;
 	    	this.lod1 = false;
 	   },
-	   
-		
 	},
 	created: function() {
 	    Bus.$on('oldCwzp', (e) => {
@@ -85,7 +97,7 @@ export default {
 	.tit{
 	    font-size: 32px;
 	    color: #333;
-	    padding: 15px 22px;
+		padding: 2vw 2.933vw!important;
 	}
 	.time_select{
 	    margin: 14px;
@@ -113,8 +125,8 @@ export default {
 	.avatar{
 	    margin: 0 14px 14px 14px;
     	border: 1px solid #f8f8f8;
-	    width: 160px;
-	    height: 160px;
+		width: 21.5vw !important;
+    	height: 21.5vw !important;
 	}
 	.el-icon-plus{
 	    position: relative;
@@ -147,6 +159,12 @@ export default {
 	    -o-animation: rotate 3s linear infinite;
 	    animation: rotate 3s linear infinite;
     }
+	@keyframes rotate{
+		from{transform: rotate(-359deg)
+		}
+	    to{transform: rotate(359deg)
+	    }
+	}
     .dio{
     	position: fixed;
     	top:0;

@@ -97,7 +97,7 @@
 				</div>
 				<div class="content_box3">
 					<p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10"><!--点击进入频道--></span></p>
-					<ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6" :key="ele">
+					<ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6">
 						<li class="styleclass dargDiv others">
 							<p style="font-size: 0.5rem;" v-if="ele.label.length > 6" >{{ele.label}}</p>
 							<p style="font-size: 0.7rem;" v-if="ele.label.length > 4 && ele.label.length < 7" >{{ele.label}}</p>
@@ -172,6 +172,7 @@
 					this.bottomStatus = "";
 				//}
 			}
+			
 		},
 		filters: {
 			formatDate(time) {
@@ -220,6 +221,13 @@
 				}else{
 					that.scrollTop = false;
 				}
+				// if(document.getElementById("soll").scrollHeight - (document.getElementById("soll").scrollTop + document.getElementById("soll").clientHeight) < 20){
+				// 	this.animent = true;
+				// 	setTimeout(()=>{
+				// 		this.more();
+				// 	},1500);
+				// 	return;
+				// }
 			},
 			backTop:function(){
 				var that = this;
@@ -365,7 +373,7 @@
 		        	that.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
 				}, 1500);
 			}
-	      },  
+	      },
 	      loadPageList:function (){
 				var _that = this;
 				if(sessionStorage.getItem('state') != null){

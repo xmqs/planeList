@@ -1,29 +1,34 @@
 <template>
 	<div id="chiose_rad">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
             	免疫证号
             <img @click="bus(value1,imageUrl)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-        </header>
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+        </header> -->
+		<div id="soll" class="page-tab-container">
 			<p class="tit">上传免疫证</p>
 			<el-upload
 			  class="avatar-uploader"
 			  action="/web-editor-web/public/upload/upload.do"
 			  :show-file-list="false"
 			  :before-upload="handbefore"
+			  :on-error="handleAvatarError"
 			  :on-success="handleAvatarSuccess">
 			  <img v-if="imageUrl" :src="imageUrl" class="avatar">
 			  <i class="el-icon-plus avatar-uploader-icon"></i>
 			  <i v-if="lod2" style="opacity: 0;" v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</el-upload>
-			<img v-if="lod" class="downwarp downwarp-progress-s" src="../../../static/img/Oval6.png"/>
-			<div @click="gettime" class="block">
+			<img v-if="lod" style="transform: rotate(1069.2deg);" class="rotate downwarp downwarp-progress-s" src="../../../static/img/Oval6.png"/>
+			<div style="position: relative;width:100%">
+				<input @change="gettime" id="time" class="chiotiem1" type="date">
+				<div class="chiotiem">{{time}} <span style="float:right;margin: 1vw 5vw 0 0;">︾</span></div>
+			</div>
+			<!-- <div @click="gettime" class="block">
 			    <el-date-picker
 			      v-model="value1"
 			      type="date"
 			      placeholder="选择最后一次注册时间">
 			    </el-date-picker>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
@@ -31,6 +36,7 @@
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from "axios";
 import Bus from '../cwty/bus.js'
+import { Toast } from 'mint-ui';
 export default {
     name: "chiose_rad",
     data(){
@@ -41,7 +47,8 @@ export default {
 	        value1:"",
 	        mydate:"日期选择",
 	        imageUrl:'',
-        	dialogVisible: false,
+			dialogVisible: false,
+			time:''
 	    }
    },
 	methods:{
@@ -59,7 +66,13 @@ export default {
             this.$router.back(-1)
         },
 	    gettime(){
-	    	
+			var times = document.getElementById("time").value;
+			var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
+			times = times.replace(reg,"$1年$2月$3日");
+			this.time = times;
+            setTimeout(() => {
+                Bus.$emit('myz',times,this.imageUrl)
+            }, 30)
 	    },
 		//图片上传
 		handleAvatarSuccess(res, file) {
@@ -67,7 +80,16 @@ export default {
 	   		this.lod2 = false;
 	   		this.imageUrl = '';
 	        this.imageUrl = res.data;
+            setTimeout(() => {
+                Bus.$emit('myz', this.time,this.imageUrl)
+            }, 30)
 	   },
+	    handleAvatarError(err, file, fileList){
+	   		this.lod = false;
+	    	this.lod1 = true;
+	   		this.lod2 = false;
+		   	Toast("上传失败");
+	    },
 	   handbefore(){
 	   		this.lod = true;
 	    	this.lod1 = false;
@@ -77,7 +99,16 @@ export default {
 		
 	},
 	created: function() {
-	  this.imageUrl = this.$route.params.con;
+		if(this.$route.params.time != "" && this.$route.params.time != undefined){
+			this.time = this.$route.params.time;
+		}else{
+			var res = new Date();
+			this.time=res.getFullYear() + '年' + (res.getMonth() + 1) + '月' + res.getDate() + '日'
+		}
+		if(this.$route.params.res != ""){
+			this.imageUrl = this.$route.params.res;
+		}
+	  	//this.imageUrl = this.$route.params.con;
 	}
 }
 </script>
@@ -98,7 +129,8 @@ export default {
 	.tit{
 	    font-size: 32px;
 	    color: #333;
-	    padding: 15px 18px;
+		width: 100%;
+		padding: 2vw 2.933vw!important;
 	}
 	.time_select{
 	    margin: 14px;
@@ -112,6 +144,29 @@ export default {
     }
     .el-input {
 	    width: 100% !important;
+	}
+	.chiotiem{
+	width: 100%;
+    background: #fff;
+    border: 0px solid #f5f5f5;
+    height: 9.467vw;
+    font-size: 4vw;
+	line-height:  9.467vw;
+	padding-left: 2vw;
+	margin-top: 0.5vw;
+	}
+	.chiotiem1{
+	width: 100%;
+    background: #fff;
+    border: 1px solid #f5f5f5;
+    height: 10.467vw;
+    font-size: 4vw;
+    padding-left: .233vw;
+	float: right;
+	opacity: 0;
+	    position: absolute;
+	    z-index: 1;
+		right: 0;
 	}
 	/*图片上传*/
 	.avatar-uploader-icon{
@@ -149,6 +204,12 @@ export default {
 	    -o-animation: rotate 3s linear infinite;
 	    animation: rotate 3s linear infinite;
     }
+	@keyframes rotate{
+		from{transform: rotate(-359deg)
+		}
+	    to{transform: rotate(359deg)
+	    }
+	}
     .el-input--prefix .el-input__inner {
     padding-left: 4vw;
     height: 40px;

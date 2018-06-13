@@ -1,17 +1,17 @@
 <template>
 	<div id="servers">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			选择服务
 				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		</header> -->
+		<div id="soll" class="page-tab-container">
 			<ul>
 				<li v-for="(element,index) in lists" :key="index">
 					<div class="tishi">{{element.title}}</div>
 					<div class="yaoqiu">{{element.description}}</div>
 					<div @click="cost1" class="allradio">
 						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;"  :key="ele">
-							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i style="color:#285fb1">✓</i>{{ele.title}}</label>
+							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
         				<label v-else style="float: left;">
         					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
 					</div>
@@ -136,7 +136,6 @@ export default {
 	}
 	#soll{
 		padding: 0;
-        padding-top: 88px;
 	}
 	ul{
 		-webkit-overflow-scrolling: touch;
@@ -213,13 +212,12 @@ export default {
     }
      
     input[type="radio"]:checked+ i {
-		width: 5.533vw;
-		height: 5.533vw;
 		border-radius: 50%;
-		font-size: 6.2vw;
-		text-align: left;
-		color: #fff;
-		background: #285fb1;
+    font-size: 6.2vw;
+    text-align: left;
+    padding: 0.4vw 5.1vw 1.3vw 0vw;
+    color: #fff;
+    background: #285fb1;
     }
      
     input[type="radio"]:disabled+ i {

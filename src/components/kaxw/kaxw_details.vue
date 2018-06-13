@@ -333,4 +333,7 @@
 	    to{transform: rotate(359deg)
 	    }
 	}
+	img{
+		width: 100%;
+	}
 </style>

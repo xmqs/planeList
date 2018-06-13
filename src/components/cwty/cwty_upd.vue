@@ -2,14 +2,14 @@
 	<!--选择要看的新闻类型-->
 	<div id="cwty_input">
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			宠物申报修改
 			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container1'}">
 				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
-		</header>
+		</header> -->
 		<!--内容-->
-		<div style="padding-top: 45px;" id="soll" class="page-tab-container">
+		<div id="soll" class="page-tab-container">
 			<div class="points1">
 				<p class="">本平台只提供申办渠道，由用户与托运公司双向自由交易， 平台不承担任何纠纷和法律责任，最终解释权归南京市电子 口岸公司所有。建议与投诉电话：025-521637463</p>
 			</div>
@@ -129,7 +129,7 @@
 		data() {
 			return {
 				lod:false,
-				imageUrl: '../../../static/img/dogDemo.png',
+				imageUrl: '../../../static/img/Group 3.png',
 				imageUrl1: [],
 				petdemo:true,
 				img_list: [{
@@ -235,10 +235,12 @@
 		},
 		methods: {
 			clickMyz(res){
-				setTimeout(() => {
-			        Bus.$emit('myzarr', res)
-			    }, 30)
-				this.$router.push({path: '/chiose_rad/myzh'})
+				this.$router.push({name: 'myzh',
+					params:{ 
+						time:this.myz,
+						res:this.myz1
+					}
+				})
 			},
 			clickcwzp(res){
 				setTimeout(() => {
@@ -507,7 +509,7 @@
 				if (e[0] != undefined) {
 					this.imageUrl = e[0];
 				}else{
-					this.imageUrl = '../../../static/img/dogDemo.png';
+					this.imageUrl = '../../../static/img/Group 3.png';
 				}
 		    })
 		},
@@ -531,13 +533,13 @@
 		-webkit-appearance: none;
 	}
 	p{
-	    background: #fff5e5;
-	    line-height: 40px;
-	    padding: 15px 12px;
-	    height: 150px;
-	    font-size:26px;
-		font-family:PingFangSC-Regular;
-		color:rgba(255,181,64,1);
+    background: #fff5e5;
+    line-height: 5.333vw;
+    padding: 2vw 1.6vw;
+    height: 20vw;
+    font-size: 3.467vw;
+    font-family: PingFangSC-Regular;
+    color: #ffb540;
 	}
 	#soll{
 	    position: fixed;
@@ -581,7 +583,7 @@
 	    width: 55%;
 	    position: absolute;
 	    right: 7px;
-	    top: 10px;
+		top: 2.233vw;
 	    height: 45px;
 	    border: 0;
 	    outline: none;
