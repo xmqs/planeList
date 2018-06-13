@@ -73,7 +73,6 @@
 					<p><span @click="close()" class="close_column" id="close_column"></span></p>
 					<p class="my_channel">我的频道<span class="font_12 dark_grey padding_z_10" id="explain_">{{paixu}}</span><span v-on:click="bj" class="btn_edit" id="btn_edit">{{edit}}</span></p>
 				</div>
-				<p v-show="dio" style="width:285px;position: fixed;top: 110px;left: -100px;z-index: 9999;height: 5rem;"></p>
 				<div class="content_box2">
 					<div id="example" v-cloak>
 						<draggable :list="list2" :move="getdata" @update="datadragEnd" @sort="sort" :options="{animation: 200,handle:'.dargDiv'}">
@@ -116,6 +115,7 @@
     import {Loadmore} from 'mint-ui';
     import { Toast } from 'mint-ui'
 	import { formatDate } from '../../assets/js/date.js';
+	import InfiniteLoading from 'vue-infinite-loading';
 	export default {
 		name: "kaxw_list",
 		data() {
@@ -172,7 +172,6 @@
 					this.bottomStatus = "";
 				//}
 			}
-			
 		},
 		filters: {
 			formatDate(time) {
@@ -221,13 +220,6 @@
 				}else{
 					that.scrollTop = false;
 				}
-				// if(document.getElementById("soll").scrollHeight - (document.getElementById("soll").scrollTop + document.getElementById("soll").clientHeight) < 20){
-				// 	this.animent = true;
-				// 	setTimeout(()=>{
-				// 		this.more();
-				// 	},1500);
-				// 	return;
-				// }
 			},
 			backTop:function(){
 				var that = this;
@@ -373,7 +365,7 @@
 		        	that.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
 				}, 1500);
 			}
-	      },
+	      },  
 	      loadPageList:function (){
 				var _that = this;
 				if(sessionStorage.getItem('state') != null){
