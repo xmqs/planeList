@@ -6,21 +6,20 @@
 			</span>
 			<input class="inp_s" type="text" v-model="area" @keyup="selectArea"/>
 		</div>
+		<div v-show="thicity" class="mycity">{{active}}<span @click="acCity" style="float: right;padding-right: 4vw;">✖</span></div> 
 		<div v-if="result" class="inp1">
-			<div v-for="(ele,index) in resultCitys" class="citys">
-				<router-link :to="{path: '/cwty/cwty_inp'}">
-			    	<div @click="bus(ele)" class="routes routes1">
-			    		{{ele}}
-			    	</div>
-		    	</router-link>
+			<div v-for="(ele,index) in resultCitys" class="citys" :key="index">
+				<div @click="bus(ele)" class="routes routes1">
+					{{ele}}
+				</div>
 			</div>
 		</div>
 		<mt-index-list v-if="lists"  :show-indicator="true">
-			<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
-				<span @click="bus(element.name)" v-for="(element,index) in ele.cities">
-					<mt-cell class="sp" :title="element.name"></mt-cell>
-				</span>
-			</mt-index-section>
+				<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
+					<span @click="bus(element.name)" v-for="(element,index) in ele.cities" :key="index">
+						<mt-cell :class="{'class-a':active == element.name}" class="sp" :title="element.name"></mt-cell>
+					</span>
+				</mt-index-section>
 		</mt-index-list>
 	</div>
 </template>
@@ -37,17 +36,28 @@
 				lists:true,
 				result:false,
 				resultCitys:[],
-				arealist:[]
+				arealist:[],
+				active:'',
+				thicity:false
 			}
 		},
 		methods: {
+			acCity(){
+				this.active = '';
+				this.thicity = false;
+				setTimeout(() => {
+					Bus.$emit('area', this.active)
+				}, 200)
+			},
 			goback(){
 				this.$router.back(-1)
 			},
 			bus (res) {
-			    setTimeout(() => {
-			        Bus.$emit('area', res)
-			    }, 30)
+				this.active = res;
+				this.thicity = true;
+				setTimeout(() => {
+					Bus.$emit('area', this.active)
+				}, 200)
 		        this.$router.back(-1)
 		    },
 			selectArea(){
@@ -102,6 +112,13 @@
 	    width: 100%;
     	padding: 17px 14px 17px 67px;
 	}
+	.mycity{
+		    height: 11.5vw;
+    line-height: 11.5vw;
+    font-size: 4.4vw;
+    padding-left: 1.5vw;
+	border-bottom: 1px solid #f5f5f5;
+	}
 	.inp_s{
 	    width: 100%;
 	    height: 65px;
@@ -134,6 +151,9 @@
 	    color: #fff;
 	    position: absolute;
 	    top: 1px !important;
+	}
+	.class-a{
+		background: #ccc;
 	}
 	.citys{
         color: #333;

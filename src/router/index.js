@@ -187,6 +187,9 @@ export default new Router({
             path: '/cwty/IndexList',
             name: 'IndexList',
             component: IndexList,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/chiose_rad/chiose_rad',
@@ -246,6 +249,9 @@ export default new Router({
             path: '/srwp/IndexList',
             name: 'srwpIndexList',
             component: srwpIndexList,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/srwp/servers/:id',
