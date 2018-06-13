@@ -2,10 +2,10 @@
 	<!--选择要看的新闻类型-->
 	<div id="srwp_input">
 		<!--头部临时用-->
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			物品申报修改
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
+		</header> -->
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
 			<div class="points1">
@@ -184,14 +184,14 @@
 			
 		},
 		methods: {
-			goback(){
-				this.$router.push({name: 'srwp_list',
-					params:{ 
-						res:'tab-container1'
-					}
-				})
-				location.reload();
-			},
+			// goback(){
+			// 	this.$router.push({name: 'srwp_list',
+			// 		params:{ 
+			// 			res:'tab-container1'
+			// 		}
+			// 	})
+			// 	location.reload();
+			// },
 			//图片上传
 			deleteImg(res){
 				this.bigPackageList.splice(res,1)
@@ -432,7 +432,6 @@
 	    width: 100%;
 	    overflow: auto;
 	    height: 100%;
-        padding-top: 88px;
 	}
 	.points{
 	    padding: 20px;

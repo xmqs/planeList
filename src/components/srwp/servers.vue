@@ -1,9 +1,9 @@
 <template>
 	<div id="servers">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			选择服务
 				<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
+		</header> -->
 		<div id="soll" class="page-tab-container">
 			<ul>
 				<li v-for="(element,index) in lists">
@@ -110,18 +110,16 @@ export default {
 				that.lists = data.data.data;
 			})
 		},
-		goback(){
-			this.$router.push({name: 'srwp_list',
-				params:{ 
-					res:'tab-container2'
-				}
-			})
-		},
+		// goback(){
+		// 	this.$router.push({name: 'srwp_list',
+		// 		params:{ 
+		// 			res:'tab-container2'
+		// 		}
+		// 	})
+		// },
 	},
 	created: function(){
-	    Bus.$on('serversId', (e) => {
-	    	this.orderNo = e;
-	    })
+		this.orderNo = this.$route.params.id;
 	    setTimeout(() => {
 			this.getList();
 	    },100)
@@ -151,7 +149,6 @@ export default {
 	}
 	#soll{
 		padding: 0;
-        padding-top: 88px;
 	}
 	ul{
 		-webkit-overflow-scrolling: touch;
@@ -204,12 +201,12 @@ export default {
 		margin-right: 17%;
     }
     label i {
-        font-size: 12px;
+        font-size: 4vw;
         display: inline-block;
-        width: 12px;
-        height: 12px;
+        width: 24px;
+        height: 24px;
         text-align: center;
-        line-height: 12px;
+        line-height: 24px;
         color: #fff;
         vertical-align: middle;
         margin: -2px 2px 1px 0px;
@@ -228,11 +225,13 @@ export default {
     }
      
     input[type="radio"]:checked+ i {
-        width: 5.533vw;
+		width: 5.533vw;
 		height: 5.533vw;
 		border-radius: 50%;
 		font-size: 6.2vw;
 		text-align: left;
+		color: #fff;
+		background: #285fb1;
     }
      
     input[type="radio"]:disabled+ i {

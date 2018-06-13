@@ -1,16 +1,13 @@
 <template>
 	<div id="serversDetails">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			服务详情
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
+		</header> -->
 		<div id="soll" class="page-tab-container">
 			<p class="points1">如需更改服务请拨打电话025-521637463</p>
 			<div id="overflow">
 		  		<div class="ele2">
-		  			<div class="ele2-1">
-		  				<img class="pet-img" :src="petPicture"/>
-		  			</div>
 		  			<div class="ele2-1 ele2-2">
 			  			<p class="pet-name">{{petName}}</p>
 			  			<p class="pet-where">{{startCity}}->{{endCity}}</p>
@@ -21,7 +18,7 @@
 		  			<div v-for="(element,index) in lists1" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
 						<div class="yaoqiu">{{element.description}}</div>
-						<div v-for="(ele,index) in element.options" v-if="ele.checked != null" class="price">{{ele.title}}</div>
+						<div style="position: absolute;right: 3vw;top: 4vw;" v-for="(ele,index) in element.options" v-if="ele.checked != null" class="price">{{ele.title}}</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
 						<div class="tishi">上面提货</div>
@@ -40,7 +37,7 @@
 		  			<div v-for="(element,index) in lists2" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
 						<div class="yaoqiu">{{element.description}}</div>
-						<div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div>
+						<div class="rio"><div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div></div>
 		  			</div>
 		  			<!--<div class="ele2-3">
 						<div class="tishi">上面提货</div>
@@ -80,7 +77,6 @@ export default {
 	        lists:[],
 	        lists1:[],
 	        lists2:[],
-	        petPicture:'',
 	        endCity:'',
 	        petName:'',
 	        startCity:'',
@@ -89,13 +85,13 @@ export default {
 	    }
     },
 	methods:{
-		goback(){
-			this.$router.push({name: 'srwp_list',
-				params:{ 
-					res:'tab-container3'
-				}
-			})
-		},
+		// goback(){
+		// 	this.$router.push({name: 'srwp_list',
+		// 		params:{ 
+		// 			res:'tab-container3'
+		// 		}
+		// 	})
+		// },
 		getList(){//获取服务列表
 			var that = this;
 			axios.get('/eport-server/delivery/queryServices.do', {
@@ -108,6 +104,7 @@ export default {
 				for (var i=0;i<that.lists.length;i++) {
 					if (that.lists[i].options[0].checked == null && that.lists[i].options[1].checked == null) {
 						that.lists2.push(that.lists[i])
+						that.lists1.push(that.lists[i])
 					} else{
 						that.lists1.push(that.lists[i])
 					}
@@ -116,24 +113,21 @@ export default {
 		},
 		getdetails(){
 			var that = this;
-			axios.get('/eport-server/delivery/pet/queryOrderById.do', {
+			axios.get('/eport-server/delivery/luggage/queryOrderById.do', {
 				params: {
 					orderNo :that.orderNo
 				}
 			}).then(function(data) {
-				that.petPicture = data.data.data.petPicture[0];
 				that.endCity = data.data.data.endCity;
-				that.petName = data.data.data.petName;
+				that.petName = data.data.data.ownerName;
 				that.startCity = data.data.data.startCity;
 				that.createTime = data.data.data.createTime
 				that.homeAddress = data.data.data.homeAddress
-			})
+			});
 		}
 	},
 	created: function(){
-	    Bus.$on('DetailsId', (e) => {
-	    	this.orderNo = e;
-	    })
+		this.orderNo = this.$route.params.id;
 	    setTimeout(() => {
 			this.getList();
 			this.getdetails();
@@ -161,7 +155,6 @@ export default {
 		padding: 0;
 		width: 100%;
 		height: 100%;
-        padding-top: 88px;
 	}
 	#overflow{
 		width: 100%;
@@ -173,26 +166,27 @@ export default {
 		height: 80pt;
         padding: 12px 12px 7px 12px;
 	    background-color: #fff;
+		position: relative;
 	}
 	.ele3{
         padding: 12px 12px 7px 12px;
 	    background-color: #fff;
 	}
 	.ele4{
-	    width: 100%;
-	    margin: auto;
-	    height: 50px;
-	    text-align: center;
-	    line-height: 50px;
-	    font-size: 17px;
-	    color: #333;
+    width: 100%;
+    margin: auto;
+    height: 8.267vw;
+    text-align: center;
+    line-height: 11.267vw;
+    font-size: 3.967vw;
+    color: #333;
 	}
 	.points1{
-	    color: #FFB540;
-	    background: #fff5e5;
-	    font-size: 13px;
-	    line-height: 22px;
-	    padding: 7px 12px;
+	color: #ffb540;
+    background: #fff5e5;
+    font-size: 3.833vw;
+    line-height: 2.933vw;
+    padding: 3.833vw 1.6vw 3.833vw 5.6vw !important;
 	}
 	.pet-img{
 	    width: 67pt;
@@ -206,6 +200,13 @@ export default {
 	    min-height: 60px;
 	    border-bottom: 1px solid #efefef;
 	    margin-bottom: 12px;
+		padding:2.8vw;
+		position: relative;
+	}
+	.rio{
+		position: absolute;
+		right: 3vw;
+		top: 3.5vw;
 	}
 	.ele2-4{
 		width: 100%;
@@ -219,37 +220,41 @@ export default {
 		padding: 7px;
 	}
 	.pet-name{
-		font-size: 14pt;
-    	color: #333;
+	font-size: 4.767vw;
+    color: #333;
+    width: 51vw;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 	}
 	.pet-where{
-	    margin-top: 23px;
-	    font-size: 14px;
-	    color: #999;
+    font-size: 3.867vw;
+    color: #999;
+    position: absolute;
+    bottom: 3vw;
 	}
 	.pet-time{
-		position: relative;
-	    top: -65px;
-	    left: 200px;
-	    color: #999;
+    position: absolute;
+    top: 3.333vw;
+    right: 2vw;
+    color: #999;
+    font-size: 4.2vw;
 	}
 	
 	.tishi,.yaoqiu{
-		font-size: 17px;
+		font-size: 4.267vw;
 		color: #333;
 	}
 	.yaoqiu{
-		padding-top: 7px;
+		padding-top: 2.933vw;
 		color: #999;
-    	font-size: 14px;
+    	font-size: 3.867vw;
     	width: 70%;
 	}
 	.price{
-	    font-size: 17px;
+	    font-size: 4vw;
 	    color: #333;
-	    position: relative;
-	    top: -52px;
-	    left: 270px;
 	}
 	.addr{
 		float: left;

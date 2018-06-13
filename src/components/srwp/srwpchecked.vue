@@ -1,21 +1,21 @@
 <template>
 	<div id="srwpchecked">
-		<header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			托运详情
 			<img @click="goback()" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-		</header>
+		</header> -->
 		<div id="soll" class="page-tab-container">
 			<div id="overflow">
 		  		<div class="ele2">
 		  			<div class="ele2-1">
-		  				<img class="pet-img" :src="list.petPicture"/>
+		  				<img class="pet-img" :src="bigPackageList"/>
 		  			</div>
 		  			<div class="ele2-1 ele2-2">
 			  			<p class="pet-name">已托运</p>
 			  			<p class="pet-time">
-			  				<span v-for="eles in list1">{{eles.name}}</span>
+			  				<span>{{ownerName}}</span>
 			  			</p>
-			  			<p class="pet-where">{{list.startCity}}->{{list.endCity}}</p>
+			  			<p class="pet-where">{{startCity}}->{{endCity}}</p>
 		  			</div>
 		  		</div>
 	  			<div class="ele3">
@@ -52,29 +52,31 @@ export default {
 	        varietys:"1",
 	        logistics:[],
 	        petimg1:'',
-	        petimg2:'',
-	        list:[],
-	        list1:[],
+			petimg2:'',
+			bigPackageList:'',
+			endCity:'',
+			ownerName:'',
+			startCity:'',
+			createTime:''
 	    }
     },
 	created: function() {
-	    this.list = this.$route.params.testid;
-	    this.list1 = this.$route.params.testid.packages;
 	    setTimeout(() => {
-    		this.getList();
+			this.getList();
+			this.getdetails();
 	    }, 100)
 	},
 	methods:{
 		goback(){
 			this.$router.push({name: 'srwp_list',
-				params:{ 
+				params:{
 					res:'tab-container3'
 				}
 			})
 		},
 		getList(){
 			var that = this;
-			var id = that.list.id;
+			var id = that.$route.params.id;
 			axios.get('/eport-server/delivery/queryDelivery.do', {
 				params: {
 					id:id,
@@ -85,6 +87,20 @@ export default {
 					that.logistics = data.data.data.logistics;
 				}
 			})
+		},
+		getdetails(){
+			var that = this;
+			axios.get('/eport-server/delivery/luggage/queryOrderById.do', {
+				params: {
+					orderNo :that.$route.params.id
+				}
+			}).then(function(data) {
+				that.bigPackageList = data.data.data.bigPackageList[0];
+				that.endCity = data.data.data.endCity;
+				that.ownerName = data.data.data.ownerName;
+				that.startCity = data.data.data.startCity;
+				that.createTime = data.data.data.createTime;
+			});
 		}
 	}
 }
@@ -108,7 +124,6 @@ export default {
 		padding: 0;
 		width: 100%;
 		height: 100%;
-        padding-top: 88px;
 	}
 	#overflow{
 		width: 100%;
@@ -151,11 +166,11 @@ export default {
 	}
 	.pet-where{
 	    margin-top: 4px;
-	    font-size: 15px;
+	    font-size: 4vw;
 	    color: #999;
 	}
 	.pet-time{
-	    font-size: 15px;
+	    font-size: 4vw;
 	    color: #999;
 	    margin-top: 5px;
 	}
@@ -186,24 +201,24 @@ export default {
 		border-right: 0px solid #ccc !important;
 	}
 	.state{
-		padding-left: 20px;
+		padding-left: 4.667vw;
+		text-align: left;
+		color: #285fb1;
+		font-size: 4.367vw;
 	    height: 20px;
-	    text-align: left;
-	    color: #285FB1;
-	    font-size: 14px;
-	    line-height: 0px;
 	    font-weight: 600;
 	}
 	.stateCon{
-		padding-left: 20px;
 	    text-align: left;
 	    color: #285FB1;
-	    font-size: 14px;
+		 padding-left: 2.667vw;
+		font-size: 3.5vw;
+		padding: 4.2vw;
 	}
 	.yuan{
 		position: absolute;
-	    top: 2px;
-	    left: 72px;
+		top: .267vw;
+		left: 19.2vw;
 	}
 	.petimg{
 		width: 45px;
