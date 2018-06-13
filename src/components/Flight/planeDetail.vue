@@ -88,7 +88,7 @@
               <img src="./../../../static/img/PageTP1.png" alt="">
               <p>机场交通</p>
             </div>
-            <div>
+            <div @click="toplane">
               <img src="./../../../static/img/PageTP2.png" alt="">
               <p>登记路线</p>
             </div>
@@ -112,6 +112,9 @@
       methods:{
         tohotel(){
           this.$router.push({name:'hotel'});
+        },
+        toplane(){
+          this.$router.push({name:'testScroll'});
         },
         headerBack(){
           this.$router.back(-1);
