@@ -694,4 +694,7 @@
 	    line-height: 80px !important;
 	    font-size: 30px !important;
 	}
+	.mint-toast-text {
+		font-size: 3.8vw !important;
+	}
 </style>

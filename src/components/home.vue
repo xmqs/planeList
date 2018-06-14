@@ -388,3 +388,9 @@
 	    text-align: left;
 	}
 </style>
+<style>
+	.mint-toast-text {
+		font-size: 3.8vw !important;
+	}
+</style>
+

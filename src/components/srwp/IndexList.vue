@@ -1,12 +1,12 @@
 <template>
 	<div id="IndexList">
 		<div class="inp">
-			<span @click="goback" style="position: absolute;top: 6px;left: 0px;padding: 8px;">
+			<!-- <span @click="goback" style="position: absolute;top: 6px;left: 0px;padding: 8px;">
 				<img src="../../../static/img/back1.png"/>
-			</span>
-			<input class="inp_s" type="text" v-model="area" @keyup="selectArea"/>
+			</span> -->
+			<img style="width: 15px;position: absolute; top: 4.5vw;left: 8vw;" src="../../../static/img/Fill1.png"/><input class="inp_s searchdetails" placeholder="请输入搜索关键字" type="text" v-model="area" @keyup="selectArea"/>
 		</div>
-		<div v-show="thicity" class="mycity">{{active}}<span @click="acCity" style="float: right;padding-right: 4vw;">✖</span></div> 
+		<div v-show="thicity" class="mycity">{{active}}<span @click="acCity" style="float: right;padding: 0vw 2vw 0 5vw;">✖</span></div> 
 		<div v-if="result" class="inp1">
 			<div v-for="(ele,index) in resultCitys" class="citys" :key="index">
 				<div @click="bus(ele)" class="routes routes1">
@@ -110,7 +110,8 @@
 	}
 	.inp{
 	    width: 100%;
-    	padding: 17px 14px 17px 67px;
+		height: 13.867vw;
+		background: rgb(239, 239, 244);
 	}
 	.mycity{
 		    height: 11.5vw;
@@ -119,21 +120,6 @@
     padding-left: 1.5vw;
 	border-bottom: 1px solid #f5f5f5;
 	}
-	.inp_s{
-	    width: 100%;
-	    height: 65px;
-	    border: 1px solid #e9e9e9;
-	    border-radius: 4px;
-	    background: #e8e8e8;
-		-webkit-appearance: none;
-	    padding: 10 13px;
-		font-size: 32px;
-		-khtml-user-select: auto!important;
-		-moz-user-select: auto!important;
-		-ms-user-select: auto!important;
-		-o-user-select: auto!important;
-		user-select: auto!important;
-	}
 	.mint-cell-text{
 		color: #333;
 	    font-size: 32px;
@@ -141,19 +127,20 @@
 	.mint-indexsection-index {
 	    margin: 0;
 	    padding: 20px 24px !important;
-	    background-color: #f5f5f5;
+	    background-color: #efeff4;
 	}
 	.mint-indexlist-nav{
-		background-color: #474747 !important;
-	    height: 95%;
-	    line-height: 32px;
-	    border-radius: 8px;
-	    color: #fff;
-	    position: absolute;
-	    top: 1px !important;
+    height: 100%;
+    line-height: 4.5vw;
+    /* border-radius: 1.067vw; */
+    color: #333;
+    position: absolute;
+    top: 0!important;
+    border-left: 0 solid #ddd;
+    background: #efeff4;
 	}
 	.class-a{
-		background: #ccc;
+		background: #efeff4;
 	}
 	.citys{
         color: #333;
@@ -193,11 +180,32 @@
 	    height: 60px;
 	    display: inline-block;
 	}
+	.searchdetails{
+    background: #fff;
+    outline: none;
+    width: 90%;
+    height: 8vw;
+    border-radius: 1.867vw;
+    text-align: left;
+    padding-left: 10vw;
+    margin-left: 5%;
+    margin-top: 2.5vw;
+    font-size: 3.733vw;
+    color: #999;
+    font-family: PingFangSC;
+    -webkit-appearance: none;
+    -moz-user-select: auto!important;
+    -ms-user-select: auto!important;
+    -o-user-select: auto!important;
+    -webkit-user-select: auto!important;
+    user-select: auto!important;
+    border: 0px solid #f5f5f5;
+}
 </style>
 <style>
 .mint-indexlist-navitem {
-    padding: .267vw 1.7vw !important;
-    font-size: 4.2vw !important;
+    padding: .267vw 1.3vw !important;
+    font-size: 3.5vw !important;
 }
 .sp {
     height:12vw !important;
@@ -207,4 +215,10 @@
 .mint-cell-wrapper {
     line-height: 12vw !important;
 }
+.mint-indexlist-content {
+    margin-right: 0 !important;
+}
+	.mint-toast-text {
+		font-size: 3.8vw !important;
+	}
 </style>

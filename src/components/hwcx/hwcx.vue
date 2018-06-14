@@ -1,33 +1,98 @@
 <template>
-	<div id="hwcx" @click="hid">
-		<mt-header style="font-size: 17px;height:45px;background-color:#285FB1;" title="货运查询">
+	<div id="hwcx">
+		<!-- <mt-header style="font-size: 17px;height:45px;background-color:#285FB1;" title="货运查询">
 			<router-link :to="{path:'/'}" slot="left">
 		    	<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
-		</mt-header>
+		</mt-header> -->
 		<div class="content-box">
 			<input type="text" class="gang se" value="" readonly="readonly" v-model="select_txt" placeholder="请选择货运方式"/>
 			<div @click.stop="toogle_list" class="sj"><a class="sanjiao"></a></div>
 			<input type="number" class="gang" value="" @keyup="up($event)" v-model="dingdanhao" placeholder="请输入订单号"/>
-			<input type="button" value="查询" @click="select" :class="{ 'bgColor': bgColor === true }" class="bgColor1"/>
+			<div type="button" @click="select" :class="{ 'bgColor': bgColor === true }" class="bgColor1">查询</div>
 		</div>
 		<div class="content-box1">
-			<div class="txt">&nbsp;&nbsp;{{select_txt}}</div>
-			<div v-show="clList" class="cl">
-				<span style="font-size: 17px;color: #333;">状态</span>&nbsp;&nbsp;&nbsp;<span id="">2018-02-02 10:10:10</span>
-				<p>您的第一批货物等待提取</p>
+			<div v-if="active == 'CI' && status == 0 && arr != '{}'">
+				<div v-show="clList" class="cl">
+					<span style="font-size: 16pt;color: #333;">主运单信息</span>
+					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}</p>
+				</div>
+				<div class="cl">
+					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.ManiFest.Fno}}</span>
+					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
+						<div style="font-size: 14pt;color: #333;">舱单信息</div>
+						<p class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}； 航班到港日期：{{ele.ManiFest.ActualArrival}}</p>
+					</div>
+					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
+						<div style="font-size: 14pt;color: #333;">入库信息</div>
+						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物理货完成时间：{{ele.WareHouse.OPDate}}</p>
+					</div>
+				</div>
 			</div>
-			<div v-show="clList1">
-				<img src="../../../static/img/kong.png"/>
+			<div v-else-if="active == 'CO' && status == 0 && arr != '{}'">
+				<div v-show="clList" class="cl">
+					<span style="font-size: 16pt;color: #333;">主运单信息</span>
+					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}</p>
+				</div>
+				<div class="cl">
+					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.WareHouse.Fno}}</span>
+					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
+						<div style="font-size: 14pt;color: #333;">入库信息</div>
+						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物入库完成时间：{{ele.WareHouse.OPDate}}</p>
+					</div>
+				</div>
+			</div>
+			<div v-else-if="active == 'II' && status == 0 && arr != '{}'">
+				<div v-show="clList" class="cl">
+					<span style="font-size: 16pt;color: #333;">主运单信息</span>
+					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；海关放行指令：{{list.RELStatus}} 原始舱单状态：{{list.mftStatus}}；货物理货状态：{{list.tallyStatus}}</p>
+				</div>
+				<div class="cl">
+					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.ManiFest.Fno}}</span>
+					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
+						<div style="font-size: 14pt;color: #333;">舱单信息</div>
+						<p class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}； 航班到港日期：{{ele.ManiFest.ActualArrival}}</p>
+					</div>
+					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
+						<div style="font-size: 14pt;color: #333;">入库信息</div>
+						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物理货完成时间：{{ele.WareHouse.OPDate}}</p>
+					</div>
+				</div>
+				<div v-for="(ele,index) in list.Hawb" class="cl" :key="index">
+					<span style="font-size: 13pt;color: #333;">分运单号：{{ele.Hno}}</span>
+					<p class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.mftStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
+				</div>
+			</div>
+			<div v-else-if="active == 'IO' && status == 0 && arr != '{}'">
+				<div v-show="clList" class="cl">
+					<span style="font-size: 16pt;color: #333;">主运单信息</span>
+					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；商检放行指令：{{list.CIQStatus}}；海关放行指令：{{list.CMDStatus}}</p>
+				</div>
+				<div class="cl">
+					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.WareHouse.Fno}}</span>
+					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
+						<div style="font-size: 14pt;color: #333;">入库信息</div>
+						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物入库完成时间：{{ele.WareHouse.OPDate}}</p>
+					</div>
+				</div>
+				<div v-for="(ele,index) in list.Hawb" class="cl" :key="index">
+					<span style="font-size: 13pt;color: #333;">分运单号：{{ele.Hno}}</span>
+					<p class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.MFTStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
+				</div>
+			</div>
+			<div v-else-if="status == 0 && arr == '{}'">
+				<transition name="fade">
+					<img src="../../../static/img/kong.png"/>
+				</transition>
 			</div>
 		</div>
 		<div class="content-box2">
 			<transition name="fade">
 				<ul v-show="ul_list" id="to-list" transiton="fade">
-					<li @click.stop="kangkou(0,'国内进港')" :class="{'list-a':active === 0}" class="list-c">国内进港</li>
-					<li @click.stop="kangkou(1,'国内出港')" :class="{'list-a':active === 1}" class="list-c">国内出港</li>
-					<li @click.stop="kangkou(2,'国际进港')" :class="{'list-a':active === 2}" class="list-c">国际进港</li>
-					<li @click.stop="kangkou(3,'国际出港')" :class="{'list-a':active === 3}" class="list-c">国际出港</li>
+					<li @click.stop="kangkou('CI','国内进港')" :class="{'list-a':active === 'CI'}" class="list-c">国内进港</li>
+					<li @click.stop="kangkou('CO','国内出港')" :class="{'list-a':active === 'CO'}" class="list-c">国内出港</li>
+					<li @click.stop="kangkou('II','国际进港')" :class="{'list-a':active === 'II'}" class="list-c">国际进港</li>
+					<li @click.stop="kangkou('IO','国际出港')" :class="{'list-a':active === 'IO'}" class="list-c">国际出港</li>
 				</ul>
 			</transition>
 		</div>
@@ -47,7 +112,10 @@
 				ul_list:false,
 				bgColor:false,
 				clList:false,
-				clList1:true
+				clList1:false,
+				status:1,
+				list:[],
+				arr:''
 			}
 		},
 		created: function() {
@@ -55,8 +123,10 @@
 		},
 		methods: {
 			kangkou:function(res,con){//口岸选择
+				this.status = 1;
 				this.active = res;
 				this.select_txt = con;
+				this.ul_list = !this.ul_list;
 				//this.ul_list = false;
 				if(this.dingdanhao != "" && con != ""){
 					this.bgColor = true;
@@ -67,10 +137,8 @@
 			toogle_list:function(){//底部列表toggle
 				this.ul_list = !this.ul_list
 			},
-			hid:function(){
-				this.ul_list = false
-			},
 			select:function(){//点击查询
+			this.clList1 = true;
 				if(this.dingdanhao != "" && this.select_txt != ""){
 					if(isNaN(this.dingdanhao)){
 						Toast({
@@ -79,8 +147,23 @@
 						  className:'toast'
 						});
 					}else{
-						this.clList = true;
-						this.clList1 = false;
+						axios.post("/eport-server/airFreight/getAirFreight.do", {
+							awbNumber:this.dingdanhao,
+							awbType:this.active
+						}).then((res) => {		
+							if(res.status == 200) {	
+								this.status = 0;
+								this.list = res.data.data;
+								this.arr = JSON.stringify(res.data.data);
+								setTimeout(()=>{
+									this.clList = true;
+									this.clList1 = false;
+								},100);
+							}else{
+								Toast("查询失败");
+							}
+						}, (res) => {							
+						});
 					}
 				}
 			},
@@ -107,67 +190,94 @@
 </script>
 
 <style scope>
+	*{
+		font-family: PingFangSC;
+	    -webkit-overflow-scrolling: touch;
+	}
 	#hwcx{
 		margin: 0;
 		height: 100%;
 		width: 100%;
+		position: fixed;
+		background: #f5f5f5;
 	}
 	.content-box{
 	    margin: auto;
 	    background-color: #fff !important;
-	    padding: 20px 15px 25px 15px;
+		padding: 2.667vw 5vw 5.333vw 5vw;
 	    position: relative;
 	}
 	.content-box1{
-	    padding: 15px 10px 25px 10px;
-	    background-color: #f5f5f5;
-    	width: 100%;
+    padding: 3vw 3.333vw 3.333vw;
+    background-color: #f5f5f5;
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    height: 100%;
+    top: 53.5vw;
+    overflow-y: scroll;
+    padding-bottom: 58vw;
 	}
 	.bgColor1{
 	    background-color: rgb(184, 207, 241);
 	    width: 100%;
-	    margin-top: 12px;
-	    height: 45px;
+	    margin-top: 3vw;
+	    height: 12.267vw;
 	    border: none;
 	    color: #fff;
-	    font-size: 17px;
-	    border-radius: 4px;
+	    font-size: 4.533vw;
+	    border-radius: 8px;
+		text-align: center;
+    line-height: 12.267vw;
 	}
 	.bgColor{
 		background-color: rgb(40, 95, 177);
 	}
 	.gang{
-		height: 45px;
+		height: 11.733vw;
 	    outline: none;
 	    border: none;
-	    font-size: 17px;
+	    font-size: 30px;
 	    width: 100%;
-	    border-radius: 5px;
+	    border-radius: 8px;
 	    background-color: #f5f5f5;
-	    margin: 7px 0;
+	    margin: 1.833vw 0;
 	    padding: 0 7px;
+		padding-left: 4vw;
+		-webkit-appearance: none;
+		-moz-user-select: auto!important;
+		-ms-user-select: auto!important;
+		-o-user-select: auto!important;
+		-webkit-user-select: auto!important;
+		user-select: auto!important;
+		border: 0px solid #f5f5f5;
 	}
 	.sj{
-	    position: absolute;
-	    top: 30px;
-	    right: 20px;
-	    padding: 12px;
+    position: absolute;
+    top: 5.333vw;
+    right: 2.667vw;
+    padding-right: 5vw;
+    height: 11.733vw;
+    width: 100%;
+    text-align: right;
+    line-height: 9vw;
 	}
 	.sanjiao{
 	    display: inline-block;
 	    width: 0;
 	    height: 0;
 	    line-height: 0;
-	    border: 8px solid transparent;
+	    border: 16px solid transparent;
 	    border-top-color: #ccc;
 	    border-bottom-width: 0;
 	}
 	.cl{
-		background: #fff;
-	    line-height: 31px;
-	    font-size: 15px;
-	    padding: 18px 3px 18px 15px;
-	    margin-top: 15px;
+ 	background: #fff;
+    line-height: 4.133vw;
+    font-size: 2vw;
+    padding: 5.4vw 3vw 4.4vw 3vw;
+    margin-top: 3.5vw;
+
 	}
 	#to-list{
 	    background-color: #fff;
@@ -176,17 +286,18 @@
 	    width: 100%;
 	}
 	.list-a{
-	    background: url(../../../static/img/gou.png) no-repeat right;
+	    background: url(../../../static/img/hycxgou.png) no-repeat right;
+		background-size: 7.667vw 5.667vw;
 	    color: rgb(40, 95, 177);
 	}
 	.list-c{
 	    list-style: none;
 	    width: 95%;
-	    height: 50px;
-	    font-size: 17px;
+	    height: 100px;
+	    font-size: 30px;
 	    border-bottom: 1px solid #f7f0f0;
 	    margin-left: 15px;
-	    line-height: 50px;
+	    line-height: 100px;
 	}
 	.txt{
 		color: #333;
@@ -200,5 +311,16 @@
     }
 	.toast{
 		width: 60%;
+	}
+	.things{
+		    margin-top: 3vw;
+    font-size: 3.5vw;
+	color: #999;
+	line-height: 1.6;
+	}
+</style>
+<style type="text/css">
+	.mint-toast-text {
+		font-size: 3.8vw !important;
 	}
 </style>

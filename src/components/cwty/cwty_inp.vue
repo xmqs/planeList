@@ -319,7 +319,7 @@
 				var input = document.querySelectorAll('.inps');
 				var label = document.getElementsByTagName('label');
 				if(this.imageUrl1.length == 0){
-					Toast('请上传宠物照片')
+					Toast('请上传宠物照片');
 					check = false;
 					return;
 				}
@@ -661,5 +661,8 @@
 	    height: 80px !important;
 	    line-height: 80px !important;
 	    font-size: 30px !important;
+	}
+	.mint-toast-text {
+		font-size: 3.8vw !important;
 	}
 </style>

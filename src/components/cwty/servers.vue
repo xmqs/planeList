@@ -253,3 +253,8 @@ export default {
     padding: 10px 0 8px 15px;
 	}
 </style>
+<style>
+	.mint-toast-text {
+		font-size: 3.8vw !important;
+	}
+</style>

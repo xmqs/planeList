@@ -279,3 +279,8 @@
 		margin: 3% 0 3% 5%;
 	}
 </style>
+<style>
+	.mint-toast-text {
+		font-size: 3.8vw !important;
+	}
+</style>

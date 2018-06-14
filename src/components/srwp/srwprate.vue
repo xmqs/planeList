@@ -141,4 +141,7 @@
     font-size: 3.867vw;
     vertical-align: middle;
 }
+	.mint-toast-text {
+		font-size: 3.8vw !important;
+	}
 </style>

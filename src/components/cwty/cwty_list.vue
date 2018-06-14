@@ -179,7 +179,7 @@
 			}
 		},
 		created() {
-			//this.login();
+			this.login();
 			if (sessionStorage.getItem("active") != null) {
 				this.active = sessionStorage.getItem("active");
 				sessionStorage.removeItem("active");
