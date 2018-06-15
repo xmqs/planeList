@@ -472,6 +472,7 @@
 		border-radius: 0 !important;
 		color: #285fb1 !important;
 		font-size: 36px !important;
+		background-color: #fff !important;
 	}
 
 	.bu_style {

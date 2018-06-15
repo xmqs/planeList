@@ -89,10 +89,10 @@
 		<div class="content-box2">
 			<transition name="fade">
 				<ul v-show="ul_list" id="to-list" transiton="fade">
-					<li @click.stop="kangkou('CI','国内进港')" :class="{'list-a':active === 'CI'}" class="list-c">国内进港</li>
-					<li @click.stop="kangkou('CO','国内出港')" :class="{'list-a':active === 'CO'}" class="list-c">国内出港</li>
 					<li @click.stop="kangkou('II','国际进港')" :class="{'list-a':active === 'II'}" class="list-c">国际进港</li>
 					<li @click.stop="kangkou('IO','国际出港')" :class="{'list-a':active === 'IO'}" class="list-c">国际出港</li>
+					<li @click.stop="kangkou('CI','国内进港')" :class="{'list-a':active === 'CI'}" class="list-c">国内进港</li>
+					<li @click.stop="kangkou('CO','国内出港')" :class="{'list-a':active === 'CO'}" class="list-c">国内出港</li>
 				</ul>
 			</transition>
 		</div>
@@ -119,7 +119,8 @@
 			}
 		},
 		created: function() {
-
+			this.active = "II";
+			this.select_txt = '国际进港';
 		},
 		methods: {
 			kangkou:function(res,con){//口岸选择
