@@ -35,19 +35,19 @@
     </div>
     <div id="wrapper" style="touch-action: none;">
       <div id="scroller" class="ignore">
-        <div class="point pt1" :class="{'pta1':active==0}" @click="changePage(0)">
+        <div class="point pt1" :class="{'pta1':active==0}" @touchend="changePage(0)">
           <img src="./../../../static/img/point/point@1.png" alt="" width="50%" v-if="active!==0">
           <img src="./../../../static/img/point/pointActive@1.png" alt="" width="50%" v-if="active==0">
         </div>
-        <div class="point pt2" :class="{'pta2':active==1}" @click="changePage(1)">
+        <div class="point pt2" :class="{'pta2':active==1}" @touchend="changePage(1)">
           <img src="./../../../static/img/point/point@2.png" alt="" width="50%" v-if="active!==1">
           <img src="./../../../static/img/point/pointActive@2.png" alt="" width="50%" v-if="active==1">
         </div>
-        <div class="point pt3" :class="{'pta3':active==2}" @click="changePage(2)">
+        <div class="point pt3" :class="{'pta3':active==2}" @touchend="changePage(2)">
           <img src="./../../../static/img/point/point@3.png" alt="" width="50%" v-if="active!==2">
           <img src="./../../../static/img/point/pointActive@3.png" alt="" width="50%" v-if="active==2">
         </div>
-        <div class="point pt4" :class="{'pta4':active==3}" @click="changePage(3)">
+        <div class="point pt4" :class="{'pta4':active==3}" @touchend="changePage(3)">
           <img src="./../../../static/img/point/point@4.png" alt="" width="50%" v-if="active!==3">
           <img src="./../../../static/img/point/pointActive@4.png" alt="" width="50%" v-if="active==3">
         </div>
@@ -60,6 +60,7 @@
   import Swiper from "swiper"
   import "./../../../node_modules/swiper/dist/css/swiper.css"
   import zoom  from "./../../../node_modules/iscroll/build/iscroll-zoom"
+  import iScroll from "iscroll"
     export default {
         name: "testScroll",
       data(){
@@ -70,7 +71,7 @@
           }
       },
       mounted(){
-        this.iScroll = new zoom('#wrapper',{
+        this.iScroll = new iScroll('#wrapper',{
           zoom:true,
           scrollY: true,
           scrollX: true,
@@ -110,17 +111,13 @@
         mapScroll(num){
           this.active = num;
           if (num == 0){
-            this.iScroll.zoom(1.5);
-            this.iScroll.scrollTo(-1350, 0, 400);
+            this.iScroll.scrollTo(-828, 0, 400);
           }else if(num == 1){
-            this.iScroll.zoom(1.5);
-            this.iScroll.scrollTo(-1350, -30, 400);
+            this.iScroll.scrollTo(-837, -30, 400);
           }else if(num == 2){
-            this.iScroll.zoom(1.5);
-            this.iScroll.scrollTo(-1340, -100, 400);
+            this.iScroll.scrollTo(-822, -80, 400);
           }else if(num == 3){
-            this.iScroll.zoom(1.5);
-            this.iScroll.scrollTo(-1190, -207, 400);
+            this.iScroll.scrollTo(-728, -93, 400);
           }
         }
       }

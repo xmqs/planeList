@@ -13,6 +13,7 @@
         <div class="destination left_destination" @click="choseCity(planeFrom.name)">
           <p>出发地</p>
           <div class="dest dest_f">{{planeFrom.name}}</div>
+          <div class="scroll_mask"></div>
         </div>
         <div class="icon_destination" @click="changeFT">
           <img src="./../../../static/img/rollcoin.png" alt=""  v-bind:class="{'change':changing}">
@@ -20,6 +21,7 @@
         <div class="destination right_destination" @click="choseCity(planeTo.name)">
           <p>目的地</p>
           <div class="dest dest_t">{{planeTo.name}}</div>
+          <div class="scroll_mask"></div>
         </div>
       </li>
       <li>
@@ -190,19 +192,28 @@
   /**出发地 目的地**/
   .destination{
     text-align: left;
-    width: 20%;
+    width: 36%;
+    position: relative;
   }
   .destination .dest{
-    height:56px;
+    height:76px;
     font-size:40px;
     font-family:PingFangSC-Regular;
+    -webkit-overflow-scrolling: touch;
     color:rgba(51,51,51,1);
     line-height:56px;
     margin-top: 10px;
     overflow-x: scroll;
     overflow-y: hidden;
-    width: 130px;
     white-space: nowrap;
+    padding-bottom: 20px;
+  }
+  .scroll_mask{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 18px;
+    background: #fff;
   }
   .destination p{
     height:33px;
@@ -213,12 +224,12 @@
   }
   /*.left_destination{
     height: 4rem;
-  }
+  }*/
 
 
   .right_destination{
-    height: 4rem;
-  }*/
+    text-align: right;
+  }
   .icon_destination{
     height: 64px;
     width: 66px;
@@ -307,11 +318,5 @@
     -moz-transform:rotate(360deg);
     -webkit-transform:rotate(360deg);
     -o-transform:rotate(360deg);
-  }
-  .dest_f{
-    position: absolute;
-  }
-  .dest_t{
-    position: absolute;
   }
 </style>
