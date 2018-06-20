@@ -8,7 +8,7 @@
 		<div class="content-box">
 			<input type="text" class="gang se" value="" readonly="readonly" v-model="select_txt" placeholder="请选择货运方式"/>
 			<div @click.stop="toogle_list" class="sj"><a class="sanjiao"></a></div>
-			<input type="number" class="gang" value="" @keyup="up($event)" v-model="dingdanhao" placeholder="请输入订单号"/>
+			<input type="text" class="gang" value="" @keyup="up($event)" v-model="dingdanhao" placeholder="请输入订单号"/>
 			<div type="button" @click="select" :class="{ 'bgColor': bgColor === true }" class="bgColor1">查询</div>
 		</div>
 		<div class="content-box1">
@@ -45,7 +45,7 @@
 			<div v-else-if="active == 'II' && status == 0 && arr != '{}'">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
-					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；海关放行指令：{{list.RELStatus}} 原始舱单状态：{{list.mftStatus}}；货物理货状态：{{list.tallyStatus}}</p>
+					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；海关放行指令：{{list.RELStatus}}；原始舱单状态：{{list.mftStatus}}；货物理货状态：{{list.tallyStatus}}</p>
 				</div>
 				<div class="cl">
 					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.ManiFest.Fno}}</span>
@@ -141,31 +141,23 @@
 			select:function(){//点击查询
 			this.clList1 = true;
 				if(this.dingdanhao != "" && this.select_txt != ""){
-					if(isNaN(this.dingdanhao)){
-						Toast({
-						  message: '订单号输入有误，请重新输入',
-						  position: 'bottom',
-						  className:'toast'
-						});
-					}else{
-						axios.post("/eport-server/airFreight/getAirFreight.do", {
-							awbNumber:this.dingdanhao,
-							awbType:this.active
-						}).then((res) => {		
-							if(res.status == 200) {	
-								this.status = 0;
-								this.list = res.data.data;
-								this.arr = JSON.stringify(res.data.data);
-								setTimeout(()=>{
-									this.clList = true;
-									this.clList1 = false;
-								},100);
-							}else{
-								Toast("查询失败");
-							}
-						}, (res) => {							
-						});
-					}
+					axios.post("/eport-server/airFreight/getAirFreight.do", {
+						awbNumber:this.dingdanhao,
+						awbType:this.active
+					}).then((res) => {		
+						if(res.status == 200) {	
+							this.status = 0;
+							this.list = res.data.data;
+							this.arr = JSON.stringify(res.data.data);
+							setTimeout(()=>{
+								this.clList = true;
+								this.clList1 = false;
+							},100);
+						}else{
+							Toast("查询失败");
+						}
+					}, (res) => {							
+					});
 				}
 			},
 			up:function(e){//键盘抬起事件
@@ -199,8 +191,8 @@
 		margin: 0;
 		height: 100%;
 		width: 100%;
-		position: fixed;
 		background: #f5f5f5;
+		position: fixed;
 	}
 	.content-box{
 	    margin: auto;
@@ -209,15 +201,12 @@
 	    position: relative;
 	}
 	.content-box1{
-    padding: 3vw 3.333vw 3.333vw;
+    padding: 3vw 3.333vw 0 3.333vw;
     background-color: #f5f5f5;
     width: 100%;
     overflow: auto;
-    position: fixed;
     height: 100%;
-    top: 53.5vw;
-    overflow-y: scroll;
-    padding-bottom: 58vw;
+	padding-bottom: 58vw;
 	}
 	.bgColor1{
 	    background-color: rgb(184, 207, 241);

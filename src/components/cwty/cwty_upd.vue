@@ -11,7 +11,7 @@
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
 			<div class="points1">
-				<p class="">本平台只提供申办渠道，由用户与托运公司双向自由交易， 平台不承担任何纠纷和法律责任，最终解释权归南京市电子 口岸公司所有。建议与投诉电话：025-521637463</p>
+				<p class="pcon">本平台只提供申办渠道，由用户与托运公司双向自由交易， 平台不承担任何纠纷和法律责任，最终解释权归南京市电子 口岸公司所有。建议与投诉电话：025-521637463</p>
 			</div>
 			<div class="points">
 				<span class="">宠物信息</span>
@@ -532,7 +532,7 @@
 		user-select: auto!important;
 		-webkit-appearance: none;
 	}
-	p{
+	.pcon{
     background: #fff5e5;
     line-height: 5.333vw;
     padding: 2vw 1.6vw;
@@ -570,8 +570,8 @@
 	    margin: 0px 20px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 80px;
-	    line-height: 80px;
+	    height: 90px;
+	    line-height: 90px;
 		font-size:32px;
 		font-family:PingFangSC-Regular;
 		color:rgba(51,51,51,1);
@@ -583,7 +583,7 @@
 	    width: 55%;
 	    position: absolute;
 	    right: 7px;
-		top: 2.233vw;
+		top: 3vw;
 	    height: 45px;
 	    border: 0;
 	    outline: none;
@@ -595,7 +595,7 @@
 	    width: 60%;
 	    position: absolute;
 	    right: 7px;
-	    top: 10px;
+	    top: 3vw;
 	    height: 45px;
 	    border: 0;
 	    outline: none;
@@ -612,7 +612,7 @@
 	}
 	.po_right{
 		position: absolute;
-	    top: 0px;
+	    top: 7px;
 	    z-index: 999;
 	    right: -6px;
 	    padding: 20px 8px 19px 34px;
@@ -696,5 +696,35 @@
 	}
 	.mint-toast-text {
 		font-size: 3.8vw !important;
+	}
+	.mint-switch-core:before {
+		width: 6.667vw;
+		height: 6vw;
+		background-color: #fdfdfd;
+	}
+	.mint-switch-core:after, .mint-switch-core:before {
+		content: " ";
+		top: -1px;
+		left: 0px;
+		position: absolute;
+		transition: transform .3s;
+		border-radius: 3vw;
+	}
+	.mint-switch-core:after {
+		width: 7vw;
+		height: 6.2vw;
+		background-color: #fff;
+		box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
+	}
+	.mint-switch-core {
+		display: inline-block;
+		position: relative;
+		top: -6px;
+		width: 9.933vw;
+		height: 6.4vw;
+		border: 1px solid #d9d9d9;
+		border-radius: 3.133vw;
+		box-sizing: border-box;
+		background: #d9d9d9;
 	}
 </style>

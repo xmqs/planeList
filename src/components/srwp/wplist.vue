@@ -125,9 +125,8 @@
 				this.packages.push(pack)
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
-
 				setTimeout(() => {
-					Bus.$emit('wplist1', res)
+					sessionStorage.setItem('wplist1',JSON.stringify(this.packages))
 				}, 30)
 			},
 			getdetails(){

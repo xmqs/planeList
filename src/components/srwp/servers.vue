@@ -11,9 +11,9 @@
 					<div class="yaoqiu">{{element.description}}</div>
 					<div @click="cost1" class="allradio">
 						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;">
-							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>{{ele.title}}</label>
         				<label v-else style="float: left;">
-        					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+        					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>{{ele.title}}</label>
 					</div>
 				</li>
 			</ul>

@@ -17,7 +17,7 @@
 		<mt-index-list v-if="lists"  :show-indicator="true">
 				<mt-index-section v-for="(ele,index) in arealist" :index="ele.firstKey" :key="index">
 					<span @click="bus(element.name)" v-for="(element,index) in ele.cities" :key="index">
-						<mt-cell :class="{'class-a':active == element.name}" class="sp" :title="element.name"></mt-cell>
+						<mt-cell :class="{'class-city':active == element.name}" class="sp" :title="element.name"></mt-cell>
 					</span>
 				</mt-index-section>
 		</mt-index-list>
@@ -137,10 +137,10 @@
     position: absolute;
     top: 0!important;
     border-left: 0 solid #ddd;
-    background: #efeff4;
+    background: #efeff4 !important;
 	}
-	.class-a{
-		background: #efeff4;
+	.class-city{
+		background: #efeff4 !important;
 	}
 	.citys{
         color: #333;

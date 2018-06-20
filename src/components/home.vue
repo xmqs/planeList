@@ -378,10 +378,8 @@
 		height: 32px;
 	    line-height: 8px;
 	    position: absolute;
-	    top: 30px;
-	    left: 34px;
-	    height: 50px;
-	    width: 47px;
+		top: 5vw;
+    	left: 4.533vw;
 	}
 	.icontitle{
 	    margin-left: 104px;
