@@ -30,27 +30,34 @@
             <p>Waiting for Boarding</p>
           </div>
         </div>
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>候机及登机</p>
+            <p>Waiting for Boarding</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>候机及登机</p>
+            <p>Waiting for Boarding</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
+          <div class="page_info">
+            <p>候机及登机</p>
+            <p>Waiting for Boarding</p>
+          </div>
+        </div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
     <div id="wrapper" style="touch-action: none;">
       <div id="scroller" class="ignore">
-        <div class="point pt1" :class="{'pta1':active==0}" @touchend="changePage(0)">
-          <img src="./../../../static/img/point/point@1.png" alt="" width="50%" v-if="active!==0">
-          <img src="./../../../static/img/point/pointActive@1.png" alt="" width="50%" v-if="active==0">
-        </div>
-        <div class="point pt2" :class="{'pta2':active==1}" @touchend="changePage(1)">
-          <img src="./../../../static/img/point/point@2.png" alt="" width="50%" v-if="active!==1">
-          <img src="./../../../static/img/point/pointActive@2.png" alt="" width="50%" v-if="active==1">
-        </div>
-        <div class="point pt3" :class="{'pta3':active==2}" @touchend="changePage(2)">
-          <img src="./../../../static/img/point/point@3.png" alt="" width="50%" v-if="active!==2">
-          <img src="./../../../static/img/point/pointActive@3.png" alt="" width="50%" v-if="active==2">
-        </div>
-        <div class="point pt4" :class="{'pta4':active==3}" @touchend="changePage(3)">
-          <img src="./../../../static/img/point/point@4.png" alt="" width="50%" v-if="active!==3">
-          <img src="./../../../static/img/point/pointActive@4.png" alt="" width="50%" v-if="active==3">
-        </div>
+        <img v-for="(p1,index) in thisLine" :style="{left:p1[0]+'px',top:p1[1]+'px'}" v-if="active!==index" class="point" :src="'./../../../static/img/point/point@1.png'" alt="" width="30px" @touchend="changePage(index)">
+        <img v-for="(p1,index) in thisLine" :style="{left:p1[0]+'px',top:p1[1]+'px'}" v-if="active==index" class="point" :src="'./../../../static/img/point/pointActive@1.png'" alt="" width="40px" @touchend="changePage(index)">
       </div>
     </div>
   </div>
@@ -68,15 +75,38 @@
             iScroll:{},
             swiper:{},
             active:0,
+            AirlineIsland:[
+              [[1010,162],[1035,201],[1001,246],[908,298]],
+              [[1089,208],[1035,201],[1001,246],[1016,334]],
+              [[1200,214],[1253,234],[1252,267],[1260,301],[1239,318],[1253,346],[1291,373]],
+              [[1277,218],[1253,234],[1252,267],[1260,301],[1239,318],[1253,346],[1291,373]]
+            ],
+            thisLine:[[1089,208],[1035,201],[1001,246],[1016,334]],
+            swiperMsg:[
+              {
+                title:"查询值机柜台",
+                engTitle:'Location Your Check-in Counter'
+              },
+              {
+                title:"领取登机牌托运行李",
+                engTitle:'Boarding Pass & Baggage Check-in'
+              },
+              {
+                title:"安全检查",
+                engTitle:'Safety Check'
+              },
+              {
+                title:"候机及登机",
+                engTitle:'Waiting for Boarding'
+              },
+            ]
           }
       },
       mounted(){
         this.iScroll = new iScroll('#wrapper',{
-          zoom:true,
           scrollY: true,
           scrollX: true,
           mouseWheel: true,
-          wheelAction: 'zoom'
         });
 
         this.swiper = new Swiper('.swiper-container', {
@@ -91,6 +121,8 @@
             },
           },
         })
+
+        this.iScroll.scrollTo(-this.thisLine[0][0]+180,-this.thisLine[0][1]+230,400);
       },
       methods:{
         isPassive() {
@@ -110,15 +142,7 @@
         },
         mapScroll(num){
           this.active = num;
-          if (num == 0){
-            this.iScroll.scrollTo(-828, 0, 400);
-          }else if(num == 1){
-            this.iScroll.scrollTo(-837, -30, 400);
-          }else if(num == 2){
-            this.iScroll.scrollTo(-822, -80, 400);
-          }else if(num == 3){
-            this.iScroll.scrollTo(-728, -93, 400);
-          }
+          this.iScroll.scrollTo(-this.thisLine[num][0]+180,-this.thisLine[num][1]+230  ,400);
         }
       }
     }
@@ -195,7 +219,7 @@
   .point{
     position: absolute;
   }
-  .pt1{
+  /*.pt1{
     left: 2032px;
     top: 320px;
   }
@@ -227,5 +251,5 @@
   .pta4{
     left: 1780px!important;
     top: 580px!important;
-  }
+  }*/
 </style>
