@@ -11,9 +11,9 @@
 					<div class="yaoqiu">{{element.description}}</div>
 					<div @click="cost1" class="allradio">
 						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;">
-							<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' checked type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+							<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' checked type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>{{ele.title}}</label>
         				<label v-else style="float: left;">
-        					<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='ele.value' type="radio" :name='element.title'><i>✓</i>{{ele.title}}</label>
+        					<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>{{ele.title}}</label>
 					</div>
 				</li>
 			</ul>
@@ -68,6 +68,7 @@ export default {
 					var ser = {};
 					ser.serviceId = boxes[i].id;
 					ser.value = boxes[i].value;
+					ser.key = boxes[i].getAttribute("value1");
 					sers.push(ser)
 					this.cost += Number(boxes[i].value)
 		        }
@@ -199,6 +200,8 @@ export default {
 		font-size: 4vw;
 		color: #333;
 		margin-right: 17%;
+		width: 30%;
+    	overflow: hidden;
     }
     label i {
         font-size: 4vw;

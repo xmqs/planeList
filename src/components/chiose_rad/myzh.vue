@@ -18,7 +18,7 @@
 			  <i v-if="lod2" style="opacity: 0;" v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</el-upload>
 			<img v-if="lod" style="transform: rotate(1069.2deg);" class="rotate downwarp downwarp-progress-s" src="../../../static/img/Oval6.png"/>
-			<div style="position: relative;width:100%">
+			<div style="position: relative;width:100%;border-top: 1px solid #f5f5f5;">
 				<input @change="gettime" id="time" class="chiotiem1" type="date">
 				<div class="chiotiem">{{time}} <span style="float:right;margin: 1vw 5vw 0 0;">︾</span></div>
 			</div>

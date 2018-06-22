@@ -25,6 +25,9 @@ import flightMain from "@/components/Flight/flightMain"
 import hotel from "@/components/hotel/hotel"
 /*货物查询*/
 import hwcx from "@/components/hwcx/hwcx"
+/*口岸数据*/
+import kasjhomepage from "@/components/kasj/kasjhomepage"
+import kaxjcontentpage from "@/components/kasj/kaxjcontentpage"
 
 /*宠物托运*/
 
@@ -90,6 +93,17 @@ export default new Router({
             path: '/hwcx/hwcx',
             name: 'hwcx',
             component: hwcx
+        },
+        //口岸数据
+        {
+            path: '/kasj/kasjhomepage',
+            name: 'kasjhomepage',
+            component: kasjhomepage
+        },
+        {
+            path: '/kasj/kaxjcontentpage',
+            name: 'kaxjcontentpage',
+            component: kaxjcontentpage
         },
         //航班动态
         {
