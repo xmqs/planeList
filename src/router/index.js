@@ -144,12 +144,9 @@ export default new Router({
             component: Changeplane,
         },
         {
-            path: '/flight/planeDetail',
+            path: '/flight/planeDetail/:flightIdentity/:direction/:countryType',
             name: 'PlaneDetail',
             component: PlaneDetail,
-            meta: {
-                keepAlive: true
-            }
         },
         {
             path: '/flight/testScrollA',
@@ -172,7 +169,7 @@ export default new Router({
             component: testScrollD,
         },
         {
-            path: '/flight/busLine',
+            path: '/flight/busLine/:flight/:direction',
             name: 'busLine',
             component: busLine,
         },

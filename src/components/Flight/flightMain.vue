@@ -159,7 +159,7 @@
         });
       },
       toplaneDetail(res){
-        this.$router.push({name:'PlaneDetail',params:{detail:res}});
+        this.$router.push({path:'/flight/planeDetail/'+res.FlightIdentity+'/'+res.FlightDirection+'/'+res.ServiceType});
       },
       SearchIoD(status){
         this.serviceType = "P";

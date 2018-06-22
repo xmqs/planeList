@@ -135,7 +135,7 @@
           });
         },
         toplaneDetail(res){
-          this.$router.push({name:'PlaneDetail',params:{detail:res}});
+          this.$router.push({path:'/flight/planeDetail/'+res.flightIdentity+'/'+res.direction+'/'+res.countryType});
         },
         changefocus(num){
           axios.post('/eport-server/airFlight/followAirFlight.do',{

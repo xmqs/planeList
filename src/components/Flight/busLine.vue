@@ -2,27 +2,97 @@
   <div>
     <div class="title_header">
       <div class="change_page">
-        <div class="active"><img src="./../../../static/img/bus/busiconA@1.png" alt="">机场巴士</div>
-        <div><img src="./../../../static/img/bus/busicon@2.png" alt="">自驾</div>
-        <div><img src="./../../../static/img/bus/busicon@3.png" alt="">公交</div>
+        <div :class='{active:pageShow==1}' @click="changepage(1)">
+          <img v-if='pageShow==1' src="./../../../static/img/bus/busiconA@1.png" alt="">
+          <img v-if='pageShow!==1' src="./../../../static/img/bus/busicon@1.png" alt="">
+          机场巴士
+        </div>
+        <div :class='{active:pageShow==2}' @click="changepage(2)" v-if="list.FlightDirection=='D'">
+          <img v-if='pageShow==2' src="./../../../static/img/bus/busiconA@2.png" alt="">
+          <img v-if='pageShow!==2' src="./../../../static/img/bus/busicon@2.png" alt="">
+          自驾
+        </div>
+        <div :class='{active:pageShow==3}' @click="changepage(3)">
+          <img v-if='pageShow==3' src="./../../../static/img/bus/busiconA@3.png" alt="">
+          <img v-if='pageShow!==3' src="./../../../static/img/bus/busicon@3.png" alt="">
+          公交
+        </div>
       </div>
       <div class="search_page">
-        <input type="text" placeholder="查询出发地">
+        <input type="text" placeholder="查询出发地" id="tipinput">
       </div>
     </div>
     <div id="container"></div>
-    <div class="info">
+    <div class="info" id="panel" v-show="pageShow==3">
+      <p class="plh">输入目的地进行搜索</p>
+    </div>
+    <div class="info" id="panel2" v-show="pageShow==2">
 
+    </div>
+    <div class="info" id="panel3" v-show="pageShow==1">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="line_page">
+              <div class="line_title">
+                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士1号线</span>
+              </div>
+              <div class="line_body">
+                <span class="lb1">
+                  <p>20元</p>
+                  <p>票价</p>
+                </span>
+                <span class="vline"></span>
+                <span  class="lb2">
+                  <p class="pointName">{{point}}</p>
+                  <p class="pointDetail">服务描述 这是一段描述服务 新添加描述服务</p>
+                </span>
+              </div>
+              <div class="checkAll">
+                查看所有站点
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="line_page">
+              <div class="line_title">
+                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士2号线</span>
+              </div>
+              <div class="line_body">
+                <span class="lb1">
+                  <p>20元</p>
+                  <p>票价</p>
+                </span>
+                <span class="vline"></span>
+                <span  class="lb2">
+                  <p class="pointName">{{point}}</p>
+                  <p class="pointDetail">服务描述 这是一段描述服务 新添加描述服务</p>
+                </span>
+              </div>
+              <div class="checkAll">
+                查看所有站点
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import AMap from 'AMap'
+  import axios from "axios"
+  import swiper from "swiper"
+  import './../../../node_modules/swiper/dist/css/swiper.css'
   export default {
     name: "busLine",
     data(){
       return{
+        list:{},
+        pageShow:1,
+        swiper:{},
+        point:"南京南站",
         markers:[
           {
             icon: './../../static/img/point.png',
@@ -67,25 +137,83 @@
       }
     },
     mounted() {
+
+      this.swiper = new swiper('.swiper-container', {
+        autoplay: false,//可选选项，自动滑动
+        on:
+        {
+          slideChangeTransitionEnd: () => {
+            console.log(this.swiper.activeIndex);
+          },
+        }
+      })
+      this.xs = this.xs.split(',');
+      this.ys = this.ys.split(',');
+
+      for (let i = 0;i<this.ys.length;i++){
+        this.line.push([this.xs[i],this.ys[i]]);
+      }
+
+
+
+      axios.post('/eport-server/airFlight/getAirFlight.do',{
+        "isFirst":"0",
+        "countryType":"",
+        "serviceType":"",
+        "direction":"D",
+        "airportCode":"",
+        "airlineCode":"",
+        "flightIdentity":this.$route.params.flight,
+        "pageSize":"1",
+        "pageNumber":"1",
+        userId:""
+      }).then((response)=> {
+        this.list = response.data.data.list[0];
+        console.log(this.list);
+      }).catch((error)=> {
+
+      });
+
       this.init();
+
+
     },
     methods: {
+      changepage(id){
+        this.pageShow = id;
+        if(id == 1){
+          this.map.clearMap();
+
+          let polyline = new AMap.Polyline({
+            path: this.line,          //设置线覆盖物路径
+            strokeColor: "#25C2F2", //线颜色
+            strokeOpacity: 1,       //线透明度
+            strokeWeight: 4,        //线宽
+            strokeStyle: "solid",   //线样式
+            strokeDasharray: [10, 5] //补充线样式
+          });
+          polyline.setMap(this.map);
+
+          this.markers.forEach((marker)=> {
+            let Mark = new AMap.Marker({
+              map: this.map,
+              icon: marker.icon,
+              position: [marker.position[0], marker.position[1]],
+              offset: new AMap.Pixel(-8, -8),
+            })
+            Mark.on('click',()=>{
+              this.map.panTo(marker.position);
+              this.point = marker.title
+            })
+
+          });
+        }
+      },
       init: function () {
         this.map = new AMap.Map('container', {
           resizeEnable: true,
           zoom: 12
         })
-        AMap.plugin(['AMap.ToolBar', 'AMap.Scale'], function () {
-          this.map.addControl(new AMap.ToolBar())
-          this.map.addControl(new AMap.Scale())
-        })
-
-
-        this.xs = this.xs.split(',');
-        this.ys = this.ys.split(',');
-        for (let i = 0;i<this.ys.length;i++){
-          this.line.push([this.xs[i],this.ys[i]]);
-        }
 
         let polyline = new AMap.Polyline({
           path: this.line,          //设置线覆盖物路径
@@ -106,12 +234,44 @@
           })
           Mark.on('click',()=>{
             this.map.panTo(marker.position);
-            console.log(marker.title);
+            this.point = marker.title
           })
 
         });
 
+        var autoOptions = {
+          input: "tipinput"
+        };
+        var auto = new AMap.Autocomplete(autoOptions);
+        var placeSearch = new AMap.PlaceSearch({
+          map: this.map
+        });  //构造地点查询类
+        AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+        var that = this;
+        function select(e) {
 
+          console.log(that.pageShow);
+
+          if(that.pageShow == 3){
+            $('#panel').html("");
+            var transOptions = {
+              map: this.map,
+              city: '南京市',
+              panel: 'panel',
+            };
+
+            var transfer = new AMap.Transfer(transOptions);
+            transfer.search([
+              {keyword: e.poi.name,city:'南京'},
+              {keyword: '南京禄口国际机场',city:'南京'}
+            ]);
+          }
+
+          if(that.pageShow == 1){
+            placeSearch.setCity(e.poi.adcode);
+            placeSearch.search(e.poi.name);
+          }
+        }
       }
     }
   }
@@ -120,7 +280,7 @@
 <style scoped>
   #container{
     width: 750px;
-    height: 1334px;
+    height: 1330px;
   }
   .title_header{
     height: 177px;
@@ -205,10 +365,123 @@
   .info{
     position: fixed;
     display: flex;
-    bottom: 0;
+    top: 178px;
     width: 750px;
-    height: 366px;
+    height: 1157px;
     background: #fff;
+    overflow-y: auto;
+    z-index: 11000;
+  }
+  #panel3{
+    top: 940px;
+    bottom: 0;
+  }
+  .plh{
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+  }
+  .line_page{
+    width: 750px;
+  }
+  .line_title img{
+    width: 27px;
+    margin-left: 32px;
+    margin-right: 20px;
+  }
+  .line_title{
+    height: 88px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+  }
+  .bline{
+    margin-left: 340px;
+  }
 
+  .line_body{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  .lb1{
+    width: 100px;
+    display: inline-block;
+    font-size:28px;
+    text-align: center;
+    margin-right: 60px;
+  }
+  .vline{
+    width: 20px;
+    display: inline-block;
+    height: 100px;
+    border-left:1px solid #D8D8D8 ;
+  }
+  .lb2{
+    width: 460px;
+    display: inline-block;
+    margin-left: 20px;
+  }
+  .pointName{
+    font-size:32px;
+    font-family:PingFangSC-Medium;
+    color:rgba(51,51,51,1);
+    line-height:32px;
+    margin-bottom: 20px;
+  }
+  .pointDetail{
+    font-size:28px;
+    font-family:PingFangSC-Medium;
+    color:rgba(51,51,51,1);
+    line-height:36px;
+  }
+  .checkAll{
+    font-size:24px;
+    font-family:PingFangSC-Regular;
+    color:rgba(40,95,177,1);
+    line-height:72px;
+    text-align: center;
+  }
+</style>
+<style>
+  .amap-call{
+    display: none;
+  }
+  .amap-lib-transfer{
+    width: 750px;
+  }
+  .amap-lib-transfer .planTitle {
+    border-top: 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0px;
+    padding: 20px;
+  }
+  .amap-lib-transfer{
+    border: 0;
+  }
+  .amap-logo{
+    z-index: -99;
+  }
+  .amap-copyright{
+    z-index: -99;
+  }
+  .amap-sug-result{
+    z-index: 11010;
+  }
+  .amap-lib-transfer .planTitle{
+    background: #fff;
+  }
+  .amap-lib-transfer .planTitle ul{
+    display: none!important;
+  }
+  .amap-lib-transfer .plan{
+    margin: 0;
+  }
+
+  .amap-lib-transfer .plan dt:first-child{
+    border-top: 0;
   }
 </style>

@@ -166,7 +166,7 @@
   }
   .swiper-slide{
     height: 228px;
-    width: 100%;
+    width: 750px;
     background: #FFF7EA;
   }
   .swiper-slide img{

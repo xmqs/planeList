@@ -2,15 +2,15 @@
   <div class="planeDetail">
     <div class="planetitle">
       <slot>
-        {{this.$route.params.detail.FlightIdentity}}
+        {{list.FlightIdentity}}
       </slot>
       <span style="display: inline-block;width:10px;height: 16px;background: url('/static/img/Back.png') no-repeat;background-size:10px;position: absolute;left:15px;top: 50%;margin-top:-8px;" @click="headerBack"></span>
     </div>
     <div class="plane_main">
       <div class="ticket">
         <div class="ticket_header">
-          <img :src='this.$route.params.detail.AirLineImg+"@3x.png"'>
-          <span class="ticket_plane_name">{{this.$route.params.detail.AirlineIATACode}}</span>
+          <img :src='list.AirLineImg+"@3x.png"'>
+          <span class="ticket_plane_name">{{list.AirlineIATACode}}</span>
           <div class="radius_in_lb"></div>
           <div class="radius_in_rb"></div>
         </div>
@@ -19,46 +19,46 @@
           <div class="ticket_body_page1">
             <div class="page_from">
               <p>出发地</p>
-              <p>{{this.$route.params.detail.IATAOriginAirport}}</p>
+              <p>{{list.IATAOriginAirport}}</p>
             </div>
             <div class="page_bt">
               <img src="./../../../static/img/Fill.png" alt="">
-              <p v-if="this.$route.params.detail.IATAViaAirport">经停站：{{this.$route.params.detail.IATAViaAirport}}</p>
+              <p v-if="list.IATAViaAirport">经停站：{{list.IATAViaAirport}}</p>
             </div>
             <div class="page_from">
               <p>目的地</p>
-              <p>{{this.$route.params.detail.IATADestAirport}}</p>
+              <p>{{list.IATADestAirport}}</p>
             </div>
           </div>
           <div class="ticket_body_page2">
             <div class="time1">
-              航班日期：{{this.$route.params.detail.EstimatedLandingTakeoffDateTime?this.$route.params.detail.EstimatedLandingTakeoffDateTime.slice(0,11):'暂无'}}
+              航班日期：{{list.EstimatedLandingTakeoffDateTime?list.EstimatedLandingTakeoffDateTime.slice(0,11):'暂无'}}
             </div>
             <div class="time_list">
               <div>
                 <p>实际起飞</p>
-                <p v-if='this.$route.params.detail.ActualLandingTakeoffDateTime'>{{this.$route.params.detail.ActualLandingTakeoffDateTime.slice(11,16)}}</p>
-                <p v-if='!this.$route.params.detail.ActualLandingTakeoffDateTime'>---</p>
+                <p v-if='list.ActualLandingTakeoffDateTime'>{{list.ActualLandingTakeoffDateTime.slice(11,16)}}</p>
+                <p v-if='!list.ActualLandingTakeoffDateTime'>---</p>
               </div>
               <div>
                 <p>预计起飞</p>
-                <p v-if='this.$route.params.detail.EstimatedLandingTakeoffDateTime'>{{this.$route.params.detail.EstimatedLandingTakeoffDateTime.slice(11,16)}}</p>
-                <p v-if='!this.$route.params.detail.EstimatedLandingTakeoffDateTime'>---</p>
+                <p v-if='list.EstimatedLandingTakeoffDateTime'>{{list.EstimatedLandingTakeoffDateTime.slice(11,16)}}</p>
+                <p v-if='!list.EstimatedLandingTakeoffDateTime'>---</p>
               </div>
               <div>
                 <p>计划起飞</p>
-                <p v-if='this.$route.params.detail.ScheduledLandingTakeoffDateTime'>{{this.$route.params.detail.ScheduledLandingTakeoffDateTime.slice(11,16)}}</p>
-                <p v-if='!this.$route.params.detail.ScheduledLandingTakeoffDateTime'>---</p>
+                <p v-if='list.ScheduledLandingTakeoffDateTime'>{{list.ScheduledLandingTakeoffDateTime.slice(11,16)}}</p>
+                <p v-if='!list.ScheduledLandingTakeoffDateTime'>---</p>
               </div>
             </div>
             <div class="time_list">
               <div>
                 <p>航站楼</p>
-                <p>{{this.$route.params.detail.FlightTerminalID}}</p>
+                <p>{{list.FlightTerminalID}}</p>
               </div>
               <div>
                 <p>登机口</p>
-                <p>{{this.$route.params.detail.GateID}}</p>
+                <p>{{list.GateID}}</p>
               </div>
               <div>
               </div>
@@ -66,14 +66,14 @@
           </div>
 
           <div class="ticket_footer">
-            <span>航班号{{this.$route.params.detail.FlightIdentity}}</span>
+            <span>航班号{{list.FlightIdentity}}</span>
 
-            <span class="pStatic" v-if="this.$route.params.detail.FlightStatus=='起飞'">起飞</span>
-            <span class="pStatic" v-if="this.$route.params.detail.FlightStatus=='计划航班'">计划航班</span>
-            <span class="pStatic2" v-if="this.$route.params.detail.FlightStatus=='降落'">降落</span>
-            <span class="pStatic2" v-if="this.$route.params.detail.FlightStatus=='延误/计划航班'">延误/计划航班</span>
-            <span class="pStatic2" v-if="this.$route.params.detail.FlightStatus=='航班结束'">航班结束</span>
-            <span class="pStatic3" v-if="this.$route.params.detail.FlightStatus=='航班取消'">航班取消</span>
+            <span class="pStatic" v-if="list.FlightStatus=='起飞'">起飞</span>
+            <span class="pStatic" v-if="list.FlightStatus=='计划航班'">计划航班</span>
+            <span class="pStatic2" v-if="list.FlightStatus=='降落'">降落</span>
+            <span class="pStatic2" v-if="list.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+            <span class="pStatic2" v-if="list.FlightStatus=='航班结束'">航班结束</span>
+            <span class="pStatic3" v-if="list.FlightStatus=='航班取消'">航班取消</span>
 
           </div>
         </div>
@@ -84,7 +84,7 @@
             <p class="p2">南京禄口</p>
           </div>
           <div class="TS">
-            <div>
+            <div @click="toBusLine">
               <img src="./../../../static/img/PageTP1.png" alt="">
               <p>机场交通</p>
             </div>
@@ -98,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="ticket_btn" @click="switchFocus">{{this.$route.params.detail.isFollow?'取消关注':'关注航班'}}</div>
+        <div class="ticket_btn" @click="switchFocus">{{list.isFollow?'取消关注':'关注航班'}}</div>
       </div>
     </div>
   </div>
@@ -109,14 +109,22 @@
   import { Toast } from 'mint-ui';
     export default {
       name: "planeDetail",
+      data(){
+        return{
+          list:{}
+        }
+      },
       methods:{
         tohotel(){
           this.$router.push({name:'hotel'});
         },
+        toBusLine(){
+          this.$router.push({path:'/flight/busLine/'+this.list.FlightIdentity+"/"+this.list.FlightDirection});
+        },
         toplane(){
           let plane = "A";
-          if(this.$route.params.detail.AirlineIsland){
-            plane = this.$route.params.detail.AirlineIsland.slice(0,1);
+          if(this.list.AirlineIsland){
+            plane = this.list.AirlineIsland.slice(0,1);
           }
           this.$router.push({path:'/flight/testScroll'+plane});
         },
@@ -124,11 +132,11 @@
           this.$router.back(-1);
         },
         switchFocus(){
-          this.$route.params.detail.isFollow =!this.$route.params.detail.isFollow;
-          if(this.$route.params.detail.isFollow){
-            this.changefocus(this.$route.params.detail.FlightIdentity);
+          this.list.isFollow =!this.list.isFollow;
+          if(this.list.isFollow){
+            this.changefocus(this.list.FlightIdentity);
           }else{
-            this.changeunfocus(this.$route.params.detail.FlightIdentity);
+            this.changeunfocus(this.list.FlightIdentity);
           }
         },
         changefocus(num){
@@ -153,7 +161,23 @@
         }
       },
       mounted(){
-        window.scrollTo(0,0);
+        axios.post('/eport-server/airFlight/getAirFlight.do',{
+          "isFirst":"0",
+          "countryType":"",
+          "serviceType":this.$route.params.countryType=1?"P":"D",
+          "direction":this.$route.params.direction,
+          "airportCode":"",
+          "airlineCode":"",
+          "flightIdentity":this.$route.params.flightIdentity,
+          "pageSize":"1",
+          "pageNumber":"1",
+          userId:""
+        }).then((response)=> {
+          this.list = response.data.data.list[0];
+        }).catch((error)=> {
+
+        });
+
       },
     }
 </script>
