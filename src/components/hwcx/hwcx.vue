@@ -8,76 +8,91 @@
 		<div class="content-box">
 			<input type="text" class="gang se" value="" readonly="readonly" v-model="select_txt" placeholder="请选择货运方式"/>
 			<div @click.stop="toogle_list" class="sj"><a class="sanjiao"></a></div>
-			<input type="text" class="gang" value="" @keyup="up($event)" v-model="dingdanhao" placeholder="请输入订单号"/>
+			<input type="text" class="gang" value="" @keyup="up($event)" v-model="dingdanhao" maxlength="11" placeholder="请输入11位订单号"/>
+			<div v-show="shanchu" @click="deletes" style="padding: 7px;width: 40px; height: 40px;font-size: 23px;position: absolute;top: 79px;right: 13px;line-height: 20px;">×</div>
 			<div type="button" @click="select" :class="{ 'bgColor': bgColor === true }" class="bgColor1">查询</div>
 		</div>
 		<div class="content-box1">
 			<div v-if="active == 'CI' && status == 0 && arr != '{}'">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
-					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}</p>
+					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}；承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}</p>
 				</div>
-				<div class="cl">
-					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.ManiFest.Fno}}</span>
-					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
-						<div style="font-size: 14pt;color: #333;">舱单信息</div>
-						<p class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}； 航班到港日期：{{ele.ManiFest.ActualArrival}}</p>
-					</div>
-					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
-						<div style="font-size: 14pt;color: #333;">入库信息</div>
-						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物理货完成时间：{{ele.WareHouse.OPDate}}</p>
+				<div v-for="(ele,index) in list.mwList" class="cl" :key="index">
+					<div style="font-size: 13pt;color: #333;">
+						<div style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">货物信息</div>
+							<p v-if="ele.ManiFest.ActualArrival == ''" class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}；航班号：{{ele.ManiFest.Fno}}  {{ele.WareHouse.FDate}}</p>
+							<p v-else class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}；航班号：{{ele.ManiFest.Fno}}  {{ele.ManiFest.ActualArrival}}</p>
+						</div>
+						<div style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">入库信息</div>
+							<p class="things">入库理货完成时间：{{ele.WareHouse.OPDate}}</p>
+						</div>
+						<div v-if="ele.WareHouse.PickTime != ''" style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">提取信息</div>
+							<p class="things">提取时间：{{ele.WareHouse.PickTime}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div v-else-if="active == 'CO' && status == 0 && arr != '{}'">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
-					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}</p>
+					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；货物入库时间：{{list.mwList[0].WareHouse.OPDate}}</p>
 				</div>
-				<div class="cl">
-					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.WareHouse.Fno}}</span>
-					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
-						<div style="font-size: 14pt;color: #333;">入库信息</div>
-						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物入库完成时间：{{ele.WareHouse.OPDate}}</p>
+				<div v-for="(ele,index) in list.mwList" class="cl" :key="index">
+					<div style="font-size: 13pt;color: #333;">
+						<div style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">货物信息</div>
+							<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}；航班号：{{ele.WareHouse.Fno}}  {{ele.WareHouse.FDate}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div v-else-if="active == 'II' && status == 0 && arr != '{}'">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
-					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；海关放行指令：{{list.RELStatus}}；原始舱单状态：{{list.mftStatus}}；货物理货状态：{{list.tallyStatus}}</p>
+					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；海关放行指令：{{list.RELStatus}}；原始舱单状态：{{list.mftStatus}}；货物理货状态：{{list.tallyStatus}}</p>
 				</div>
-				<div class="cl">
-					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.ManiFest.Fno}}</span>
-					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
-						<div style="font-size: 14pt;color: #333;">舱单信息</div>
-						<p class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}； 航班到港日期：{{ele.ManiFest.ActualArrival}}</p>
-					</div>
-					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
-						<div style="font-size: 14pt;color: #333;">入库信息</div>
-						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物理货完成时间：{{ele.WareHouse.OPDate}}</p>
+				<div v-for="(ele,index) in list.mwList" class="cl" :key="index">
+					<div style="font-size: 13pt;color: #333;">
+						<div style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">货物信息</div>
+							<p v-if="ele.ManiFest.ActualArrival == ''" class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}；航班号：{{ele.ManiFest.Fno}}  {{ele.WareHouse.FDate}}</p>
+							<p v-else class="things">件数：{{ele.ManiFest.PC}}；重量：{{ele.ManiFest.Weight}}；航班号：{{ele.ManiFest.Fno}}  {{ele.ManiFest.ActualArrival}}</p>
+						</div>
+						<div style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">入库信息</div>
+							<p class="things">入库理货完成时间：{{ele.WareHouse.OPDate}}</p>
+						</div>
+						<div v-if="ele.WareHouse.PickTime != ''" style="background: #f9f9f9;padding: 3vw;" :key="index">
+							<div style="font-size: 14pt;color: #333;">提取信息</div>
+							<p class="things">提取时间：{{ele.WareHouse.PickTime}}</p>
+						</div>
 					</div>
 				</div>
 				<div v-for="(ele,index) in list.Hawb" class="cl" :key="index">
 					<span style="font-size: 13pt;color: #333;">分运单号：{{ele.Hno}}</span>
-					<p class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.mftStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
+					<p style="padding-bottom: 16px;" class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.mftStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
 				</div>
 			</div>
 			<div v-else-if="active == 'IO' && status == 0 && arr != '{}'">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
-					<p class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；商检放行指令：{{list.CIQStatus}}；海关放行指令：{{list.CMDStatus}}</p>
+					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；商检放行指令：{{list.CIQStatus}}；海关放行指令：{{list.CMDStatus}}；货物入库时间：{{list.mwList[0].WareHouse.OPDate}}</p>
 				</div>
-				<div class="cl">
-					<span v-for="(ele,index) in list.mwList" style="font-size: 13pt;color: #333;" :key="index">航班号：{{ele.WareHouse.Fno}}</span>
-					<div v-for="(ele,index) in list.mwList" style="background: #f9f9f9;margin-top: 4vw;padding: 3vw;" :key="index">
-						<div style="font-size: 14pt;color: #333;">入库信息</div>
-						<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}； 货物入库完成时间：{{ele.WareHouse.OPDate}}</p>
+				<div v-for="(ele,index) in list.mwList" class="cl" :key="index">
+					<div style="font-size: 13pt;color: #333;">
+						<div style="background: #f9f9f9;padding: 3vw;margin-bottom: 16px;" :key="index">
+							<div style="font-size: 14pt;color: #333;">货物信息</div>
+							<p class="things">件数：{{ele.WareHouse.PC}}；重量：{{ele.WareHouse.Weight}}；航班号：{{ele.WareHouse.Fno}}  {{ele.WareHouse.FDate}}</p>
+						</div>
 					</div>
 				</div>
 				<div v-for="(ele,index) in list.Hawb" class="cl" :key="index">
 					<span style="font-size: 13pt;color: #333;">分运单号：{{ele.Hno}}</span>
-					<p class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.MFTStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
+					<p style="padding-bottom: 16px;" class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.MFTStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
 				</div>
 			</div>
 			<div v-else-if="status == 0 && arr == '{}'">
@@ -115,7 +130,8 @@
 				clList1:false,
 				status:1,
 				list:[],
-				arr:''
+				arr:'',
+				shanchu:false,
 			}
 		},
 		created: function() {
@@ -123,6 +139,10 @@
 			this.select_txt = '国际进港';
 		},
 		methods: {
+			deletes(){
+				this.dingdanhao = "";
+				this.shanchu = false;
+			},
 			kangkou:function(res,con){//口岸选择
 				this.status = 1;
 				this.active = res;
@@ -166,6 +186,11 @@
 				}else{
 					this.bgColor = false;
 				}
+				if(this.dingdanhao != ""){
+					this.shanchu = true;
+				}else{
+					this.shanchu = false;
+				}
 			},
 		    getlist:function(){
 	            // 查询数据
@@ -187,6 +212,7 @@
 		font-family: PingFangSC;
 	    -webkit-overflow-scrolling: touch;
 	}
+	input::-ms-clear{display:block !important} 
 	#hwcx{
 		margin: 0;
 		height: 100%;
@@ -265,7 +291,7 @@
  	background: #fff;
     line-height: 4.133vw;
     font-size: 2vw;
-    padding: 5.4vw 3vw 4.4vw 3vw;
+    padding: 5.4vw 3vw 1vw 3vw;
     margin-top: 3.5vw;
 
 	}
