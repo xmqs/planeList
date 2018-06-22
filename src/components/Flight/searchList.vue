@@ -27,9 +27,9 @@
             <span  @click="toplaneDetail(item)">
               {{item.FlightStatus}}
             </span>
-            <span class="star" @click="changefocus(item.FlightIdentity)">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow">
-                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow">
+            <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
               </span>
           </div>
           <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
@@ -49,9 +49,9 @@
             <span  @click="toplaneDetail(item)">
               {{item.FlightStatus}}
             </span>
-            <span class="star" @click="changefocus(slave.SlaveFlightIdentity)">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow">
-                <img src="./../../../static/img/focus.png" alt="" v-if="item.isFollow">
+            <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(slave.SlaveFlightIdentity)">
+                <img src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(slave.SlaveFlightIdentity)">
               </span>
           </div>
         </li>

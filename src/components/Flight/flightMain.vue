@@ -42,8 +42,8 @@
               {{item.FlightStatus}}
             </span>
               <span class="star" @click="changefocus(item.FlightIdentity)">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow">
-                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
               </span>
             </div>
             <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
@@ -63,9 +63,9 @@
               <span  @click="toplaneDetail(item)">
               {{item.FlightStatus}}
             </span>
-              <span class="star" @click="changefocus(slave.SlaveFlightIdentity)">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow">
-                <img src="./../../../static/img/focus.png" alt="" v-if="item.isFollow">
+              <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(slave.SlaveFlightIdentity)">
+                <img src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(slave.SlaveFlightIdentity)">
               </span>
             </div>
           </li>
@@ -217,6 +217,21 @@
           console.log(error)
         });
       },
+      changeunfocus(num){
+        axios.post('/eport-server/airFlight/cancelFollowAirFlight.do',{
+          flightIdentity:num,
+          userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
+        }).then((response)=> {
+          for (let i = 0;i<this.list.length;i++){
+            if(this.list[i].FlightIdentity == num){
+              this.list[i].isFollow = false;
+            }
+          }
+          console.log(response);
+        }).catch((error)=> {
+          console.log(error)
+        });
+      }
     },
     mounted(){
       axios.post('/eport-server/airFlight/getAirFlight.do',{
