@@ -13,7 +13,7 @@
           <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
           <div class="page_info">
             <p>查询值机柜台 领取登机牌托运行李</p>
-            <p>Locating Your Check-in Counter</p>
+            <p>Locating Your Check-in Counter Boarding Pass & Baggage Check-in</p>
           </div>
         </div>
         <div class="swiper-slide">
@@ -21,27 +21,6 @@
           <div class="page_info">
             <p>安全检查</p>
             <p>Safety Check</p>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
-          <div class="page_info">
-            <p>候机及登机</p>
-            <p>Waiting for Boarding</p>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
-          <div class="page_info">
-            <p>候机及登机</p>
-            <p>Waiting for Boarding</p>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <img src="./../../../static/img/Rectangle 18@2x.png" alt="">
-          <div class="page_info">
-            <p>候机及登机</p>
-            <p>Waiting for Boarding</p>
           </div>
         </div>
         <div class="swiper-slide">
@@ -75,34 +54,18 @@
             iScroll:{},
             swiper:{},
             active:0,
+            status:"",
             AirlineIsland:[
-              [[1010,162],[1035,201],[1001,246],[908,298]],
-              [[1089,208],[1035,201],[1001,246],[1016,334]],
-              [[1200,214],[1253,234],[1252,267],[1260,301],[1239,318],[1253,346],[1291,373]],
-              [[1277,218],[1253,234],[1252,267],[1260,301],[1239,318],[1253,346],[1291,373]]
+              [[1010,162],[1035,201],[1001,246],[908,298]],//d
+              [[1089,208],[1035,201],[1001,246],[1016,334]],//c
+              [[1200,214],[1253,234],[1252,267],[1260,301],[1239,318],[1253,346],[1291,373]],//b
+              [[1277,218],[1253,234],[1252,267],[1260,301],[1239,318],[1253,346],[1291,373]]//a
             ],
-            thisLine:[[1089,208],[1035,201],[1001,246],[1016,334]],
-            swiperMsg:[
-              {
-                title:"查询值机柜台",
-                engTitle:'Location Your Check-in Counter'
-              },
-              {
-                title:"领取登机牌托运行李",
-                engTitle:'Boarding Pass & Baggage Check-in'
-              },
-              {
-                title:"安全检查",
-                engTitle:'Safety Check'
-              },
-              {
-                title:"候机及登机",
-                engTitle:'Waiting for Boarding'
-              },
-            ]
+            thisLine: [[1010,162],[1035,201],[1001,246],[908,298]],
           }
       },
       mounted(){
+
         this.iScroll = new iScroll('#wrapper',{
           scrollY: true,
           scrollX: true,
@@ -215,6 +178,11 @@
   }
   .page_info{
     display: inline-block;
+    position: relative;
+    top: -50px;
+    left: 10px;
+    width: 400px;
+    font-size:22px;
   }
   .point{
     position: absolute;

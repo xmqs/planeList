@@ -23,7 +23,7 @@
 					<router-link :to="{path:'hwcx/hwcx'}">
 						<div class="tips" type="default">货物查询</div>
 					</router-link>
-					
+
 					<div @click="goback()">
 						<div class="tips" type="default">私人物品</div>
 					</div>
@@ -61,6 +61,9 @@
 						查看更多
 					</div>
 				</div>
+        <div @click="testfly">
+          123123
+        </div>
 			</div>
 		</div>
 	</div>
@@ -99,9 +102,12 @@
 			this.getlist();
 		},
 		methods: {
+      testfly(){
+        this.$router.push({name: 'flightMain'});
+      },
 			goback(){
 				this.$router.push({name: 'srwp_list',
-					params:{ 
+					params:{
 						res:'tab-container1'
 					}
 				})
@@ -111,7 +117,7 @@
 			    window.location = res;
 			},
 			select_item(){
-				
+
 			},
 			gokaxw(){
 		        //this.$router.push({path: '/hotel/hotel'})
@@ -257,7 +263,7 @@
 
   input::-webkit-input-placeholder {
     color: #aaa; }
-    
+
     /*轮播组件*/
     .swipe-wrapper{
         width: 100%;
@@ -283,7 +289,7 @@
         font-size: 40px;
     }
    /* list样式*/
-  
+
 	.time-name {
 		position: absolute;
 		left: 40px;
@@ -297,7 +303,7 @@
 		margin-top: 13px;
 	    position: absolute;
         top: 10px;
-    	right: 33px; 
+    	right: 33px;
 	    width: 224px;
     	height: 146px;
 	}
@@ -312,7 +318,7 @@
 		color:rgba(51,51,51,1);
 		line-height:47px;
 	    height: 94px;
-	    
+
 	    display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp:2;

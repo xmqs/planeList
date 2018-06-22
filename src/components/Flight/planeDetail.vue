@@ -114,7 +114,11 @@
           this.$router.push({name:'hotel'});
         },
         toplane(){
-          this.$router.push({name:'testScroll'});
+          let plane = "A";
+          if(this.$route.params.detail.AirlineIsland){
+            plane = this.$route.params.detail.AirlineIsland.slice(0,1);
+          }
+          this.$router.push({path:'/flight/testScroll'+plane});
         },
         headerBack(){
           this.$router.back(-1);
