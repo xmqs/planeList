@@ -14,7 +14,12 @@ import Changeplane from "@/components/Flight/changeList"
 import PlaneDetail from "@/components/Flight/planeDetail"
 import cityList from "@/components/Flight/cityList"
 import searchList from "@/components/Flight/searchList"
-import testScroll from "@/components/Flight/testScroll"
+import testScrollA from "@/components/Flight/testScrollA"
+import testScrollB from "@/components/Flight/testScrollB"
+import testScrollC from "@/components/Flight/testScrollC"
+import testScrollD from "@/components/Flight/testScrollD"
+import busLine from "@/components/Flight/busLine"
+import flightMain from "@/components/Flight/flightMain"
 
 /*酒店*/
 import hotel from "@/components/hotel/hotel"
@@ -95,6 +100,15 @@ export default new Router({
                 keepAlive: true
             }
         },
+        //航班主页
+        {
+            path: '/flight/flightMain',
+            name: 'flightMain',
+            component: flightMain,
+            meta: {
+                keepAlive: true
+            }
+        },
         {
             path: '/flight/myList',
             name: 'MyList',
@@ -124,9 +138,29 @@ export default new Router({
             }
         },
         {
-            path: '/flight/testScroll',
-            name: 'testScroll',
-            component: testScroll,
+            path: '/flight/testScrollA',
+            name: 'testScrollA',
+            component: testScrollA,
+        },
+        {
+            path: '/flight/testScrollB',
+            name: 'testScrollB',
+            component: testScrollB,
+        },
+        {
+            path: '/flight/testScrollC',
+            name: 'testScrollC',
+            component: testScrollC,
+        },
+        {
+            path: '/flight/testScrollD',
+            name: 'testScrolDl',
+            component: testScrollD,
+        },
+        {
+            path: '/flight/busLine',
+            name: 'busLine',
+            component: busLine,
         },
         {
             path: '/flight/searchList',
