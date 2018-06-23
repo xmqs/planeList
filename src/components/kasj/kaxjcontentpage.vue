@@ -199,25 +199,22 @@
 				</mt-tab-container-item>  
 			</mt-tab-container>
 			<div class="isrili" @click="isrili">
-				选择日期<span style="color: #fff;font-size: 3vw;position: relative;top: -1px;right: -4px;">▲</span>
+				{{myselsetdata}}<span style="color: #fff;font-size: 3vw;position: relative;top: -1px;right: -4px;">▲</span>
 			</div>
 			<div v-show="myrili">
-				<div style="height: 45px;background: #fff;line-height: 45px;text-align: center;position: fixed; width: 100%;bottom: 249px;z-index:999999;"><span style="padding-left: 14px;float: left;color:#285FB1;font-size: 15px;" @click="quxiao">取消</span><span style="font-size: 16px;">选择日期</span><span @click="queding" style="font-size: 15px;color:#285FB1;padding-right: 14px;float: right;">确定</span></div>
+				<div style="height: 45px;background: #fff;line-height: 45px;text-align: center;position: fixed; width: 100%;bottom: 250px;z-index:999999;"><span style="padding-left: 14px;float: left;color:#285FB1;font-size: 15px;" @click="quxiao">取消</span><span style="font-size: 16px;">选择日期</span><span @click="queding" style="font-size: 15px;color:#285FB1;padding-right: 14px;float: right;">确定</span></div>
 				<div class="controldata">
-					<div v-for="(item,index) in years" class="year" :key="index">
-						<div class="years">{{item.year}}年</div>
-						<div @click="showBg(index)">
-							<span class="month" :class="years[index].isShow?'selectmonth':''">{{item.value}}月</span>
-						</div>
+					<div class="year">
+						<p v-for="(item,index) in years" @click="showBg(index,item)"  class="month" :class="years[index].isShow?'selectmonth':''" :key="index">{{item.value}}月</p>
 						<!-- <div class="month" :class="{'selectmonth':dataarr[index] == nums}" @click="selcetdata(year+'/'+n)" v-for="(n,index) in 12" :key="index">{{n}}月</div> -->
 					</div>
 				</div>
 			</div>
 				<!-- <div class="controldata">
-					<div v-for="(item,index) in monthes" class="year" :key="index">
+					<div v-for="(item,index) in years" class="year" :key="index">
 						<div class="years">{{item}}年</div>
-						<div v-for="(item1,index1) in 12" @click="showBg(item,item1)" :key="index1">
-							<span class="month" :class="{'selectmonth':nums === item,'selectmonth':nums1 === item1}">{{item1}}月</span>
+						<div v-for="(item1,index1) in monthes" @click="showBg(index1)" :key="index1">
+							<span class="month" :class="item1.start?'selectmonth':''">{{item1.month}}月</span>
 						</div>
 					</div>
 				</div> -->
@@ -233,10 +230,16 @@
 		name: "kaxjcontentpage",
 		data() {
 			return {
+				isfirst:true,
+				interval:'',
+				startDate:'',
+				endtDate:'',
+				myselsetdata:'选择日期',
+				selsetyear:[],
+				selsetmonth:[],
 				myrili:false,
 				dataarr:[],
 				nums:0,
-				nums1:0,
 				element:1,
 				options: [{
 				value: '1',
@@ -340,35 +343,108 @@
 			}
 		},
 		methods: {
-			showBg(item,item1){
-				this.item = this.nums;
-				this.item1 = this.nums1;
-				//this.years[i].isShow = !this.years[i].isShow;
+			showBg(i,item){
+				//console.log(year,month)
+				//this.nums = year+'/'+month
+				//this.monthes1.start = false;
+				//item1.start = true;
+				//this.item1 = this.nums;
+				
+				this.selsetyear.push(item.year)
+				this.selsetmonth.push(item.value)
+				this.years[i].isShow = true;
+				var n = 0;
+				for(var i=0;i<this.years.length;i++){
+					if (this.years[i].isShow == true) {
+						n +=1;
+						if (n >2) {
+							for(var i=0;i<this.years.length;i++){
+								this.years[i].isShow = false;
+								this.selsetmonth = [];
+								this.selsetyear = [];
+							}
+						}else{
+							
+						}
+					}
+				}
 			},
 			isrili(){
 				this.myrili = true;
+				console.log(this.selsetyear[0],this.selsetmonth[1])
 			},
 			quxiao(){
+				this.myselsetdata = '选择日期';
 				this.myrili = false;
 			},
 			queding(){
+				console.log(this.selsetyear[0],this.selsetmonth[1])
+				if(this.selsetyear[0] < this.selsetyear[1]){
+					if(this.selsetmonth[0] - this.selsetmonth[1] < 0){
+						this.myselsetdata = '选择日期';
+						Toast('所选日期范围不能超过12个月');
+						return;
+					}
+				}else if(this.selsetyear[0] > this.selsetyear[1]){
+					if(this.selsetmonth[0] - this.selsetmonth[1] > 0){
+						this.myselsetdata = '选择日期';
+						Toast('所选日期范围不能超过12个月');
+						return;
+					}
+				}
+				if (this.selsetyear[0] < this.selsetyear[1]) {
+					this.myselsetdata = this.selsetyear[0]+'年'+this.selsetmonth[0]+'月'+'-'+this.selsetyear[1]+'年'+this.selsetmonth[1]+'月'
+					this.startDate = this.selsetyear[0]+'-'+this.selsetmonth[0]
+					this.endDate = this.selsetyear[1]+'-'+this.selsetmonth[1]
+				}else if(this.selsetyear[0] == this.selsetyear[1]){
+					if (this.selsetmonth[0] > this.selsetmonth[1]) {
+						this.myselsetdata = this.selsetyear[0]+'年'+this.selsetmonth[1]+'月'+'-'+this.selsetyear[1]+'年'+this.selsetmonth[0]+'月'
+						this.startDate = this.selsetyear[0]+'-'+this.selsetmonth[1]
+						this.endDate = this.selsetyear[1]+'-'+this.selsetmonth[0]
+					} else {
+						
+					}
+				} else {
+					this.myselsetdata = this.selsetyear[1]+'年'+this.selsetmonth[1]+'月'+'-'+this.selsetyear[0]+'年'+this.selsetmonth[0]+'月'
+					this.endDate = this.selsetyear[0]+'-'+this.selsetmonth[0]
+					this.startDate = this.selsetyear[1]+'-'+this.selsetmonth[1]
+				}
+				this.selsetmonth = [];
+				this.selsetyear = [];
+				this.isfirst = false;
+				if (this.active == 'tab1') {
+					this.dataType = 1;
+					this.settime('freightDate');
+				} else if (this.active == 'tab2'){
+					this.dataType = 2;
+					this.settime('personDate');
+				} else if (this.active == 'tab3'){
+					this.dataType = 3;
+					this.settime('transDate');
+				}
+				this.element = 1;
+				this.gettimes();
+
+				this.selectitem();
 				this.myrili = false;
 			},
-			selcetdata(res){
-				this.dataarr.push(res);
-				this.nums = res;
-				console.log(this.dataarr)
-				console.log(this.nums)
-			},
+			// selcetdata(res){
+			// 	this.dataarr.push(res);
+			// 	this.nums = res;
+			// },
 			checkkasj(res){
 				this.active = res;
 				if (res == 'tab1') {
 					this.dataType = 1;
+					this.settime('freightDate');
 				} else if (res == 'tab2'){
 					this.dataType = 2;
+					this.settime('personDate');
 				} else if (res == 'tab3'){
 					this.dataType = 3;
+					this.settime('transDate');
 				}
+				this.myrili = false;
 				this.element = 1;
 				this.selected1 = '货物总指标';
 				this.selected2 = '人员总指标';
@@ -377,12 +453,32 @@
 			},
 			selectitem(){
 				var that = this;
+				if(that.isfirst == true){
+					var startstime = '';
+					var endstime = '';
+					if (that.active == 'tab1') {
+						startstime = that.interval.freightDate.maxDate.substring(0,4);
+						endstime = that.interval.freightDate.maxDate;
+					} else if (that.active == 'tab2'){
+						startstime = that.interval.personDate.maxDate.substring(0,4);
+						endstime = that.interval.personDate.maxDate;
+					} else if (that.active == 'tab3'){
+						startstime = that.interval.transDate.maxDate.substring(0,4);
+						endstime = that.interval.transDate.maxDate;
+					}
+					that.startDate = startstime+'-'+'01';
+					that.endDate =  endstime;
+					this.myselsetdata = that.startDate.replace('-','年')+'月'+'-'+that.endDate.replace('-','年')+'月';
+				}
 				if(that.selected1 != 1 && that.selected1 != 2 && that.selected2 != 1 && that.selected2 != 2 && that.selected3 != 1 && that.selected3 != 2){
 					
-					var typenum = 0;
+					var typenum = 1;
 					if (that.active == 'tab1') {
 						that.element = that.selected1;
-						typenum = that.selected1 -2;
+						typenum = parseInt(that.selected1) -2;
+						if(that.selected1 == '货物总指标'){
+							typenum = 1;
+						}
 					} else if (that.active == 'tab2'){
 						that.element = that.selected1;
 						if (that.selected2 == 3){
@@ -398,29 +494,34 @@
 							typenum = 10;
 						}
 					}
+					if(that.element == '货物总指标'){
+						that.element = 1;
+					}
 					axios.post('/eport-server/data/getBaseDataInfo.do',{
 						dataType:typenum,
-						startDate:"2018-01",
-						endDate:"2018-03",
+						startDate:that.startDate,
+						endDate:that.endDate,
 					})
 					.then(function(res){
-						that.lists = res.data.data.monthData;
-						that.allnum = res.data.data.totalNum;
-						that.allPercent = res.data.data.totalPercent;
 						that.mydate = [];
 						that.mycount = [];
 						that.mypercent = [];
-						for(var i =0;i<that.lists.length;i++){
-							that.mydate.push(that.lists[i].dateTime)
-							that.mycount.push(parseFloat(that.lists[i].monthNum))
-							that.mypercent.push(parseFloat(that.lists[i].percent))
+						if(res.data.data.monthData != undefined){
+							that.lists = res.data.data.monthData;
+							that.allnum = res.data.data.totalNum;
+							that.allPercent = res.data.data.totalPercent;
+							for(var i =0;i<that.lists.length;i++){
+								that.mydate.push(that.lists[i].dateTime)
+								that.mycount.push(parseFloat(that.lists[i].monthNum))
+								that.mypercent.push(parseFloat(that.lists[i].percent))
+							}
+							that.showData1();
+							HighCharts.chart(that.id1,that.option2)
+							that.rshowData1();
+							HighCharts.chart(that.rid1,that.roption2)
+							that.yshowData1();
+							HighCharts.chart(that.yid1,that.yoption2)
 						}
-						that.showData1();
-						HighCharts.chart(that.id1,that.option2)
-						that.rshowData1();
-						HighCharts.chart(that.rid1,that.roption2)
-						that.yshowData1();
-						HighCharts.chart(that.yid1,that.yoption2)
 					})
 					.catch(function(err){
 						console.log(err);
@@ -448,29 +549,35 @@
 					if (that.selected1 != 1 && that.selected2 != 1 && that.selected3 != 1) {
 						axios.post('/eport-server/data/getMonthDataInfo.do',{
 							dataType:alltypenum,
-							startDate:"2018-01",
-							endDate:"2018-03",
+							startDate:that.startDate,
+							endDate:that.endDate,
 						})
 						.then(function(res){
-							that.lists = res.data.data.monthData;
-							that.allnum = res.data.data.totalNum;
-							that.allPercent = res.data.data.totalPercent;
-							for(var i =0;i<that.lists.length;i++){
-								that.mydate.push(that.lists[i].dateTime)
-								that.mycount.push(parseFloat(that.lists[i].monthNum))
-								that.mypercent.push(parseFloat(that.lists[i].percent))
+							that.mydate = [];
+							that.mycount = [];
+							that.mypercent = [];
+							if(res.data.data.monthData != undefined){
+								that.lists = res.data.data.monthData;
+								that.allnum = res.data.data.totalNum;
+								that.allPercent = res.data.data.totalPercent;
+								for(var i =0;i<that.lists.length;i++){
+									that.mydate.push(that.lists[i].dateTime)
+									that.mycount.push(parseFloat(that.lists[i].monthNum))
+									that.mypercent.push(parseFloat(that.lists[i].percent))
+								}
+								that.showData1();
+								HighCharts.chart(that.id1,that.option2)
+								that.rshowData1();
+								HighCharts.chart(that.rid1,that.roption2)
+								that.yshowData1();
+								HighCharts.chart(that.yid1,that.yoption2)
 							}
-							that.showData1();
-							HighCharts.chart(that.id1,that.option2)
-							that.rshowData1();
-							HighCharts.chart(that.rid1,that.roption2)
-							that.yshowData1();
-							HighCharts.chart(that.yid1,that.yoption2)
 						})
 						.catch(function(err){
 							console.log(err);
 						});
 					}
+					that.gettimes();
 				}
 			},
 			showData1(){
@@ -595,14 +702,6 @@
 					floating: true,
 				},
 				series: [{
-					name: rightname,
-					type: 'column',
-					yAxis: 1,
-					data: this.mycount,
-					// tooltip: {
-					// 		valueSuffix: ' mm'
-					// }
-				}, {
 					name: '同比（%）',
 					type: 'spline',
 					color:'#F7CAA6',
@@ -610,6 +709,14 @@
 					tooltip: {
 							valueSuffix: '%'
 					}
+				}, {
+					name: rightname,
+					type: 'column',
+					yAxis: 1,
+					data: this.mycount,
+					// tooltip: {
+					// 		valueSuffix: ' mm'
+					// }
 				}]
 				};
 			},
@@ -685,12 +792,28 @@
 			},
 			gettimes(){//
 				var that = this;
+				var startstime = '';
+				var endstime = '';
+				if(that.isfirst == true){
+					if (that.active == 'tab1') {
+						endstime = that.interval.freightDate.maxDate;
+					} else if (that.active == 'tab2'){
+						endstime = that.interval.personDate.maxDate;
+					} else if (that.active == 'tab3'){
+						endstime = that.interval.transDate.maxDate;
+					}
+					that.startDate = endstime;
+					that.endDate =  endstime;
+					this.myselsetdata = endstime.replace('-','年')+'月';
+				}
+
 				axios.post('/eport-server/data/getTotalDataInfo.do',{
 					dataType:that.dataType,
-					startDate:"2018-01",
-					endDate:"2018-03",
+					startDate:that.startDate,
+					endDate:that.endDate,
 				})
 				.then(function(res){
+					console.log(res.data.data)
 					if (that.dataType == 1) {
 						that.totalNum = res.data.data.totalNum;
 						that.airFreight = res.data.data.airFreight;
@@ -878,37 +1001,73 @@
 						data:arr
 					}]
 				};
+			},
+			settime(res){
+				var that = this;
+				var startstime = '';
+				var endstime = '';
+				if (that.active == 'tab1') {
+					startstime = parseInt(that.interval.freightDate.minDate.substring(0,4));
+					endstime = parseInt(that.interval.freightDate.maxDate.substring(0,4));
+				} else if (that.active == 'tab2'){
+					startstime = parseInt(that.interval.personDate.minDate.substring(0,4));
+					endstime = parseInt(that.interval.personDate.maxDate.substring(0,4));
+				} else if (that.active == 'tab3'){
+					startstime = parseInt(that.interval.transDate.minDate.substring(0,4));
+					endstime = parseInt(that.interval.transDate.maxDate.substring(0,4));
+				}
+				var arr = [];
+				var arr1 = [];
+				for(var i =startstime;i<endstime+1;i++){
+					for(var j =0;j<13;j++){
+						if(j<10){
+							j = 0+j.toString()
+						}
+						var obj = {};
+						obj.year = i;
+						obj.value = j;
+						obj.isShow = false;
+						arr1.push(obj)
+					}
+				}
+				that.years = arr1;
+				
+				setTimeout(()=>{
+					for(var i=0;i<document.querySelectorAll('p').length;i++){
+						if(document.querySelectorAll('p')[i].innerText == '00月'){
+							document.querySelectorAll('p')[i].className += ' special';
+							document.querySelectorAll('p')[i].innerText = startstime+'年';
+						}
+					}
+					for(var i=0;i<document.getElementsByClassName('special').length;i++){
+						if(document.getElementsByClassName('special')[i].innerText == startstime+'年'){
+							document.getElementsByClassName('special')[i].innerText = startstime+i+'年';
+						}
+					}
+				},500);
 			}
 		},
 		mounted() {
 
 		},
 		created: function() {
-			var date=new Date;
-			var arr = [];
-			var arr1 = [];
-			for(var i =2015;i<date.getFullYear() + 1;i++){
-				for(var j =1;j<13;j++){
-					var obj = {};
-					obj.year = i;
-					obj.value = j;
-					obj.isShow = false;
-					arr1.push(obj)
-				}
-			}
-			this.years = arr1;
-			
-			for(var i =2015;i<date.getFullYear() + 1;i++){
-				this.monthes.push(i)
-			}
-			console.log(arr1)
-			this.gettimes();
-			this.showData();
-			this.rshowData();
-			this.yshowData();
-			this.showData1();
-			this.rshowData1();
-			this.yshowData1();
+			var that = this;
+			axios.post('/eport-server/data/getDateList.do',{
+			})
+			.then(function(res){
+				that.interval = res.data.data;
+				that.settime('freightDate');
+				that.gettimes();
+				that.showData();
+				that.rshowData();
+				that.yshowData();
+				that.showData1();
+				that.rshowData1();
+				that.yshowData1();
+			})
+			.catch(function(err){
+				console.log(err);
+			});
 		},
 		filters: {
 
@@ -1122,6 +1281,10 @@ width: 22%;
 		background: #285FB1;
 		color: #fff;
 	}
+	.selectmonth1{
+		background: #285FB1;
+		color: #fff;
+	}
 	.isrili{
     height: 13.333vw;
     width: 100%;
@@ -1133,6 +1296,14 @@ width: 22%;
     text-align: center;
     color: #fff;
     font-size: 4.2vw;
+	}
+	.special{
+		width: 100%;
+		background-color: #f5f5f5;
+		    margin: 0;
+	}
+	.aa{
+		padding-bottom: 60px;
 	}
 </style>
 <style>
