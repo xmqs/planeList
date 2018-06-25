@@ -2,58 +2,65 @@
   <div id="chart" class="hairsplines">
     <div class="addContainCss">
         <!-- 统计图1 -->
-        <div class="quantum"><span>进出口货物量（万吨）-{{fmonth}}月</span><span class="numbers">{{freightTotalNum}}</span></div>
-        <div class="topway">
-            <div class="way">
-                <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
-                <div class="way_ele">{{waterFreight}}</div>
-                <div class="way_ele2">水运</div>
-            </div>
-            <div class="way">
-                <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
-                <div class="way_ele">{{airFreight}}</div>
-                <div class="way_ele2">空运</div>
-            </div>
-            <div class="way">
-                <div class="way_ele0"><img class="tielu" src="../../../static/img/kasj/tielu.png" alt=""></div>
-                <div class="way_ele">{{transFreight}}</div>
-                <div class="way_ele2">铁路</div>
-            </div>
-            <div class="way">
-                <div class="way_ele0"><img class="qiche" src="../../../static/img/kasj/qiche.png" alt=""></div>
-                <div class="way_ele">{{roadFreight}}</div>
-                <div class="way_ele2">公路</div>
-            </div>
+        <div @click="godetails('tab1')">
+          <div class="quantum"><span>进出口货物量（万吨）-{{fmonth}}月</span><span class="numbers">总量{{freightTotalNum}}</span></div>
+          <div class="topway">
+              <div class="way">
+                  <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
+                  <div class="way_ele">{{waterFreight}}</div>
+                  <div class="way_ele2">水运</div>
+              </div>
+              <div class="way">
+                  <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
+                  <div class="way_ele">{{airFreight}}</div>
+                  <div class="way_ele2">空运</div>
+              </div>
+              <div class="way">
+                  <div class="way_ele0"><img class="tielu" src="../../../static/img/kasj/tielu.png" alt=""></div>
+                  <div class="way_ele">{{transFreight}}</div>
+                  <div class="way_ele2">铁路</div>
+              </div>
+              <div class="way">
+                  <div class="way_ele0"><img class="qiche" src="../../../static/img/kasj/qiche.png" alt=""></div>
+                  <div class="way_ele">{{roadFreight}}</div>
+                  <div class="way_ele2">公路</div>
+              </div>
+          </div>
         </div>
+        
         <div :id="id" :option="option"></div>
         <!-- 统计图2 -->
-        <div class="quantum"><span>出入境人员总数（万人次）-{{pmonth}}月</span><span class="numbers">{{personTotalNum}}</span></div>
-        <div class="topway">
-            <div style="width:49%" class="way">
-                <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
-                <div class="way_ele">{{personWaterCount}}</div>
-                <div class="way_ele2">水运</div>
-            </div>
-            <div style="width:49%" class="way">
-                <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
-                <div class="way_ele">{{personAirCount}}</div>
-                <div class="way_ele2">空运</div>
-            </div>
+        <div @click="godetails('tab2')">
+          <div class="quantum"><span>出入境人员总数（万人次）-{{pmonth}}月</span><span class="numbers">总量{{personTotalNum}}</span></div>
+          <div class="topway">
+              <div style="width:49%" class="way">
+                  <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
+                  <div class="way_ele">{{personWaterCount}}</div>
+                  <div class="way_ele2">水运</div>
+              </div>
+              <div style="width:49%" class="way">
+                  <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
+                  <div class="way_ele">{{personAirCount}}</div>
+                  <div class="way_ele2">空运</div>
+              </div>
+          </div>
         </div>
         <div :id="id1" :option="option1"></div>
         <!-- 统计图3 -->
-        <div class="quantum"><span>进出境运输工具（辆艘）-{{tmonth}}月</span><span class="numbers">{{transTotalNum}}</span></div>
-        <div class="topway">
-            <div style="width:49%" class="way">
-                <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
-                <div class="way_ele">{{transShipCount}}</div>
-                <div class="way_ele2">水运</div>
-            </div>
-            <div style="width:49%" class="way">
-                <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
-                <div class="way_ele">{{transAirCount}}</div>
-                <div class="way_ele2">空运</div>
-            </div>
+        <div @click="godetails('tab3')">
+          <div class="quantum"><span>进出境运输工具（辆艘）-{{tmonth}}月</span><span class="numbers">总量{{transTotalNum}}</span></div>
+          <div class="topway">
+              <div style="width:49%" class="way">
+                  <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
+                  <div class="way_ele">{{transShipCount}}</div>
+                  <div class="way_ele2">水运</div>
+              </div>
+              <div style="width:49%" class="way">
+                  <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
+                  <div class="way_ele">{{transAirCount}}</div>
+                  <div class="way_ele2">空运</div>
+              </div>
+          </div>
         </div>
         <div :id="id2" :option="option2"></div>
     </div>
@@ -116,6 +123,13 @@
       this.showData2();
     },
     methods: {
+       godetails(n){
+            this.$router.push({name: 'kaxjcontentpage',
+              params:{ 
+                res:n
+              }
+            })
+       },
        getmessage(res){
             var that = this;
             axios.post('/eport-server/data/getIndexDataInfo.do',{
@@ -342,21 +356,21 @@
 }
   #test {
     width: 100%;
-    height: 500px;
+    height: 45.667vw;
     margin: 0px auto;
     position: relative;
     margin-bottom: 18px;
   }
   #test1 {
     width: 100%;
-    height: 500px;
+    height: 45.667vw;
     margin: 0 auto;
     position: relative;
     margin-bottom: 18px;
   }
   #test2 {
     width: 100%;
-    height: 500px;
+    height:45.667vw;
     margin: 0 auto;
     position: relative;
     margin-bottom: 18px;

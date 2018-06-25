@@ -61,6 +61,8 @@ import srwprate from "@/components/srwp/srwprate.vue"
 /*手机值机*/
 import phoneflight from "@/components/phoneflight/phoneflight.vue"
 
+// 日期范围
+import MonthSelect from "@/components/base/date/MonthSelect.vue"
 
 Vue.use(Router)
 
@@ -327,6 +329,11 @@ export default new Router({
             path: '/phoneflight/phoneflight',
             name: 'phoneflight',
             component: phoneflight,
-        }
+        },
+        {
+            path: '/base/date/MonthSelect',
+            name: 'MonthSelect',
+            component: MonthSelect,
+        },
     ]
 })
