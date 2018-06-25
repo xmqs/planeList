@@ -90,7 +90,7 @@
             </div>
             <div @click="toplane" v-if="$route.params.direction=='D'">
               <img src="./../../../static/img/PageTP2.png" alt="">
-              <p>登记路线</p>
+              <p>登机路线</p>
             </div>
             <div @click="tohotel">
               <img src="./../../../static/img/PageTP3.png" alt="">
