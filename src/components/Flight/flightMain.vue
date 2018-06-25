@@ -37,10 +37,14 @@
             </span>
               <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
-            </span>
-              <span  @click="toplaneDetail(item)">
-              {{item.FlightStatus}}
-            </span>
+              </span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+            <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
               <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
@@ -60,11 +64,15 @@
               <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-              <span  @click="toplaneDetail(item)">
-              {{item.FlightStatus}}
-            </span>
-              <span class="star">
-
+              <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+              <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+              <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+              <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+              <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+              <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+              <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+              <span class="share">
+                共享
               </span>
             </div>
           </li>
@@ -117,7 +125,8 @@
           "flightIdentity":"",
           "airlineCode":"",
           "pageSize":"20",
-          "pageNumber":this.prePage
+          "pageNumber":this.prePage,
+          "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
         }).then((response)=> {
           this.list = response.data.data.list.concat(this.list);
           setTimeout(() => {
@@ -140,7 +149,8 @@
           "flightIdentity":"",
           "airlineCode":"",
           "pageSize":"20",
-          "pageNumber":this.nextPage
+          "pageNumber":this.nextPage,
+          "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
         }).then((response)=> {
           if(this.isfirst){
             this.list = response.data.data.list;
@@ -166,7 +176,6 @@
       },
       SearchIoD(status){
         this.serviceType = "P";
-        this.direction = "D";
         this.countryType = status;
         this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","20");
       },
@@ -176,7 +185,6 @@
       },
       SearchC(){
         this.serviceType = "C";
-        this.direction = "D";
         this.countryType = "";
         this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","20");
       },
@@ -192,7 +200,8 @@
           "flightIdentity":"",
           "airlineCode":"",
           "pageSize":pageSize,
-          "pageNumber":pageNumber
+          "pageNumber":pageNumber,
+          "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
         }).then((response)=> {
           this.list = response.data.data.list;
           this.last_page = response.data.data.last_page;
@@ -247,7 +256,7 @@
         "airlineCode":"",
         "pageSize":"20",
         "pageNumber":"1",
-        userId:"",
+        "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
       }).then((response)=> {
         this.list = response.data.data.list;
         this.last_page = response.data.data.last_page;
@@ -346,11 +355,15 @@
     padding-top: 10px;
     width: 80px;
   }
+  .search_list li span.share{
+    width: 80px;
+    color: #ccc;
+  }
   .search_list li span img{
     width: 34px;
   }
   .slave_plane{
-    background:rgba(245,245,245,1);
+
   }
   .search_list li span{
     position: relative;
@@ -362,5 +375,28 @@
     font-size: 10px;
     top: -12px;
     position: absolute;
+  }
+  .search_list li span.pStatic{
+    color: #26CD79;
+  }
+  .search_list li span.pStatic2{
+    color: #FF8800;
+  }
+  .search_list li span.pStatic3{
+    color: #ccc;
+  }
+</style>
+<style>
+  .search_list li span.pStatic{
+    color: #26CD79;
+  }
+  .search_list li span.pStatic2{
+    color: #FF8800;
+  }
+  .search_list li span.pStatic3{
+    color: #ccc;
+  }
+  .search_list li:nth-child(2n){
+    background: #f1f1f1;
   }
 </style>

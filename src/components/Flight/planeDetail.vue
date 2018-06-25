@@ -1,11 +1,5 @@
 <template>
   <div class="planeDetail">
-    <div class="planetitle">
-      <slot>
-        {{list.FlightIdentity}}
-      </slot>
-      <span style="display: inline-block;width:10px;height: 16px;background: url('/static/img/Back.png') no-repeat;background-size:10px;position: absolute;left:15px;top: 50%;margin-top:-8px;" @click="headerBack"></span>
-    </div>
     <div class="plane_main">
       <div class="ticket">
         <div class="ticket_header">
@@ -56,11 +50,16 @@
                 <p>航站楼</p>
                 <p>{{list.FlightTerminalID}}</p>
               </div>
-              <div>
-                <p>登机口</p>
+              <div v-if=list.GateID>
+                <p>航站楼</p>
                 <p>{{list.GateID}}</p>
               </div>
+              <div v-if=list.BaggageReclaimID>
+                <p>行李转盘</p>
+                <p>{{list.BaggageReclaimID}}</p>
+              </div>
               <div>
+
               </div>
             </div>
           </div>
@@ -81,7 +80,6 @@
         <div class="overInfo">
           <div class="T1">
             <p class="p1">起飞机场</p>
-            <p class="p2">南京禄口</p>
           </div>
           <div class="TS">
             <div @click="toBusLine">
@@ -171,7 +169,7 @@
           "flightIdentity":this.$route.params.flightIdentity,
           "pageSize":"1",
           "pageNumber":"1",
-          userId:""
+          userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
         }).then((response)=> {
           this.list = response.data.data.list[0];
         }).catch((error)=> {
@@ -198,7 +196,7 @@
   }
   .plane_main{
     background: linear-gradient(to bottom, #1F3661 0%,#233760 100%);
-    padding-top: 100px;
+    padding-top: 10px;
     display: flex;
     display: -webkit-flex;
     justify-content:center;

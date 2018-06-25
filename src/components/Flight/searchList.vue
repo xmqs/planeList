@@ -24,9 +24,13 @@
             <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-            <span  @click="toplaneDetail(item)">
-              {{item.FlightStatus}}
-            </span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+            <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
             <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
@@ -46,11 +50,15 @@
             <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-            <span  @click="toplaneDetail(item)">
-              {{item.FlightStatus}}
-            </span>
-            <span class="star">
-
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+            <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+            <span class="share">
+              共享
             </span>
           </div>
         </li>
@@ -108,11 +116,14 @@
             this.planeTo = this.$route.params.planeTo.code;
             this.planeNumber = this.$route.params.planeNumber;
 
-            this.infiniteHandler();
+            if(!this.isFirst){
+              this.infiniteHandler();
+            }
           }
       },
       methods:{
         infiniteHandler($state) {
+          this.isFirst = false;
           axios.post(this.Url,{
             airlineCode:this.planeCom,
             airportCode:this.direction=="D"?this.planeTo:this.planeFrom,
@@ -120,10 +131,10 @@
             flightIdentity:this.planeNumber,
             pageNumber:this.pageNumber,
             pageSize:20,
-            userId:"",
+            userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber,
           }).then((response)=> {
             this.pageNumber++;
-            for (let i = 0;i<response.data.data.list.length;i++){
+            for (let i = 0;i<response.data.data.list.length;i++) {
               this.list.push(response.data.data.list[i]);
             }
             $state.loaded();
@@ -358,11 +369,14 @@
     padding-top: 10px;
     width: 80px;
   }
+  .search_list li span.share{
+    width: 80px;
+  }
   .search_list li span img{
     width: 34px;
   }
   .slave_plane{
-    background:rgba(245,245,245,1);
+
   }
   .search_list li span{
     position: relative;

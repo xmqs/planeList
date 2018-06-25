@@ -7,7 +7,7 @@
           <img v-if='pageShow!==1' src="./../../../static/img/bus/busicon@1.png" alt="">
           机场巴士
         </div>
-        <div :class='{active:pageShow==2}' @click="changepage(2)" v-if="list.FlightDirection=='D'">
+        <div :class='{active:pageShow==2}' @click="changepage(2)" v-if="$route.params.direction=='D'">
           <img v-if='pageShow==2' src="./../../../static/img/bus/busiconA@2.png" alt="">
           <img v-if='pageShow!==2' src="./../../../static/img/bus/busicon@2.png" alt="">
           自驾
@@ -17,11 +17,14 @@
           <img v-if='pageShow!==3' src="./../../../static/img/bus/busicon@3.png" alt="">
           公交
         </div>
+        <div :class='{active:pageShow==4}' @click="changepage(4)" v-if="$route.params.direction=='A'">
+          <img v-if='pageShow==4' src="./../../../static/img/bus/busiconA@3.png" alt="">
+          <img v-if='pageShow!==4' src="./../../../static/img/bus/busicon@3.png" alt="">
+          城际班车
+        </div>
       </div>
       <div class="search_page">
-        <form @submit.prevent="formSubmit" action="javascript:return true">
-          <input type="text" placeholder="想去哪？" id="tipinput">
-        </form>
+      <input type="text" placeholder="想去哪？" id="tipinput">
       </div>
     </div>
     <div id="container"></div>
@@ -31,8 +34,8 @@
     <div class="info" v-show="pageShow==2">
       <div class="stopPage">
         <ul>
-          <li>P1停车场</li>
-          <li>P2停车场</li>
+          <li :class='{stopA:stop==1}'>P1停车场</li>
+          <li :class='{stopA:stop==2}'>P2停车场</li>
         </ul>
       </div>
       <div id="panel2">
@@ -89,6 +92,321 @@
         </div>
       </div>
     </div>
+    <div class="info" id="cjbc" v-show="pageShow==4">
+      <ul>
+        <li>
+          <span class="cjbc_title">扬州</span><span>全程约2小时</span><span class="cjbc_price">¥65</span>
+          <div class="cjbc_info">
+            <p>城市站点：扬州市扬子江北路108号扬鹏大酒店（沃尔玛西对面）</p>
+            <p>咨询电话：0514-85160049 0514-87333398</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：09:50 10:30 11:10 11:50 12:30 13:10 13:50 14:30 15:10 16:10 17:10 18:10 19:10 20:10 21:10 22:10 23:10</p>
+            <p>城市候机楼发车时间：06:00 07:00 07:40 08:20 09:00 09:40 10:20 11:00 11:40 12:20 13:00 13:50 14:40 15:30 16:20 17:20 18:20</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">宜兴</span><span>全程约1.5小时</span><span class="cjbc_price">¥60</span>
+          <div class="cjbc_info">
+            <p>城市站点：宜兴市氿滨南路88号</p>
+            <p>咨询电话：13376231891 0510-87332200</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:00 13:30 15:00 16:00 17:00 18:30 20:30 22:30</p>
+            <p>城市候机楼发车时间：05:10 06:20 07:50 09:20 10:50 12:50 14:20 15:50 17:50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">无锡</span><span>全程约2小时</span><span class="cjbc_price">¥70</span>
+          <div class="cjbc_info">
+            <p>城市站点：无锡车站广场88号</p>
+            <p>咨询电话：15365225600</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：11:10 13:00 15:00 17:40 19:40 22:00</p>
+            <p>城市候机楼发车时间：06:50 08:50 10:50 13:20 15:20 17:20</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">江阴</span><span>全程约2小时</span><span class="cjbc_price">¥70</span>
+          <div class="cjbc_info">
+            <p>城市站点：江阴市昊柏国际酒店大厅（绮山路189号）</p>
+            <p>咨询电话：15365225600</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：11:10 13:00 15:00 17:40 19:40 22:00</p>
+            <p>城市候机楼发车时间：06:50 08:50 10:50 13:20 15:20 17:20</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">丹阳</span><span>全程约2小时</span><span class="cjbc_price">¥55</span>
+          <div class="cjbc_info">
+            <p>城市站点：丹阳汽车客运站（华阳路72号）</p>
+            <p>咨询电话：0511-86522181 13852925670</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:00 13:30 15:00 16:30 18:00 20:30</p>
+            <p>城市候机楼发车时间：07:00 08:40 10:20 12:50 14:20 15:50 17:40</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">常州</span><span>全程约2小时</span><span class="cjbc_price">¥70</span>
+          <div class="cjbc_info">
+            <p>城市站点：常州汽车客运总站（北广场）</p>
+            <p>咨询电话：0519-88880012</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 11:30 12:30 13:30 14:30 15:30 17:00 18:30 20:00 22:00</p>
+            <p>城市候机楼发车时间：04:45 06:45 08:35 10:10 11:10 13:10 14:10 15:10 16:40 18:10</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">扬中</span><span>全程约2小时</span><span class="cjbc_price">¥60</span>
+          <div class="cjbc_info">
+            <p>城市站点：扬中客运汽车中心站（环城南路999号）</p>
+            <p>咨询电话：0511-88324858 0511-85154858</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：11:05 13:35 16:30 19:30</p>
+            <p>城市候机楼发车时间：06:30 08:10 13:40 15:50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">溧阳</span><span>全程约1.2小时</span><span class="cjbc_price">¥45</span>
+          <div class="cjbc_info">
+            <p>城市站点：溧阳市燕山中路9号（皇廷大酒店南侧）</p>
+            <p>咨询电话：0519-87678111</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:00 13:30 15:00 16:30 18:00 19:30 22:00</p>
+            <p>城市候机楼发车时间：05:50 07:10 08:30 10:30 12:30 14:00 16:00 18:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">镇江句容</span><span>全程约1.5小时</span><span class="cjbc_price">¥60</span>
+          <div class="cjbc_info">
+            <p>城市站点：镇江城市候机楼（新火车站南广场）</p>
+            <p>咨询电话：0511-85233898</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:10 18:00 19:30 21:00 22:30</p>
+            <p>城市候机楼发车时间：05:30 07:00 08:00 09:00 10:00 11:00 12:30 14:00 15:00 16:00 17:00 18:30</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">泰州</span><span>全程约2.5小时</span><span class="cjbc_price">¥80</span>
+          <div class="cjbc_info">
+            <p>城市站点：泰州汽车南站</p>
+            <p>咨询电话：0523-86050011</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:30 14:30 16:30 19:00 21:30</p>
+            <p>城市候机楼发车时间：05:50 08:20 10:20 13:20 15:20 17:30</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">金坛</span><span>全程约1.2小时</span><span class="cjbc_price">¥50</span>
+          <div class="cjbc_info">
+            <p>城市站点：金坛区东环2路39号</p>
+            <p>咨询电话：0519-82395566</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:00 13:30 15:00 16:00 17:30 19:00 21:00</p>
+            <p>城市候机楼发车时间：05:10 07:10 08:20 10:20 12:20 13:50 15:50 17:50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">宝应</span><span>全程约3.5小时</span><span class="cjbc_price">¥90</span>
+          <div class="cjbc_info">
+            <p>城市站点：宝应大道66号</p>
+            <p>咨询电话：0514-80905283</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:30 14:30 16:30 18:30 20:30</p>
+            <p>城市候机楼发车时间：05:00 07:00 09:00 11:00 13:00 15:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">高邮</span><span>全程约2.5小时</span><span class="cjbc_price">¥80</span>
+          <div class="cjbc_info">
+            <p>城市站点：高邮市秦邮路148号</p>
+            <p>咨询电话：0514-84580898</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:30 14:30 16:30 18:30 20:30</p>
+            <p>城市候机楼发车时间：05:50 07:50 09:50 11:50 13:50 15:50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">靖江</span><span>全程约2小时</span><span class="cjbc_price">¥158</span>
+          <div class="cjbc_info">
+            <p>城市站点：靖江市兴业路2号（汽车客运站内）</p>
+            <p>咨询电话：0523-82618818</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10：00 12：00 14：00 16：20 18：40 21：00</p>
+            <p>城市候机楼发车时间：05：55 07：30 09：40 12：50 14：50 16：50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">淮安</span><span>全程约3.5小时</span><span class="cjbc_price">¥90</span>
+          <div class="cjbc_info">
+            <p>城市站点：淮安市健康东路55号（淮州宾馆院内）</p>
+            <p>咨询电话：0517-83945111 0517-83933123</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 11:00 12:00 13:00 14:30 16:00 17:30 19:00 20:30 22:30</p>
+            <p>城市候机楼发车时间：06:40 07:10 08:00 09:30 11:00 12:00 13:00 14:30 15:30 16:30</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">沭阳</span><span>全程约5小时</span><span class="cjbc_price">¥108</span>
+          <div class="cjbc_info">
+            <p>城市站点：沭阳深圳西路紫馨花园</p>
+            <p>咨询电话：0527-83992111</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 12:30 14:35 16:00 18:10 20:30</p>
+            <p>城市候机楼发车时间：06:50 08:00 09:20 10:20 13:30 15:30</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">宿迁</span><span>全程约4小时</span><span class="cjbc_price">¥95</span>
+          <div class="cjbc_info">
+            <p>城市站点：宿迁市西湖路86号 城宇大厦113-115</p>
+            <p>咨询电话：0527-82990028</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：12:30 14:35 16:00 18:10 20:30</p>
+            <p>城市候机楼发车时间：07:20（节点：曹集入口）11:40 14:50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">马鞍山</span><span>全程约1小时</span><span class="cjbc_price">¥40</span>
+          <div class="cjbc_info">
+            <p>城市站点：马鞍山江东大道（东方明珠1956商业街2号楼）</p>
+            <p>咨询电话：0555-2473333</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:30</p>
+            <p>城市候机楼发车时间：06:00 08:00 09:00 10:30 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">滁州</span><span>全程约1.5小时</span><span class="cjbc_price">¥60</span>
+          <div class="cjbc_info">
+            <p>城市站点：滁州市环城路1号（南湖公园）</p>
+            <p>咨询电话：0550-3038655 15905500606</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 12:00 13:30 15:00 16:30 18:00 20:00 22:00</p>
+            <p>城市候机楼发车时间：07:00 08:30 10:00 11:30 13:00 14:30 16:00 18:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">盐城</span><span>全程约4小时</span><span class="cjbc_price">¥120</span>
+          <div class="cjbc_info">
+            <p>城市站点：盐城汽车客运站</p>
+            <p>咨询电话：0515-8822666</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：14:00 16:00 18:30</p>
+            <p>城市候机楼发车时间：07:20 10:20 13:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">芜湖</span><span>全程约2小时</span><span class="cjbc_price">¥60</span>
+          <div class="cjbc_info">
+            <p>城市站点：芜湖两站广场</p>
+            <p>咨询电话：0553-3116888</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:30 22:00</p>
+            <p>城市候机楼发车时间：05:20 07:00 08:00 09:00 10:00 11:00 12:30 13:30 14:30 15:30 16:30 18:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">泰兴</span><span>全程约2.5小时</span><span class="cjbc_price">¥120</span>
+          <div class="cjbc_info">
+            <p>城市站点：泰兴汽车站</p>
+            <p>咨询电话：0523-87756290</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:00 12:00 14:00 16:30 19:00</p>
+            <p>城市候机楼发车时间：06:40 08:30 10:30 13:30 15:50</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">宣城</span><span>全程约2小时</span><span class="cjbc_price">¥65</span>
+          <div class="cjbc_info">
+            <p>城市站点：宣城梅溪路金领公馆</p>
+            <p>咨询电话：0563-3021111</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：11:30 13:35 15:30 17:30 19:30 21:00</p>
+            <p>城市候机楼发车时间：07:00 10:00 12:00 14:00 16:00 18:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">天长</span><span>全程约2小时</span><span class="cjbc_price">¥70</span>
+          <div class="cjbc_info">
+            <p>城市站点：天长城市候机楼</p>
+            <p>咨询电话：0550-7788288</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：09:30 10:30 11:30 12:30 13:30 14:30 15:30 16:30 17:30 19:00 21:00 23:00</p>
+            <p>城市候机楼发车时间：05:10 06:30 07:30 08:30 09:30 10:30 12:00 13:00 14:00 15:00 16:00 17:30</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">宁国</span><span>全程约2.5小时</span><span class="cjbc_price">¥100</span>
+          <div class="cjbc_info">
+            <p>城市站点：宁国大道体育场正门</p>
+            <p>咨询电话：400-1618128</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：11:00 13:30 15:30 17:30 21:00</p>
+            <p>城市候机楼发车时间：06:30 09:30 11:00 13:30 16:00</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="cjbc_title">蚌埠明光</span><span>全程约3.5小时</span><span class="cjbc_price">¥100 / ¥80</span>
+          <div class="cjbc_info">
+            <p>城市站点：蚌埠市升平街190号</p>
+            <p>咨询电话：0552一7125999</p>
+          </div>
+          <div>
+            <p>禄口机场发车时间：10:30 13:00 17:00 20:00</p>
+            <p>城市候机楼发车时间：05:00 06:30 09:30 12:30 14:30</p>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -105,6 +423,7 @@
         pageShow:1,
         swiper:{},
         point:"南京南站",
+        stop:1,
         markers:[
           [
             {
@@ -749,18 +1068,74 @@
 
   .stopPage{
     text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
   }
   .stopPage ul{
     display: flex;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 30px 0;
   }
   .stopPage ul li{
-    display: flex;
     width: 343px;
     border: 1px solid #285FB1;
     height: 58px;
+    text-align: center;
+    line-height: 58px;
+  }
+  .stopPage ul li:first-child{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  .stopPage ul li:last-child{
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .stopPage ul li.stopA{
+    color: #fff;
+    background: #285FB1;
+  }
+
+
+  #cjbc{
+    color: #333!important;
+  }
+  #cjbc ul li{
+    border-bottom: 16px solid #eee;
+    padding: 24px 32px;
+    font-size: 22px;
+  }
+  #cjbc ul li div{
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .cjbc_title{
+    font-size:32px;
+    font-family:PingFangSC-Medium;
+    color:rgba(51,51,51,1);
+    line-height:32px;
+    margin-right: 14px;
+  }
+  .cjbc_price{
+    font-size:32px;
+    font-family:PingFangSC-Medium;
+    color:rgba(51,51,51,1);
+    line-height:32px;
+    float: right;
+  }
+  .cjbc_info{
+    color: #999!important;
+  }
+
+  #panel2{
+    width: 100%;
+    display: block;
+    padding-top: 120px;
   }
 </style>
 <style>
