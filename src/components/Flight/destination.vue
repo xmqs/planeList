@@ -32,19 +32,16 @@
           </div>
         </router-link>
       </li>
-      <li>
+      <!--<li>
         <p class="li_p_title">航空日期</p>
         <div class="li_udp_div">
           {{this.time[1]}}月{{this.time[2]}}日
           <span class="isToday">今天</span>
         </div>
-      </li>
+      </li>-->
     </ul>
     <button class="c_button" @click="getAirFlight">
       查询
-    </button>
-    <button class="d_button" @click="getAirFlightInt">
-      查询当日国际航班
     </button>
   </div>
 </template>

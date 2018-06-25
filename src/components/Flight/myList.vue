@@ -5,41 +5,50 @@
       <div class="page_active">我的关注</div>
     </div>
 
-    <ul class="Flight_list">
-      <li v-for="item in list" v-if="item.ServiceType!==''">
-        <div class="list_header">
-          <img :src='item.AirLineImg+"@3x.png"'>
-          <span class="company">{{item.AirlineIATACode}}</span>
-          <span class="planeNum">{{item.FlightIdentity}}</span>
-          <span class="isServiceType" v-if="item.ServiceType==0">货机</span>
+    <ul class="search_list">
+      <li v-for="item in list">
+        <div v-if='item.SLAVE_FLIGHT!==""'>
+            <span  @click="toplaneDetail(item)">
+              {{item.FlightIdentity}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
+              <span v-if=!item.EstimatedLandingTakeoffDateTime  class="jicon">计</span>
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.FlightStatus}}
+            </span>
+          <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
+              </span>
         </div>
-        <div class="list_body">
-          <div class="list_page"  @click="toplaneDetail(item)">
-            <div class="planeFrom">{{item.IATAOriginAirport}}</div>
-          </div>
-          <div class="planeTS"  @click="toplaneDetail(item)"  >
-            <div class="planeTime" v-if="item.EstimatedLandingTakeoffDateTime">预计 {{item.EstimatedLandingTakeoffDateTime.slice(11,16)}} 起飞</div>
-            <div class="planeStatic" v-if="item.FlightStatus=='起飞'">起飞</div>
-            <div class="planeStatic" v-if="item.FlightStatus=='计划航班'">计划航班</div>
-            <div class="planeStatic2" v-if="item.FlightStatus=='降落'">降落</div>
-            <div class="planeStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误</div>
-            <div class="planeStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</div>
-            <div class="planeStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</div>
-          </div>
-          <div class="list_page"  @click="toplaneDetail(item)">
-            <div class="planeTo">{{item.IATADestAirport}}</div>
-          </div>
-          <div class="line"></div>
-          <div class="focus">
-            <div v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
-              <img src="./../../../static/img/unfocus.png" alt="">
-              <p class="focustatic">未关注</p>
-            </div>
-            <div v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
-              <img src="./../../../static/img/focus.png" alt="">
-              <p class="focustatic">已关注</p>
-            </div>
-          </div>
+        <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
+            <span  @click="toplaneDetail(item)">
+              {{slave.SlaveFlightIdentity}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
+              <span v-if=!item.EstimatedLandingTakeoffDateTime class="jicon">计</span>
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.FlightStatus}}
+            </span>
+          <span class="star">
+
+            </span>
         </div>
       </li>
     </ul>
@@ -70,7 +79,7 @@
         this.$router.push({name:'PlaneDetail', params: { Plane: Plane} })
       },
       toplaneDetail(res){
-        this.$router.push({name:'PlaneDetail',params:{detail:res}});
+        this.$router.push({path:'/flight/planeDetail/'+res.FlightIdentity+'/'+res.FlightDirection+'/'+res.ServiceType});
       },
       changePage(){
         this.$router.replace({path:'/flight/destination'});
@@ -112,6 +121,9 @@
 <style scoped>
 
   .changePage{
+    position: fixed;
+    z-index: 2000;
+    top: 0;
     text-align: center;
     width: 100%;
     border-bottom:1px solid #EEEEEE ;
@@ -322,5 +334,70 @@
   .focus{
     width: 168px;
     text-align: center;
+  }
+
+  .search_list{
+    padding-top: 104px;
+  }
+  .search_list li div{
+    height: 88px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .search_list li span{
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    font-size:24px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .search_list li span.star{
+    padding-top: 10px;
+    width: 80px;
+  }
+  .search_list li span img{
+    width: 34px;
+  }
+  .slave_plane{
+    background:rgba(245,245,245,1);
+  }
+  .search_list li span{
+    position: relative;
+  }
+  .search_list li span.jicon{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    font-size: 10px;
+    top: -12px;
+    position: absolute;
+  }
+
+  .flight_th{
+    height:88px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 0 10px;
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    z-index: 2000;
+  }
+  .flight_th span{
+    font-size:22px;
+    font-family:PingFangSC-Regular;
+    color:rgba(153,153,153,1);
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+  }
+  .flight_th span.star{
+    width: 80px;
   }
 </style>

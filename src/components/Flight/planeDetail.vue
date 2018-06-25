@@ -88,7 +88,7 @@
               <img src="./../../../static/img/PageTP1.png" alt="">
               <p>机场交通</p>
             </div>
-            <div @click="toplane">
+            <div @click="toplane" v-if="$route.params.direction=='D'">
               <img src="./../../../static/img/PageTP2.png" alt="">
               <p>登记路线</p>
             </div>
@@ -164,7 +164,7 @@
         axios.post('/eport-server/airFlight/getAirFlight.do',{
           "isFirst":"0",
           "countryType":"",
-          "serviceType":this.$route.params.countryType=1?"P":"D",
+          "serviceType":this.$route.params.countryType==1?"P":"C",
           "direction":this.$route.params.direction,
           "airportCode":"",
           "airlineCode":"",

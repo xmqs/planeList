@@ -41,9 +41,9 @@
               <span  @click="toplaneDetail(item)">
               {{item.FlightStatus}}
             </span>
-              <span class="star" @click="changefocus(item.FlightIdentity)">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
-                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
+              <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
               </span>
             </div>
             <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
@@ -64,8 +64,7 @@
               {{item.FlightStatus}}
             </span>
               <span class="star">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(slave.SlaveFlightIdentity)">
-                <img src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(slave.SlaveFlightIdentity)">
+
               </span>
             </div>
           </li>
@@ -83,6 +82,7 @@
     data() {
       return {
         list:[],
+        isfirst:true,
         prePage:0,
         rightPage:"",
         nextPage:0,
@@ -91,7 +91,6 @@
         direction:"D",//A进港、D出港
         countryType:"I",//I国际、D国内
         serviceType:"P",//P客机、C货机
-
         allLoaded:false,
       }
     },
@@ -104,8 +103,7 @@
       },
       loadTop() {
         this.prePage--;
-        if(this.prePage == 0){
-          this.prePage = 1;
+        if(this.prePage < 1){
           Toast('没有更多数据了');
           this.$refs.loadmore.onTopLoaded();
           return;
@@ -134,7 +132,7 @@
       loadBottom() {
         this.nextPage++;
         axios.post('/eport-server/airFlight/getAirFlight.do',{
-          "isFirst":"0",
+          "isFirst":this.isfirst?"1":"0",
           "countryType":this.countryType,
           "serviceType":this.serviceType,
           "direction":this.direction,
@@ -144,10 +142,15 @@
           "pageSize":"20",
           "pageNumber":this.nextPage
         }).then((response)=> {
-          this.list = this.list.concat(response.data.data.list);
-          if(response.data.data.list.length == 0){
-            this.allLoaded = true;
+          if(this.isfirst){
+            this.list = response.data.data.list;
+          }else{
+            this.list = this.list.concat(response.data.data.list);
+            if(response.data.data.list.length == 0){
+              this.allLoaded = true;
+            }
           }
+          this.isfirst = false;
           setTimeout(() => {
             this.$refs.loadmore.onBottomLoaded();
           }, 500)
@@ -244,7 +247,7 @@
         "airlineCode":"",
         "pageSize":"20",
         "pageNumber":"1",
-        userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber,
+        userId:"",
       }).then((response)=> {
         this.list = response.data.data.list;
         this.last_page = response.data.data.last_page;

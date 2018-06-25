@@ -56,8 +56,8 @@
     </div>
     <div id="wrapper" style="touch-action: none;">
       <div id="scroller" class="ignore">
-        <img v-for="(p1,index) in thisLine" :style="{left:p1[0]+'px',top:p1[1]+'px'}" v-if="active!==index" class="point" :src="'../../../../static/img/point/point@1.png'" alt="" width="30px" @touchend="changePage(index)">
-        <img v-for="(p1,index) in thisLine" :style="{left:p1[0]+'px',top:p1[1]+'px'}" v-if="active==index" class="point" :src="'../../../../static/img/point/pointActive@1.png'" alt="" width="40px" @touchend="changePage(index)">
+        <img v-for="(p1,index) in thisLine" :style="{left:p1[0]+'px',top:p1[1]+'px'}" v-if="active!==index" class="point" :src="'../../../../static/img/point/point@'+(index+1)+'.png'" alt="" width="30px" @touchend="changePage(index)">
+        <img v-for="(p1,index) in thisLine" :style="{left:p1[0]+'px',top:p1[1]+'px'}" v-if="active==index" class="point" :src="'../../../../static/img/point/pointActive@'+(index+1)+'.png'" alt="" width="40px" @touchend="changePage(index)">
       </div>
     </div>
   </div>

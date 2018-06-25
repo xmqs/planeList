@@ -28,8 +28,8 @@
               {{item.FlightStatus}}
             </span>
             <span class="star">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
-                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
               </span>
           </div>
           <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
@@ -50,9 +50,8 @@
               {{item.FlightStatus}}
             </span>
             <span class="star">
-                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(slave.SlaveFlightIdentity)">
-                <img src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(slave.SlaveFlightIdentity)">
-              </span>
+
+            </span>
           </div>
         </li>
         <infinite-loading @infinite="infiniteHandler">
@@ -71,7 +70,7 @@
   import axios from "axios"
   import InfiniteLoading from 'vue-infinite-loading';
     export default {
-        name: "searchList",
+      name: "searchList",
       data(){
           return{
             list:[],
@@ -82,6 +81,7 @@
             planeTo:"",
             planeNumber:"",
             Url:"",
+            isFirst:true,
           }
       },
       mounted(){
@@ -120,7 +120,7 @@
             flightIdentity:this.planeNumber,
             pageNumber:this.pageNumber,
             pageSize:20,
-            userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
+            userId:"",
           }).then((response)=> {
             this.pageNumber++;
             for (let i = 0;i<response.data.data.list.length;i++){
@@ -135,7 +135,7 @@
           });
         },
         toplaneDetail(res){
-          this.$router.push({path:'/flight/planeDetail/'+res.flightIdentity+'/'+res.direction+'/'+res.countryType});
+          this.$router.push({path:'/flight/planeDetail/'+res.FlightIdentity+'/'+res.FlightDirection+'/'+res.ServiceType});
         },
         changefocus(num){
           axios.post('/eport-server/airFlight/followAirFlight.do',{
@@ -386,6 +386,7 @@
     position: fixed;
     background: #fff;
     width: 100%;
+    z-index: 2000;
   }
   .flight_th span{
     font-size:22px;

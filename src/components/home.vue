@@ -61,9 +61,6 @@
 						查看更多
 					</div>
 				</div>
-        <div @click="testfly">
-          123123
-        </div>
 			</div>
 		</div>
 	</div>
@@ -102,9 +99,9 @@
 			this.getlist();
 		},
 		methods: {
-      testfly(){
+      /*testfly(){
         this.$router.push({name: 'flightMain'});
-      },
+      },*/
 			goback(){
 				this.$router.push({name: 'srwp_list',
 					params:{
