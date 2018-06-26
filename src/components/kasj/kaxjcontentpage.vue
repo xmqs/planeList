@@ -29,27 +29,32 @@
 							<div class="messcol">
 								<div class="messline">水运</div>
 								<div class="messline">{{waterFreight}}</div>
-								<div class="messline">{{waterPercent}}</div>
+								<div v-if="waterPercent < 0" class="messline" style="color:#72B478">{{waterPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{waterPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">空运</div>
 								<div class="messline">{{airFreight}}</div>
-								<div class="messline">{{airPercent}}</div>
+								<div v-if="airPercent < 0" class="messline" style="color:#72B478">{{airPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{airPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">铁路</div>
 								<div class="messline">{{transFreight}}</div>
-								<div class="messline">{{transPercent}}</div>
+								<div v-if="transPercent < 0" class="messline" style="color:#72B478">{{transPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{transPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">公路</div>
 								<div class="messline">{{roadFreight}}</div>
-								<div class="messline">{{roadPercent}}</div>
+								<div v-if="roadPercent < 0" class="messline" style="color:#72B478">{{roadPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{roadPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">合计</div>
 								<div class="messline">{{totalNum}}</div>
-								<div class="messline">{{totalPercent}}</div>
+								<div v-if="totalPercent < 0" class="messline" style="color:#72B478">{{totalPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{totalPercent}}</div>
 							</div>
 						</div>
 						<div :id="id" :option="option">
@@ -67,12 +72,14 @@
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
 								<div class="messline">{{ele.dateTime}}</div>
 								<div class="messline">{{ele.monthNum}}</div>
-								<div class="messline">{{ele.percent}}</div>
+								<div v-if="ele.percent < 0" class="messline" style="color:#72B478">{{ele.percent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">总计</div>
 								<div class="messline">{{allnum}}</div>
-								<div class="messline">{{allPercent}}</div>
+								<div v-if="allPercent < 0" class="messline" style="color:#72B478">{{allPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{allPercent}}</div>
 							</div>
 						</div>
 						<div :id="id1" :option="option2"></div>
@@ -100,17 +107,20 @@
 							<div class="messcol">
 								<div class="messline">空运</div>
 								<div class="messline">{{airCount}}</div>
-								<div class="messline">{{airPercent}}</div>
+								<div v-if="airPercent < 0" class="messline" style="color:#72B478">{{airPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{airPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">水运</div>
 								<div class="messline">{{waterCount}}</div>
-								<div class="messline">{{waterPercent}}</div>
+								<div v-if="waterPercent < 0" class="messline" style="color:#72B478">{{waterPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{waterPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">合计</div>
 								<div class="messline">{{totalNum}}</div>
-								<div class="messline">{{totalPercent}}</div>
+								<div v-if="totalPercent < 0" class="messline" style="color:#72B478">{{totalPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{totalPercent}}</div>
 							</div>
 						</div>
 						<div :id="rid" :option="roption">
@@ -127,12 +137,14 @@
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
 								<div class="messline">{{ele.dateTime}}</div>
 								<div class="messline">{{ele.monthNum}}</div>
-								<div class="messline">{{ele.percent}}</div>
+								<div v-if="ele.percent < 0" class="messline" style="color:#72B478">{{ele.percent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">总计</div>
 								<div class="messline">{{allnum}}</div>
-								<div class="messline">{{allPercent}}</div>
+								<div v-if="allPercent < 0" class="messline" style="color:#72B478">{{allPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{allPercent}}</div>
 							</div>
 						</div>
 						<div :id="rid1" :option="roption2"></div>
@@ -160,17 +172,20 @@
 							<div class="messcol">
 								<div class="messline">飞机</div>
 								<div class="messline">{{airCount}}</div>
-								<div class="messline">{{airPercent}}</div>
+								<div v-if="airPercent < 0" class="messline" style="color:#72B478">{{airPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{airPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">船舶</div>
 								<div class="messline">{{shipCount}}</div>
-								<div class="messline">{{shipPercent}}</div>
+								<div v-if="shipPercent < 0" class="messline" style="color:#72B478">{{shipPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{shipPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">合计</div>
 								<div class="messline">{{totalNum}}</div>
-								<div class="messline">{{totalPercent}}</div>
+								<div v-if="totalPercent < 0" class="messline" style="color:#72B478">{{totalPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{totalPercent}}</div>
 							</div>
 						</div>
 						<div :id="yid" :option="yoption">
@@ -187,12 +202,14 @@
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
 								<div class="messline">{{ele.dateTime}}</div>
 								<div class="messline">{{ele.monthNum}}</div>
-								<div class="messline">{{ele.percent}}</div>
+								<div v-if="ele.percent < 0" class="messline" style="color:#72B478">{{ele.percent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">总计</div>
 								<div class="messline">{{allnum}}</div>
-								<div class="messline">{{allPercent}}</div>
+								<div v-if="allPercent < 0" class="messline" style="color:#72B478">{{allPercent}}</div>
+								<div v-else class="messline" style="color:#FF801A">{{allPercent}}</div>
 							</div>
 						</div>
 						<div :id="yid1" :option="yoption2"></div>
@@ -205,12 +222,12 @@
 					<span style="padding-left: 14px;float: left;color:#285FB1;font-size: 15px;" @click="quxiao">取消</span>
 					<span style="font-size: 16px;">选择日期</span><span @click="queding" style="font-size: 15px;color:#285FB1;padding-right: 14px;float: right;">确定</span>
 				</div>
-				<div class="controldata">
+				<div class="controldata" id="soll">
 					<div  v-for="(year,yearIndex) in years" :key="yearIndex">
 						<div class="MyYear month">{{year.year}}</div>
 						<p v-for="(mon,monthIndex) in year.months" @click="select(year.year,mon.month,yearIndex,monthIndex)" 
 							class="month" :class="mon.slected ? 'selected' : ''" :key="monthIndex">
-							{{mon.month}}月<span class="begin_end" v-show="mon.start"><br />开始</span><span class="begin_end" v-show="mon.end"><br />结束</span>
+							{{mon.month}}月<span class="begin_end" v-show="mon.start"><br /></span><span class="begin_end" v-show="mon.end"><br /></span>
 						</p>
 					</div>
 				</div>
@@ -232,6 +249,7 @@
 		name: "kaxjcontentpage",
 		data() {
 			return {
+				scrollTop:0,
 				getstarttime:'',
 				getendtime:'',
 				getstarttimeM:'',
@@ -367,6 +385,9 @@
 				this.myrili = false;
 			},
 			queding(){
+				sessionStorage.setItem('scroll',document.getElementById("soll").scrollTop)
+				document.getElementById("soll").scrollTop = sessionStorage.getItem('scroll');
+				sessionStorage.removeItem('scroll');
 				console.log(this.selectedMonths)
 				if (this.selectedMonths[0] == undefined) {
 					this.myselsetdata = this.clickedBtn[0].year+'年'+this.clickedBtn[0].month+'月';
@@ -678,6 +699,7 @@
 						typenum = parseInt(that.selected1) -2;
 						if(that.selected1 == '货物总指标'){
 							typenum = 1;
+							that.element = 1;
 						}
 					} else if (that.active == 'tab2'){
 						that.element = that.selected2;
@@ -1159,7 +1181,7 @@
 				} else if (this.dataType == 2){
 					arr = [['空运',parseFloat(this.airCount)],['水运',parseFloat(this.waterCount)]]
 				} else if (this.dataType == 3){
-					arr = [['飞机',parseFloat(this.airFreight)],['船舶',parseFloat(this.shipCount)]]
+					arr = [['飞机',parseFloat(this.airCount)],['船舶',parseFloat(this.shipCount)]]
 				}
 				
 				this.yid = "ytest";
@@ -1426,7 +1448,7 @@
 	}
 	.el-select-dropdown__item {
 		font-size:4vw;
-		padding: 0 2.667vw;
+		padding: 0 0vw;
 		position: relative;
 		white-space: nowrap;
 		overflow: hidden;
@@ -1600,6 +1622,16 @@ height: 77vw;
 }
 .el-select-dropdown__item span {
     line-height: 4.733vw!important;
+}
+.el-select-dropdown__wrap {
+    max-height: 50.533vw;
+}
+.el-select-dropdown__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 </style>
 

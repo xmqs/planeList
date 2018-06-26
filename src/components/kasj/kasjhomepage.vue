@@ -53,12 +53,12 @@
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
                   <div class="way_ele">{{transShipCount}}</div>
-                  <div class="way_ele2">水运</div>
+                  <div class="way_ele2">船舶</div>
               </div>
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
                   <div class="way_ele">{{transAirCount}}</div>
-                  <div class="way_ele2">空运</div>
+                  <div class="way_ele2">飞机</div>
               </div>
           </div>
         </div>
