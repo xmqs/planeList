@@ -26,32 +26,37 @@
 							<div class="messcol">
 								<div class="messline">水运</div>
 								<div class="messline">{{waterFreight}}</div>
-								<div v-if="waterPercent < 0" class="messline" style="color:#72B478">{{waterPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{waterPercent}}</div>
+								<div v-if="waterPercent < 0" class="messline" style="color:#FF801A">{{waterPercent}}</div>
+								<div v-else-if="waterPercent == '--'" class="messline">{{waterPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{waterPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">空运</div>
 								<div class="messline">{{airFreight}}</div>
-								<div v-if="airPercent < 0" class="messline" style="color:#72B478">{{airPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{airPercent}}</div>
+								<div v-if="airPercent < 0" class="messline" style="color:#FF801A">{{airPercent}}</div>
+								<div v-else-if="airPercent == '--'" class="messline">{{airPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{airPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">铁路</div>
 								<div class="messline">{{transFreight}}</div>
-								<div v-if="transPercent < 0" class="messline" style="color:#72B478">{{transPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{transPercent}}</div>
+								<div v-if="transPercent < 0" class="messline" style="color:#FF801A">{{transPercent}}</div>
+								<div v-else-if="transPercent == '--'" class="messline">{{transPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{transPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">公路</div>
 								<div class="messline">{{roadFreight}}</div>
-								<div v-if="roadPercent < 0" class="messline" style="color:#72B478">{{roadPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{roadPercent}}</div>
+								<div v-if="roadPercent < 0" class="messline" style="color:#FF801A">{{roadPercent}}</div>
+								<div v-else-if="roadPercent == '--'" class="messline">{{roadPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{roadPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">合计</div>
 								<div class="messline">{{totalNum}}</div>
-								<div v-if="totalPercent < 0" class="messline" style="color:#72B478">{{totalPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{totalPercent}}</div>
+								<div v-if="totalPercent < 0" class="messline" style="color:#FF801A">{{totalPercent}}</div>
+								<div v-else-if="totalPercent == '--'" class="messline">{{totalPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{totalPercent}}</div>
 							</div>
 						</div>
 						<div :id="id" :option="option">
@@ -71,14 +76,16 @@
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
 								<div class="messline">{{ele.dateTime}}</div>
 								<div class="messline">{{ele.monthNum}}</div>
-								<div v-if="ele.percent < 0" class="messline" style="color:#72B478">{{ele.percent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{ele.percent}}</div>
+								<div v-if="ele.percent < 0" class="messline" style="color:#FF801A">{{ele.percent}}</div>
+								<div v-else-if="ele.percent == '--'" class="messline">{{ele.percent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">总计</div>
 								<div class="messline">{{allnum}}</div>
-								<div v-if="allPercent < 0" class="messline" style="color:#72B478">{{allPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{allPercent}}</div>
+								<div v-if="allPercent < 0" class="messline" style="color:#FF801A">{{allPercent}}</div>
+								<div v-else-if="allPercent == '--'" class="messline">{{allPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{allPercent}}</div>
 							</div>
 						</div>
 						<div :id="id1" :option="option2"></div>
@@ -103,20 +110,23 @@
 							<div class="messcol">
 								<div class="messline">空运</div>
 								<div class="messline">{{airCount}}</div>
-								<div v-if="airPercent < 0" class="messline" style="color:#72B478">{{airPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{airPercent}}</div>
+								<div v-if="airPercent < 0" class="messline" style="color:#FF801A">{{airPercent}}</div>
+								<div v-else-if="airPercent == '--'" class="messline">{{airPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{airPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">水运</div>
 								<div class="messline">{{waterCount}}</div>
-								<div v-if="waterPercent < 0" class="messline" style="color:#72B478">{{waterPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{waterPercent}}</div>
+								<div v-if="waterPercent < 0" class="messline" style="color:#FF801A">{{waterPercent}}</div>
+								<div v-else-if="waterPercent == '--'" class="messline">{{waterPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{waterPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">合计</div>
 								<div class="messline">{{totalNum}}</div>
-								<div v-if="totalPercent < 0" class="messline" style="color:#72B478">{{totalPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{totalPercent}}</div>
+								<div v-if="totalPercent < 0" class="messline" style="color:#FF801A">{{totalPercent}}</div>
+								<div v-else-if="totalPercent == '--'" class="messline">{{totalPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{totalPercent}}</div>
 							</div>
 						</div>
 						<div :id="rid" :option="roption">
@@ -133,14 +143,16 @@
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
 								<div class="messline">{{ele.dateTime}}</div>
 								<div class="messline">{{ele.monthNum}}</div>
-								<div v-if="ele.percent < 0" class="messline" style="color:#72B478">{{ele.percent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{ele.percent}}</div>
+								<div v-if="ele.percent < 0" class="messline" style="color:#FF801A">{{ele.percent}}</div>
+								<div v-else-if="ele.percent == '--'" class="messline">{{ele.percent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">总计</div>
 								<div class="messline">{{allnum}}</div>
-								<div v-if="allPercent < 0" class="messline" style="color:#72B478">{{allPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{allPercent}}</div>
+								<div v-if="allPercent < 0" class="messline" style="color:#FF801A">{{allPercent}}</div>
+								<div v-else-if="allPercent == '--'" class="messline">{{allPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{allPercent}}</div>
 							</div>
 						</div>
 						<div :id="rid1" :option="roption2"></div>
@@ -165,20 +177,23 @@
 							<div class="messcol">
 								<div class="messline">飞机</div>
 								<div class="messline">{{airCount}}</div>
-								<div v-if="airPercent < 0" class="messline" style="color:#72B478">{{airPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{airPercent}}</div>
+								<div v-if="airPercent < 0" class="messline" style="color:#FF801A">{{airPercent}}</div>
+								<div v-else-if="airPercent == '--'" class="messline">{{airPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{airPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">船舶</div>
 								<div class="messline">{{shipCount}}</div>
-								<div v-if="shipPercent < 0" class="messline" style="color:#72B478">{{shipPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{shipPercent}}</div>
+								<div v-if="shipPercent < 0" class="messline" style="color:#FF801A">{{shipPercent}}</div>
+								<div v-else-if="shipPercent == '--'" class="messline">{{shipPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{shipPercent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">合计</div>
 								<div class="messline">{{totalNum}}</div>
-								<div v-if="totalPercent < 0" class="messline" style="color:#72B478">{{totalPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{totalPercent}}</div>
+								<div v-if="totalPercent < 0" class="messline" style="color:#FF801A">{{totalPercent}}</div>
+								<div v-else-if="totalPercent == '--'" class="messline">{{totalPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{totalPercent}}</div>
 							</div>
 						</div>
 						<div :id="yid" :option="yoption">
@@ -197,14 +212,16 @@
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
 								<div class="messline">{{ele.dateTime}}</div>
 								<div class="messline">{{ele.monthNum}}</div>
-								<div v-if="ele.percent < 0" class="messline" style="color:#72B478">{{ele.percent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{ele.percent}}</div>
+								<div v-if="ele.percent < 0" class="messline" style="color:#FF801A">{{ele.percent}}</div>
+								<div v-else-if="ele.percent == '--'" class="messline">{{ele.percent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
 								<div class="messline">总计</div>
 								<div class="messline">{{allnum}}</div>
-								<div v-if="allPercent < 0" class="messline" style="color:#72B478">{{allPercent}}</div>
-								<div v-else class="messline" style="color:#FF801A">{{allPercent}}</div>
+								<div v-if="allPercent < 0" class="messline" style="color:#FF801A">{{allPercent}}</div>
+								<div v-else-if="allPercent == '--'" class="messline">{{allPercent}}</div>
+								<div v-else class="messline" style="color:#72B478">{{allPercent}}</div>
 							</div>
 						</div>
 						<div :id="yid1" :option="yoption2"></div>

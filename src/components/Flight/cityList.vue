@@ -226,4 +226,10 @@
 .mint-indexlist-nav {
     background-color: #efeff4;
 }
+.mint-cell-text {
+    font-size: 3.733vw;
+}
+.mint-indexlist-nav {
+    background: #efeff4;
+}
 </style>
