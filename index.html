@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="./static/css/model.css" />
     <script src="./static/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.7&key=60c846141923c17aa04baafd1e6ccb99&plugin=AMap.Transfer,AMap.Autocomplete,AMap.PlaceSearch,AMap.Driving"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.7&key=60c846141923c17aa04baafd1e6ccb99&plugin=AMap.Transfer,AMap.Autocomplete,AMap.PlaceSearch,AMap.Driving,AMap.Geolocation"></script>
     <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 </head>
 
@@ -24,6 +24,10 @@
         //"appId" : "mynj_test"
         "appId": "elecPort"
     };
+
+    function moveTo(longitude,latitude){
+
+    }
     //调用原生方法
     auth.getAccessToken(JSON.stringify(params));
     //原生回调
