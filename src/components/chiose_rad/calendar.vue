@@ -486,4 +486,12 @@
     color: #fff!important;
     background: #285FB1;
   }
+  .month {
+    float: left;
+    height: 14.333vw;
+    width: 100%;
+    margin: 3vw 0vw;
+    text-align: center;
+    line-height: 5.333vw;
+}
 </style>

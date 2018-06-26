@@ -317,7 +317,6 @@
 					this.paixu = "点击进入频道";
 					this.isShow = false;
 				}
-				this.$router.go(0);
 			},
 			others: function() {
 				this.animation_out = true;

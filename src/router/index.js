@@ -133,7 +133,10 @@ export default new Router({
         {
             path: '/flight/cityList',
             name: 'cityList',
-            component: cityList
+            component: cityList,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/flight/selectpalne',

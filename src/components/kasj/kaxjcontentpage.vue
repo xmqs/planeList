@@ -10,20 +10,17 @@
 			<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
 				<mt-tab-container-item id="tab1">
 					<div class="selectSearch">
-						<el-select @change="selectitem" v-model="selected1" placeholder="请选择">
-							<el-option
-							v-for="item in options"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-							</el-option>
-						</el-select>
+						<div @click="isshowmyoption" class="optiontitle">{{optiontitle1}}<a class="sanjiao"></a></div>
+						<div style="position: absolute;width: 100%;background-color: #fff;z-index: 99;">
+							<div class="childoption" :class="{'option-a':selected1 === item.label || selected1 === item.value}" v-show="myoption" @click="selectitem(selected1 = item.value,optiontitle1 = item.label)" v-for="(item,index) in options" :key="index">{{item.label}}</div>
+						</div>
+						<div v-show="myoption" style="position: fixed;width: 100%;height: 100%;top: 79px;z-index: 98;background-color: #3333337a;"></div>
 					</div>
 					<div class="bb" v-show="element == 1">
 						<div class="message">
 							<div class="messcol">
 								<div class="messline">指标</div>
-								<div class="messline">货运量（万吨）</div>
+								<div  class="messline">货运量（万吨）</div>
 								<div class="messline">同比（%）</div>
 							</div>
 							<div class="messcol">
@@ -66,7 +63,9 @@
 						<div class="message">
 							<div class="messcol">
 								<div class="messline">月份</div>
-								<div class="messline">货运量（万吨）</div>
+								<div v-if="selected1 == 7" class="messline">吞吐量（万标箱）</div>
+								<div v-else-if="selected1 == 8" class="messline">总数（万件）</div>
+								<div v-else class="messline">货运量（万吨）</div>
 								<div class="messline">同比（%）</div>
 							</div>
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
@@ -88,14 +87,11 @@
 
 				<mt-tab-container-item id="tab2">
 					<div class="selectSearch">
-						<el-select @change="selectitem" v-model="selected2" placeholder="请选择">
-							<el-option
-							v-for="item in options1"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-							</el-option>
-						</el-select>
+						<div @click="isshowmyoption" class="optiontitle">{{optiontitle2}}<a class="sanjiao"></a></div>
+						<div style="position: absolute;width: 100%;background-color: #fff;z-index: 99;">
+							<div class="childoption" :class="{'option-a':selected2 === item.label || selected2 === item.value}" v-show="myoption" @click="selectitem(selected2 = item.value,optiontitle2 = item.label)" v-for="(item,index) in options1" :key="index">{{item.label}}</div>
+						</div>
+						<div v-show="myoption" style="position: fixed;width: 100%;height: 100%;top: 79px;z-index: 98;background-color: #3333337a;"></div>
 					</div>
 					<div class="bb" v-show="element == 1">
 						<div class="message">
@@ -153,20 +149,17 @@
 
 				<mt-tab-container-item id="tab3">
 					<div class="selectSearch">
-						<el-select @change="selectitem" v-model="selected3" placeholder="请选择">
-							<el-option
-							v-for="item in options2"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-							</el-option>
-						</el-select>
+						<div @click="isshowmyoption" class="optiontitle">{{optiontitle3}}<a class="sanjiao"></a></div>
+						<div style="position: absolute;width: 100%;background-color: #fff;z-index: 99;">
+							<div class="childoption" :class="{'option-a':selected3 === item.label || selected3 === item.value}" v-show="myoption" @click="selectitem(selected3 = item.value,optiontitle3 = item.label)" v-for="(item,index) in options2" :key="index">{{item.label}}</div>
+						</div>
+						<div v-show="myoption" style="position: fixed;width: 100%;height: 100%;top: 79px;z-index: 98;background-color: #3333337a;"></div>
 					</div>
 					<div class="bb" v-show="element == 1">
 						<div class="message">
 							<div class="messcol">
 								<div class="messline">指标</div>
-								<div class="messline">架次</div>
+								<div class="messline">辆艘</div>
 								<div class="messline">同比（%）</div>
 							</div>
 							<div class="messcol">
@@ -196,7 +189,9 @@
 						<div class="message">
 							<div class="messcol">
 								<div class="messline">月份</div>
-								<div class="messline">架次</div>
+								<div v-if="selected3 == 3" class="messline">架次</div>
+								<div v-else-if="selected3 == 4" class="messline">艘次</div>
+								<div v-else class="messline">辆艘</div>
 								<div class="messline">同比（%）</div>
 							</div>
 							<div v-for="(ele,index) in lists" class="messcol" :key="index">
@@ -249,6 +244,10 @@
 		name: "kaxjcontentpage",
 		data() {
 			return {
+				optiontitle1:'货物总指标',
+				optiontitle2:'人员总指标',
+				optiontitle3:'运输工具总指标',
+				myoption:false,
 				scrollTop:0,
 				getstarttime:'',
 				getendtime:'',
@@ -374,10 +373,14 @@
 		},
 		watch: {
 			active: function(newValue) {
+				this.myoption = false;
 				this.checkkasj(newValue);
 			}
 		},
 		methods: {
+			isshowmyoption(){
+				this.myoption = !this.myoption;
+			},
 			isrili(){
 				this.myrili = !this.myrili;
 			},
@@ -674,6 +677,7 @@
 			},
 			selectitem(){
 				var that = this;
+				that.myoption = false;
 				that.gettimes();
 				if(that.isfirst == true){
 					var startstime = '';
@@ -690,7 +694,25 @@
 					}
 					that.startDate = startstime+'-'+'01';
 					that.endDate =  endstime;
-					this.myselsetdata = that.startDate.replace('-','年')+'月'+'-'+that.endDate.replace('-','年')+'月';
+					if (that.active == 'tab1') {
+						if(that.selected1 == '货物总指标' || that.selected1 == 1){
+							this.myselsetdata = that.endDate.replace('-','年')+'月';
+						}else{
+							this.myselsetdata = that.startDate.replace('-','年')+'月'+'-'+that.endDate.replace('-','年')+'月';
+						}
+					} else if (that.active == 'tab2'){
+						if(that.selected2 == '货物总指标' || that.selected2 == 1){
+							this.myselsetdata = that.endDate.replace('-','年')+'月';
+						}else{
+							this.myselsetdata = that.startDate.replace('-','年')+'月'+'-'+that.endDate.replace('-','年')+'月';
+						}
+					} else if (that.active == 'tab3'){
+						if(that.selected3 == '货物总指标' || that.selected3 == 1){
+							this.myselsetdata = that.endDate.replace('-','年')+'月';
+						}else{
+							this.myselsetdata = that.startDate.replace('-','年')+'月'+'-'+that.endDate.replace('-','年')+'月';
+						}
+					}
 				}
 				if(that.selected1 != 1 && that.selected1 != 2 && that.selected2 != 1 && that.selected2 != 2 && that.selected3 != 1 && that.selected3 != 2){
 					var typenum = 1;
@@ -806,11 +828,23 @@
 			showData1(){
 				var rightname;
 				if (this.dataType == 1) {
-					rightname = '货运量（万吨）'
+					if(this.selected1 == 7){
+						rightname = '吞吐量（万标箱）'
+					}else if(this.selected1 == 8){
+						rightname = '总数（万件）'
+					}else{
+						rightname = '货运量（万吨）'
+					}
 				} else if (this.dataType == 2) {
 					rightname = '总数（万人次）'
 				} else if (this.dataType == 3) {
-					rightname = '辆艘'
+					if(this.selected3 == 3){
+						rightname = '总量（架次）'
+					}else if(this.selected3 == 4){
+						rightname = '总量（艘次）'
+					}else{
+						rightname = '总量（辆艘）'
+					}
 				}
 				this.id1 = "test1";
 				this.option2 = {
@@ -878,11 +912,23 @@
 			rshowData1(){
 				var rightname;
 				if (this.dataType == 1) {
-					rightname = '货运量（万吨）'
+					if(this.selected1 == 7){
+						rightname = '吞吐量（万标箱）'
+					}else if(this.selected1 == 8){
+						rightname = '总数（万件）'
+					}else{
+						rightname = '货运量（万吨）'
+					}
 				} else if (this.dataType == 2) {
 					rightname = '总数（万人次）'
 				} else if (this.dataType == 3) {
-					rightname = '辆艘'
+					if(this.selected3 == 3){
+						rightname = '总量（架次）'
+					}else if(this.selected1 == 4){
+						rightname = '总量（艘次）'
+					}else{
+						rightname = '总量（辆艘）'
+					}
 				}
 				this.rid1 = "rtest1";
 				this.roption2 = {
@@ -948,11 +994,23 @@
 			yshowData1(){
 				var rightname;
 				if (this.dataType == 1) {
-					rightname = '货运量（万吨）'
+					if(this.selected1 == 7){
+						rightname = '吞吐量（万标箱）'
+					}else if(this.selected1 == 8){
+						rightname = '总数（万件）'
+					}else{
+						rightname = '货运量（万吨）'
+					}
 				} else if (this.dataType == 2) {
 					rightname = '总数（万人次）'
 				} else if (this.dataType == 3) {
-					rightname = '辆艘'
+					if(this.selected3 == 3){
+						rightname = '总量（架次）'
+					}else if(this.selected1 == 4){
+						rightname = '总量（艘次）'
+					}else{
+						rightname = '总量（辆艘）'
+					}
 				}
 				this.yid1 = "ytest1";
 				this.yoption2 = {
@@ -1427,20 +1485,20 @@
 	.selectSearch{
 		text-align: center;
 		margin-top: 14px;
-		padding-bottom:1vw;
-		border-bottom: 2vw solid #f5f5f5;
+    padding-bottom: 2vw;
+    border-bottom: 2vw solid #f5f5f5;
 	}
 	.sanjiao{
-	    display: inline-block;
-	    width: 0;
-	    height: 0;
-	    line-height: 0;
-	    border: 16px solid transparent;
-	    border-top-color: #ccc;
-		border-bottom-width: 0;
-		position: absolute;
-		margin-top: 20px;
-    	margin-left: -52px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: 1.5vw solid transparent;
+    border-top-color: #666;
+    border-bottom-width: 0;
+    /* position: absolute; */
+    margin-bottom: 0.667vw;
+    margin-left: 1.067vw;
 	}
 	.page-tab-container{
 		padding: 0px;
@@ -1592,6 +1650,30 @@ height: 77vw;
 	color: #fff;
 	font-size: 4.2vw;
 }
+.optiontitle{
+	width: 86%;
+    height: 8vw;
+    line-height: 8vw;
+    margin: auto;
+    background: #F5F5F5;
+    color: #666666;
+	font-size: 4.3vw;
+}
+.childoption{
+	    height: 90px;
+    line-height: 90px;
+    border: 1px solid #F5F5F5;
+    border-top: 0px solid #F5F5F5;
+	    padding-left: 6vw;
+    text-align: left;
+	font-size: 4vw;
+}
+.option-a{
+	background: url(../../../static/img/hycxgou.png) no-repeat right;
+	background-size:6.2vw 4.667vw;
+	color: rgb(40, 95, 177);
+	background-position:95% 4vw;
+}
 </style>
 <style>
 
@@ -1632,6 +1714,9 @@ height: 77vw;
     margin: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+}
+.el-icon-arrow-up:before {
+    content: "\E60C";
 }
 </style>
 

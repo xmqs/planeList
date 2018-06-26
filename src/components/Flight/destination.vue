@@ -93,6 +93,10 @@
         Bus.$on('changefocus', (e) => {
           console.log(e);
         })
+        
+		    Bus.$on('area', (e) => {
+		    	this.endCity = e;
+		    })
       },
       methods:{
         changeBack(){

@@ -6,7 +6,7 @@
 				<div class="swipe-wrapper">
 			        <mt-swipe :speed="1300" :auto="5000" ref="swipeWrapper">
 			            <mt-swipe-item v-for="ele in imageMenuList" class="item">
-			            	<img class="swpUrl" :src="ele.iconUrl"/>
+			            	<img class="swpUrl" @click="targetUrl(ele.targetUrl)" :src="ele.iconUrl"/>
 			            </mt-swipe-item>
 			        </mt-swipe>
 			    </div>
@@ -99,9 +99,12 @@
 			this.getlist();
 		},
 		methods: {
-      /*testfly(){
-        this.$router.push({name: 'flightMain'});
-      },*/
+			/*testfly(){
+				this.$router.push({name: 'flightMain'});
+			},*/
+			targetUrl(res){
+				window.location = res;
+			},
 			goback(){
 				this.$router.push({name: 'srwp_list',
 					params:{

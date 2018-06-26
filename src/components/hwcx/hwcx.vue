@@ -68,7 +68,7 @@
 						</div>
 						<div v-if="ele.WareHouse.PickTime != ''" style="background: #f9f9f9;padding: 3vw;" :key="index">
 							<div style="font-size: 14pt;color: #333;">转库信息</div>
-							<p class="things">转入货代监管时间：{{ele.WareHouse.PickTime}}</p>
+							<p class="things">转入货代监管库时间：{{ele.WareHouse.PickTime}}</p>
 						</div>
 					</div>
 				</div>

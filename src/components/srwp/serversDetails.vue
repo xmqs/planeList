@@ -18,7 +18,9 @@
 		  			<div v-for="(element,index) in lists1" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
 						<div class="yaoqiu">{{element.description}}</div>
-						<div style="position: absolute;right: 3vw;top: 4vw;" v-for="(ele,index) in element.options" v-if="ele.checked != null" class="price">{{ele.title}}</div>
+						<div class="allprice">
+							<div v-for="(ele,index) in element.options" v-if="ele.checked != null" class="price">{{ele.title}}</div>
+						</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
 						<div class="tishi">上面提货</div>
@@ -37,7 +39,9 @@
 		  			<div v-for="(element,index) in lists2" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
 						<div class="yaoqiu">{{element.description}}</div>
-						<div class="rio"><div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div></div>
+						<div class="allprice">
+							<div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div>
+						</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
 						<div class="tishi">上面提货</div>
@@ -163,52 +167,48 @@ export default {
 	    padding-bottom: 15px;
 	}
 	.ele2{
-		height: 80pt;
-        padding: 12px 12px 7px 12px;
-	    background-color: #fff;
 		position: relative;
+		height: 200px;
+        padding: 28px 28px 20px 28px;
+	    background-color: #fff;
 	}
 	.ele3{
         padding: 12px 12px 7px 12px;
 	    background-color: #fff;
 	}
 	.ele4{
-    width: 100%;
+	width: 100%;
     margin: auto;
-    height: 8.267vw;
+    height: 8.667vw;
     text-align: center;
-    line-height: 11.267vw;
-    font-size: 3.967vw;
+    line-height: 11.667vw;
+    font-size: 4vw;
     color: #333;
 	}
 	.points1{
-	color: #ffb540;
-    background: #fff5e5;
-    font-size: 3.833vw;
-    line-height: 2.933vw;
-    padding: 3.833vw 1.6vw 3.833vw 5.6vw !important;
+	    background: #fff5e5;
+	    line-height: 80px;
+	    padding: 0px 22px;
+	    height: 80px;
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(255,181,64,1);
 	}
 	.pet-img{
-	    width: 67pt;
-    	height: 64pt;
+	    width: 150px;
+    	height: 142px;
 	}
 	.ele2-1{
 		float: left;
 	}
 	.ele2-3{
 	    width: 100%;
-	    min-height: 60px;
+		height: 20vw;
 	    border-bottom: 1px solid #efefef;
 	    margin-bottom: 12px;
-		padding:2.8vw;
 		position: relative;
 	}
-	.rio{
-		position: absolute;
-		right: 3vw;
-		top: 3.5vw;
-	}
-	.ele2-4{
+	.ele2-4{    
 		width: 100%;
 		height: 8.2vw;
 		line-height: 8.2vw;
@@ -217,44 +217,55 @@ export default {
 		padding-left: 2vw;
 	}
 	.ele2-2{
-		padding: 7px;
+		padding: 7px 7px 7px 17px;
 	}
 	.pet-name{
-	font-size: 4.767vw;
-    color: #333;
-    width: 51vw;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+		width: 240px;
+		font-size:32px;
+		font-family:PingFangSC-Medium;
+		color:rgba(51,51,51,1);
 	}
 	.pet-where{
-    font-size: 3.867vw;
-    color: #999;
-    position: absolute;
-    bottom: 3vw;
+	    margin-top: 42px;
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.pet-time{
-    position: absolute;
-    top: 3.333vw;
-    right: 2vw;
-    color: #999;
-    font-size: 4.2vw;
+		position: absolute;
+	    top: 40px;
+	    right: 20px;
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	
 	.tishi,.yaoqiu{
 		font-size: 4.267vw;
-		color: #333;
+    color: #333;
+    height: 8vw;
+    margin-top: 2vw;
 	}
 	.yaoqiu{
-		padding-top: 2.933vw;
+		padding-top: 7px;
 		color: #999;
-    	font-size: 3.867vw;
+    	font-size: 3.8vw;
     	width: 70%;
 	}
+	.allprice{
+		    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30vw;
+    height: 20vw;
+    font-size: 3.8vw;
+	}
 	.price{
-	    font-size: 4vw;
 	    color: #333;
+		    margin-top: 2.8vw;
 	}
 	.addr{
 		float: left;

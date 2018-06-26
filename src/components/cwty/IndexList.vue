@@ -104,7 +104,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	*{
 	  -webkit-overflow-scrolling: touch;
 	}
@@ -218,7 +218,10 @@
 .mint-indexlist-content {
     margin-right: 0 !important;
 }
-	.mint-toast-text {
-		font-size: 3.8vw !important;
-	}
+.mint-toast-text {
+	font-size: 3.8vw !important;
+}
+.mint-indexlist-nav {
+    background-color: #efeff4;
+}
 </style>

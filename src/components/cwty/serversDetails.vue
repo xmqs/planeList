@@ -23,7 +23,9 @@
 		  			<div v-for="(element,index) in lists1" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
 						<div class="yaoqiu">{{element.description}}</div>
-						<div v-for="(ele,index) in element.options" v-if="ele.checked != null" class="price">{{ele.title}}</div>
+						<div class="allprice">
+							<div v-for="(ele,index) in element.options" v-if="ele.checked" class="price">{{ele.title}}</div>
+						</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
 						<div class="tishi">上面提货</div>
@@ -42,7 +44,9 @@
 		  			<div v-for="(element,index) in lists2" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
 						<div class="yaoqiu">{{element.description}}</div>
-						<div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div>
+						<div class="allprice">
+							<div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div>
+						</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
 						<div class="tishi">上面提货</div>
@@ -200,9 +204,10 @@ export default {
 	}
 	.ele2-3{
 	    width: 100%;
-	    min-height: 60px;
+		height: 20vw;
 	    border-bottom: 1px solid #efefef;
 	    margin-bottom: 12px;
+		position: relative;
 	}
 	.ele2-4{    
 		width: 100%;
@@ -240,21 +245,28 @@ export default {
 	}
 	
 	.tishi,.yaoqiu{
-		font-size: 17px;
-		color: #333;
+		font-size: 4.267vw;
+    color: #333;
+    height: 8vw;
+    margin-top: 2vw;
 	}
 	.yaoqiu{
 		padding-top: 7px;
 		color: #999;
-    	font-size: 14px;
+    	font-size: 3.8vw;
     	width: 70%;
 	}
+	.allprice{
+		    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30vw;
+    height: 20vw;
+    font-size: 3.8vw;
+	}
 	.price{
-	    font-size: 17px;
 	    color: #333;
-	    position: relative;
-	    top: -52px;
-	    left: 270px;
+		    margin-top: 2.8vw;
 	}
 	.addr{
 		float: left;
