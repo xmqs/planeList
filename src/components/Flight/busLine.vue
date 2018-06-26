@@ -23,75 +23,29 @@
           城际班车
         </div>
       </div>
-      <div class="search_page">
+      <div class="search_page" v-show="pageShow!==4">
       <input type="text" placeholder="想去哪？" id="tipinput">
       </div>
-    </div>
-    <div id="container"></div>
-    <div class="info" id="panel" v-show="pageShow==3">
-      <p class="plh">请输入地址进行公交查询</p>
-    </div>
-    <div class="info" v-show="pageShow==2">
-      <div class="stopPage">
-        <ul>
-          <li :class='{stopA:stop==1}' @click=changeStop(1)>P1停车场</li>
-          <li :class='{stopA:stop==2}' @click=changeStop(2)>P2停车场</li>
-        </ul>
-      </div>
-      <div id="panel2">
 
+
+      <div  id="panel" v-show="pageShow==3">
+        <p class="plh">请输入地址进行公交查询</p>
       </div>
-    </div>
-    <div class="info" id="panel3" v-show="pageShow==1">
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="line_page">
-              <div class="line_title">
-                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士1号线</span>
-              </div>
-              <div class="line_body">
-                <span class="lb1">
-                  <p>20元</p>
-                  <p>票价</p>
-                </span>
-                <span class="vline"></span>
-                <span  class="lb2">
-                  <p class="pointName">{{point}}</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="D"'>火车站发车时间为4:30 -- 21:00，每30分钟一班，龙蟠中路451号南京机场宾馆经停站每班车约晚10至15分钟。由南京南站至机场约需1小时。</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
-                </span>
-              </div>
-              <div class="checkAll">
-                查看所有站点
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="line_page">
-              <div class="line_title">
-                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士2号线</span>
-              </div>
-              <div class="line_body">
-                <span class="lb1">
-                  <p>20元</p>
-                  <p>票价</p>
-                </span>
-                <span class="vline"></span>
-                <span  class="lb2">
-                  <p class="pointName">{{point}}</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="D"'>火车站发车时间为4:30 -- 21:00，每30分钟一班，龙蟠中路451号南京机场宾馆经停站每班车约晚10至15分钟。由南京南站至机场约需1小时。</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
-                </span>
-              </div>
-              <div class="checkAll">
-                查看所有站点
-              </div>
-            </div>
-          </div>
+      <div  v-show="pageShow==2" id="driver">
+        <div class="stopPage">
+          <ul>
+            <li :class='{stopA:stop==1}' @click=changeStop(1)>P1停车场</li>
+            <li :class='{stopA:stop==2}' @click=changeStop(2)>P2停车场</li>
+          </ul>
+        </div>
+        <div id="panel2">
+
         </div>
       </div>
+
     </div>
+    <div id="container" v-show="pageShow==1"></div>
+
     <div class="info" id="cjbc" v-show="pageShow==4">
       <ul>
         <li>
@@ -407,6 +361,56 @@
         </li>
       </ul>
     </div>
+    <div class="info" id="panel3" v-show="pageShow==1">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="line_page">
+              <div class="line_title">
+                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士1号线</span>
+              </div>
+              <div class="line_body">
+                <span class="lb1">
+                  <p>20元</p>
+                  <p>票价</p>
+                </span>
+                <span class="vline"></span>
+                <span  class="lb2">
+                  <p class="pointName">{{point}}</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="D"'>火车站发车时间为4:30 -- 21:00，每30分钟一班，龙蟠中路451号南京机场宾馆经停站每班车约晚10至15分钟。由南京南站至机场约需1小时。</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
+                </span>
+              </div>
+              <div class="checkAll">
+                查看所有站点
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="line_page">
+              <div class="line_title">
+                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士2号线</span>
+              </div>
+              <div class="line_body">
+                <span class="lb1">
+                  <p>20元</p>
+                  <p>票价</p>
+                </span>
+                <span class="vline"></span>
+                <span  class="lb2">
+                  <p class="pointName">{{point}}</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="D"'>火车站发车时间为4:30 -- 21:00，每30分钟一班，龙蟠中路451号南京机场宾馆经停站每班车约晚10至15分钟。由南京南站至机场约需1小时。</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
+                </span>
+              </div>
+              <div class="checkAll">
+                查看所有站点
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -423,7 +427,7 @@
         pageShow:1,
         swiper:{},
         ss:{},
-        point:"南京南站",
+        point:"南京火车站",
         stop:1,
         markers:[
           [
@@ -651,6 +655,7 @@
         on:
         {
           slideChangeTransitionEnd: () => {
+            this.point = "南京火车站"
             this.lineNum = this.swiper.activeIndex;
             this.map.clearMap();
             if(this.swiper.activeIndex == 0){
@@ -678,6 +683,7 @@
               });
             }else{
               //2号线
+              this.point = "河西万达广场"
               if(this.$route.params.direction=="D"){
                 this.txs = this.xs[3];
                 this.tys = this.ys[3];
@@ -906,6 +912,7 @@
             ]);
           }
         }
+
       }
     }
   }
@@ -917,13 +924,11 @@
 
   #container{
     width: 750px;
-    height: 1330px;
+    height: 1152px;
   }
   .title_header{
-    height: 177px;
     width: 750px;
     background: #285FB1;
-    position: fixed;
     top: 0;
     z-index: 9999;
   }
@@ -1002,16 +1007,9 @@
   .info{
     position: fixed;
     display: flex;
-    top: 178px;
     width: 750px;
-    height: 1157px;
     background: #fff;
-    overflow-y: auto;
-    z-index: 11000;
-  }
-  #panel3{
-    top: 940px;
-    bottom: 0;
+    overflow-y: scroll;
   }
   .plh{
     padding: 20px;
@@ -1037,11 +1035,11 @@
   }
 
   .line_body{
-    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid #eee;
+    padding: 16px 0;
   }
 
   .lb1{
@@ -1086,11 +1084,9 @@
   .stopPage{
     text-align: center;
     width: 100%;
-    position: absolute;
     top: 0;
     background: #fff;
     border-bottom: 1px solid #eee;
-    z-index: 999;
   }
   .stopPage ul{
     display: flex;
@@ -1122,6 +1118,7 @@
 
   #cjbc{
     color: #333!important;
+    height: 1240px;
   }
   #cjbc ul li{
     border-bottom: 16px solid #eee;
@@ -1149,12 +1146,22 @@
   .cjbc_info{
     color: #999!important;
   }
-
   #panel2{
     width: 100%;
     display: block;
-    padding-top: 120px;
     overflow: scroll;
+    height: 1030px;
+    background: #fff;
+  }
+  #panel3{
+    bottom: 0;
+  }
+  #panel{
+    width: 100%;
+    display: block;
+    overflow: scroll;
+    height: 1100px;
+    background: #fff;
   }
 </style>
 <style>
