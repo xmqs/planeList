@@ -25,7 +25,7 @@
           <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
           <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
           <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
           <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
           <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
           <span class="star">
@@ -51,7 +51,7 @@
           <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
           <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
           <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
           <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
           <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
           <span class="share">

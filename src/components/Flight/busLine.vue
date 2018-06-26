@@ -34,8 +34,8 @@
     <div class="info" v-show="pageShow==2">
       <div class="stopPage">
         <ul>
-          <li :class='{stopA:stop==1}'>P1停车场</li>
-          <li :class='{stopA:stop==2}'>P2停车场</li>
+          <li :class='{stopA:stop==1}' @click=changeStop(1)>P1停车场</li>
+          <li :class='{stopA:stop==2}' @click=changeStop(2)>P2停车场</li>
         </ul>
       </div>
       <div id="panel2">
@@ -422,6 +422,7 @@
         list:{},
         pageShow:1,
         swiper:{},
+        ss:{},
         point:"南京南站",
         stop:1,
         markers:[
@@ -744,6 +745,23 @@
 
     },
     methods: {
+      changeStop(id){
+        this.stop = id;
+        $('#panel2').html("");
+        var driving = new AMap.Driving({
+          map: this.map,
+          panel: "panel2"
+        });
+        // 根据起终点名称规划驾车导航路线
+        if(!this.ss.poi){
+          return;
+        }
+        driving.search([
+          {keyword: this.ss.poi.name,city:'南京'},
+          {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
+        ]);
+      },
+
       changepage(id){
         this.pageShow = id;
         if(id == 1){
@@ -843,7 +861,7 @@
 
         function select(e) {
 
-          console.log(that.pageShow);
+          that.ss = e;
 
           if(that.pageShow == 3){
             $('#panel').html("");
@@ -884,7 +902,7 @@
             // 根据起终点名称规划驾车导航路线
             driving.search([
               {keyword: e.poi.name,city:'南京'},
-              {keyword: '南京禄口国际机场',city:'南京'}
+              {keyword: that.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
             ]);
           }
         }
@@ -914,7 +932,6 @@
     display: flex;
     height: 88px;
     justify-content: center;
-    padding: 30px;
     align-items: center;
   }
   .change_page img{
@@ -1073,6 +1090,7 @@
     top: 0;
     background: #fff;
     border-bottom: 1px solid #eee;
+    z-index: 999;
   }
   .stopPage ul{
     display: flex;
@@ -1136,6 +1154,7 @@
     width: 100%;
     display: block;
     padding-top: 120px;
+    overflow: scroll;
   }
 </style>
 <style>

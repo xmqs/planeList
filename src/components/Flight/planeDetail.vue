@@ -30,17 +30,20 @@
             </div>
             <div class="time_list">
               <div>
-                <p>实际起飞</p>
+                <p v-if="$route.params.direction=='D'">实际起飞</p>
+                <p v-if="$route.params.direction=='A'">实际降落</p>
                 <p v-if='list.ActualLandingTakeoffDateTime'>{{list.ActualLandingTakeoffDateTime.slice(11,16)}}</p>
                 <p v-if='!list.ActualLandingTakeoffDateTime'>---</p>
               </div>
               <div>
-                <p>预计起飞</p>
+                <p v-if="$route.params.direction=='D'">预计起飞</p>
+                <p v-if="$route.params.direction=='A'">预计降落</p>
                 <p v-if='list.EstimatedLandingTakeoffDateTime'>{{list.EstimatedLandingTakeoffDateTime.slice(11,16)}}</p>
                 <p v-if='!list.EstimatedLandingTakeoffDateTime'>---</p>
               </div>
               <div>
-                <p>计划起飞</p>
+                <p v-if="$route.params.direction=='D'">计划起飞</p>
+                <p v-if="$route.params.direction=='A'">计划降落</p>
                 <p v-if='list.ScheduledLandingTakeoffDateTime'>{{list.ScheduledLandingTakeoffDateTime.slice(11,16)}}</p>
                 <p v-if='!list.ScheduledLandingTakeoffDateTime'>---</p>
               </div>
@@ -68,9 +71,10 @@
             <span>航班号{{list.FlightIdentity}}</span>
 
             <span class="pStatic" v-if="list.FlightStatus=='起飞'">起飞</span>
+            <span class="pStatic" v-if="list.FlightStatus=='前站起飞'">前站起飞</span>
             <span class="pStatic" v-if="list.FlightStatus=='计划航班'">计划航班</span>
             <span class="pStatic2" v-if="list.FlightStatus=='降落'">降落</span>
-            <span class="pStatic2" v-if="list.FlightStatus=='延误/计划航班'">延误/计划航班</span>
+            <span class="pStatic2" v-if="list.FlightStatus=='延误'">延误</span>
             <span class="pStatic2" v-if="list.FlightStatus=='航班结束'">航班结束</span>
             <span class="pStatic3" v-if="list.FlightStatus=='航班取消'">航班取消</span>
 
@@ -79,7 +83,9 @@
 
         <div class="overInfo">
           <div class="T1">
-            <p class="p1">起飞机场</p>
+            <p class="p1" v-if="$route.params.direction=='D'">起飞机场</p>
+            <p class="p1" v-if="$route.params.direction=='A'">降落机场</p>
+            <p class="p2">禄口机场</p>
           </div>
           <div class="TS">
             <div @click="toBusLine">

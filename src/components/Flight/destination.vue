@@ -90,6 +90,9 @@
             }
           }
         })
+        Bus.$on('changefocus', (e) => {
+          console.log(e);
+        })
       },
       methods:{
         changeBack(){
