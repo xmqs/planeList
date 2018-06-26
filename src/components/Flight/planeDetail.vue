@@ -436,7 +436,7 @@
   .TS{
     padding: 50px 40px;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   .TS{
     text-align: center;

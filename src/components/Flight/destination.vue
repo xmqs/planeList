@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="changePage">
-      <div class="page_active">按起落地</div>
+      <div class="page_active">航班查询</div>
       <div @click="changePage()">我的关注</div>
     </div>
     <ul class="content">
