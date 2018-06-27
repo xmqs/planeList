@@ -4,7 +4,7 @@
       <p v-show="title_tj" id="recommend" class="recommend">成功为您推荐十条新闻</p>
     </transition>
     <!--头部临时用-->
-    <header style="height: 44px;background:#EFEFF4;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 30px;">
+    <header style="height: 44px;background:#EFEFF4;position: fixed;top: 0;left: 0;z-index: 99999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 30px;">
       <router-link :to="{path:'/kaxw/search'}">
         <div class="searchdetails"><img style="width: 15px;position: relative;top: 3px;" src="../../../static/img/Fill1.png"/>&nbsp;请输入搜索关键字</div>
       </router-link>
@@ -67,6 +67,7 @@
       </div>
     </div>
     <!--选择要看的新闻类型-->
+    <div v-show="other" style="position: fixed;width: 100%;height: 100%;top: 0px;z-index:999998;background-color: #3333337a;"></div>
     <div v-show="other" id="model-wrapper" :class="{'animation_out':animation_out,'animation_in':animation_in}" class="mode-wrapper">
       <div class="ui-container">
         <div class="content_box">
@@ -95,7 +96,7 @@
           </div>
         </div>
         <div class="content_box3">
-          <p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10"><!--点击进入频道--></span></p>
+          <p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10">点击进入频道</span></p>
           <ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6">
             <li class="styleclass dargDiv others">
               <p style="font-size: 0.5rem;" v-if="ele.label.length > 6" >{{ele.label}}</p>

@@ -52,6 +52,7 @@
 
 <script>
   import axios from "axios";
+  import { Toast } from 'mint-ui'
   import { formatDate } from '../../assets/js/date.js';
   export default {
     name: "search",
@@ -63,7 +64,7 @@
           pageSize:""
         },
         remenCondition:{  //热门属性
-          channelAlias:"news_redian",
+          channelAlias:"news_tuijian",
           pageNo:'',
           pageSize:12
         },
@@ -127,6 +128,8 @@
               for(var j = 0; j < res.data.data.length; j++) {
                 _that.pageList.push(res.data.data[j])
               }
+            }else{
+              Toast('暂无内容...')
             }
             _that.page_local.push(_that.cons);
             localStorage.removeItem("search");
