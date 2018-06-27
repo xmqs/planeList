@@ -96,8 +96,8 @@
           </div>
         </div>
         <div class="content_box3">
-          <p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10">点击进入频道</span></p>
-          <ul @click="alias(ele.alias)" v-for="ele in list1" :key="ele.alias" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+          <p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10">点击编辑添加频道</span></p>
+          <ul v-for="ele in list1" :key="ele.alias" class="list-complete-item ui-col ui-col-25 text_center padding_6">
             <li class="styleclass dargDiv others">
               <p style="font-size: 0.5rem;" v-if="ele.label.length > 6" >{{ele.label}}</p>
               <p style="font-size: 0.7rem;" v-if="ele.label.length > 4 && ele.label.length < 7" >{{ele.label}}</p>
@@ -594,7 +594,7 @@
     cursor: pointer;
     z-index: 9999;
     background-color: #fff;
-    width: 50px;
+    width: 7.667vw;
     font-size: 40px;
   }
 
@@ -643,7 +643,7 @@
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
     box-flex: 1;
-    padding-right: 30px;
+    padding-right: 6vw;
   }
 
   .scrollx-content {

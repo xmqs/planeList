@@ -247,14 +247,14 @@
     width: 28px;
     height: 28px;
     top:50%;
-    margin-top: -13px;
-    left: 30px;
+    margin-top: -1.2vw;
+    left: 5vw;
   }
   .item-nosearch{
     flex:0 0 32px;
   }
   .header input {
-    padding-left: 54px;
+    padding-left: 8.2vw;
     width:calc( 100% - 34px );
     font-size: 3.733vw;
     color: #999999;
