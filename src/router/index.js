@@ -20,6 +20,7 @@ import testScrollC from "@/components/Flight/testScrollC"
 import testScrollD from "@/components/Flight/testScrollD"
 import busLine from "@/components/Flight/busLine"
 import flightMain from "@/components/Flight/flightMain"
+import stopDetail from "@/components/Flight/stopDetail"
 
 /*酒店*/
 import hotel from "@/components/hotel/hotel"
@@ -177,6 +178,11 @@ export default new Router({
             path: '/flight/busLine/:flight/:direction',
             name: 'busLine',
             component: busLine,
+        },
+        {
+            path: '/flight/stopDetail',
+            name: 'stopDetail',
+            component: stopDetail,
         },
         {
             path: '/flight/searchList',

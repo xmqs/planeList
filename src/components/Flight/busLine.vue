@@ -31,10 +31,11 @@
     <div id="wall">
       <div id="container" v-show="pageShow==1"></div>
 
-      <div  id="panel" v-show="pageShow==3">
+      <div id="panel" v-show="pageShow==3">
         <p class="plh">请输入地址进行公交查询</p>
       </div>
-      <div  v-show="pageShow==2" id="driver">
+
+      <div id="driver" v-show="pageShow==2">
         <div class="stopPage">
           <ul>
             <li :class='{stopA:stop==1}' @click=changeStop(1)>P1停车场</li>
@@ -44,6 +45,21 @@
         <div id="panel2">
 
         </div>
+        <div id="stopDetail" @click="toStopDetail">
+          查看停车场详情
+        </div>
+      </div>
+
+      <div class="station_show" v-show=showStation>
+
+        <div class="station_list">
+          <ul>
+            <li v-for="station in stationList">
+              <span class="s_title">{{station.name}}</span><span class="s_price">¥20</span>
+            </li>
+          </ul>
+        </div>
+        <span class="showmap" @click="showStation=false">显示地图</span>
       </div>
     </div>
     <div class="info" id="cjbc" v-show="pageShow==4">
@@ -381,7 +397,7 @@
                   <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
                 </span>
               </div>
-              <div class="checkAll">
+              <div class="checkAll" @click="showAllStation(1)">
                 查看所有站点
               </div>
             </div>
@@ -403,7 +419,7 @@
                   <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
                 </span>
               </div>
-              <div class="checkAll">
+              <div class="checkAll" @click="showAllStation(2)">
                 查看所有站点
               </div>
             </div>
@@ -424,12 +440,25 @@
     name: "busLine",
     data(){
       return{
+        stationList:[],
+        //1号线 2号线
+        allStation:[
+          [{"status":"1","trans_flag":"","code":"320115","name":"南京禄口机场","station_num":"1","poiid1":"BS11438559","start_time":"","spell":"nan jing lu kou ji chang","station_id":"320100072314002","end_time":"","xy_coords":"118.876617;31.731215","poiid2_xy":"118.876839;31.731363","poiid2":"BV10560267"},{"status":"1","trans_flag":"","code":"320115","name":"翠屏山宾馆","station_num":"2","poiid1":"BS11299049","start_time":"","spell":"cui ping shan bin guan","station_id":"320100072314008","end_time":"","xy_coords":"118.795319;31.92849","poiid2_xy":"118.795319;31.928490","poiid2":"BV10560365"},{"status":"1","trans_flag":"","code":"320114","name":"雨花广场","station_num":"3","poiid1":"BS10847759","start_time":"","spell":"yu hua guang chang","station_id":"320100072314004","end_time":"","xy_coords":"118.784599;31.992401","poiid2_xy":"118.784599;31.992401","poiid2":"BV10416134"},{"status":"1","trans_flag":"","code":"320104","name":"秦虹桥","station_num":"4","poiid1":"BS10643923","start_time":"","spell":"qin hong qiao","station_id":"320100072314009","end_time":"","xy_coords":"118.79673;32.009586","poiid2_xy":"118.796768;32.009716","poiid2":"BV10054612"},{"status":"1","trans_flag":"","code":"320104","name":"七里街","station_num":"5","poiid1":"BS11362739","start_time":"","spell":"qi li jie","station_id":"320100072314011","end_time":"","xy_coords":"118.80014;32.019787","poiid2_xy":"118.799774;32.019814","poiid2":"BV10054526"},{"status":"1","trans_flag":"","code":"320104","name":"西华门","station_num":"6","poiid1":"BS11299050","start_time":"","spell":"xi hua men","station_id":"320100072314010","end_time":"","xy_coords":"118.803505;32.036488","poiid2_xy":"118.803505;32.036488","poiid2":"BV10560366"},{"status":"1","trans_flag":"","code":"320102","name":"南京火车站","station_num":"7","poiid1":"BS10847761","start_time":"","spell":"nan jing huo che zhan","station_id":"320100072314007","end_time":"","xy_coords":"118.79882;32.084076","poiid2_xy":"118.798820;32.084076","poiid2":"BV10416135"}],
+          [{"status":"1","trans_flag":"","code":"320102","name":"南京火车站","station_num":"1","poiid1":"BS12193765","start_time":"","spell":"nan jing huo che zhan","station_id":"320100072083005","end_time":"","xy_coords":"118.798576;32.084152","poiid2_xy":"118.798820;32.084076","poiid2":"BV10416135"},{"status":"1","trans_flag":"","code":"320104","name":"七里街","station_num":"2","poiid1":"BS11362739","start_time":"","spell":"qi li jie","station_id":"320100072083006","end_time":"","xy_coords":"118.80014;32.019772","poiid2_xy":"118.799774;32.019814","poiid2":"BV10054526"},{"status":"1","trans_flag":"","code":"320115","name":"南京禄口机场","station_num":"3","poiid1":"BS11438559","start_time":"","spell":"nan jing lu kou ji chang","station_id":"320100072083004","end_time":"","xy_coords":"118.876633;31.731224","poiid2_xy":"118.876839;31.731363","poiid2":"BV10560267"}],
+
+          [{"status":"1","trans_flag":"","code":"320115","name":"南京禄口机场","station_num":"1","poiid1":"BS11438559","start_time":"","spell":"nan jing lu kou ji chang","station_id":"320100073960002","end_time":"","xy_coords":"118.876839;31.731363","poiid2_xy":"118.876839;31.731363","poiid2":"BV10560267"},{"status":"1","trans_flag":"","code":"320114","name":"南京南站","station_num":"2","poiid1":"BS11957472","start_time":"","spell":"nan jing nan zhan","station_id":"320100073960013","end_time":"","xy_coords":"118.796822;31.970547","poiid2_xy":"118.796306;31.968737","poiid2":"BV10053670"},{"status":"1","trans_flag":"","code":"320104","name":"中华门","station_num":"3","poiid1":"BS11146400","start_time":"","spell":"zhong hua men","station_id":"320100073960009","end_time":"","xy_coords":"118.776688;32.007401","poiid2_xy":"118.776688;32.007401","poiid2":"BV10518466"},{"status":"1","trans_flag":"","code":"320104","name":"水西门","station_num":"4","poiid1":"BS12157194","start_time":"","spell":"shui xi men","station_id":"320100073960010","end_time":"","xy_coords":"118.769814;32.031612","poiid2_xy":"118.772987;32.028103","poiid2":"BV10055310"},{"status":"1","trans_flag":"","code":"320104","name":"汉中门","station_num":"5","poiid1":"BS10803261","start_time":"","spell":"han zhong men","station_id":"320100073960011","end_time":"","xy_coords":"118.767357;32.042896","poiid2_xy":"118.767357;32.042896","poiid2":"BV10055009"},{"status":"1","trans_flag":"","code":"320105","name":"河西万达广场","station_num":"6","poiid1":"BS11282813","start_time":"","spell":"he xi wan da guang chang","station_id":"320100073960012","end_time":"","xy_coords":"118.738632;32.031868","poiid2_xy":"118.738032;32.031667","poiid2":"BV10518468"}],
+          [{"status":"1","trans_flag":"","code":"320105","name":"河西万达广场","station_num":"1","poiid1":"BS11146404","start_time":"","spell":"he xi wan da guang chang","station_id":"320100072316007","end_time":"","xy_coords":"118.738032;32.031667","poiid2_xy":"118.738032;32.031667","poiid2":"BV10518468"},{"status":"1","trans_flag":"","code":"320115","name":"南京南站","station_num":"2","poiid1":"BS11978062","start_time":"","spell":"nan jing nan zhan","station_id":"320100072316006","end_time":"","xy_coords":"118.795357;31.968185","poiid2_xy":"118.796306;31.968737","poiid2":"BV10053670"},{"status":"1","trans_flag":"","code":"320115","name":"南京禄口机场","station_num":"3","poiid1":"BS11438559","start_time":"","spell":"nan jing lu kou ji chang","station_id":"320100072316003","end_time":"","xy_coords":"118.876839;31.731358","poiid2_xy":"118.876839;31.731363","poiid2":"BV10560267"}]
+        ],
         list:{},
         pageShow:1,
         swiper:{},
-        ss:{},
+        ss:{poi:{
+          name:""
+          }
+        },
         point:"南京火车站",
         stop:1,
+        showStation:false,
         markers:[
           [
             {
@@ -763,6 +792,11 @@
 
     },
     methods: {
+      toStopDetail(){
+        //停车场详情
+        this.$router.push({name:'stopDetail'});
+      },
+      //选择停车场
       changeStop(id){
         this.stop = id;
         let x,y;
@@ -791,17 +825,21 @@
             panel: "panel2"
           });
           // 根据起终点名称规划驾车导航路线
-          if(!this.ss.poi){
+
+          if(this.ss.poi.name == ""){
+            Toast("请输入出发地");
             return;
           }
-          driving.search(
-            new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
-            new AMap.LngLat(x,y)
-          );
+
+          driving.search([
+            {keyword: this.ss.poi.name,city:'南京'},
+            {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
+          ]);
         }
       },
-
+      //选择模式
       changepage(id){
+        this.showStation = false;
         this.pageShow = id;
         if(id == 1){
           this.map.clearMap();
@@ -865,7 +903,7 @@
               map: this.map,
               panel: "panel2"
             });
-            if(!this.ss){
+            if(this.ss.poi.name == ""){
               Toast('请输入出发地');
               return;
             }
@@ -894,6 +932,27 @@
               );
             }else{
               Toast('请输入目的地');
+            }
+          }else{
+            $('#panel').html("");
+            let transOptions = {
+              map: this.map,
+              city: '南京市',
+              panel: 'panel',
+            };
+
+            if(this.ss.poi.name == ""){
+              Toast('请输入出发地');
+              return;
+            }
+
+            let transfer = new AMap.Transfer(transOptions);
+
+            if(this.$route.params.direction == "D") {
+              transfer.search([
+                {keyword: this.ss.poi.name,city:'南京'},
+                {keyword: '南京禄口机场',city:'南京'}
+              ]);
             }
           }
 
@@ -1002,6 +1061,24 @@
           }
         }
 
+      },
+      showAllStation(id){
+          this.showStation = true;
+          if(id == 1){
+            //一号线
+            if(this.$route.params.direction == "A"){
+              this.stationList = this.allStation[0];
+            }else{
+              this.stationList = this.allStation[1];
+            }
+          }else{
+            //二号线
+            if(this.$route.params.direction == "A"){
+              this.stationList = this.allStation[2];
+            }else{
+              this.stationList = this.allStation[3];
+            }
+          }
       }
     }
   }
@@ -1016,6 +1093,7 @@
     width: 100%;
     display: block;
     background: #fff;
+    padding-bottom: 88px;
   }
   #panel3{
     bottom: 0;
@@ -1036,6 +1114,16 @@
     background: #fff;
     overflow: scroll;
   }
+  .station_show{
+    padding-top: 180px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #fff;
+    overflow: scroll;
+    z-index:5000;
+  }
+
   #container{
     width: 100%;
     height: 100%;
@@ -1267,7 +1355,57 @@
   .cjbc_info{
     color: #999!important;
   }
+  .showmap{
+    position: fixed;
+    bottom: 0;
+    height:72px;
+    background:rgba(255,255,255,1);
+    font-size:24px;
+    font-family:PingFangSC-Regular;
+    color:rgba(40,95,177,1);
+    line-height: 72px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    width: 100%;
+  }
+  .station_list{
+    padding-bottom: 73px;
+  }
 
+  /*站点列表*/
+  .station_list ul li{
+    padding: 30px 30px 30px 80px;
+    background: url("./../../../static/img/location_point.png") no-repeat;
+    background-size: 24px;
+    background-position: 32px center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+  .station_list ul li span{
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+    line-height:48px;
+    display: inline-block;
+    max-width: 512px;
+  }
+
+  #stopDetail{
+    position: fixed;
+    bottom: 0;
+    height: 88px;
+    line-height: 88px;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+    padding:0 32px;
+    width: 100%;
+    border-top: 6px solid #eee;
+    background: #fff url("./../../../static/img/Shape.png") no-repeat 98%;
+    z-index: 9998;
+  }
 </style>
 <style>
   .amap-call{
