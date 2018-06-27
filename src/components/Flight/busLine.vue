@@ -415,6 +415,7 @@
 </template>
 
 <script>
+  import { Toast } from 'mint-ui';
   import AMap from 'AMap'
   import axios from "axios"
   import swiper from "swiper"
@@ -646,9 +647,17 @@
         map:{},
         line:[],
         lineNum:0,
+        userPosition:[],
+        hasPosition:false,
       }
     },
     mounted() {
+      if(sessionStorage.getItem("userPosition")&&sessionStorage.getItem("userPosition")!==[]){
+        this.userPosition = sessionStorage.getItem("userPosition");
+        this.hasPosition = true;
+      }else{
+        Toast('未获取到用户坐标');
+      }
 
       this.swiper = new swiper('.swiper-container', {
         autoplay: false,//可选选项，自动滑动
@@ -753,19 +762,32 @@
     methods: {
       changeStop(id){
         this.stop = id;
-        $('#panel2').html("");
-        var driving = new AMap.Driving({
-          map: this.map,
-          panel: "panel2"
-        });
-        // 根据起终点名称规划驾车导航路线
-        if(!this.ss.poi){
-          return;
+        if(this.hasPosition){
+          $('#panel2').html("");
+          var driving = new AMap.Driving({
+            map: this.map,
+            panel: "panel2"
+          });
+          // 根据起终点名称规划驾车导航路线
+          driving.search([
+            new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
+            {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
+          ]);
+        }else{
+          $('#panel2').html("");
+          var driving = new AMap.Driving({
+            map: this.map,
+            panel: "panel2"
+          });
+          // 根据起终点名称规划驾车导航路线
+          if(!this.ss.poi){
+            return;
+          }
+          driving.search([
+            {keyword: this.ss.poi.name,city:'南京'},
+            {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
+          ]);
         }
-        driving.search([
-          {keyword: this.ss.poi.name,city:'南京'},
-          {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
-        ]);
       },
 
       changepage(id){
@@ -809,6 +831,43 @@
             })
 
           });
+        }
+        if(id == 2){
+          if(this.hasPosition){
+            $('#panel2').html("");
+
+            var driving = new AMap.Driving({
+              map: this.map,
+              panel: "panel2"
+            });
+            // 根据起终点名称规划驾车导航路线
+            driving.search([
+              new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
+              {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
+            ]);
+          }
+        }
+        if(id == 3){
+          if(this.hasPosition){
+            $('#panel').html("");
+            var transOptions = {
+              map: this.map,
+              city: '南京市',
+              panel: 'panel',
+            };
+
+            var transfer = new AMap.Transfer(transOptions);
+
+            if(this.$route.params.direction == "D"){
+              transfer.search([
+                new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
+                {keyword: '南京禄口国际机场',city:'南京'}
+              ]);
+            }else{
+              Toast('请输入目的地');
+            }
+          }
+
         }
       },
       init(direction) {
@@ -866,7 +925,7 @@
         var that = this;
 
         function select(e) {
-
+          that.hasPosition = false;
           that.ss = e;
 
           if(that.pageShow == 3){

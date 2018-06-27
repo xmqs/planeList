@@ -206,7 +206,7 @@
     display: flex;
     display: -webkit-flex;
     justify-content:center;
-    padding-bottom: 66px;
+    padding-bottom: 10px;
   }
   .ticket{
     width: 730px;
