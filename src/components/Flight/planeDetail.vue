@@ -25,9 +25,6 @@
             </div>
           </div>
           <div class="ticket_body_page2">
-            <div class="time1">
-              航班日期：{{list.EstimatedLandingTakeoffDateTime?list.EstimatedLandingTakeoffDateTime.slice(0,11):'暂无'}}
-            </div>
             <div class="time_list">
               <div>
                 <p v-if="$route.params.direction=='D'">实际起飞</p>
@@ -111,6 +108,7 @@
 <script>
   import axios from "axios"
   import { Toast } from 'mint-ui';
+  import Bus from './bus.js'
     export default {
       name: "planeDetail",
       data(){
@@ -149,6 +147,9 @@
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
           }).then((response)=> {
             Toast('关注成功');
+
+            Bus.$emit('focus', num);
+
           }).catch((error)=> {
             Toast('网络出错');
           });
@@ -158,6 +159,8 @@
             flightIdentity:num,
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
           }).then((response)=> {
+
+            Bus.$emit('unfocus', num);
             Toast('已取消关注');
           }).catch((error)=> {
             Toast('网络出错');

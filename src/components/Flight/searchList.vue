@@ -77,6 +77,7 @@
 <script>
   import axios from "axios"
   import InfiniteLoading from 'vue-infinite-loading';
+  import Bus from './bus.js'
     export default {
       name: "searchList",
       data(){
@@ -93,7 +94,20 @@
           }
       },
       mounted(){
-
+        Bus.$on('focus', (e) => {
+          for(let i = 0;i<this.list.length;i++){
+            if(this.list[i].FlightIdentity == e){
+              this.list[i].isFollow = true;
+            }
+          }
+        })
+        Bus.$on('unfocus', (e) => {
+          for(let i = 0;i<this.list.length;i++){
+            if(this.list[i].FlightIdentity == e){
+              this.list[i].isFollow = false;
+            }
+          }
+        })
       },
       activated(){
           if(this.$route.params.planeCom||this.$route.params.planeFrom||this.$route.params.planeTo||this.$route.params.planeNumber){

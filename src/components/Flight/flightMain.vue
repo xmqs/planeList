@@ -22,7 +22,7 @@
     </div>
     <div id="wall">
       <div id="scoll">
-        <mt-loadmore infinite-scroll-distance="1" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
+        <mt-loadmore infinite-scroll-distance="1" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
           <ul class="search_list">
             <li v-for="item in list">
               <div v-if='item.SLAVE_FLIGHT!==""'>
@@ -87,6 +87,7 @@
 <script>
   import { Loadmore,Toast } from 'mint-ui';
   import axios from "axios"
+  import Bus from './bus.js'
   export default {
     name: "flightMain",
     data() {
@@ -179,16 +180,16 @@
       SearchIoD(status){
         this.serviceType = "P";
         this.countryType = status;
-        this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","20");
+        this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","10");
       },
       SearchAod(status){
         this.direction = status;
-        this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","20");
+        this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","10");
       },
       SearchC(){
         this.serviceType = "C";
         this.countryType = "";
-        this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","20");
+        this.getAirFlight("1",this.countryType,this.serviceType,this.direction,"1","10");
       },
       getAirFlight(isFirst,countryType,serviceType,direction,pageNumber,pageSize){
         this.list = [];
@@ -248,6 +249,21 @@
       }
     },
     mounted(){
+      Bus.$on('focus', (e) => {
+        for(let i = 0;i<this.list.length;i++){
+          if(this.list[i].FlightIdentity == e){
+            this.list[i].isFollow = true;
+          }
+        }
+      })
+      Bus.$on('unfocus', (e) => {
+        for(let i = 0;i<this.list.length;i++){
+          if(this.list[i].FlightIdentity == e){
+            this.list[i].isFollow = false;
+          }
+        }
+      })
+
       axios.post('/eport-server/airFlight/getAirFlight.do',{
         "isFirst":"1",
         "countryType":"I",
