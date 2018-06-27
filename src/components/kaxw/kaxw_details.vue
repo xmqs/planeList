@@ -171,7 +171,8 @@
     color:#0D0D0D;
     line-height: 1.8;
     width: 100%;
-    overflow: hidden;
+    overflow: hidden;    
+	position: relative;
 	}
 
 	.news_header {
@@ -276,7 +277,9 @@
 	.pull_right {
 		float: right;
 	}
-
+	.contt{
+		width: 100%;
+	}
 	img {
 		border: 0;
 	}
