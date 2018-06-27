@@ -871,7 +871,7 @@
             }
             // 根据起终点名称规划驾车导航路线
             driving.search([
-              {keyword: this.ss,city:'南京'},
+              {keyword: this.ss.poi.name,city:'南京'},
               {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
             ]);
           }
@@ -956,6 +956,7 @@
         function select(e) {
           that.hasPosition = false;
           that.ss = e;
+          console.log(e);
 
           if(that.pageShow == 3){
             $('#panel').html("");

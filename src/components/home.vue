@@ -102,9 +102,11 @@
 			/*testfly(){
 				this.$router.push({name: 'flightMain'});
 			},*/
-			targetUrl(res){
-				window.location = res;
-			},
+      targetUrl(res){
+        if (res != "" && res != null && res != undefined) {
+          window.location = res;
+        }
+      },
 			goback(){
 				this.$router.push({name: 'srwp_list',
 					params:{
