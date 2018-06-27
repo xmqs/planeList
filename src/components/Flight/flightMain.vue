@@ -20,64 +20,66 @@
       <span>状态</span>
       <span class="star"></span>
     </div>
-    <div id="soll">
-      <mt-loadmore infinite-scroll-distance="1" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
-        <ul class="search_list">
-          <li v-for="item in list">
-            <div v-if='item.SLAVE_FLIGHT!==""'>
+    <div id="wall">
+      <div id="scoll">
+        <mt-loadmore infinite-scroll-distance="1" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
+          <ul class="search_list">
+            <li v-for="item in list">
+              <div v-if='item.SLAVE_FLIGHT!==""'>
             <span  @click="toplaneDetail(item)">
               {{item.FlightIdentity}}
             </span>
-              <span  @click="toplaneDetail(item)">
+                <span  @click="toplaneDetail(item)">
               {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
             </span>
-              <span  @click="toplaneDetail(item)">
+                <span  @click="toplaneDetail(item)">
               {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
               <span v-if=!item.EstimatedLandingTakeoffDateTime  class="jicon">计</span>
             </span>
-              <span  @click="toplaneDetail(item)">
+                <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
               </span>
-            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
-            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
-            <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
-            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
-            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
-            <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
-            <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
-              <span class="star">
+                <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+                <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+                <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+                <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+                <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
+                <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+                <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+                <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
               </span>
-            </div>
-            <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
+              </div>
+              <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
             <span  @click="toplaneDetail(item)">
               {{slave.SlaveFlightIdentity}}
             </span>
-              <span  @click="toplaneDetail(item)">
+                <span  @click="toplaneDetail(item)">
               {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
             </span>
-              <span  @click="toplaneDetail(item)">
+                <span  @click="toplaneDetail(item)">
               {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
               <span v-if=!item.EstimatedLandingTakeoffDateTime class="jicon">计</span>
             </span>
-              <span  @click="toplaneDetail(item)">
+                <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-              <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
-              <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
-              <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
-              <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
-              <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
-              <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
-              <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
-              <span class="share">
+                <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+                <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+                <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+                <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+                <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
+                <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+                <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+                <span class="share">
                 共享
               </span>
-            </div>
-          </li>
-        </ul>
-      </mt-loadmore>
+              </div>
+            </li>
+          </ul>
+        </mt-loadmore>
+      </div>
     </div>
   </div>
 </template>
@@ -272,12 +274,21 @@
 </script>
 
 <style scoped>
-
-  #soll{
-    height: 1000px;
+  #wall{
+    width: 100%;
+    padding-top: 290px;
+  }
+  #scoll{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 290px;
     overflow: scroll;
   }
   .header_page{
+    position: fixed;
+    width: 100%;
+    top: 0;
     border-bottom: 20px solid #f5f5f5;
   }
   .header_line_a{
@@ -322,6 +333,9 @@
     align-items: center;
     border-bottom: 1px solid #eee;
     padding: 0 10px;
+    position: fixed;
+    top: 200px;
+    width: 100%;
   }
   .flight_th span{
     font-size:22px;

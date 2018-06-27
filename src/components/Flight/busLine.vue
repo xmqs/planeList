@@ -924,7 +924,7 @@
 
   #container{
     width: 750px;
-    height: 1152px;
+    height: 1100px;
   }
   .title_header{
     width: 750px;
@@ -1118,7 +1118,7 @@
 
   #cjbc{
     color: #333!important;
-    height: 1240px;
+    height: 1190px;
   }
   #cjbc ul li{
     border-bottom: 16px solid #eee;
@@ -1150,7 +1150,7 @@
     width: 100%;
     display: block;
     overflow: scroll;
-    height: 1030px;
+    height: 980px;
     background: #fff;
   }
   #panel3{
