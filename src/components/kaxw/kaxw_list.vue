@@ -262,6 +262,9 @@
               }
             }
           })
+          .catch(function(err){
+            Toast('网络出错')
+          });
         },1000);
       },
       //添加
@@ -303,8 +306,8 @@
             .then(function (response) {
 
             })
-            .catch(function (error) {
-              console.log(error);
+            .catch(function(err){
+              Toast('网络出错')
             });
         }
       },
@@ -345,6 +348,9 @@
             _that.list2.push(res.data.data[j])
           }
         })
+				.catch(function(err){
+					Toast('网络出错')
+				});
       },
       loadTop:function() { //组件提供的下拉触发方法
         //下拉加载
@@ -413,6 +419,9 @@
             document.getElementById("soll").scrollTop = _that.myscrollTop;
           },100)
         })
+				.catch(function(err){
+					Toast('网络出错')
+				});
 
         _that.$nextTick(function () {
           // iphone在使用-webkit-overflow-scrolling属性，移动端弹性滚动效果时会屏蔽loadmore的上拉加载效果，
@@ -432,6 +441,9 @@
             _that.pageList.push(res.data.data[j])
           }
         })
+				.catch(function(err){
+					Toast('网络出错')
+				});
       },
       refnav(){
         //分页查询
@@ -449,6 +461,9 @@
             _that.pageList.push(res.data.data[j])
           }
         })
+				.catch(function(err){
+					Toast('网络出错')
+				});
       },
       isHaveMore:function(isHaveMore){
         // 是否还有下一页，如果没有就禁止上拉刷新

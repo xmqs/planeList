@@ -139,6 +139,9 @@
 						_that.pageList.push(res.data.data[j])
 					}
 				})
+				.catch(function(err){
+					Toast('网络出错')
+				});
 				axios.get('/eport-server/index/menu/query.do?channel=MYNJ', {
 				}).then(function(res) {
 					_that.imageMenuList = [];
@@ -146,6 +149,9 @@
 					_that.menuList = [];
 					_that.menuList = res.data.data.menuList
 				})
+				.catch(function(err){
+					Toast('网络出错')
+				});
 			},
 			token(){
 				var userinfo = sessionStorage.getItem('userifo');
@@ -157,8 +163,8 @@
 				.then(function (response) {
 				    window.location = response.data.data;
 				})
-				.catch(function (error) {
-				    console.log(error);
+				.catch(function(err){
+					Toast('网络出错')
 				});
 			}/*,
 			zhiji:function(){

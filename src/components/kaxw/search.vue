@@ -113,6 +113,9 @@
             localStorage.removeItem("search");
             localStorage.setItem("search",_that.page_local);
           })
+          .catch(function(err){
+            Toast('网络出错')
+          });
         }
       },
       //获取搜索列表信息
@@ -138,6 +141,9 @@
             localStorage.setItem("search",_that.page_local);
             console.log(localStorage.getItem("search"))
           })
+          .catch(function(err){
+            Toast('网络出错')
+          });
         }
       },
       changeCount: function(value) {
@@ -159,6 +165,9 @@
             _that.remen.push(res.data.data[j])
           }
         })
+        .catch(function(err){
+          Toast('网络出错')
+        });
       }
     },
     mounted() {
@@ -270,8 +279,15 @@
 
   /*历史搜索*/
 
-  .search-title,.hot-title{
-    padding: 2.333vw 2.667vw 4vw 3.067vw !important;
+  .search-title{
+    padding: 1.333vw 2.667vw 4vw 3.067vw !important;
+    position: relative;
+    font-size:30px;
+    font-family:PingFangSC-Medium;
+    color:rgba(51,51,51,1);
+  }
+  .hot-title{
+    padding: 4.333vw 2.667vw 4vw 3.067vw !important;
     position: relative;
     font-size:30px;
     font-family:PingFangSC-Medium;

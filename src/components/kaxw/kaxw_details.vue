@@ -39,6 +39,7 @@
 
 <script>
 	import axios from "axios";
+  	import { Toast } from 'mint-ui'
 	import { formatDate } from '../../assets/js/date.js';
 	export default {
 		name: "kaxw_details",
@@ -64,6 +65,9 @@
 				}).then(function(data) {
 					That.contents = data.data.data;
 				})
+				.catch(function(err){
+					Toast('网络出错')
+				});
 			}
 		},
 		mounted() {
@@ -87,6 +91,9 @@
 			}).then(function(data) {
 				That.contents = data.data.data;
 			})
+			.catch(function(err){
+				Toast('网络出错')
+			});
 
             // 查询数据
 			axios.get('/web-editor-web/channel/list.do?', {
@@ -100,6 +107,9 @@
 					That.lod1 = true;
 				},500);
 			})
+			.catch(function(err){
+				Toast('网络出错')
+			});
 		},
 		filters: {
 			formatDate(time) {
