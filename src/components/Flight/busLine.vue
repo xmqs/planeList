@@ -652,9 +652,12 @@
       }
     },
     mounted() {
-      if(sessionStorage.getItem("userPosition")&&sessionStorage.getItem("userPosition")!==[]){
-        this.userPosition = sessionStorage.getItem("userPosition");
+      if(sessionStorage.getItem("userPosition")){
+
+        this.userPosition = sessionStorage.getItem("userPosition").split(",");
+
         this.hasPosition = true;
+
       }else{
         Toast('未获取到用户坐标');
       }
@@ -762,20 +765,28 @@
     methods: {
       changeStop(id){
         this.stop = id;
+        let x,y;
+        if(id == 1){
+          x = 118.872803;
+          y = 31.735721;
+        }else{
+          x = 118.875893;
+          y = 31.732454;
+        }
         if(this.hasPosition){
           $('#panel2').html("");
-          var driving = new AMap.Driving({
+          let driving = new AMap.Driving({
             map: this.map,
             panel: "panel2"
           });
           // 根据起终点名称规划驾车导航路线
-          driving.search([
+          driving.search(
             new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
-            {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
-          ]);
+            new AMap.LngLat(x,y)
+          );
         }else{
           $('#panel2').html("");
-          var driving = new AMap.Driving({
+          let driving = new AMap.Driving({
             map: this.map,
             panel: "panel2"
           });
@@ -783,10 +794,10 @@
           if(!this.ss.poi){
             return;
           }
-          driving.search([
-            {keyword: this.ss.poi.name,city:'南京'},
-            {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
-          ]);
+          driving.search(
+            new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
+            new AMap.LngLat(x,y)
+          );
         }
       },
 
@@ -833,16 +844,34 @@
           });
         }
         if(id == 2){
+          //自驾
+          this.stop = 1;
           if(this.hasPosition){
             $('#panel2').html("");
 
-            var driving = new AMap.Driving({
+            let driving = new AMap.Driving({
               map: this.map,
               panel: "panel2"
             });
             // 根据起终点名称规划驾车导航路线
-            driving.search([
+            driving.search(
               new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
+              new AMap.LngLat(118.872793,31.735712),
+            );
+          }else{
+            $('#panel2').html("");
+
+            let driving = new AMap.Driving({
+              map: this.map,
+              panel: "panel2"
+            });
+            if(!this.ss){
+              Toast('请输入出发地');
+              return;
+            }
+            // 根据起终点名称规划驾车导航路线
+            driving.search([
+              {keyword: this.ss,city:'南京'},
               {keyword: this.stop=='1'?'南京禄口国际机场1号停车场':'南京禄口国际机场2号停车场',city:'南京'}
             ]);
           }
@@ -850,19 +879,19 @@
         if(id == 3){
           if(this.hasPosition){
             $('#panel').html("");
-            var transOptions = {
+            let transOptions = {
               map: this.map,
               city: '南京市',
               panel: 'panel',
             };
 
-            var transfer = new AMap.Transfer(transOptions);
+            let transfer = new AMap.Transfer(transOptions);
 
             if(this.$route.params.direction == "D"){
-              transfer.search([
+              transfer.search(
                 new AMap.LngLat(this.userPosition[0],this.userPosition[1]),
-                {keyword: '南京禄口国际机场',city:'南京'}
-              ]);
+                new AMap.LngLat(118.870224,31.73136),
+              );
             }else{
               Toast('请输入目的地');
             }
@@ -914,15 +943,15 @@
 
         });
 
-        var autoOptions = {
+        let autoOptions = {
           input: "tipinput"
         };
-        var auto = new AMap.Autocomplete(autoOptions);
-        var placeSearch = new AMap.PlaceSearch({
+        let auto = new AMap.Autocomplete(autoOptions);
+        let placeSearch = new AMap.PlaceSearch({
           map: this.map
         });  //构造地点查询类
         AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
-        var that = this;
+        let that = this;
 
         function select(e) {
           that.hasPosition = false;
@@ -930,13 +959,13 @@
 
           if(that.pageShow == 3){
             $('#panel').html("");
-            var transOptions = {
+            let transOptions = {
               map: this.map,
               city: '南京市',
               panel: 'panel',
             };
 
-            var transfer = new AMap.Transfer(transOptions);
+            let transfer = new AMap.Transfer(transOptions);
 
             if(direction == "D"){
               transfer.search([
@@ -960,7 +989,7 @@
           if(that.pageShow == 2){
             $('#panel2').html("");
 
-            var driving = new AMap.Driving({
+            let driving = new AMap.Driving({
               map: this.map,
               panel: "panel2"
             });
