@@ -256,7 +256,7 @@
         "airportCode":"",
         "flightIdentity":"",
         "airlineCode":"",
-        "pageSize":"20",
+        "pageSize":"10",
         "pageNumber":"1",
         "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
       }).then((response)=> {

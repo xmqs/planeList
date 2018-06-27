@@ -27,6 +27,9 @@
       <input type="text" placeholder="想去哪？" id="tipinput">
       </div>
 
+    </div>
+    <div id="wall">
+      <div id="container" v-show="pageShow==1"></div>
 
       <div  id="panel" v-show="pageShow==3">
         <p class="plh">请输入地址进行公交查询</p>
@@ -42,10 +45,7 @@
 
         </div>
       </div>
-
     </div>
-    <div id="container" v-show="pageShow==1"></div>
-
     <div class="info" id="cjbc" v-show="pageShow==4">
       <ul>
         <li>
@@ -919,23 +919,50 @@
 </script>
 
 <style scoped>
+  #wall{
+    width: 100%;
+  }
 
-
-
+  #panel2{
+    width: 100%;
+    display: block;
+    background: #fff;
+  }
+  #panel3{
+    bottom: 0;
+  }
+  #panel{
+    padding-top: 180px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #fff;
+    overflow: scroll;
+  }
+  #driver{
+    padding-top: 180px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #fff;
+    overflow: scroll;
+  }
   #container{
-    width: 750px;
-    height: 1100px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
   }
   .title_header{
     width: 750px;
     background: #285FB1;
     top: 0;
     z-index: 9999;
+    position: fixed;
   }
   /*顶部切换分页样式*/
   .change_page{
     display: flex;
-    height: 88px;
+    height: 90px;
     justify-content: center;
     align-items: center;
   }
@@ -973,7 +1000,7 @@
 
   /*搜索框样式*/
   .search_page{
-    height: 88px;
+    height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1084,9 +1111,9 @@
   .stopPage{
     text-align: center;
     width: 100%;
-    top: 0;
     background: #fff;
     border-bottom: 1px solid #eee;
+    z-index: 9999;
   }
   .stopPage ul{
     display: flex;
@@ -1118,7 +1145,12 @@
 
   #cjbc{
     color: #333!important;
-    height: 1190px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    padding-top: 90px;
+    background: #fff;
+    overflow: scroll;
   }
   #cjbc ul li{
     border-bottom: 16px solid #eee;
@@ -1146,23 +1178,7 @@
   .cjbc_info{
     color: #999!important;
   }
-  #panel2{
-    width: 100%;
-    display: block;
-    overflow: scroll;
-    height: 980px;
-    background: #fff;
-  }
-  #panel3{
-    bottom: 0;
-  }
-  #panel{
-    width: 100%;
-    display: block;
-    overflow: scroll;
-    height: 1100px;
-    background: #fff;
-  }
+
 </style>
 <style>
   .amap-call{
