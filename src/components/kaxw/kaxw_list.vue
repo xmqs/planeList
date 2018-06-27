@@ -78,7 +78,7 @@
           <div id="example" v-cloak>
             <draggable :list="list2" :move="getdata" @update="datadragEnd" @sort="sort" :options="{animation: 200,handle:'.dargDiv'}">
               <transition-group name="list-complete" >
-                <div v-for="element in list2" :key="element.label" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+                <div @click="alias(element.alias)" v-for="element in list2" :key="element.label" class="list-complete-item ui-col ui-col-25 text_center padding_6">
                   <div v-if="element.movable == 0" class="styleclass dargDiv others">
                     <p style="font-size: 0.5rem;" v-if="element.label.length > 6" >{{element.label}}</p>
                     <p style="font-size: 0.7rem;" v-if="element.label.length > 4 && element.label.length < 7" >{{element.label}}</p>
@@ -97,7 +97,7 @@
         </div>
         <div class="content_box3">
           <p class="channel_tuijian">频道推荐<span class="font_12 dark_grey padding_z_10">点击进入频道</span></p>
-          <ul v-for="ele in list1" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+          <ul @click="alias(ele.alias)" v-for="ele in list1" :key="ele.alias" class="list-complete-item ui-col ui-col-25 text_center padding_6">
             <li class="styleclass dargDiv others">
               <p style="font-size: 0.5rem;" v-if="ele.label.length > 6" >{{ele.label}}</p>
               <p style="font-size: 0.7rem;" v-if="ele.label.length > 4 && ele.label.length < 7" >{{ele.label}}</p>
@@ -317,6 +317,15 @@
           this.edit = "编辑";
           this.paixu = "点击进入频道";
           this.isShow = false;
+        }
+      },
+      alias(res){
+        if(this.edit == "编辑") {
+          this.active = res;
+          this.animation_out = true;
+          this.animation_in = false;
+          this.other = false;
+          this.dio = false;
         }
       },
       others: function() {

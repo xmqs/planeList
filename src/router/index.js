@@ -76,7 +76,10 @@ export default new Router({
         {
             path: '/kaxw/kaxw_list/:con/:flag',
             name: 'kaxw_list',
-            component: kaxw_list
+            component: kaxw_list,
+            meta: {
+                keepAlive: true
+            }
         },
         //口岸新闻详情
         {

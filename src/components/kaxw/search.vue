@@ -106,6 +106,8 @@
               for(var j = 0; j < res.data.data.length; j++) {
                 _that.pageList.push(res.data.data[j])
               }
+            }else{
+              Toast('暂无内容...')
             }
             _that.page_local.push(_that.cons);
             localStorage.removeItem("search");
@@ -134,6 +136,7 @@
             _that.page_local.push(_that.cons);
             localStorage.removeItem("search");
             localStorage.setItem("search",_that.page_local);
+            console.log(localStorage.getItem("search"))
           })
         }
       },
@@ -268,7 +271,7 @@
   /*历史搜索*/
 
   .search-title,.hot-title{
-    padding: 40px 20px 30px 23px !important;
+    padding: 2.333vw 2.667vw 4vw 3.067vw !important;
     position: relative;
     font-size:30px;
     font-family:PingFangSC-Medium;
@@ -361,9 +364,11 @@
     line-height:50px;
   }
   .search-words li:nth-of-type(odd){
-    border-right: 1px dashed #666;
+    border-right: 1px solid #dddddd;
   }
-
+  .hot-words li:nth-of-type(odd){
+    border-right: 1px solid #dddddd;
+  }
 
   /*mescroll 滚动区域*/
 
