@@ -21,8 +21,7 @@
             </div>
             <div class="page_from">
               <p>目的地</p>
-              <!--<p>{{list.IATADestAirport}}</p>-->
-              <p>很长很长很长</p>
+              <p>{{list.IATADestAirport}}</p>
             </div>
           </div>
           <div class="ticket_body_page2">
