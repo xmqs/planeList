@@ -380,7 +380,7 @@
           <div class="swiper-slide">
             <div class="line_page">
               <div class="line_title">
-                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士1号线</span>
+                <span><img src="./../../../static/img/bus/busiconA@1.png" alt="">到达站点</span><span class="bline">机场巴士1号线</span>
               </div>
               <div class="line_body">
                 <span class="lb1">
@@ -402,7 +402,7 @@
           <div class="swiper-slide">
             <div class="line_page">
               <div class="line_title">
-                <img src="./../../../static/img/bus/busiconA@1.png" alt=""><span>到达站点</span><span class="bline">机场巴士2号线</span>
+                <span><img src="./../../../static/img/bus/busiconA@1.png" alt="">到达站点</span><span class="bline">机场巴士2号线</span>
               </div>
               <div class="line_body">
                 <span class="lb1">
@@ -424,7 +424,7 @@
         </div>
       </div>
     </div>
-    <a id="stopDetail" href="../../assets/StopDetail.html" target="_blank" v-show="pageShow==2">
+    <a :href="'http://222.190.243.8:8080/H5/StopDetail.html'" id="stopDetail" @click="toStopDetail" v-show="pageShow==2">
       查看停车场详情
     </a>
   </div>
@@ -794,7 +794,7 @@
     methods: {
       toStopDetail(){
         //停车场详情
-        this.$router.push({name:'stopDetail'});
+        window.open("http://222.190.243.8:8080/H5/StopDetail.html");
       },
       //选择停车场
       changeStop(id){
@@ -1233,11 +1233,13 @@
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding-right: 32px;
   }
-  .bline{
-    margin-left: 340px;
+  .line_title img{
+    position: relative;
+    top: 4px;
   }
-
   .line_body{
     display: flex;
     align-items: center;

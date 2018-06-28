@@ -21,7 +21,8 @@
             </div>
             <div class="page_from">
               <p>目的地</p>
-              <p>{{list.IATADestAirport}}</p>
+              <!--<p>{{list.IATADestAirport}}</p>-->
+              <p>很长很长很长</p>
             </div>
           </div>
           <div class="ticket_body_page2">
@@ -282,6 +283,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow:ellipsis;
+    padding-top: 40px;
+    position: relative;
+  }
+  .page_from:after{
+    content: "";
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    left: 0;
   }
   .page_from:first-child{
     margin-left: 80px;
@@ -305,8 +317,8 @@
     font-size:52px;
     font-family:PingFangSC-Medium;
     color:rgba(51,51,51,1);
-    line-height:54px;
     margin-top: 20px;
+    padding-bottom: 20px;
   }
   .page_bt{
     color: #333333;
@@ -320,7 +332,7 @@
   }
   .page_bt img{
     height: 88px;
-    margin-bottom: 21px;
+    margin-bottom: 36px;
   }
   .page_bt p{
     white-space: nowrap;
