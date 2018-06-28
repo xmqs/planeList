@@ -28,6 +28,7 @@
           <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
           <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
           <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+          <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='今日无此航班'">今日暂无</span>
           <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
@@ -74,10 +75,9 @@
     },
     mounted(){
       axios.post('/eport-server/airFlight/getFollowFlightList.do',{
-        userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
+        userId:'111'/*JSON.parse(sessionStorage.getItem('userifo')).idNumber*/
       }).then((response)=> {
         this.list = response.data.data.list;
-        console.log(this.list);
       }).catch((error)=> {
         console.log(error)
       });

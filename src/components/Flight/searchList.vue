@@ -8,7 +8,7 @@
         <span>状态</span>
         <span class="star"></span>
       </div>
-      <ul class="search_list">
+      <!--<ul class="search_list">
         <li v-for="item in list">
           <div v-if='item.SLAVE_FLIGHT!==""'>
             <span  @click="toplaneDetail(item)">
@@ -22,7 +22,7 @@
               <span v-if=!item.EstimatedLandingTakeoffDateTime  class="jicon">计</span>
             </span>
             <span  @click="toplaneDetail(item)">
-              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"&#45;&#45;"}}
             </span>
             <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
             <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
@@ -48,7 +48,7 @@
               <span v-if=!item.EstimatedLandingTakeoffDateTime class="jicon">计</span>
             </span>
             <span  @click="toplaneDetail(item)">
-              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"&#45;&#45;"}}
             </span>
             <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
             <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
@@ -70,14 +70,76 @@
             没有查询到对应航班
           </span>
         </infinite-loading>
-      </ul>
+      </ul>-->
+      <div id="wall">
+        <div id="scoll">
+          <mt-loadmore infinite-scroll-distance="1" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+            <ul class="search_list">
+              <li v-for="item in list">
+                <div v-if='item.SLAVE_FLIGHT!==""'>
+            <span  @click="toplaneDetail(item)">
+              {{item.FlightIdentity}}
+            </span>
+                  <span  @click="toplaneDetail(item)">
+              {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
+            </span>
+                  <span  @click="toplaneDetail(item)">
+              {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
+              <span v-if=!item.EstimatedLandingTakeoffDateTime  class="jicon">计</span>
+            </span>
+                  <span  @click="toplaneDetail(item)">
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+              </span>
+                  <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+                  <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+                  <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+                  <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+                  <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
+                  <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+                  <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+                  <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
+              </span>
+                </div>
+                <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
+            <span  @click="toplaneDetail(item)">
+              {{slave.SlaveFlightIdentity}}
+            </span>
+                  <span  @click="toplaneDetail(item)">
+              {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
+            </span>
+                  <span  @click="toplaneDetail(item)">
+              {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
+              <span v-if=!item.EstimatedLandingTakeoffDateTime class="jicon">计</span>
+            </span>
+                  <span  @click="toplaneDetail(item)">
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+            </span>
+                  <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
+                  <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
+                  <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
+                  <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
+                  <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
+                  <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
+                  <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+                  <span class="share">
+                共享
+              </span>
+                </div>
+              </li>
+            </ul>
+          </mt-loadmore>
+        </div>
+      </div>
     </div>
 </template>
 
 <script>
   import axios from "axios"
-  import InfiniteLoading from 'vue-infinite-loading';
+  /*import InfiniteLoading from 'vue-infinite-loading';*/
   import Bus from './bus.js'
+  import { Loadmore,Toast } from 'mint-ui';
     export default {
       name: "searchList",
       data(){
@@ -91,7 +153,11 @@
             planeNumber:"",
             Url:"",
             isFirst:true,
+            allLoaded:false,
           }
+      },
+      component:{
+        'v-loadmore':Loadmore
       },
       mounted(){
         Bus.$on('focus', (e) => {
@@ -130,12 +196,72 @@
             this.planeTo = this.$route.params.planeTo.code;
             this.planeNumber = this.$route.params.planeNumber;
 
-            if(!this.isFirst){
-              this.infiniteHandler();
-            }
+            this.infiniteHandler();
           }
       },
       methods:{
+        loadTop() {
+          this.prePage--;
+          if(this.prePage < 1){
+            Toast('没有更多数据了');
+            this.$refs.loadmore.onTopLoaded();
+            return;
+          }
+          axios.post('/eport-server/airFlight/getAirFlight.do',{
+            "isFirst":"0",
+            "countryType":this.countryType,
+            "serviceType":this.serviceType,
+            "direction":this.direction,
+            "airportCode":"",
+            "flightIdentity":"",
+            "airlineCode":"",
+            "pageSize":"20",
+            "pageNumber":this.prePage,
+            "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
+          }).then((response)=> {
+            this.list = response.data.data.list.concat(this.list);
+            setTimeout(() => {
+              this.$refs.loadmore.onTopLoaded();
+            }, 500);
+          }).catch((error)=> {
+            setTimeout(() => {
+              this.$refs.loadmore.onTopLoaded();
+            }, 500);
+          });
+        },
+        loadBottom() {
+          this.nextPage++;
+          axios.post('/eport-server/airFlight/getAirFlight.do',{
+            "isFirst":this.isfirst?"1":"0",
+            "countryType":this.countryType,
+            "serviceType":this.serviceType,
+            "direction":this.direction,
+            "airportCode":"",
+            "flightIdentity":"",
+            "airlineCode":"",
+            "pageSize":"20",
+            "pageNumber":this.nextPage,
+            "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
+          }).then((response)=> {
+            if(this.isfirst){
+              this.list = response.data.data.list;
+            }else{
+              this.list = this.list.concat(response.data.data.list);
+              if(response.data.data.list.length == 0){
+                this.allLoaded = true;
+              }
+            }
+            this.isfirst = false;
+            setTimeout(() => {
+              this.$refs.loadmore.onBottomLoaded();
+            }, 500)
+          }).catch((error)=> {
+            setTimeout(() => {
+              this.$refs.loadmore.onBottomLoaded();
+            }, 500)
+            console.log(error)
+          });
+        },
         infiniteHandler($state) {
           this.isFirst = false;
           axios.post(this.Url,{
@@ -145,15 +271,14 @@
             flightIdentity:this.planeNumber,
             pageNumber:this.pageNumber,
             pageSize:20,
+            isFirst:"1",
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber,
           }).then((response)=> {
-            this.pageNumber++;
-            for (let i = 0;i<response.data.data.list.length;i++) {
-              this.list.push(response.data.data.list[i]);
-            }
-            $state.loaded();
-            if(response.data.data.list.length<20){
-              $state.complete();
+            this.list = response.data.data.list;
+            this.last_page = response.data.data.last_page;
+            this.rightPage = this.prePage = this.nextPage = response.data.data.right_page;
+            if(response.data.data.last_page == response.data.data.current_page){
+              this.allLoaded = true;
             }
           }).catch((error)=> {
             console.log(error)
@@ -193,13 +318,23 @@
           });
         }
       },
-      components: {
-        InfiniteLoading,
-      },
     }
 </script>
 
 <style scoped>
+
+  #wall{
+    width: 100%;
+    padding-top: 89px;
+  }
+  #scoll{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 89px;
+    overflow: scroll;
+  }
+
   .Time{
     font-size:44px;
     font-family:PingFangSC-Light;
@@ -359,9 +494,6 @@
   .focus{
     width: 168px;
     text-align: center;
-  }
-  .search_list{
-    padding-top: 89px;
   }
   .search_list li div{
     height: 88px;

@@ -45,9 +45,6 @@
         <div id="panel2">
 
         </div>
-        <div id="stopDetail" @click="toStopDetail">
-          查看停车场详情
-        </div>
       </div>
 
       <div class="station_show" v-show=showStation>
@@ -427,6 +424,9 @@
         </div>
       </div>
     </div>
+    <a id="stopDetail" href="../../assets/StopDetail.html" target="_blank" v-show="pageShow==2">
+      查看停车场详情
+    </a>
   </div>
 </template>
 
