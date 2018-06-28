@@ -67,6 +67,7 @@
 </template>
 <script scoped>
 	import axios from "axios";
+	import { Toast } from 'mint-ui'
 	import { formatDate } from '../assets/js/date.js';
 	export default {
 		name: "home",

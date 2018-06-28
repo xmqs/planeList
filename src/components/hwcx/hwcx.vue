@@ -13,7 +13,7 @@
 			<div type="button" @click="select" :class="{ 'bgColor': bgColor === true }" class="bgColor1">查询</div>
 		</div>
 		<div class="content-box1">
-			<div v-if="active == 'CI' && status == 0 && arr != '{}'">
+			<div v-if="active == 'CI' && status == 0 && flag == 0">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
 					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}；承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}</p>
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-else-if="active == 'CO' && status == 0 && arr != '{}'">
+			<div v-else-if="active == 'CO' && status == 0 && flag == 0">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
 					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；货物入库时间：{{list.mwList[0].WareHouse.OPDate}}</p>
@@ -50,7 +50,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-else-if="active == 'II' && status == 0 && arr != '{}'">
+			<div v-else-if="active == 'II' && status == 0 && flag == 0">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
 					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；海关放行指令：{{list.RELStatus}}；原始舱单状态：{{list.mftStatus}}；货物理货状态：{{list.tallyStatus}}</p>
@@ -77,7 +77,7 @@
 					<p style="padding-bottom: 16px;" class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.mftStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
 				</div>
 			</div>
-			<div v-else-if="active == 'IO' && status == 0 && arr != '{}'">
+			<div v-else-if="active == 'IO' && status == 0 && flag == 0">
 				<div v-show="clList" class="cl">
 					<span style="font-size: 16pt;color: #333;">主运单信息</span>
 					<p style="padding-bottom: 16px;" class="things">件数：{{list.PC}}；重量：{{list.Weight}}；品名：{{list.Goods}}； 承运人：{{list.Carrier}}；起运港：{{list.Origin}}；目的港：{{list.Dest}}；商检放行指令：{{list.CIQStatus}}；海关放行指令：{{list.CMDStatus}}；货物入库时间：{{list.mwList[0].WareHouse.OPDate}}</p>
@@ -95,7 +95,7 @@
 					<p style="padding-bottom: 16px;" class="things">件数：{{ele.PC}}；重量：{{ele.Weight}}；品名：{{ele.Goods}}； 海关放行指令：{{ele.RELStatus}}；原始舱单状态：{{ele.MFTStatus}}；货物理货状态：{{ele.tallyStatus}}</p>
 				</div>
 			</div>
-			<div v-else-if="status == 0 && arr == '{}'">
+			<div v-else-if="status == 0 && flag == 1">
 				<transition name="fade">
 					<img src="../../../static/img/kong.png"/>
 				</transition>
@@ -132,6 +132,7 @@
 				list:[],
 				arr:'',
 				shanchu:false,
+				flag:0
 			}
 		},
 		created: function() {
@@ -165,10 +166,19 @@
 						awbNumber:this.dingdanhao,
 						awbType:this.active
 					}).then((res) => {		
-						if(res.status == 200) {	
+						if(res.status == 200) {
 							this.status = 0;
 							this.list = res.data.data;
-							this.arr = JSON.stringify(res.data.data);
+							if(this.list != '{}'){
+								this.arr = JSON.stringify(res.data.data);
+								if(this.arr == '{}'){
+									this.flag = 1;
+								}else{
+									this.flag = 0;
+								}
+							}else{
+								this.flag = 0;
+							}
 							setTimeout(()=>{
 								this.clList = true;
 								this.clList1 = false;

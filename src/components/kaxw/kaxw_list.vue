@@ -517,14 +517,14 @@
     font-family: PingFangSC;
   }
   .recommend {
-    z-index: 9900;
+    z-index: 9999999;
     position: fixed;
     top: 81px;
     left: 0;
     width: 100%;
-    height: 30px;
-    line-height: 30px;
-    font-size: 12px;
+    height: 9.6vw;
+    line-height: 9.6vw;
+    font-size: 4vw;
     text-align: center;
     background-color: rgba(255,130,1,.7);
     color: white;
