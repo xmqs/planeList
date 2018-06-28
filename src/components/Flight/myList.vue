@@ -75,7 +75,7 @@
     },
     mounted(){
       axios.post('/eport-server/airFlight/getFollowFlightList.do',{
-        userId:'111'/*JSON.parse(sessionStorage.getItem('userifo')).idNumber*/
+        userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
       }).then((response)=> {
         this.list = response.data.data.list;
       }).catch((error)=> {
