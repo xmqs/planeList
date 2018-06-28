@@ -127,7 +127,7 @@
           "airportCode":"",
           "flightIdentity":"",
           "airlineCode":"",
-          "pageSize":"20",
+          "pageSize":"10",
           "pageNumber":this.prePage,
           "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
         }).then((response)=> {
@@ -151,7 +151,7 @@
           "airportCode":"",
           "flightIdentity":"",
           "airlineCode":"",
-          "pageSize":"20",
+          "pageSize":"10",
           "pageNumber":this.nextPage,
           "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
         }).then((response)=> {
