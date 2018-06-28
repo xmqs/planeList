@@ -76,23 +76,29 @@
         </div>
         <div class="content_box2">
           <div id="example" v-cloak>
-            <draggable :list="list2" :move="getdata" @update="datadragEnd" @sort="sort" :options="{animation: 200,handle:'.dargDiv'}">
-              <transition-group name="list-complete" >
-                <div @click="alias(element.alias)" v-for="element in list2" :key="element.label" class="list-complete-item ui-col ui-col-25 text_center padding_6">
-                  <div v-if="element.movable == 0" class="styleclass dargDiv others">
-                    <p style="font-size: 0.5rem;" v-if="element.label.length > 6" >{{element.label}}</p>
-                    <p style="font-size: 0.7rem;" v-if="element.label.length > 4 && element.label.length < 7" >{{element.label}}</p>
-                    <p style="font-size: 1.1rem;" v-if="element.label.length < 5">{{element.label}}</p>
-                    <i v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
-                  </div>
-                  <div v-else-if="element.movable == 1" draggable="disable" class="styleclass others">
+            <div>
+              <div>
+                <div v-if="element.movable == 1" @click="alias(element.alias)" v-for="(element,index) in list2" :key="index" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+                  <div draggable="disable" class="styleclass others">
                     <p style="font-size: 0.5rem;" v-if="element.label.length > 6" >{{element.label}}</p>
                     <p style="font-size: 0.7rem;" v-if="element.label.length > 4 && element.label.length < 7" >{{element.label}}</p>
                     <p style="font-size: 1.1rem;" v-if="element.label.length < 5">{{element.label}}</p>
                   </div>
                 </div>
+                </div>
+            <draggable :list="list2" :move="getdata" @update="datadragEnd" @sort="sort" @start="drag" :options="{animation: 200,handle:'.dargDiv'}">
+              <transition-group name="list-complete" >
+                <div v-if="element.movable == 0" @click="alias(element.alias)" v-for="(element,index) in list2" :key="index" class="list-complete-item ui-col ui-col-25 text_center padding_6">
+                  <div class="styleclass dargDiv others">
+                    <p style="font-size: 0.5rem;" v-if="element.label.length > 6" >{{element.label}}</p>
+                    <p style="font-size: 0.7rem;" v-if="element.label.length > 4 && element.label.length < 7" >{{element.label}}</p>
+                    <p style="font-size: 1.1rem;" v-if="element.label.length < 5">{{element.label}}</p>
+                    <i v-show="isShow" v-on:click="del(element.id)" class="shanchu"></i>
+                  </div>
+                </div>
               </transition-group>
             </draggable>
+            </div>
           </div>
         </div>
         <div class="content_box3">
@@ -197,6 +203,12 @@
       this.getAllList();
     },
     methods: {
+      drop(event){
+        console.log(event)
+      },
+      drag(event){
+        console.log(2)
+      },
       select_item(res){
         this.pageList = [];
         this.myscrollTop = 0;
@@ -242,7 +254,6 @@
         }
       },
       datadragEnd:function(evt){
-
       },
       //获取列表信息
       getAllList: function() {
@@ -304,7 +315,7 @@
           axios.post('/web-editor-web/channel/save.do',list3, {
           })
             .then(function (response) {
-
+              
             })
             .catch(function(err){
               Toast('网络出错')
@@ -321,6 +332,7 @@
           this.paixu = "点击进入频道";
           this.isShow = false;
         }
+        this.getmenu();
       },
       alias(res){
         if(this.edit == "编辑") {
@@ -519,7 +531,7 @@
   .recommend {
     z-index: 9999999;
     position: fixed;
-    top: 81px;
+    top: 20.8vw;
     left: 0;
     width: 100%;
     height: 9.6vw;
