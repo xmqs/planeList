@@ -276,7 +276,7 @@
     /*轮播组件*/
     .swipe-wrapper{
         width: 100%;
-        height: 300px;
+        height: 33vw;
         background: #fff;
     }
     .item{
@@ -387,7 +387,6 @@
 	}
 	.swpUrl{
 	    width: 100%;
-   		height: 375px;
 	}
 	.iconUrl{
 		height: 32px;

@@ -26,7 +26,7 @@
 							<img style="width: 113px;height: 74px;" v-if="item.cover" class="pull_right"  :src="item.cover">
 							<div class="media_body">
 								<p class="font_16 font_ellipsis_multiLine">{{item.sourceLabel}}</p>
-								<p class="source_time">{{item.author}}<span class="inline_block padding_z_10">{{item.createTime | formatDate}}</span></p>
+								<p class="source_time">{{item.author}}&nbsp;<span class="inline_block padding_z_10">{{item.createTime | formatDate}}</span></p>
 							</div>
 						</li>
 					</ul>
@@ -323,7 +323,7 @@
 	}
 
 	.source_time {
-		font-size: 1.2rem;
+		font-size: 3.7vw;
 		color: #999999;
 		padding-top: 1rem;
 	}

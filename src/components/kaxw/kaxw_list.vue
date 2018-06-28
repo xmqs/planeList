@@ -159,6 +159,7 @@
         isend : false,
         dio:false,
         myscrollTop:0,
+        myscrollLeft:0,
       }
     },
     components: {
@@ -179,6 +180,20 @@
         this.bottomStatus = "";
         //}
       }
+    },
+    activated(){
+      var _that = this;
+      if(sessionStorage.getItem('state') != null){
+        let obj = JSON.parse(sessionStorage.getItem('state'));
+        _that.myscrollTop = obj[0];
+        _that.searchCondition.pageSize = obj[1];
+        _that.myscrollLeft = obj[3];
+        sessionStorage.removeItem('state');
+      }
+      if(_that.myscrollLeft != 0){
+        document.getElementById("scrollxContent").scrollLeft = _that.myscrollLeft;
+      }
+      document.getElementById("soll").scrollTop = _that.myscrollTop;
     },
     filters: {
       formatDate(time) {
@@ -220,6 +235,7 @@
         state.push(this.myscrollTop);
         state.push(this.searchCondition.pageSize);
         state.push(this.active);
+        state.push(document.getElementById("scrollxContent").scrollLeft);
         sessionStorage.setItem('state',JSON.stringify(state));
         this.$router.push({path: '/kaxw/kaxw_details/'+sourceId +'/'+ res})
       },
@@ -395,12 +411,6 @@
       },
       loadPageList:function (){
         var _that = this;
-        if(sessionStorage.getItem('state') != null){
-          let obj = JSON.parse(sessionStorage.getItem('state'));
-          _that.myscrollTop = obj[0];
-          _that.searchCondition.pageSize = obj[1];
-          sessionStorage.removeItem('state');
-        }
         // 下拉刷新 查询数据
         axios.get('/web-editor-web/channel/list.do?', {
           params: _that.searchCondition
@@ -426,10 +436,6 @@
               }, 1700);
             }
           }
-          console.log(_that.myscrollTop)
-          setTimeout(() => {
-            document.getElementById("soll").scrollTop = _that.myscrollTop;
-          },100)
         })
 				.catch(function(err){
 					Toast('网络出错')

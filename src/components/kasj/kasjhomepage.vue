@@ -191,6 +191,12 @@
           credits: {
             enabled: false //去掉地址
           },
+          tooltip : {
+            formatter : function (){ // 提示框格式化字符串
+                 var s = this.x+ ':' + this.y;
+                 return s;
+             },
+          },
           title:{
                 style: {
                     color: '#666',
@@ -229,7 +235,7 @@
             },
           },
           series: [{
-            name: ' ',
+            name: '进出口货物量',
             data: this.fcountarr
           }],
         };
@@ -245,6 +251,12 @@
           },
           credits: {
             enabled: false //去掉地址
+          },
+          tooltip : {
+            formatter : function (){ // 提示框格式化字符串
+                 var s = this.x+ ':' + this.y;
+                 return s;
+             },
           },
           title:{
                 style: {
@@ -300,6 +312,12 @@
           },
           credits: {
             enabled: false //去掉地址
+          },
+          tooltip : {
+            formatter : function (){ // 提示框格式化字符串
+                 var s = this.x+ ':' + this.y;
+                 return s;
+             },
           },
           title:{
                 style: {
