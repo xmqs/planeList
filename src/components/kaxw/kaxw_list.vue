@@ -395,13 +395,17 @@
       loadBottom:function() {
         this.animent = true;
         this.bottomStatus = "loading";
-        if (this.pagenone < this.searchCondition.pageNo) {
+        console.log(this.pagenone)
+        console.log(this.searchCondition.pageSize)
+        if (this.pagenone < this.searchCondition.pageSize) {
           this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
           this.bottomStatus = "";
+          this.isend = true;
           return false;
         }else{
           // 上拉加载
           this.downwarp = true;
+          this.isend = false;
           var that = this;
           setTimeout(function() {
             that.more();// 上拉触发的分页查询

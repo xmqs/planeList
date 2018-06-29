@@ -194,9 +194,11 @@
 				this.status = 50;
 			}
 			
-			setTimeout(() => {
-				this.getList();
-			}, 500)
+			if (this.active == 'tab-container1') {
+				setTimeout(() => {
+					this.getList();
+				}, 500)
+			}
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
@@ -296,7 +298,7 @@
 	    color: #666666;
 	}
 	.nav {
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #f5f5f5;
 	    padding-right: 30px;
 	    padding: 0 0px 0 10px;
 	    background: #fff;
@@ -316,7 +318,7 @@
 	    width: 100%;
 	    height: 100%;
 	    overflow-y: auto;
-	    padding-bottom: 255px;
+	    padding-bottom: 7vw;
 		background: #f5f5f5;
 	}
 	.class-a {
@@ -364,8 +366,9 @@
 	}
 	.sfsb{
 	    float: right;
-	    color: #285FB1;
-	    font-size: 13pt;
+font-size:26px;
+font-family:PingFangSC-Regular;
+color:rgba(40,95,177,1);
 	}
 	.ele2{
 		height: 180px;
@@ -374,6 +377,7 @@
 	.ele3{
 		height: 80px;
 		width: 100%;
+		padding-right: 2vw;
 	}
 	.pet-img{
 	    width: 150px;
@@ -405,6 +409,11 @@
 	    font-size:28px;
 		font-family:PingFangSC-Regular;
 		color:rgba(153,153,153,1);
+	}
+	.zhuren{
+		font-size:26px;
+font-family:PingFangSC-Regular;
+color:rgba(102,102,102,1);
 	}
 	.pet-time{
 	    position: absolute;

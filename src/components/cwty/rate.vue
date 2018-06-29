@@ -97,7 +97,7 @@
   	float: left;
   }
   .ele_1{
-		height: 17.8vw;
+		height: 15.8vw;
     padding: 7px;
     background: #fff;
 		padding-left: 3vw;
@@ -105,7 +105,7 @@
   .ele1_1{
   		font-size: 4.2vw;
   	    padding: 9px;
-    margin-top: 10px;
+    margin-top: 3vw;
   }
   textarea{
     width: 100%;

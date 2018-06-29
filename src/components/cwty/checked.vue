@@ -21,19 +21,27 @@
 	  			<div class="ele3">
 	  				<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
 	  					<tr v-for="(element,index) in logistics" v-if="index == 0">
-	  						<td class="ele3-1" style="width: 22%;"><div class="order_time">{{element.date}}<br />11:04</div><img class="yuan" src="../../../static/img/yuan.png"/></td>
-	  						<td style="">
-	  							<div class="state">{{element.title}}</div>
-	  							<div style="min-height: 90px;border-right: 0px solid #ccc;border-left: 2px dotted #777;" class="stateCon">{{element.detail}}
-	  								<div style="margin: 7px 0 0 -19px;">
+	  						<td class="ele3-1" style="width:30%;"><div class="order_time"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan.png"/></td>
+	  						<td style="border-left: 2px dotted rgb(119, 119, 119);">
+	  							<div style="color:#285FB1;font-size:14px;" class="state">{{element.title}}</div>
+	  							<div style="min-height: 60px;border-right: 0px solid #ccc;" class="stateCon">{{element.detail}}
+	  								<div style="margin: 12px 8px;">
 	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
 	  								</div>
 	  							</div>
 	  						</td>
 	  					</tr>
 	  					<tr v-else-if="index != 0">
-	  						<td class="ele3-1" style="width: 22%;border-right: 1px solid #ccc;"><div class="order_time order_time1"><br />11:04</div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
-	  						<td style="width: 75%;"><div class="state order_time1-1">{{element.title}}</div><div class="stateCon order_time1-1">{{element.detail}}</div></td>
+	  						<td class="ele3-1" style="width: 30%;"><div class="order_time order_time1"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
+	  						<td style="border-left: 1px solid #ccc;">
+								<div style="min-height: 82px;">
+									<div class="state order_time1-1">{{element.title}}</div>
+									<div class="stateCon order_time1-1">{{element.detail}}</div>
+	  								<div style="margin:12px 8px;">
+	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  								</div>
+								</div>
+							</td>
 	  					</tr>
 	  				</table>
 	  			</div>
@@ -57,10 +65,9 @@ export default {
 	    }
     },
 	created: function() {
-		this.getList();
 	    Bus.$on('element', (e) => {
-	    	console.log(e)
 	    	this.list = e;
+			this.getList();
 	    })
 	},
 	methods:{
@@ -68,11 +75,12 @@ export default {
 			var that = this;
 			axios.get('/eport-server/delivery/queryDelivery.do', {
 				params: {
-					id:'2C4C19420DBF4C25820933B787AB0088',
+					id:that.list.id,
 					tyep:'1'
 				}
 			}).then(function(data) {
-				that.logistics = data.data.data.logistics;
+				that.logistics = data.data.data.logistics.reverse();
+	    		console.log(that.logistics)
 			})
 		}
 	}
@@ -187,10 +195,9 @@ export default {
 		position: relative;
 	}
 	.order_time{
-	    height: 100px;
 	    text-align: center;
 	    color: #285FB1;
-	    font-size: 14px;
+	    font-size: 26px;
 	}
 	.order_time1{
 	    color: #999 !important;
@@ -199,34 +206,33 @@ export default {
 	    color: #999 !important;
 	}
 	.order_time2{
-		border-right: 0px dotted #777 !important;
+		border-left: 0px dotted #777 !important;
 	}
 	table tr:last-child td{
-		border-right: 0px solid #ccc !important;
+		border-left: 0px solid #ccc !important;
 	}
 	.state{
-		padding-left: 20px;
-	    height: 20px;
+		padding-left:35px;
 	    text-align: left;
-	    color: #285FB1;
-	    font-size: 14px;
-	    line-height: 0px;
-	    font-weight: 600;
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.stateCon{
-		padding-left: 20px;
+		padding-left: 35px;
+		padding-top: 2vw;
 	    text-align: left;
 	    color: #285FB1;
 	    font-size: 14px;
 	}
 	.yuan{
-		position: absolute;
-	    top: 2px;
-	    left: 72px;
+    position: absolute;
+    top: .167vw;
+    left: 27vw;
 	}
 	.petimg{
-		width: 45px;
-		height: 45px;
+		width: 120px;
+		height: 120px;
 	    margin-left: 20px;
 	}
 </style>

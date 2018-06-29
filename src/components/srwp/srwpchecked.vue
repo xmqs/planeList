@@ -11,8 +11,8 @@
 		  				<img class="pet-img" :src="bigPackageList"/>
 		  			</div>
 		  			<div class="ele2-1 ele2-2">
-			  			<p class="pet-name">已托运</p>
-			  			<p class="pet-time">
+			  			<p class="pet-state">已托运</p>
+			  			<p class="pet-name">
 			  				<span>{{ownerName}}</span>
 			  			</p>
 			  			<p class="pet-where">{{startCity}}->{{endCity}}</p>
@@ -21,19 +21,27 @@
 	  			<div class="ele3">
 	  				<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
 	  					<tr v-for="(element,index) in logistics" v-if="index == 0">
-	  						<td class="ele3-1" style="width: 22%;"><div class="order_time">{{element.date}}<br />11:04</div><img class="yuan" src="../../../static/img/yuan.png"/></td>
-	  						<td style="">
-	  							<div class="state">{{element.title}}</div>
-	  							<div style="min-height: 90px;border-right: 0px solid #ccc;border-left: 2px dotted #777;" class="stateCon">{{element.detail}}
-	  								<div style="margin: 7px 0 0 -19px;">
+	  						<td class="ele3-1" style="width: 30%;"><div class="order_time"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan.png"/></td>
+	  						<td style="border-left: 2px dotted rgb(119, 119, 119);">
+	  							<div style="color:#285FB1;font-size:14px;" class="state">{{element.title}}</div>
+	  							<div style="min-height: 60px;border-right: 0px solid #ccc;" class="stateCon">{{element.detail}}
+	  								<div style="margin: 12px 8px;">
 	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
 	  								</div>
 	  							</div>
 	  						</td>
 	  					</tr>
 	  					<tr v-else-if="index != 0">
-	  						<td class="ele3-1" style="width: 22%;border-right: 1px solid #ccc;"><div class="order_time order_time1"><br />11:04</div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
-	  						<td style="width: 75%;"><div class="state order_time1-1">{{element.title}}</div><div class="stateCon order_time1-1">{{element.detail}}</div></td>
+	  						<td class="ele3-1"><div class="order_time order_time1"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
+	  						<td style="border-left: 1px solid #ccc;">
+								<div style="min-height: 82px;">
+								    <div class="state order_time1-1">{{element.title}}</div>
+								    <div class="stateCon order_time1-1">{{element.detail}}</div>
+	  								<div style="margin:12px 8px;">
+	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  								</div>
+								</div>
+							</td>
 	  					</tr>
 	  				</table>
 	  			</div>
@@ -133,20 +141,42 @@ export default {
 	    padding-bottom: 15px;
 	}
 	.ele2{
-		height: 80pt;
+    height: 21.5vw;
+    padding: 3vw 3.733vw 0 3.733vw;
+	    background-color: #fff;
+	}
+	.ele3{
         padding: 12px 12px 7px 12px;
 	    background-color: #fff;
 	}
+	.ele4{
+	    width: 100%;
+	    margin: auto;
+	    height: 50px;
+	    text-align: center;
+	    line-height: 50px;
+	    font-size: 17px;
+	    color: #333;
+	}
+	.points1{
+	    background: #fff5e5;
+	    line-height: 80px;
+	    padding: 0px 22px;
+	    height: 80px;
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(255,181,64,1);
+	}
 	.pet-img{
-	    width: 67pt;
-    	height: 64pt;
+	    width: 150px;
+    	height: 142px;
 	}
 	.ele2-1{
 		float: left;
 	}
 	.ele2-3{
 	    width: 100%;
-	    height: 60px;
+	    min-height: 60px;
 	    border-bottom: 1px solid #efefef;
 	    margin-bottom: 12px;
 	}
@@ -158,21 +188,35 @@ export default {
 	    color: #333;
 	}
 	.ele2-2{
-		padding: 7px;
+		padding: 0 7px 7px 17px;
 	}
 	.pet-name{
-		font-size: 14pt;
-    	color: #237cd7;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+		font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);    
+		margin: 1.7vw 0 0 0;
+	}
+	.pet-state{
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 	.pet-where{
-	    margin-top: 4px;
-	    font-size: 4vw;
-	    color: #999;
+	    margin-top: 42px;
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
+		margin: 1.7vw 0 0 0;
 	}
 	.pet-time{
-	    font-size: 4vw;
-	    color: #999;
-	    margin-top: 5px;
+		position: relative;
+	    top: -120px;
+	    left: 260px;
+	    font-size:28px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.ele3{
 		width: 100%;
@@ -183,10 +227,9 @@ export default {
 		position: relative;
 	}
 	.order_time{
-	    height: 100px;
 	    text-align: center;
 	    color: #285FB1;
-	    font-size: 14px;
+	    font-size: 26px;
 	}
 	.order_time1{
 	    color: #999 !important;
@@ -195,34 +238,33 @@ export default {
 	    color: #999 !important;
 	}
 	.order_time2{
-		border-right: 0px dotted #777 !important;
+		border-left: 0px dotted #777 !important;
 	}
 	table tr:last-child td{
-		border-right: 0px solid #ccc !important;
+		border-left: 0px solid #ccc !important;
 	}
 	.state{
-		padding-left: 4.667vw;
-		text-align: left;
-		color: #285fb1;
-		font-size: 4.367vw;
-	    height: 20px;
-	    font-weight: 600;
+		padding-left:35px;
+	    text-align: left;
+	    font-size:26px;
+		font-family:PingFangSC-Regular;
+		color:rgba(153,153,153,1);
 	}
 	.stateCon{
+		padding-left: 35px;
+		padding-top: 2vw;
 	    text-align: left;
 	    color: #285FB1;
-		 padding-left: 2.667vw;
-		font-size: 3.5vw;
-		padding: 4.2vw;
+	    font-size: 14px;
 	}
 	.yuan{
-		position: absolute;
-		top: .267vw;
-		left: 19.2vw;
+    position: absolute;
+    top: .167vw;
+    left: 27vw;
 	}
 	.petimg{
-		width: 45px;
-		height: 45px;
+		width: 120px;
+		height: 120px;
 	    margin-left: 20px;
 	}
 </style>

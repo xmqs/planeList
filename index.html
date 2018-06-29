@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>电子口岸</title>
     <link rel="stylesheet" type="text/css" href="./static/css/repair.css" />
     <link rel="stylesheet" type="text/css" href="./static/css/model.css" />
@@ -24,8 +25,8 @@
         "appId": "elecPort"
     };
 
-    function moveTo(longitude,latitude){
-      sessionStorage.setItem("userPosition", longitude+","+latitude);
+    function moveTo(longitude, latitude) {
+        sessionStorage.setItem("userPosition", longitude + "," + latitude);
     }
     //调用原生方法
     auth.getAccessToken(JSON.stringify(params));

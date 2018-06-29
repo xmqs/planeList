@@ -341,7 +341,7 @@
 	    color: #666666;
 	}
 	.nav {
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #f5f5f5;
 	    padding-right: 30px;
 	    padding: 0 0px 0 10px;
 	    background: #fff;
@@ -408,8 +408,14 @@
 	}
 	.sfsb{
 	    float: right;
-	    color: #285FB1;
-	    font-size: 13pt;
+	    font-size:26px;
+font-family:PingFangSC-Regular;
+color:rgba(40,95,177,1);
+	}
+	.zhuren{
+		font-size:26px;
+font-family:PingFangSC-Regular;
+color:rgba(102,102,102,1);
 	}
 	.ele2{
 		height: 180px;
@@ -419,6 +425,7 @@
 	.ele3{
 		height: 80px;
 		width: 100%;
+		padding-right: 1.5vw;
 	}
 	.pet-img{
 	    width: 67pt;

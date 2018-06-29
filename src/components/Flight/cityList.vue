@@ -223,13 +223,10 @@
 .mint-toast-text {
 	font-size: 3.8vw !important;
 }
-.mint-indexlist-nav {
-    background-color: #efeff4;
-}
 .mint-cell-text {
     font-size: 3.733vw;
 }
 .mint-indexlist-nav {
-    background: #efeff4;
+    background: #efeff4 !important;
 }
 </style>

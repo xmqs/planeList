@@ -1,5 +1,5 @@
 <template>
-	<div id="hwcx">
+	<div @click="showhistry=false" id="hwcx">
 		<!-- <mt-header style="font-size: 17px;height:45px;background-color:#285FB1;" title="货运查询">
 			<router-link :to="{path:'/'}" slot="left">
 		    	<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
@@ -11,6 +11,9 @@
 			<input type="text" class="gang" value="" @keyup="up($event)" v-model="dingdanhao" maxlength="11" placeholder="请输入11位订单号"/>
 			<div v-show="shanchu" @click="deletes" style="padding: 7px;width: 40px; height: 40px;font-size: 23px;position: absolute;top: 79px;right: 13px;line-height: 20px;">×</div>
 			<div type="button" @click="select" :class="{ 'bgColor': bgColor === true }" class="bgColor1">查询</div>
+			<ul v-show="showhistry" class="myhistry">
+				<li @click="getarr(ele)" v-for="(ele,index) in histrylist" :key="index" class="myhistrylist">{{ele}}</li>
+			</ul>
 		</div>
 		<div class="content-box1">
 			<div v-if="active == 'CI' && status == 0 && flag == 0">
@@ -132,14 +135,27 @@
 				list:[],
 				arr:'',
 				shanchu:false,
-				flag:0
+				flag:0,
+				histry:'',
+				histrylist:[],
+				showhistry:false,
 			}
 		},
 		created: function() {
 			this.active = "II";
 			this.select_txt = '国际进港';
 		},
+		filters: {
+			strs(str){
+				return str.substring(0,11);
+			}
+		},
 		methods: {
+			getarr(ele){
+				this.dingdanhao = ele.substring(0,11);
+				this.showhistry=false
+				this.select();
+			},
 			deletes(){
 				this.dingdanhao = "";
 				this.shanchu = false;
@@ -160,7 +176,8 @@
 				this.ul_list = !this.ul_list
 			},
 			select:function(){//点击查询
-			this.clList1 = true;
+				//localStorage.removeItem('histry');
+				this.clList1 = true;
 				if(this.dingdanhao != "" && this.select_txt != ""){
 					axios.post("/eport-server/airFreight/getAirFreight.do", {
 						awbNumber:this.dingdanhao,
@@ -174,6 +191,26 @@
 								if(this.arr == '{}'){
 									this.flag = 1;
 								}else{
+									if(localStorage.getItem('histry') != null){
+										this.histry = localStorage.getItem('histry');
+									}
+									if(this.histry.indexOf(this.dingdanhao)  == -1){
+										this.histry += this.dingdanhao+'/'+this.select_txt+',';
+										var result = this.histry.split(",");
+										var arr = [];
+										for(var i=0;i<result.length;i++){
+											arr.push(result[i])
+										}
+										if (arr.length > 11) {
+											arr = arr.splice(1,arr.length)
+											this.histry = '';
+											for(var i=0;i<arr.length - 1;i++){
+												this.histry +=arr[i]+',';
+											}
+										}
+									}
+									localStorage.setItem('histry',this.histry);
+									console.log(this.histry)
 									this.flag = 0;
 								}
 							}else{
@@ -200,6 +237,24 @@
 					this.shanchu = true;
 				}else{
 					this.shanchu = false;
+				}
+				if(localStorage.getItem('histry') != null){
+					this.histrylist = [];
+					var result=localStorage.getItem('histry').split(",");
+					for(var i=0;i<result.length;i++){
+						var selectstr = '';
+						for(var j =0;j<this.dingdanhao.length;j++){
+							selectstr += result[i][j];
+							if (selectstr == this.dingdanhao) {
+								this.histrylist.push(result[i]);
+							}
+						}
+					}
+					if (this.dingdanhao.length == 11) {
+						this.showhistry =false;
+					}else{
+						this.showhistry =true;
+					}
 				}
 			},
 		    getlist:function(){
@@ -343,6 +398,21 @@
     font-size: 3.5vw;
 	color: #999;
 	line-height: 1.6;
+	}
+	.myhistry{
+    position: fixed;
+    top: 31.4vw;
+    background: #fff;
+    border: 1px solid #f5f5f5;
+    border-top: 0;
+    width: 90%;
+	}
+	.myhistrylist{
+		    list-style: none;
+    height: 10vw;
+    line-height: 10vw;
+    padding-left: 4vw;
+    border-bottom: #fbfbfb solid 1px;
 	}
 </style>
 <style type="text/css">

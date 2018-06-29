@@ -174,8 +174,9 @@ export default {
 	    background-color: #fff;
 	}
 	.ele3{
-        padding: 12px 12px 7px 12px;
+        padding: 12px 27px 7px 27px;
 	    background-color: #fff;
+		    padding-bottom: 7vw;
 	}
 	.ele4{
 	width: 100%;
@@ -204,10 +205,11 @@ export default {
 	}
 	.ele2-3{
 	    width: 100%;
-		height: 20vw;
 	    border-bottom: 1px solid #efefef;
 	    margin-bottom: 12px;
 		position: relative;
+height:140px;
+background:rgba(255,255,255,1);
 	}
 	.ele2-4{    
 		width: 100%;
@@ -245,28 +247,32 @@ export default {
 	}
 	
 	.tishi,.yaoqiu{
-		font-size: 4.267vw;
-    color: #333;
     height: 8vw;
     margin-top: 2vw;
+	font-size:32px;
+font-family:PingFangSC-Regular;
+color:rgba(51,51,51,1);
 	}
 	.yaoqiu{
 		padding-top: 7px;
-		color: #999;
-    	font-size: 3.8vw;
+font-size:28px;
+font-family:PingFangSC-Regular;
+color:rgba(153,153,153,1);
     	width: 70%;
 	}
 	.allprice{
 		    position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -4.333vw;
+    right: -13.333vw;
     width: 30vw;
     height: 20vw;
-    font-size: 3.8vw;
+font-size:28px;
+font-family:PingFangSC;
+color:rgba(51,51,51,1);
 	}
 	.price{
 	    color: #333;
-		    margin-top: 2.8vw;
+		    margin-top: 4.8vw;
 	}
 	.addr{
 		float: left;

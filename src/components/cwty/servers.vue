@@ -11,9 +11,9 @@
 					<div class="yaoqiu">{{element.description}}</div>
 					<div @click="cost1" class="allradio">
 						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;"  :key="ele">
-							<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' checked type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>{{ele.title}}</label>
+							<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' checked type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label>
         				<label v-else style="float: left;">
-        					<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>{{ele.title}}</label>
+        					<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label>
 					</div>
 				</li>
 			</ul>
@@ -143,14 +143,14 @@ export default {
 	    overflow: auto;
 	    height: 100%;
 	    position: fixed;
-	    padding-bottom: 96px;
+    padding-bottom: 19.5vw;
         width: 100%;
 	}
 	li{    
-		list-style: none;
-		height: 31.333vw;
-		background: #fff;
-		border-bottom: 1.467vw solid #f5f5f5;
+    list-style: none;
+    height: 33vw;
+    background: #fff;
+    border-bottom: 2.5vw solid #f5f5f5;
 	}
 	.shenbao{
 	    border: 0;
@@ -161,27 +161,34 @@ export default {
 		font-family:PingFangSC-Regular;
 		color:rgba(255,255,255,1);
 	}
-	div{
-		padding: .933vw;
-		font-size: 4.267vw;
-		color: #333;
-		padding-left: 3vw;
-	}
 	.yaoqiu{
-		color: #999;
-    	font-size: 28px;
-		padding-left: 25px;
+width:364px;
+height:40px;
+font-size:28px;
+font-family:PingFangSC-Regular;
+color:rgba(153,153,153,1);
+line-height:40px;
+    padding-left: 3vw;
+	padding-top: 4.5vw;
 	}
 	.tishi{
-    	font-size: 32px;
-		padding-left: 25px;
+width:224px;
+height:45px;
+font-size:32px;
+font-family:PingFangSC-Regular;
+color:rgba(51,51,51,1);
+line-height:45px;
+    padding-left: 3vw;
+	padding-top: 3vw;
 	}
 	.allradio{
-		white-space: nowrap;
-		margin: 2.4vw .267vw .267vw 0.067vw;
-		border-top: 1px solid #dfdfdf;
-		line-height: 9.733vw;
-		height: 10.4vw;
+		font-size: 4.267vw;
+		color: #333;
+    white-space: nowrap;
+    margin: 7.4vw 2.8vw .267vw 2.8vw;
+    border-top: 1px solid #f5f5f5;
+    line-height: 9.733vw;
+    height: 10.4vw;
 	}
     label {
 		font-size: 4vw;
@@ -231,14 +238,14 @@ export default {
         background: #ccc;
     }
     .serversOK{
-		height: 50px;
-	    line-height: 31px;
+	    line-height: 14vw;
 	    background: #fff;
 	    text-align: right;
 	    position: fixed;
 	    width: 100%;
-	    bottom: 90px;
-        padding: 25px 30px;
+		bottom: 0vw;
+		padding: 3.333vw 4vw;
+		height: 19vw;
 	}
 	.submit{
 	    width: 120px;
