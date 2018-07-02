@@ -391,7 +391,7 @@
                 <span  class="lb2">
                   <p class="pointName">{{point}}</p>
                   <p class="pointDetail" v-if='$route.params.direction=="D"'>火车站发车时间为4:30 -- 21:00，每30分钟一班，龙蟠中路451号南京机场宾馆经停站每班车约晚10至15分钟。由南京南站至机场约需1小时。</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="A"'>从早上第一个航班落地至当天最后一个航班结束，下客站为翠屏山宾馆、雨花广场、秦虹桥、七里街（机场宾馆）、西华门、南京火车站。</p>
                 </span>
               </div>
               <div class="checkAll" @click="showAllStation(1)">
@@ -412,8 +412,8 @@
                 <span class="vline"></span>
                 <span  class="lb2">
                   <p class="pointName">{{point}}</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="D"'>火车站发车时间为4:30 -- 21:00，每30分钟一班，龙蟠中路451号南京机场宾馆经停站每班车约晚10至15分钟。由南京南站至机场约需1小时。</p>
-                  <p class="pointDetail" v-if='$route.params.direction=="A"'>发车时间为每天5:40至21:00，每30分钟一班。由南京南站至机场约需35分钟。</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="D"'>发车时间为4:30 -- 21:00，每30分钟发一班。途径南京南站，车时间为每天5:40至21:00，每30分钟一班。班车点设在南京南站的汽车客运站内，由南京南站至机场约需35分钟。</p>
+                  <p class="pointDetail" v-if='$route.params.direction=="A"'>从早上第一个航班落地至23：30。下客站为南京南站、中华门、水西门、汉中门、万达广场 。</p>
                 </span>
               </div>
               <div class="checkAll" @click="showAllStation(2)">
