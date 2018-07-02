@@ -681,11 +681,19 @@
       }
     },
     mounted() {
+
+      axios.get("http://restapi.amap.com/v3/distance?key=c34482d0838eb0252c7033f73b84e957&origins=118.882645,32.085517&destination=118.798576,32.084152&type=2").then((response)=>{
+        console.log(response);
+      }).catch((err)=>{
+        console.log(err);
+      })
+
       if(sessionStorage.getItem("userPosition")){
 
         this.userPosition = sessionStorage.getItem("userPosition").split(",");
 
         this.hasPosition = true;
+
 
       }else{
         Toast('未获取到用户坐标');

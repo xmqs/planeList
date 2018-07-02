@@ -21,14 +21,7 @@
           <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-          <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
-          <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
-          <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
-          <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
-          <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='今日无此航班'">今日暂无</span>
+          <status @todetail="toplaneDetail(item)" :status="item.FlightStatus"></status>
           <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
@@ -48,13 +41,7 @@
           <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-          <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">起飞</span>
-          <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">计划航班</span>
-          <span @click="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">前站起飞</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">降落</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">延误</span>
-          <span @click="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">航班结束</span>
-          <span @click="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">航班取消</span>
+          <status @todetail="toplaneDetail(item)" :status="item.FlightStatus"></status>
           <span class="share">
             共享
           </span>
@@ -66,12 +53,16 @@
 
 <script>
   import axios from "axios";
+  import flightStatus from './flightStatus'
   export default {
     name: "myList",
     data(){
       return{
         list:[],
       }
+    },
+    components:{
+      'status':flightStatus
     },
     mounted(){
       axios.post('/eport-server/airFlight/getFollowFlightList.do',{
