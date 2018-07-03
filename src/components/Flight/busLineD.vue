@@ -809,9 +809,9 @@
       //主页进入切换页面
       homeChange(){
         if(this.$route.params.direction=="D"){
-          this.$router.push({path:'/flight/busLineA/0/A'});
+          this.$router.replace({path:'/flight/busLineA/0/A'});
         }else{
-          this.$router.push({path:'/flight/busLineD/0/D'});
+          this.$router.replace({path:'/flight/busLineD/0/D'});
         }
       },
       //选择停车场
