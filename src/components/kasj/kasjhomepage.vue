@@ -7,13 +7,13 @@
           <div class="topway">
               <div class="way">
                   <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
-                  <div class="way_ele">{{waterFreight}}</div>
-                  <div class="way_ele2">水运</div>
+                  <div style="color:#2FCAA0;" class="way_ele">{{waterFreight}}</div>
+                  <div style="color:#2FCAA0;" class="way_ele2">水运</div>
               </div>
               <div class="way">
                   <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
-                  <div class="way_ele">{{airFreight}}</div>
-                  <div class="way_ele2">空运</div>
+                  <div style="color:#4F83F1;" class="way_ele">{{airFreight}}</div>
+                  <div style="color:#4F83F1;" class="way_ele2">空运</div>
               </div>
               <div class="way">
                   <div class="way_ele0"><img class="tielu" src="../../../static/img/kasj/tielu.png" alt=""></div>
@@ -22,8 +22,8 @@
               </div>
               <div class="way">
                   <div class="way_ele0"><img class="qiche" src="../../../static/img/kasj/qiche.png" alt=""></div>
-                  <div class="way_ele">{{roadFreight}}</div>
-                  <div class="way_ele2">公路</div>
+                  <div style="color:#EF9623;" class="way_ele">{{roadFreight}}</div>
+                  <div style="color:#EF9623;" class="way_ele2">公路</div>
               </div>
           </div>
         </div>
@@ -35,13 +35,13 @@
           <div class="topway">
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
-                  <div class="way_ele">{{personWaterCount}}</div>
-                  <div class="way_ele2">水运</div>
+                  <div style="color:#2FCAA0;" class="way_ele">{{personWaterCount}}</div>
+                  <div style="color:#2FCAA0;" class="way_ele2">水运</div>
               </div>
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
-                  <div class="way_ele">{{personAirCount}}</div>
-                  <div class="way_ele2">空运</div>
+                  <div style="color:#4F83F1;" class="way_ele">{{personAirCount}}</div>
+                  <div style="color:#4F83F1;" class="way_ele2">空运</div>
               </div>
           </div>
         </div>
@@ -52,13 +52,13 @@
           <div class="topway">
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
-                  <div class="way_ele">{{transShipCount}}</div>
-                  <div class="way_ele2">船舶</div>
+                  <div style="color:#2FCAA0;" class="way_ele">{{transShipCount}}</div>
+                  <div style="color:#2FCAA0;" class="way_ele2">船舶</div>
               </div>
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="feiji" src="../../../static/img/kasj/feiji.png" alt=""></div>
-                  <div class="way_ele">{{transAirCount}}</div>
-                  <div class="way_ele2">飞机</div>
+                  <div style="color:#4F83F1;" class="way_ele">{{transAirCount}}</div>
+                  <div style="color:#4F83F1;" class="way_ele2">飞机</div>
               </div>
           </div>
         </div>
@@ -69,7 +69,7 @@
 <script>
   // highcharts
 	import axios from "axios";
-    import { Toast } from 'mint-ui'
+  import { Toast } from 'mint-ui'
   import HighCharts from 'highcharts'
   export default {
     name: 'chart',
@@ -202,13 +202,19 @@
                     color: '#666',
                     fontSize: '15px'
                 },
-                text: '最近三月总量统计',
-                align: 'left'
+                text: '最近一年总量统计',
+								align: 'left',
+								x: 7
           },
           colors: ['#2696E1'],
           xAxis: {
             categories: this.fdataarr, //指定x轴分组
-            tickWidth: 0
+            tickWidth: 0,
+            labels:{
+              x:14,//调节x偏移
+              //y:-35,//调节y偏移
+              //rotation:25//调节倾斜角度偏移
+            }
           },
           yAxis: {
             title: {
@@ -263,13 +269,19 @@
                     color: '#666',
                     fontSize: '15px'
                 },
-                text: '最近三月总量统计',
-                align: 'left'
+                text: '最近一年总量统计',
+								align: 'left',
+								x: 7
           },
           colors: ['#FF6E42'],
           xAxis: {
             categories: this.pdataarr, //指定x轴分组
             tickWidth: 0,
+            labels:{
+              x:14,//调节x偏移
+              //y:-35,//调节y偏移
+              //rotation:25//调节倾斜角度偏移
+            }
           },
           yAxis: {
             title: {
@@ -324,13 +336,19 @@
                     color: '#666',
                     fontSize: '15px'
                 },
-                text: '最近三月总量统计',
-                align: 'left'
+                text: '最近一年总量统计',
+								align: 'left',
+								x: 7
           },
           colors: ['#BF9FF5'],
           xAxis: {
             categories: this.tdataarr, //指定x轴分组
-            tickWidth: 0
+            tickWidth: 0,
+            labels:{
+              x:14,//调节x偏移
+              //y:-35,//调节y偏移
+              //rotation:25//调节倾斜角度偏移
+            }
           },
           yAxis: {
             title: {
@@ -429,8 +447,8 @@
     }
   .feiji {
         border: 0;
-        width: 44px;
-        height: 44px;
+        width: 33px;
+        height: 33px;
     }
   .tielu {
         border: 0;
@@ -439,8 +457,9 @@
     }
     .quantum{
         padding: 1.867vw 4.533vw;
-        color: #333;
-        font-size: 12pt;
+        font-size:28px;
+        font-family:PingFangSC-Medium;
+        color:rgba(51,51,51,1);
         background: #fff;
     }
     .numbers{

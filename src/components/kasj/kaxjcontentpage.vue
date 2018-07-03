@@ -230,7 +230,7 @@
 			</mt-tab-container>
 			<!-- 日期选择 -->
 			<div v-show="myrili">
-				<div style="height: 45px;background: #fff;line-height: 45px;text-align: center;position: fixed; width: 100%;bottom: 250px;z-index:999999;">
+				<div style="height: 49px;background: #fff;line-height: 45px;text-align: center;position: fixed; width: 100%;bottom: 267px;z-index:999999;">
 					<span style="padding-left: 14px;float: left;color:#285FB1;font-size: 15px;" @click="quxiao">取消</span>
 					<span style="font-size: 16px;">选择日期</span><span @click="queding" style="font-size: 15px;color:#285FB1;padding-right: 14px;float: right;">确定</span>
 				</div>
@@ -685,6 +685,9 @@
 				} else if (res == 'tab3'){
 					that.dataType = 3;
 				}
+				that.optiontitle1 = '货物总指标';
+				that.optiontitle2 = '人员总指标';
+				that.optiontitle3 = '运输工具总指标';
 				that.myrili = false;
 				that.element = 1;
 				that.selected1 = '货物总指标';

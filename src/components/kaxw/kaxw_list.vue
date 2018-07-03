@@ -314,28 +314,32 @@
       },
       //页面数据、状态绑定
       bj: function() {
-        if(this.edit == "编辑") {
-          this.edit = "完成";
-          this.paixu = "拖拽可以排序";
-          this.isShow = true;
-        } else {
-          this.edit = "编辑";
-          this.paixu = "点击进入频道";
-          this.isShow = false;
-          var list2 = this.list2;
-          var list3 = [];
-          for(var j = 0; j < list2.length; j++) {
-            list3.push(list2[j].id)
-          }
-          var that = this;
-          axios.post('/web-editor-web/channel/save.do',list3, {
-          })
-            .then(function (response) {
-              
+        if (sessionStorage.getItem('isGuest=yes') == 'no') {
+          if(this.edit == "编辑") {
+            this.edit = "完成";
+            this.paixu = "拖拽可以排序";
+            this.isShow = true;
+          } else {
+            this.edit = "编辑";
+            this.paixu = "点击进入频道";
+            this.isShow = false;
+            var list2 = this.list2;
+            var list3 = [];
+            for(var j = 0; j < list2.length; j++) {
+              list3.push(list2[j].id)
+            }
+            var that = this;
+            axios.post('/web-editor-web/channel/save.do',list3, {
             })
-            .catch(function(err){
-              Toast('网络出错')
-            });
+              .then(function (response) {
+                
+              })
+              .catch(function(err){
+                Toast('网络出错')
+              });
+          }
+        }else{
+          Toast('请先登录')
         }
       },
       close: function() {
@@ -427,7 +431,6 @@
           }else{
             _that.isend = false;
           }
-          _that.isHaveMore(true);
           for(var j = 0; j < res.data.data.length; j++) {
             _that.pageList.push(res.data.data[j])
           }
@@ -462,6 +465,7 @@
           for(var j = 0; j < res.data.data.length; j++) {
             _that.pageList.push(res.data.data[j])
           }
+         _that.pagenone = res.data.data.length;
         })
 				.catch(function(err){
 					Toast('网络出错')
@@ -486,13 +490,6 @@
 				.catch(function(err){
 					Toast('网络出错')
 				});
-      },
-      isHaveMore:function(isHaveMore){
-        // 是否还有下一页，如果没有就禁止上拉刷新
-        this.allLoaded = true; //true是禁止上拉加载
-        if(isHaveMore){
-          this.allLoaded = false;
-        }
       }
     }
   }
