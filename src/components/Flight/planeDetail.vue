@@ -142,6 +142,10 @@
           }
         },
         changefocus(num){
+          if(sessionStorage.getItem('isGuest')=='yes'){
+            Toast('请先登录');
+            return;
+          }
           axios.post('/eport-server/airFlight/followAirFlight.do',{
             flightIdentity:num,
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
@@ -155,6 +159,10 @@
           });
         },
         changeunfocus(num){
+          if(sessionStorage.getItem('isGuest')=='yes'){
+            Toast('请先登录');
+            return;
+          }
           axios.post('/eport-server/airFlight/cancelFollowAirFlight.do',{
             flightIdentity:num,
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
@@ -178,7 +186,7 @@
           "flightIdentity":this.$route.params.flightIdentity,
           "pageSize":"1",
           "pageNumber":"1",
-          userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
+          userId:sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
         }).then((response)=> {
           this.list = response.data.data.list[0];
         }).catch((error)=> {

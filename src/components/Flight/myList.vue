@@ -52,6 +52,7 @@
 </template>
 
 <script>
+  import { Loadmore,Toast } from 'mint-ui';
   import axios from "axios";
   import flightStatus from './flightStatus'
   export default {
@@ -65,6 +66,10 @@
       'status':flightStatus
     },
     mounted(){
+      if(sessionStorage.getItem('isGuest')=='yes'){
+        Toast('请先登录');
+        return;
+      }
       axios.post('/eport-server/airFlight/getFollowFlightList.do',{
         userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
       }).then((response)=> {
@@ -84,6 +89,10 @@
         this.$router.replace({path:'/flight/destination'});
       },
       changefocus(num){
+        if(sessionStorage.getItem('isGuest')=='yes'){
+          Toast('请先登录');
+          return;
+        }
         axios.post('/eport-server/airFlight/followAirFlight.do',{
           flightIdentity:num,
           userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber

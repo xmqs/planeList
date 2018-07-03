@@ -119,7 +119,7 @@
           "airlineCode":"",
           "pageSize":"10",
           "pageNumber":this.prePage,
-          "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
+          "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:'',
         }).then((response)=> {
           this.list = response.data.data.list.concat(this.list);
           setTimeout(() => {
@@ -143,7 +143,7 @@
           "airlineCode":"",
           "pageSize":"10",
           "pageNumber":this.nextPage,
-          "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
+          "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
         }).then((response)=> {
           if(this.isfirst){
             this.list = response.data.data.list;
@@ -194,7 +194,7 @@
           "airlineCode":"",
           "pageSize":pageSize,
           "pageNumber":pageNumber,
-          "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
+          "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
         }).then((response)=> {
           this.list = response.data.data.list;
           this.last_page = response.data.data.last_page;
@@ -207,7 +207,10 @@
         });
       },
       changefocus(num){
-        console.log(num);
+        if(sessionStorage.getItem('isGuest')=='yes'){
+          Toast('请先登录');
+          return;
+        }
         axios.post('/eport-server/airFlight/followAirFlight.do',{
           flightIdentity:num,
           userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
@@ -223,6 +226,11 @@
         });
       },
       changeunfocus(num){
+
+        if(sessionStorage.getItem('isGuest')=='yes'){
+          Toast('请先登录');
+          return;
+        }
         axios.post('/eport-server/airFlight/cancelFollowAirFlight.do',{
           flightIdentity:num,
           userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
@@ -264,7 +272,7 @@
         "airlineCode":"",
         "pageSize":"10",
         "pageNumber":"1",
-        "userId":''/*JSON.parse(sessionStorage.getItem('userifo')).idNumber*/,
+        "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:'',
       }).then((response)=> {
         this.list = response.data.data.list;
         this.last_page = response.data.data.last_page;

@@ -207,7 +207,7 @@
             "airlineCode":"",
             "pageSize":"20",
             "pageNumber":this.prePage,
-            "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber,
+            "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
           }).then((response)=> {
             this.list = response.data.data.list.concat(this.list);
             setTimeout(() => {
@@ -231,7 +231,7 @@
             "airlineCode":"",
             "pageSize":"20",
             "pageNumber":this.nextPage,
-            "userId":JSON.parse(sessionStorage.getItem('userifo')).idNumber
+            "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
           }).then((response)=> {
             if(this.isfirst){
               this.list = response.data.data.list;
@@ -262,7 +262,7 @@
             pageNumber:this.pageNumber,
             pageSize:20,
             isFirst:"1",
-            userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber,
+            userId:sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
           }).then((response)=> {
             this.list = response.data.data.list;
             this.last_page = response.data.data.last_page;
@@ -278,6 +278,10 @@
           this.$router.push({path:'/flight/planeDetail/'+res.FlightIdentity+'/'+res.FlightDirection+'/'+res.ServiceType});
         },
         changefocus(num){
+          if(sessionStorage.getItem('isGuest')=='yes'){
+            Toast('请先登录');
+            return;
+          }
           axios.post('/eport-server/airFlight/followAirFlight.do',{
             flightIdentity:num,
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
