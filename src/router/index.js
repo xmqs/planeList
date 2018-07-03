@@ -19,6 +19,8 @@ import testScrollB from "@/components/Flight/testScrollB"
 import testScrollC from "@/components/Flight/testScrollC"
 import testScrollD from "@/components/Flight/testScrollD"
 import busLine from "@/components/Flight/busLine"
+import busLineA from "@/components/Flight/busLineA"
+import busLineD from "@/components/Flight/busLineD"
 import flightMain from "@/components/Flight/flightMain"
 import stopDetail from "@/components/Flight/stopDetail"
 
@@ -181,6 +183,16 @@ export default new Router({
             path: '/flight/busLine/:flight/:direction',
             name: 'busLine',
             component: busLine,
+        },
+        {
+            path: '/flight/busLineA/:flight/:direction',
+            name: 'busLineA',
+            component: busLineA,
+        },
+        {
+            path: '/flight/busLineD/:flight/:direction',
+            name: 'busLineD',
+            component: busLineD,
         },
         {
             path: '/flight/stopDetail',

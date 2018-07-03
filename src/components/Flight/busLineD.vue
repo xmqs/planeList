@@ -440,7 +440,7 @@
   import swiper from "swiper"
   import './../../../node_modules/swiper/dist/css/swiper.css'
   export default {
-    name: "busLine",
+    name: "busLineD",
     data(){
       return{
         stationList:[],
@@ -809,9 +809,9 @@
       //主页进入切换页面
       homeChange(){
         if(this.$route.params.direction=="D"){
-          this.$router.push({path:'/flight/busLine/0/A'});
+          this.$router.push({path:'/flight/busLineA/0/A'});
         }else{
-          this.$router.push({path:'/flight/busLine/0/D'});
+          this.$router.push({path:'/flight/busLineD/0/D'});
         }
       },
       //选择停车场
