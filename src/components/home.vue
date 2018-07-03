@@ -51,7 +51,7 @@
 				</div>
 				
 				<div class="swipe-wrapper1">
-			        <mt-swipe @change="handleChange" :speed="1300" :auto="5000" ref="swipeWrapper" :show-indicators="false">
+			        <mt-swipe @change="handleChange" :speed="1000" :auto="5000" ref="swipeWrapper" :show-indicators="false">
 			            <mt-swipe-item :class="{'is-active':active === 'tab-container1'}" class="item">
 										<!-- 统计图1 -->
 										<div @click="godetails('tab1')">
@@ -586,7 +586,7 @@
 				 this.$router.push({path: '/kaxw/kaxw_details/'+ res +'/'+ this.searchCondition.channelAlias})
 			},
 			getlist(){
-	      //   	var _that = this;
+	         	var _that = this;
 				// axios.get('/web-editor-web/channel/list.do?', {
 				// 	params: _that.searchCondition
 				// }).then(function(res) {

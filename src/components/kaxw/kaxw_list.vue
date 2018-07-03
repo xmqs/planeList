@@ -314,7 +314,7 @@
       },
       //页面数据、状态绑定
       bj: function() {
-        if (sessionStorage.getItem('isGuest=yes') == 'no') {
+        if (sessionStorage.getItem('isGuest') == 'no') {
           if(this.edit == "编辑") {
             this.edit = "完成";
             this.paixu = "拖拽可以排序";
@@ -339,7 +339,10 @@
               });
           }
         }else{
-          Toast('请先登录')
+          Toast({
+            message: '请先登录',
+            className: 'myToast'
+          })
         }
       },
       close: function() {
@@ -771,7 +774,6 @@
     height: 50px;
     vertical-align: middle;
   }
-
   .downwarp-progress1 {
     display: inline-block;
     vertical-align: middle;
@@ -813,3 +815,9 @@
     background: url("./../../../static/img/palne_a.png") center;
   }
 </style>
+<style>
+  .myToast{
+    z-index: 99999999 !important;
+  }
+</style>
+
