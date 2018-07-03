@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title_header">
-      <div class="change_page">
+      <div class="change_page" :class='{homeIn:$route.params.flight==0}'>
         <div :class='{active:pageShow==1}' @click="changepage(1)">
           <img v-if='pageShow==1' src="./../../../static/img/bus/busiconA@1.png" alt="">
           <img v-if='pageShow!==1' src="./../../../static/img/bus/busicon@1.png" alt="">
@@ -21,6 +21,9 @@
           <img v-if='pageShow==4' src="./../../../static/img/bus/busiconA@3.png" alt="">
           <img v-if='pageShow!==4' src="./../../../static/img/bus/busicon@3.png" alt="">
           城际班车
+        </div>
+        <div id="switch_way" v-if="$route.params.flight=='0'" @click="homeChange">
+          {{$route.params.direction=='A'?'离开机场':'去机场'}}
         </div>
       </div>
       <div class="search_page" v-show="pageShow!==4">
@@ -681,7 +684,6 @@
       }
     },
     mounted() {
-
       axios.get("http://restapi.amap.com/v3/distance?key=c34482d0838eb0252c7033f73b84e957&origins=118.882645,32.085517&destination=118.798576,32.084152&type=2").then((response)=>{
         console.log(response);
       }).catch((err)=>{
@@ -803,6 +805,14 @@
       toStopDetail(){
         //停车场详情
         window.open("http://222.190.243.8:8080/H5/StopDetail.html");
+      },
+      //主页进入切换页面
+      homeChange(){
+        if(this.$route.params.direction=="D"){
+          this.$router.replace({path:'/flight/busLine/0/A'});
+        }else{
+          this.$router.replace({path:'/flight/busLine/0/D'});
+        }
       },
       //选择停车场
       changeStop(id){
@@ -1151,6 +1161,9 @@
     justify-content: center;
     align-items: center;
   }
+  .homeIn{
+    padding-right: 100px;
+  }
   .change_page img{
     display: inline;
     width: 28px;
@@ -1161,7 +1174,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 192px;
+    width: 190px;
     height: 52px;
     border-radius: 26px;
     text-align: center;
@@ -1171,8 +1184,9 @@
     color:rgba(40,95,177,1);
     color: #fff;
   }
+
   .change_page div.active{
-    width: 192px;
+    width: 190px;
     height: 52px;
     background: #fff;
     border-radius: 26px;
@@ -1183,6 +1197,13 @@
     color:rgba(40,95,177,1);
   }
 
+  .homeIn div{
+    margin:0 10px;
+    width: 170px;
+  }
+  .homeIn div.active{
+    width: 170px;
+  }
   /*搜索框样式*/
   .search_page{
     height: 90px;
@@ -1416,6 +1437,18 @@
     background: #fff url("./../../../static/img/Shape.png") no-repeat 98%;
     z-index: 9998;
   }
+  #switch_way{
+    position: fixed;
+    right: 0;
+    margin: 0;
+    width: 140px;
+    border: 1px solid #fff;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left: 12px;
+    border-right: 0;
+  }
+
 </style>
 <style>
   .amap-call{
