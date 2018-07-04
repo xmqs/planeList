@@ -981,7 +981,7 @@ color:rgba(51,51,51,1);
 	}
 	.el-carousel__container {
     position: relative;
-    height: 82vw;
+    height: 82vw !important;
 }
 	.el-carousel {
     overflow-x: hidden;
