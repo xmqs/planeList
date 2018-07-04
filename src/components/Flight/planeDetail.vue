@@ -134,7 +134,6 @@
           this.$router.back(-1);
         },
         switchFocus(){
-          this.list.isFollow =!this.list.isFollow;
           if(this.list.isFollow){
             this.changefocus(this.list.FlightIdentity);
           }else{
@@ -151,7 +150,7 @@
             userId:JSON.parse(sessionStorage.getItem('userifo')).idNumber
           }).then((response)=> {
             Toast('关注成功');
-
+            this.list.isFollow =!this.list.isFollow;
             Bus.$emit('focus', num);
 
           }).catch((error)=> {
@@ -170,6 +169,7 @@
 
             Bus.$emit('unfocus', num);
             Toast('已取消关注');
+            this.list.isFollow =!this.list.isFollow;
           }).catch((error)=> {
             Toast('网络出错');
           });
