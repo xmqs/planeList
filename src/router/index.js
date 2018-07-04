@@ -5,6 +5,7 @@ import Home from './../components/home'
 import kaxw_list from "@/components/kaxw/kaxw_list.vue"
 import kaxw_details from "@/components/kaxw/kaxw_details.vue"
 import search from "@/components/kaxw/search.vue"
+import test from "@/components/kaxw/test.vue"
 
 /*航班动态*/
 import Destination from "@/components/Flight/destination"
@@ -107,6 +108,11 @@ export default new Router({
             path: '/kasj/kasjhomepage',
             name: 'kasjhomepage',
             component: kasjhomepage
+        },
+        {
+            path: '/kaxw/test',
+            name: 'test',
+            component: test
         },
         {
             path: '/kasj/kaxjcontentpage',

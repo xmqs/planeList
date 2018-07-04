@@ -190,14 +190,9 @@
 				}
 			},
 			getuserinfor(){
-				
-				if(sessionStorage.getItem('fg') == 1){
-					var userinfo = sessionStorage.getItem('userifo');
-					userinfo = JSON.parse(userinfo);
-					this.idNumber = userinfo.idNumber;
-				}else{
-					window.location = 'http://222.190.243.8:8080/H5/index.html#/'
-				}
+				var userinfo = sessionStorage.getItem('userifo');
+				userinfo = JSON.parse(userinfo);
+				this.idNumber = userinfo.idNumber;
 				//this.idNumber = '320322199307121932';
 			},
 			getarr(ele){

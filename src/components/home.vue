@@ -42,86 +42,86 @@
 					</div>
 				</div>
 				
-				<div style="height: 61px;font-size: 18px;color: #333;border-bottom: 1px solid #f5f5f5;border-top: 10px solid #f5f5f5;line-height: 50px;margin-top: -7px;">
-				<ul>
-					<li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">货物</li>
-					<li class="tab" :class="{'mybottom':active === 'tab-container2'}" @click="selectmenu('tab-container2')">人员</li>
-					<li class="tab" :class="{'mybottom':active === 'tab-container3'}" @click="selectmenu('tab-container3')">运输工具</li>
-				</ul>
+				
+				<div class="block">
+					<div style="height: 61px;font-size: 18px;color: #333;border-bottom: 1px solid #f5f5f5;border-top: 10px solid #f5f5f5;line-height: 50px;margin-top: -7px;">
+					<ul>
+						<li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">货物</li>
+						<li class="tab" :class="{'mybottom':active === 'tab-container2'}" @click="selectmenu('tab-container2')">人员</li>
+						<li class="tab" :class="{'mybottom':active === 'tab-container3'}" @click="selectmenu('tab-container3')">运输工具</li>
+					</ul>
+					</div>
+					<el-carousel @change="handleChange" :autoplay="true" :interval="4500" arrow="never">
+					<el-carousel-item>
+						<!-- 统计图1 -->
+						<div @click="godetails('tab1')">
+							<div class="quantum"><span>进出口货物量（万吨）-{{fmonth}}月</span><span class="numbers">总量{{freightTotalNum}}</span></div>
+							<div class="topway">
+									<div class="way">
+											<div class="way_ele0"><img class="chuan" src="../../static/img/kasj/chuan.png" alt=""></div>
+											<div style="color:#2FCAA0;" class="way_ele">{{waterFreight}}</div>
+											<div style="color:#2FCAA0;" class="way_ele2">水运</div>
+									</div>
+									<div class="way">
+											<div class="way_ele0"><img class="feiji" src="../../static/img/kasj/feiji.png" alt=""></div>
+											<div style="color:#4F83F1;" class="way_ele">{{airFreight}}</div>
+											<div style="color:#4F83F1;" class="way_ele2">空运</div>
+									</div>
+									<div class="way">
+											<div class="way_ele0"><img class="tielu" src="../../static/img/kasj/tielu.png" alt=""></div>
+											<div style="color:#8F8F8F;" class="way_ele">{{transFreight}}</div>
+											<div style="color:#8F8F8F;" class="way_ele2">铁路</div>
+									</div>
+									<div class="way">
+											<div class="way_ele0"><img class="qiche" src="../../static/img/kasj/qiche.png" alt=""></div>
+											<div style="color:#EF9623;" class="way_ele">{{roadFreight}}</div>
+											<div style="color:#EF9623;" class="way_ele2">公路</div>
+									</div>
+							</div>
+						</div>
+						<div :id="id" :option="option"></div>
+					</el-carousel-item>
+					<el-carousel-item>
+						<!-- 统计图2 -->
+						<div @click="godetails('tab2')">
+							<div class="quantum"><span>出入境人员总数（万人次）-{{pmonth}}月</span><span class="numbers">总量{{personTotalNum}}</span></div>
+							<div class="topway">
+									<div style="width:49%" class="way">
+											<div class="way_ele0"><img class="chuan" src="../../static/img/kasj/chuan.png" alt=""></div>
+											<div style="color:#2FCAA0;" class="way_ele">{{personWaterCount}}</div>
+											<div style="color:#2FCAA0;" class="way_ele2">水运</div>
+									</div>
+									<div style="width:49%" class="way">
+											<div class="way_ele0"><img class="feiji" src="../../static/img/kasj/feiji.png" alt=""></div>
+											<div style="color:#4F83F1;" class="way_ele">{{personAirCount}}</div>
+											<div style="color:#4F83F1;" class="way_ele2">空运</div>
+									</div>
+							</div>
+						</div>
+						<div :id="id1" :option="option1"></div>
+					</el-carousel-item>
+					<el-carousel-item>
+						<!-- 统计图3 -->
+						<div @click="godetails('tab3')">
+							<div class="quantum"><span>进出境运输工具（辆艘）-{{tmonth}}月</span><span class="numbers">总量{{transTotalNum}}</span></div>
+							<div class="topway">
+									<div style="width:49%" class="way">
+											<div class="way_ele0"><img class="chuan" src="../../static/img/kasj/chuan.png" alt=""></div>
+											<div style="color:#2FCAA0;" class="way_ele">{{transShipCount}}</div>
+											<div style="color:#2FCAA0;" class="way_ele2">船舶</div>
+									</div>
+									<div style="width:49%" class="way">
+											<div class="way_ele0"><img class="feiji" src="../../static/img/kasj/feiji.png" alt=""></div>
+											<div style="color:#4F83F1;" class="way_ele">{{transAirCount}}</div>
+											<div style="color:#4F83F1;" class="way_ele2">飞机</div>
+									</div>
+							</div>
+						</div>
+						<div :id="id2" :option="option2"></div>
+					</el-carousel-item>
+				</el-carousel>
 				</div>
 				
-				<div class="swipe-wrapper1">
-			        <mt-swipe @change="handleChange" :speed="1000" :auto="5000" ref="swipeWrapper" :show-indicators="false">
-			            <mt-swipe-item :class="{'is-active':active === 'tab-container1'}" class="item">
-										<!-- 统计图1 -->
-										<div @click="godetails('tab1')">
-											<div class="quantum"><span>进出口货物量（万吨）-{{fmonth}}月</span><span class="numbers">总量{{freightTotalNum}}</span></div>
-											<div class="topway">
-													<div class="way">
-															<div class="way_ele0"><img class="chuan" src="../../static/img/kasj/chuan.png" alt=""></div>
-															<div style="color:#2FCAA0;" class="way_ele">{{waterFreight}}</div>
-															<div style="color:#2FCAA0;" class="way_ele2">水运</div>
-													</div>
-													<div class="way">
-															<div class="way_ele0"><img class="feiji" src="../../static/img/kasj/feiji.png" alt=""></div>
-															<div style="color:#4F83F1;" class="way_ele">{{airFreight}}</div>
-															<div style="color:#4F83F1;" class="way_ele2">空运</div>
-													</div>
-													<div class="way">
-															<div class="way_ele0"><img class="tielu" src="../../static/img/kasj/tielu.png" alt=""></div>
-															<div style="color:#8F8F8F;" class="way_ele">{{transFreight}}</div>
-															<div style="color:#8F8F8F;" class="way_ele2">铁路</div>
-													</div>
-													<div class="way">
-															<div class="way_ele0"><img class="qiche" src="../../static/img/kasj/qiche.png" alt=""></div>
-															<div style="color:#EF9623;" class="way_ele">{{roadFreight}}</div>
-															<div style="color:#EF9623;" class="way_ele2">公路</div>
-													</div>
-											</div>
-										</div>
-										
-										<div :id="id" :option="option"></div>
-			            </mt-swipe-item>
-			            <mt-swipe-item :class="{'is-active':active === 'tab-container2'}" class="item">
-										<!-- 统计图2 -->
-										<div @click="godetails('tab2')">
-											<div class="quantum"><span>出入境人员总数（万人次）-{{pmonth}}月</span><span class="numbers">总量{{personTotalNum}}</span></div>
-											<div class="topway">
-													<div style="width:49%" class="way">
-															<div class="way_ele0"><img class="chuan" src="../../static/img/kasj/chuan.png" alt=""></div>
-															<div style="color:#2FCAA0;" class="way_ele">{{personWaterCount}}</div>
-															<div style="color:#2FCAA0;" class="way_ele2">水运</div>
-													</div>
-													<div style="width:49%" class="way">
-															<div class="way_ele0"><img class="feiji" src="../../static/img/kasj/feiji.png" alt=""></div>
-															<div style="color:#4F83F1;" class="way_ele">{{personAirCount}}</div>
-															<div style="color:#4F83F1;" class="way_ele2">空运</div>
-													</div>
-											</div>
-										</div>
-										<div :id="id1" :option="option1"></div>
-			            </mt-swipe-item>
-			            <mt-swipe-item :class="{'is-active':active === 'tab-container3'}" class="item">
-										<!-- 统计图3 -->
-										<div @click="godetails('tab3')">
-											<div class="quantum"><span>进出境运输工具（辆艘）-{{tmonth}}月</span><span class="numbers">总量{{transTotalNum}}</span></div>
-											<div class="topway">
-													<div style="width:49%" class="way">
-															<div class="way_ele0"><img class="chuan" src="../../static/img/kasj/chuan.png" alt=""></div>
-															<div style="color:#2FCAA0;" class="way_ele">{{transShipCount}}</div>
-															<div style="color:#2FCAA0;" class="way_ele2">船舶</div>
-													</div>
-													<div style="width:49%" class="way">
-															<div class="way_ele0"><img class="feiji" src="../../static/img/kasj/feiji.png" alt=""></div>
-															<div style="color:#4F83F1;" class="way_ele">{{transAirCount}}</div>
-															<div style="color:#4F83F1;" class="way_ele2">飞机</div>
-													</div>
-											</div>
-										</div>
-										<div :id="id2" :option="option2"></div>
-			            </mt-swipe-item>
-			        </mt-swipe>
-			    </div>
 				<!-- <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
 						<mt-tab-container-item id="tab-container1">
 								统计图1
@@ -270,12 +270,12 @@
 			}
 		},
 		mounted() {
-			if(window.location.href.indexOf('isGuest=yes') != -1){
-				sessionStorage.setItem('isGuest','yes')
-				console.log('yes')
-			}else{
-				sessionStorage.setItem('isGuest','no')
-				console.log('no')
+			if (window.location.href.indexOf('isGuest=yes') != -1) {
+					sessionStorage.setItem('isGuest', 'yes')
+					console.log('yes')
+			} else {
+					sessionStorage.setItem('isGuest', 'no')
+					console.log('no')
 			}
         	//auth.getAccessToken({appId:"elecPort"});
 		},
@@ -297,6 +297,7 @@
 				}
 			},
        godetails(n){
+				 console.log(n)
             this.$router.push({name: 'kaxjcontentpage',
               params:{ 
                 res:n
@@ -964,6 +965,9 @@ color:rgba(51,51,51,1);
     .numbers{
         float: right;
     }
+	.block{
+		height: 98vw;
+	}
 </style>
 <style>
 	.mint-toast-text {
@@ -975,5 +979,39 @@ color:rgba(51,51,51,1);
 	.mint-swipe{
 		width: 100%;
 	}
+	.el-carousel__container {
+    position: relative;
+    height: 82vw;
+}
+	.el-carousel {
+    overflow-x: hidden;
+    position: relative;
+    top: -100px;
+    width: 100%;
+    padding-top: 100px !important;
+		padding-bottom: 0 !important;
+}
+.el-carousel__indicators {
+    position: absolute;
+    list-style: none;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+    z-index: 0;
+    top: 0;
+	width: 100%;
+}
+.el-carousel__indicator {
+    display: inline-block;
+    background-color: transparent;
+    padding: 1.6vw 6.533vw;
+    cursor: pointer;
+    /* width: 33%; */
+    margin: 0 7%;
+	height: 80px;
+}
 </style>
 
