@@ -8,7 +8,7 @@
 		<!--内容-->
 		<div v-show="lod1" class="page-tab-container">
 
-			<section class="ui-container">
+			<section class="ui-container" id="soll">
 				<div class="content_box">
 					<h3 class="news_title">{{contents.sourceLabel}}</h3>
 					<p class="title_time">{{contents.createTime | formatDate}}<span class="inline_block padding_z_10">{{contents.author}}</span></p>
@@ -64,6 +64,7 @@
 				axios.get('/web-editor-web//s/h/query/'+res+'.do', {
 				}).then(function(data) {
 					That.contents = data.data.data;
+            		document.getElementById("soll").scrollTop = 0;
 				})
 				.catch(function(err){
 					Toast('网络出错')
@@ -126,6 +127,14 @@
 	*{
 	  -webkit-overflow-scrolling: touch;
 	  font-family: PingFangSC;
+	}
+	#soll{
+		    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+	    height: 100%;
+    width: 100%;
 	}
 	.font_18 {
 		font-size: 1.8rem;
