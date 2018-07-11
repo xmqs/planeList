@@ -1,179 +1,251 @@
 <template>
-	<div id="chiose_rad">
-		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-            宠物照片
-            <img @click="bus(imageUrl1)" style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-        </header> -->
-        <div id="soll" class="page-tab-container">
-			<p class="tit">宠物照片</p>
-			<el-upload
-			  class="avatar-uploader"
-			  action="/web-editor-web/public/upload/upload.do"
-			  accept="image/jpeg,image/gif,image/png,image/bmp"
-			  :show-file-list="false"
-			  :before-upload="handbefore"
-			  :on-error="handleAvatarError"
-			  :on-success="handleAvatarSuccess">
-			  <img class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-			  <div v-for="(ele,index) in imageUrl1" v-if="imageUrl1" class="item">
-				  <img :src="ele" class="avatar">
-				  <img @click.stop="deleteImg(index)" :id="index" src="../../../static/img/shanchu.png" class="delect-i">
-			  </div>
-			</el-upload>
-		</div>
-		<div v-if="lod" class="dio">
-			<img class="rotate downwarp downwarp-progress-s" style="transform: rotate(1069.2deg);" src="../../../static/img/Oval6.png"/>
-		</div>
-	</div>
+  <div class="hello">
+    <div class="upload">
+      <div class="upload_warp">
+        <div class="upload_warp_left" @click="fileClick">
+          <img src="../../../static/img/Group 3.png">
+        </div>
+      </div>
+      <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none"/>
+      <div class="upload_warp_img" v-show="imgList.length!=0">
+        <div class="upload_warp_img_div" v-for="(item,index) of imgList">
+          <div class="upload_warp_img_div_top">
+            <div class="upload_warp_img_div_text">
+              {{item.file.name}}
+            </div>
+            <img src="" class="upload_warp_img_div_del" @click="fileDel(index)">
+          </div>
+          <img :src="item.file.src">
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
 <script>
-import 'element-ui/lib/theme-chalk/index.css';
-import axios from "axios";
-import Bus from '../cwty/bus.js'
-import { Toast } from 'mint-ui';
-export default {
-    name: "chiose_rad",
-    data(){
-	    return{
-	    	lod:false,
-	    	lod1:true,
-	        imageUrl1:[],
-	        imageUrl:'',
-	    }
-   },
-	methods:{
-		deleteImg(res){
-			this.imageUrl1.splice(res,1)
-            setTimeout(() => {
-                Bus.$emit('cwzp',this.imageUrl1)
-            }, 30)
-		},
-        bus (imageUrl1) {
-            setTimeout(() => {
-                Bus.$emit('cwzp',imageUrl1)
-            }, 30)
-            this.$router.back(-1)
-        },
-		//图片上传
-		handleAvatarSuccess(res, file) {
-	   		this.lod = false;
-	        this.imageUrl = res.data;
-	        this.imageUrl1.push(res.data);
-            setTimeout(() => {
-                Bus.$emit('cwzp',this.imageUrl1)
-            }, 30)
-	   },
-	    handleAvatarError(err, file, fileList){
-	   		this.lod = false;
-	    	this.lod1 = true;
-		   	Toast("上传失败");
-	    },
-	   handbefore(file){
-	   		this.lod = true;
-	    	this.lod1 = false;
-	   },
-	},
-	created: function() {
-	    Bus.$on('oldCwzp', (e) => {
-	    	this.imageUrl1 = e;
-	    })
-	}
-}
+  export default {
+    name: 'hello',
+    data() {
+      return {
+        imgList: [],
+        size: 0,
+
+      }
+    },
+    methods: {
+      //设置
+      limitClick(state) {
+        this.imgList = [];
+        if (state)
+          this.limit = 2;
+        else
+          this.limit = undefined;
+      },
+      fileClick() {
+        document.getElementById('upload_file').click()
+      },
+      fileChange(el) {
+        if (!el.target.files[0].size) return;
+        this.fileList(el.target);
+        el.target.value = ''
+      },
+      fileList(fileList) {
+        let files = fileList.files;
+        for (let i = 0; i < files.length; i++) {
+          //判断是否为文件夹
+          if (files[i].type != '') {
+            this.fileAdd(files[i]);
+          } else {
+            //文件夹处理
+            this.folders(fileList.items[i]);
+          }
+        }
+      },
+      //文件夹处理
+      folders(files) {
+        let _this = this;
+        //判断是否为原生file
+        if (files.kind) {
+          files = files.webkitGetAsEntry();
+        }
+        files.createReader().readEntries(function (file) {
+          for (let i = 0; i < file.length; i++) {
+            if (file[i].isFile) {
+              _this.foldersAdd(file[i]);
+            } else {
+              _this.folders(file[i]);
+            }
+          }
+        })
+      },
+      foldersAdd(entry) {
+        let _this = this;
+        entry.file(function (file) {
+          _this.fileAdd(file)
+        })
+      },
+      fileAdd(file) {
+        if (this.limit !== undefined) this.limit--;
+        if (this.limit !== undefined && this.limit < 0) return;
+        //总大小
+        this.size = this.size + file.size;
+        //判断是否为图片文件
+        if (file.type.indexOf('image') == -1) {
+          file.src = 'wenjian.png';
+          this.imgList.push({
+            file
+          });
+        } else {
+          let reader = new FileReader();
+          let image = new Image();
+          let _this=this;
+          reader.readAsDataURL(file);
+          reader.onload = function () {
+            file.src = this.result;
+            image.onload=function(){
+              let width = image.width;
+              let height = image.height;
+              file.width=width;
+              file.height=height;
+              _this.imgList.push({
+                file
+              });
+              console.log( _this.imgList);
+            };
+            image.src= file.src;
+          }
+        }
+      },
+      fileDel(index) {
+        this.size = this.size - this.imgList[index].file.size;//总大小
+        this.imgList.splice(index, 1);
+        if (this.limit !== undefined) this.limit = this.imgList.length;
+      },
+      bytesToSize(bytes) {
+        if (bytes === 0) return '0 B';
+        let k = 1000, // or 1024
+          sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+          i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+      },
+      dragenter(el) {
+        el.stopPropagation();
+        el.preventDefault();
+      },
+      dragover(el) {
+        el.stopPropagation();
+        el.preventDefault();
+      },
+      drop(el) {
+        el.stopPropagation();
+        el.preventDefault();
+        this.fileList(el.dataTransfer);
+      }
+    }
+  }
 </script>
 <style scoped>
-	*{
-	  -webkit-overflow-scrolling: touch;
-	}
-	#chiose_rad{
-		position: fixed;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background-color: #F5F5F5;
-	}
-	#soll{
-	    background: #fff;
-	}
-	.tit{
-	    font-size: 32px;
-	    color: #333;
-		padding: 2vw 2.933vw!important;
-	}
-	.time_select{
-	    margin: 14px;
-	    font-size: 16px;
-	    color: #333;
-	    border-top: 1px solid #e8e8e8;
-	    padding: 14px 0;
-	}
-	.el-input__inner {
-    	border: none !important;
-    }
-    .el-input {
-	    width: 100% !important;
-	}
-	/*图片上传*/
-	.avatar-uploader-icon{
-	    font-size: 28px;
-	    color: #8c939d;
-	    width: 80px;
-	    height: 80px;
-	    line-height: 64pt;
-	    text-align: center;
-	    border: 1px solid #ccc;
-	}
-	.avatar{
-	    margin: 0 14px 14px 14px;
-    	border: 1px solid #f8f8f8;
-		width: 21.5vw !important;
-    	height: 21.5vw !important;
-	}
-	.el-icon-plus{
-	    position: relative;
-	    top: 0px;
-	    left: 14px;
-	    margin-right: 25px;
-	}
-	.downwarp{
-		margin-top: 45%;
-	}
-	.delect-i{
-		position: absolute;
-	    top: -8px;
-	    right: 6px;
-	    width: 50px;
-	}
-	.item{
-		position: relative;
-		float: left;
-		padding: 7px;
-	}
-	.downwarp-progress-s{
-	    display: inline-block;
-		-webkit-transition-property: -webkit-transform;
-	    -webkit-transition-duration: 1s;
-	    -moz-transition-property: -moz-transform;
-	    -moz-transition-duration: 1s;
-	    -webkit-animation: rotate 3s linear infinite;
-	    -moz-animation: rotate 3s linear infinite;
-	    -o-animation: rotate 3s linear infinite;
-	    animation: rotate 3s linear infinite;
-    }
-	@keyframes rotate{
-		from{transform: rotate(-359deg)
-		}
-	    to{transform: rotate(359deg)
-	    }
-	}
-    .dio{
-    	position: fixed;
-    	top:0;
-    	left: 0;
-    	background: #333;
-    	opacity: 0.3;
-    	width: 100%;
-    	height: 100%;
-	    text-align: center;
-    	z-index: 9999999;
-    }
+  .upload_warp_img_div_del {
+    position: absolute;
+    top: 6px;
+    width: 16px;
+    right: 4px;
+  }
+
+  .upload_warp_img_div_top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.4);
+    line-height: 30px;
+    text-align: left;
+    color: #fff;
+    font-size: 12px;
+    text-indent: 4px;
+  }
+
+  .upload_warp_img_div_text {
+    white-space: nowrap;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .upload_warp_img_div img {
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+  }
+
+  .upload_warp_img_div {
+    position: relative;
+    height: 100px;
+    width: 120px;
+    border: 1px solid #ccc;
+    margin: 0px 30px 10px 0px;
+    float: left;
+    line-height: 100px;
+    display: table-cell;
+    text-align: center;
+    background-color: #eee;
+    cursor: pointer;
+  }
+
+  .upload_warp_img {
+    border-top: 1px solid #D2D2D2;
+    padding: 14px 0 0 14px;
+    overflow: hidden
+  }
+
+  .upload_warp_text {
+    text-align: left;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    text-indent: 14px;
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  .upload_warp_right {
+    float: left;
+    width: 57%;
+    margin-left: 2%;
+    height: 100%;
+    border: 1px dashed #999;
+    border-radius: 4px;
+    line-height: 130px;
+    color: #999;
+  }
+
+  .upload_warp_left img {
+    margin-top: 32px;
+  }
+
+  .upload_warp_left {
+    float: left;
+    width: 40%;
+    height: 100%;
+    border: 1px dashed #999;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .upload_warp {
+    margin: 14px;
+    height: 130px;
+  }
+
+  .upload {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 650px;
+    box-shadow: 0px 1px 0px #ccc;
+    border-radius: 4px;
+  }
+
+  .hello {
+    width: 650px;
+    margin-left: 34%;
+  }
 </style>

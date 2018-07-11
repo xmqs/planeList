@@ -6,20 +6,46 @@
 		</header> -->
 		<div id="soll" class="page-tab-container">
 			<ul>
-				<li v-for="(element,index) in lists" :key="index">
-					<div class="tishi">{{element.title}}</div>
-					<div class="yaoqiu">{{element.description}}</div>
-					<div @click="cost1" class="allradio">
-						<label v-for="ele in element.options" v-if="ele.checked == 1" style="float: left;"  :key="ele">
-							<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' checked type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label>
-        				<label v-else style="float: left;">
-        					<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label>
+				<li style="position: relative;" v-for="(element,index) in lists" :key="index">
+					<div class="margin" v-if="element.needed == 'true'">
+						<div class="tishi">
+							<label>
+								&nbsp;{{element.title}}
+							</label>
+						</div>
+						<div class="allradio">
+							￥{{element.price}}元
+							<!-- <label v-for="ele in element.options" v-if="ele.checked == 1" style="float: right;"  :key="ele">
+								<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' checked type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label>
+							<label v-else style="float: right;">
+								<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label> -->
+						</div>
+					</div>
+					<div class="margin" v-else>
+						<div v-if="isSelect == 'true'" class="tishi">
+							<label>
+								<input checked @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='element.price' type="radio" :name='index'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{element.title}}
+							</label>
+						</div>
+						<div v-else class="tishi">
+							<label>
+								<input @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='element.price' type="radio" :name='index'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{element.title}}
+							</label>
+						</div>
+						<div class="allradio">
+							￥{{element.price}}元
+							<!-- <label v-for="ele in element.options" v-if="ele.checked == 1" style="float: right;"  :key="ele">
+								<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' checked type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label>
+							<label v-else style="float: right;">
+								<input @click="checked($event)" class="cwtyCost" v=0 :value1='ele.key' :id='element.id' :value='ele.value' type="radio" :name='element.id'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{ele.title}}</label> -->
+						</div>
 					</div>
 				</li>
 			</ul>
 		</div>
 		<div class="serversOK">
-			<button @click="submit()" class="shenbao">提交服务</button>
+			<span class="allprice">合计金额：<span style="color:#285FB1">¥{{allCost}}</span></span>
+			<button @click="submit()" class="shenbao">提交报价</button>
 		</div>
 	</div>
 </template>
@@ -36,7 +62,7 @@ export default {
 			value:"1",
 	        lists:[],
 	        orderNo:"",
-	        cost:'',
+			allCost:0
 	    }
     },
 	methods:{
@@ -48,16 +74,12 @@ export default {
 	        }else{
 				obj.target.setAttribute("v",0);
 	            obj.target.checked=false;
-	        } 
-		},
-		cost1(){
-			this.cost = 0;
-			var boxes1 = document.getElementsByTagName("input");
-		    for(var i=0;i<boxes1.length;i++){
-		        if(boxes1[i].checked == true){
-					this.cost += Number(boxes1[i].value)
-		        }
-		    }
+			}
+			if (obj.target.checked == true) {
+				this.allCost += parseInt(obj.target.value)
+			}else{
+				this.allCost -= parseInt(obj.target.value)
+			}
 		},
 		check: function(){  
             console.log(this.value)  
@@ -67,24 +89,34 @@ export default {
 			var sers = [];
 			var boxes = document.getElementsByTagName("input");
 		    for(var i=0;i<boxes.length;i++){
+				var ser = {};
 		        if(boxes[i].checked == true){
+					ser.isSelect = true;
+		        }else{
+					ser.isSelect = false;
+				}
+				ser.serviceId = boxes[i].id;
+				sers.push(ser)
+			}
+			for(var i=0;i<this.lists.length;i++){
+				if (this.lists[i].needed == 'true') {
 					var ser = {};
-					ser.serviceId = boxes[i].id;
-					ser.value = boxes[i].value;
-					ser.key = boxes[i].getAttribute("value1");
+					ser.isSelect = true;
+					ser.serviceId = this.lists[i].id;
 					sers.push(ser)
-					this.cost += Number(boxes[i].value)
-		        }
+				}
 			}
 			var that = this;
 			axios.post("/eport-server/delivery/saveServices.do", {
-				allCost:that.cost,
 				orderNo:that.orderNo,
 				services:sers,
-				type:'2'
+				type:'1'
 			}).then((res) => {		
-				if(res.status == 200) {	
+				if(res.status == 200) {
 					Toast("提交成功");
+					setTimeout(() => {
+                		this.$router.back(-1)
+					},1500)
 				}else{
 					Toast("提交失败");
 				}
@@ -95,11 +127,16 @@ export default {
 			var that = this;
 			axios.get('/eport-server/delivery/queryServices.do', {
 				params: {
-					id:this.orderNo,
+					id:that.orderNo,
 					type:'1'
 				}
 			}).then(function(data) {
 				that.lists = data.data.data;
+				for(var i=0;i<that.lists.length;i++){
+					if (that.lists[i].needed == 'true') {
+						that.allCost += parseInt(that.lists[i].price);
+					}
+				}
 			})
 		},
 		goback(){
@@ -148,15 +185,21 @@ export default {
 	}
 	li{    
     list-style: none;
-    height: 33vw;
+    min-height: 88px;
     background: #fff;
-    border-bottom: 2.5vw solid #f5f5f5;
+	}
+	.margin{
+	border-bottom: 1px solid #f5f5f5;
+	margin: 0 5vw;
+	}
+	.where{
+		float: left;
 	}
 	.shenbao{
 	    border: 0;
 	    background: #285fb1;
-	    width: 100%;
-	    height: 92px;
+	    width: 240px;
+	    height:100px;
 	    font-size:34px;
 		font-family:PingFangSC-Regular;
 		color:rgba(255,255,255,1);
@@ -172,28 +215,24 @@ line-height:40px;
 	padding-top: 4.5vw;
 	}
 	.tishi{
-width:224px;
-height:45px;
+width:83%;
 font-size:32px;
 font-family:PingFangSC-Regular;
 color:rgba(51,51,51,1);
 line-height:45px;
-    padding-left: 3vw;
-	padding-top: 3vw;
+    padding: 3vw 0;
 	}
 	.allradio{
-		font-size: 4.267vw;
-		color: #333;
-    white-space: nowrap;
-    margin: 7.4vw 2.8vw .267vw 2.8vw;
-    border-top: 1px solid #f5f5f5;
-    line-height: 9.733vw;
-    height: 10.4vw;
+		    position: absolute;
+    top: 31%;
+	right: 5vw;
+	font-size:30px;
+font-family:PingFangSC-Regular;
+color:rgba(255,0,0,1);
 	}
     label {
 		font-size: 4vw;
-		color: #333;
-		margin-right: 17%;    
+		color: #333; 
 		width: 30%;
     	overflow: hidden;
     }
@@ -218,14 +257,13 @@ line-height:45px;
 		width: 18pt;
    		height: 18pt;
 	    border-radius: 50%;
-	    font-size: 48px;
+	    font-size:6.2vw;
     }
      
     input[type="radio"]:checked+ i {
 		border-radius: 50%;
     font-size: 6.2vw;
     text-align: left;
-    padding: 0.4vw 5.1vw 1.3vw 0vw;
     color: #fff;
     background: #285fb1;
     }
@@ -238,14 +276,13 @@ line-height:45px;
         background: #ccc;
     }
     .serversOK{
-	    line-height: 14vw;
+	    line-height: 100px;
 	    background: #fff;
 	    text-align: right;
 	    position: fixed;
 	    width: 100%;
 		bottom: 0vw;
-		padding: 3.333vw 4vw;
-		height: 19vw;
+		height: 100px;
 	}
 	.submit{
 	    width: 120px;
@@ -261,6 +298,13 @@ line-height:45px;
 		padding: 0;
     float: left;
     padding: 10px 0 8px 15px;
+	}
+	.allprice{
+		float: left;
+    margin-left: 7vw;
+    font-size: 32px;
+    font-family: PingFangSC-Regular;
+    color: rgba(51,51,51,1);
 	}
 </style>
 <style>

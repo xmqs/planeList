@@ -32,13 +32,13 @@
 				<label class="tit">总重量(kg)</label>
 				<input class="inps" type="number" placeholder="请输入物品总重量" v-model="weight" />
 			</div>
-			<div class="ele">
+			<div @click="cage(size)" class="ele">
 				<label class="tit">外包装尺寸(米)</label>
 				<input class="inps" type="text" placeholder="请输入外包装尺寸" v-model="size" />
 			</div>
 			<div @click="sheet1(0)" class="ele">
 				<label class="tit">发货地</label>
-				<input readonly="readonly" class="inps" type="text" v-model="startCity" />
+				<input readonly="readonly" class="inps" type="text" v-model="startCity"  unselectable="on" onfocus="this.blur()"/>
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
@@ -195,6 +195,13 @@
 			// 	location.reload();
 			// },
 			//图片上传
+			cage(res){
+				this.$router.push({name: 'boxsize',
+					params:{ 
+						sizes:res
+					}
+				})
+			},
 			deleteImg(res){
 				this.bigPackageList.splice(res,1)
 			},
@@ -344,6 +351,10 @@
 		mounted() {
 		    Bus.$on('area', (e) => {
 		    	this.endCity = e;
+			})
+			
+		    Bus.$on('boxsizes', (e) => {
+		　　　　this.size = e;
 		    })
 		    // Bus.$on('wplist1', (e) => {
 		    // 	this.packages = e;

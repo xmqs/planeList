@@ -42,6 +42,7 @@ import cwty_upd from "@/components/cwty/cwty_upd.vue"
 import chiose_rad from "@/components/chiose_rad/chiose_rad.vue"
 import calendar from "@/components/chiose_rad/calendar.vue"
 import myzh from "@/components/chiose_rad/myzh.vue"
+import sizes from "@/components/chiose_rad/sizes.vue"
 import cwzp from "@/components/chiose_rad/cwzp.vue"
 import servers from "@/components/cwty/servers.vue"
 import serversDetails from "@/components/cwty/serversDetails.vue"
@@ -50,6 +51,7 @@ import rate from "@/components/cwty/rate.vue"
 import petDetails from "@/components/cwty/petDetails.vue"
 /*私人物品*/
 
+import boxsize from "@/components/srwp/boxsize.vue"
 import srwp_list from "@/components/srwp/srwp_list.vue"
 import srwp_inp from "@/components/srwp/srwp_inp.vue"
 import srwp_upd from "@/components/srwp/srwp_upd.vue"
@@ -67,6 +69,9 @@ import phoneflight from "@/components/phoneflight/phoneflight.vue"
 
 // 日期范围
 import MonthSelect from "@/components/base/date/MonthSelect.vue"
+
+//空白页，刷新页面用
+import GoBack from "@/components/chiose_rad/GoBack.vue"
 
 Vue.use(Router)
 
@@ -279,9 +284,19 @@ export default new Router({
             component: calendar,
         },
         {
+            path: '/chiose_rad/GoBack',
+            name: 'GoBack',
+            component: GoBack,
+        },
+        {
             path: '/chiose_rad/myzh',
             name: 'myzh',
             component: myzh
+        },
+        {
+            path: '/chiose_rad/sizes',
+            name: 'sizes',
+            component: sizes
         },
         {
             path: '/chiose_rad/cwzp',
@@ -289,6 +304,11 @@ export default new Router({
             component: cwzp,
         },
         /*私人物品*/
+        {
+            path: '/srwp/boxsize',
+            name: 'boxsize',
+            component: boxsize
+        },
         {
             path: '/srwp/srwp_list',
             name: 'srwp_list',

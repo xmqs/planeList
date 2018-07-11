@@ -1,6 +1,6 @@
 <template>
 	<div id="kaxw_list">
-		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+		<div style="position: fixed;top:36px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
 			正在加载,请稍后...
 		</div>
 		<!--头部临时用-->
@@ -27,7 +27,7 @@
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
+				  				<img class="pet-img" :src="ele.petPicture"/>
 				  			</div>
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
@@ -42,11 +42,9 @@
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 				  	</div>
-				  	<router-link :to="{path: '/cwty/cwty_inp'}">
-						<div style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-							+ 托运宠物
-						</div>
-					</router-link>
+					<div @click="gocwtyInp" style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+						+ 托运宠物
+					</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
 				  	<div v-for="ele in list" v-if="status == 20" class="ele">
@@ -56,7 +54,7 @@
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
+				  				<img class="pet-img" :src="ele.petPicture"/>
 				  			</div>
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
@@ -73,14 +71,14 @@
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">  
-				  	<div v-for="ele in list" v-if="status == 30" class="ele">
+				  	<div v-for="ele in list" v-if="status == 40" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
+				  				<img class="pet-img" :src="ele.petPicture"/>
 				  			</div>
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
@@ -105,7 +103,7 @@
 				  		</div>
 				  		<div class="ele2" @click="bus(ele.id)">
 				  			<div class="ele2-1">
-				  				<img class="pet-img" :src="ele.petPicture[0]"/>
+				  				<img class="pet-img" :src="ele.petPicture"/>
 				  			</div>
 				  			<div class="ele2-1 ele2-2">
 					  			<p class="pet-name">{{ele.petName}}({{ele.petBreed}})</p>
@@ -114,7 +112,8 @@
 				  			</div>
 				  		</div>
 				  		<div class="ele3">
-			  				<p @click="text(ele.id,ele.petPicture[0])" class="update_b">评价</p>
+			  				<p v-if="ele.status == '50'" @click="text(ele.id,ele.petPicture)" class="update_b">评价</p>
+			  				<p v-if="ele.status == '60'" class="update_b">已评价</p>
 			  				<p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p>
 				  		</div>
 				  	</div>
@@ -170,7 +169,7 @@
 				} else if (newValue == 'tab-container2'){
 					this.status = 20;
 				} else if (newValue == 'tab-container3'){
-					this.status = 30;
+					this.status = 40;
 				} else if (newValue == 'tab-container4'){
 					this.status = 50;
 				}
@@ -179,7 +178,7 @@
 			}
 		},
 		created() {
-			this.login();
+			//this.login();
 			if (sessionStorage.getItem("active") != null) {
 				this.active = sessionStorage.getItem("active");
 				sessionStorage.removeItem("active");
@@ -189,7 +188,7 @@
 			} else if (this.active == 'tab-container2'){
 				this.status = 20;
 			} else if (this.active == 'tab-container3'){
-				this.status = 30;
+				this.status = 40;
 			} else if (this.active == 'tab-container4'){
 				this.status = 50;
 			}
@@ -199,15 +198,16 @@
 					this.getList();
 				}, 500)
 			}
+			
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
 			login(){
 		        let test2 = {
 		            msg: "操作成功",
-		            data: 'dLrEF9ZmVxlQrMtvx0qQaI2v3pjPA6amn7Z9RHFpniqQ465BeOuyMFQAdTratX0JM1h9maM7MGngUSL0l28D8+QhJQkq6gHFUmukpAPv5eIwIH5ymE5zUbxd9CcZ6NRLgiO8+dfxghYgmt1Wsy1I1vKLBpTGhgzedR/6yzK1ehhP3kchQJD9J2ahfk6UebJvp4g6vsY2EdK7PaJ34xzrvI0rU3QDEebWL68AEYOsyp8RC5e2Q8/duihRLNXD/AtTVMsJi4Fm3l0uJf3nxKiAaVzyMOzth0B7YjunhxfjCiaLuU3h4CucHUL4BT2o4miEzszOm7BA3JRBfne60Rf6Og==',
+		            data: 'W78zV+/hJuIwhd8FfsGviuz6YW0WsrMJ+oM9CbaIdCFFIVBSS8sjx/dTJZ5NtACgtR/9DnVrqKLVwPu5X73u6/vriW4RdW35WXrPpyaeEYhGLVsyVXmJAMyfIsFj6+A/9q7kBXVcUKw4niyk66qduOBdvX3MW/4lM0hKjsPDAqh320VpdD/a7ya9uvZfcqZmCO62VpO0LMaRml1iyGRoiXtuTtrfhmB5gl7NO6KaQ5mDc9fWFV2CmnnIFTlrtOv4DZKs9wgIW4JU9MU2gl3s77V9pseTLYV5MBumWD1F6OVkK6JaUUEur/8FlvxmXCnThzrb85fevn25XcRxni0xNQ==',
 		            success: "true",
-		            sign: 'ZwYpjoj/L7GJu9WgmNcagtQD9UhH9V6Ecykn5rAzkre51zBbBmxhpYriCJ6OBBNmvV4kcgwmkEk1ELaRrGvLjB8qAtS7m4EZaJ3tGN2X+6gawowlsy0v0dYhYiWJetYAw+yQCYzfLR/rxPorAMhLt3nb3yFsw9GRFY+X+lH+uko=',
+		            sign: 'QzCdeEmIgwlDiW+rdGPjxKjBNMN1nR9dQXVwCsgqcuG5VZs9RbZziRGNAISZbfelhbYFsf7sf+Aa3eAPyW4KpBG+iJu6m3p5/bfors/jFsyBF50sHFaA8erNy5KNKENjqOOiqHZ0qBZ/SWzPp03W8SSg4eIdURfXL0ydMQVI130=',
 		            signType: "RSA"
 		        }
 		        test2 = JSON.stringify(test2);
@@ -224,16 +224,23 @@
 					}
 				})
 			},
+			gocwtyInp(){
+				this.$router.push({name: 'cwty_inp',
+					params:{ 
+						reload:'reload'
+					}
+				})
+			},
 			bus (res) {
 			    setTimeout(() => {
 			        Bus.$emit('list', res)
-			    }, 30)
+			    }, 100)
 		        this.$router.push({path: '/cwty/petDetails'})
 		    },
 			update (res) {
 			    setTimeout(() => {
 			        Bus.$emit('updateId', res)
-			    }, 30)
+			    }, 100)
 		        this.$router.push({path: '/cwty/cwty_upd'})
 		    },
 			select_item(res){
@@ -242,25 +249,25 @@
 			tyxq(res){
 				setTimeout(() => {
 					Bus.$emit('element', res)
-			    }, 30)
+			    }, 100)
 				this.$router.push({path: '/cwty/checked'})
 			},
 			text(res,img){
 			    setTimeout(() => {
 					Bus.$emit('ids', res,img)
-			    }, 30)
+			    }, 100)
 				this.$router.push({path: '/cwty/rate'})
 			},
 			serversId(res){
 			    setTimeout(() => {
 					Bus.$emit('serversId', res)
-			    }, 30)
+			    }, 100)
 				this.$router.push({path: '/cwty/servers'})
 			},
 			serversDetails(res){
 			    setTimeout(() => {
 					Bus.$emit('serversDetailsId', res)
-			    }, 30)
+			    }, 100)
 				this.$router.push({path: '/cwty/serversDetails'})
 			},
 			getList(){
@@ -285,6 +292,14 @@
 	*{
 		font-family: PingFangSC;
 	  -webkit-overflow-scrolling: touch;
+	}
+	input, textarea {
+		-khtml-user-select: auto!important;
+		-moz-user-select: auto!important;
+		-ms-user-select: auto!important;
+		-o-user-select: auto!important;
+		user-select: auto!important;
+		-webkit-appearance: none;
 	}
 	#con{
 		background: #eee;
@@ -318,13 +333,13 @@
 	    width: 100%;
 	    height: 100%;
 	    overflow-y: auto;
-	    padding-bottom: 7vw;
+	    padding-bottom: 10vw;
 		background: #f5f5f5;
 	}
 	.class-a {
 		border-bottom:4px solid #285FB1 !important;
-		border-radius: 0;
-		color: #285FB1;
+		border-radius: 0 !important;
+		color: #285FB1 !important;
 	}
 	.mt-cell-st {
 		position: relative;
@@ -400,6 +415,7 @@ color:rgba(40,95,177,1);
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
+		font-weight: 600;
 	}
 	.pet-where{
 		position: absolute;
@@ -431,7 +447,7 @@ color:rgba(102,102,102,1);
 		border:1px solid rgba(40,95,177,1);
 	    border-radius: 10px;
 	    margin:14px;
-		height: 7.2vw;
+		height: 54px;
 	    width: 150px;
 	    text-align: center;
 	    line-height: 7vw;
@@ -439,4 +455,9 @@ color:rgba(102,102,102,1);
 		font-family:PingFangSC-Regular;
 		color:rgba(40,95,177,1);
 	}
+</style>
+<style>
+.mint-button:after {
+    background-color: #fff !important;
+}
 </style>

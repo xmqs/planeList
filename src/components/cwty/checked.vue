@@ -10,7 +10,7 @@
 			<div id="overflow">
 		  		<div class="ele2">
 		  			<div class="ele2-1">
-		  				<img class="pet-img" :src="list.petPicture[0]"/>
+		  				<img class="pet-img" :src="petPicture"/>
 		  			</div>
 		  			<div class="ele2-1 ele2-2">
 			  			<p class="pet-name">{{list.petName}}</p>
@@ -20,25 +20,26 @@
 		  		</div>
 	  			<div class="ele3">
 	  				<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
-	  					<tr v-for="(element,index) in logistics" v-if="index == 0">
-	  						<td class="ele3-1" style="width:30%;"><div class="order_time"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan.png"/></td>
+	  					<tr v-for="(element,index) in logistics" v-if="index == 0" :key="index">
+	  						<td class="ele3-1" style="width:30%;"><div class="order_time"><div style="position: absolute;top: 0;left:7px;">{{element.createTime | spilt1}}<br />{{element.createTime | spilt2}}</div></div><img class="yuan" src="../../../static/img/yuan.png"/></td>
 	  						<td style="border-left: 2px dotted rgb(119, 119, 119);">
-	  							<div style="color:#285FB1;font-size:14px;" class="state">{{element.title}}</div>
+	  							<div style="color:#285FB1;font-size:16px;" class="state">{{element.title}}</div>
+	  							<div v-if="element.title == '已托运'" style="color:#285FB1;font-size:14px;" class="state">宠物已托运，运单号{{courierNo}}</div>
 	  							<div style="min-height: 60px;border-right: 0px solid #ccc;" class="stateCon">{{element.detail}}
 	  								<div style="margin: 12px 8px;">
-	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  									<img class="petimg" v-for="(ele,index) in element.images" :src="ele" :key="index"/>
 	  								</div>
 	  							</div>
 	  						</td>
 	  					</tr>
 	  					<tr v-else-if="index != 0">
-	  						<td class="ele3-1" style="width: 30%;"><div class="order_time order_time1"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
+	  						<td class="ele3-1" style="width: 30%;"><div class="order_time order_time1"><div style="position: absolute;top: 0;left:7px;">{{element.createTime | spilt1}}<br />{{element.createTime | spilt2}}</div></div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
 	  						<td style="border-left: 1px solid #ccc;">
 								<div style="min-height: 82px;">
 									<div class="state order_time1-1">{{element.title}}</div>
 									<div class="stateCon order_time1-1">{{element.detail}}</div>
 	  								<div style="margin:12px 8px;">
-	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  									<img class="petimg" v-for="(ele,index) in element.images" :src="ele" :key="index"/>
 	  								</div>
 								</div>
 							</td>
@@ -61,12 +62,25 @@ export default {
 	        logistics:[],
 	        petimg1:'',
 	        petimg2:'',
-	        list:[]
+			list:[],
+			petPicture:'',
+			courierNo:''
 	    }
     },
+	filters: {
+		spilt1(res){
+			var time = res.substring(0,10)
+			return time;
+		},
+		spilt2(res){
+			var time = res.substring(11,16)
+			return time;
+		}
+	},
 	created: function() {
 	    Bus.$on('element', (e) => {
-	    	this.list = e;
+			this.list = e;
+			this.petPicture = this.list.petPicture;
 			this.getList();
 	    })
 	},
@@ -76,10 +90,11 @@ export default {
 			axios.get('/eport-server/delivery/queryDelivery.do', {
 				params: {
 					id:that.list.id,
-					tyep:'1'
+					type:'1'
 				}
 			}).then(function(data) {
-				that.logistics = data.data.data.logistics.reverse();
+				that.logistics = data.data.data.logistics;
+				that.courierNo = data.data.data.courierNo;
 	    		console.log(that.logistics)
 			})
 		}
@@ -214,7 +229,7 @@ export default {
 	.state{
 		padding-left:35px;
 	    text-align: left;
-	    font-size:26px;
+	    font-size:32px;
 		font-family:PingFangSC-Regular;
 		color:rgba(153,153,153,1);
 	}
@@ -223,12 +238,14 @@ export default {
 		padding-top: 2vw;
 	    text-align: left;
 	    color: #285FB1;
-	    font-size: 14px;
+	    font-size: 28px;
 	}
 	.yuan{
     position: absolute;
-    top: .167vw;
+    top: 0vw;
     left: 27vw;
+	width: 36px;
+	height: 36px;
 	}
 	.petimg{
 		width: 120px;

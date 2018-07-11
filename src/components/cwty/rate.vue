@@ -8,9 +8,9 @@
 		</header> -->
     <div id="ele">
     	<div class="ele ele_1">
-    		<!-- <div class="ele1">
-    			<img style="width: 40px;height: 4	0px;" src="../../../res/img/Rectangle183.png"/>
-    		</div> -->
+    		<div class="ele1">
+    			<img style="width: 35px;height: 33px;margin: 12px 8px 4px 6px;" :src='cwzp'/>
+    		</div>
     		<div style="margin-left:-7px;" class="ele1 ele1_1">
     			综合评价
     		</div>
@@ -43,9 +43,10 @@
     data() {
       return {
       	value3: null,
-      	arr:['差', '比较差', '一般', '比较好', '好'],
+      	arr:['非常差', '差', '一般', '好', '非常好'],
       	texts:"",
-      	ids:""
+				ids:"",
+				cwzp:''
       }
     },
     methods: {
@@ -66,13 +67,24 @@
 						Toast("评价失败");
 				    return;
 					}
-				}, (res) => {							
+				}, (res) => {
 				});
-      }
+			},
+			getpetdetails(){
+				var that = this;
+				axios.get('/eport-server/delivery/pet/queryOrderById.do', {
+					params: {
+						orderNo :this.ids
+					}
+				}).then(function(data) {
+					that.cwzp = data.data.data.petPicture;
+				})
+			}
     },
 		created: function() {
 		    Bus.$on('ids', (e,img) => {
-		    	this.ids = e;
+					this.ids = e;
+					this.getpetdetails();
 		    })
 		}
   }
@@ -80,6 +92,14 @@
 <style scoped>
 	*{
 	  -webkit-overflow-scrolling: touch;
+	}
+	input, textarea {
+		-khtml-user-select: auto!important;
+		-moz-user-select: auto!important;
+		-ms-user-select: auto!important;
+		-o-user-select: auto!important;
+		user-select: auto!important;
+		-webkit-appearance: none;
 	}
 	#rate{
 		

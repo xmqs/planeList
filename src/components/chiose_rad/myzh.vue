@@ -6,21 +6,14 @@
         </header> -->
 		<div id="soll" class="page-tab-container">
 			<p class="tit">上传免疫证</p>
-			<el-upload
-			  class="avatar-uploader"
-			  action="/web-editor-web/public/upload/upload.do"
-			  :show-file-list="false"
-			  :before-upload="handbefore"
-			  :on-error="handleAvatarError"
-			  :on-success="handleAvatarSuccess">
-			  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-			  <i class="el-icon-plus avatar-uploader-icon"></i>
-			  <i v-if="lod2" style="opacity: 0;" v-else class="el-icon-plus avatar-uploader-icon"></i>
-			</el-upload>
-			<img v-if="lod" style="transform: rotate(1069.2deg);" class="rotate downwarp downwarp-progress-s" src="../../../static/img/Oval6.png"/>
+			<img @click="myimg" :src="imageUrl" class="avatar">
 			<div style="position: relative;width:100%;border-top: 1px solid #f5f5f5;">
 				<input @change="gettime" id="time" class="chiotiem1" type="date">
-				<div class="chiotiem">{{time}} <span style="float:right;margin: 1vw 5vw 0 0;">︾</span></div>
+				<div class="chiotiem">{{time}} 
+					<span style="margin: 1vw 5vw 0px 0px;float: left;">
+						<img class="po_right" src="../../../static/img/Shape.png"/>
+					</span>
+				</div>
 			</div>
 			<!-- <div @click="gettime" class="block">
 			    <el-date-picker
@@ -46,25 +39,28 @@ export default {
 	    	lod2:false,
 	        value1:"",
 	        mydate:"日期选择",
-	        imageUrl:'',
+	        imageUrl:'../../../static/img/Group 3.png',
 			dialogVisible: false,
-			time:''
+			time:'选择最后一次注册时间'
 	    }
    },
 	methods:{
-		bus (res,imageUrl) {
-            if(res != ""){
-                res = new Date(res);
-                res=res.getFullYear() + '年' + (res.getMonth() + 1) + '月' + res.getDate() + '日'
-            }else{
-                res = new Date();
-                res=res.getFullYear() + '年' + (res.getMonth() + 1) + '月' + res.getDate() + '日'
-            }
-            setTimeout(() => {
-                Bus.$emit('myz', res,imageUrl)
-            }, 30)
-            this.$router.back(-1)
-        },
+		myimg(){
+			var that = this;
+			window.location.href='#uploadImgByClient?imgNum=3&serverurl=http://192.168.0.37:8000/web-editor-web/public/delivery/uploadByBase64.do';
+			window.uploadImgOver = function(str) {
+				that.imageUrl = JSON.parse(str).data;
+				setTimeout(() => {
+					var times;
+					if (that.time == '选择最后一次注册时间') {
+						times = '已上传'
+					}else{
+						times = that.time
+					}
+					Bus.$emit('myz',times,that.imageUrl)
+				}, 30)
+			}
+		},
 	    gettime(){
 			var times = document.getElementById("time").value;
 			var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
@@ -74,36 +70,12 @@ export default {
                 Bus.$emit('myz',times,this.imageUrl)
             }, 30)
 	    },
-		//图片上传
-		handleAvatarSuccess(res, file) {
-	   		this.lod = false;
-	   		this.lod2 = false;
-	   		this.imageUrl = '';
-	        this.imageUrl = res.data;
-            setTimeout(() => {
-                Bus.$emit('myz', this.time,this.imageUrl)
-            }, 30)
-	   },
-	    handleAvatarError(err, file, fileList){
-	   		this.lod = false;
-	    	this.lod1 = true;
-	   		this.lod2 = false;
-		   	Toast("上传失败");
-	    },
-	   handbefore(){
-	   		this.lod = true;
-	    	this.lod1 = false;
-	   		this.lod2 = true;
-	   },
 	   
 		
 	},
 	created: function() {
-		if(this.$route.params.time != "" && this.$route.params.time != undefined){
+		if(this.$route.params.time != "已上传" && this.$route.params.time != "" && this.$route.params.time != undefined){
 			this.time = this.$route.params.time;
-		}else{
-			var res = new Date();
-			this.time=res.getFullYear() + '年' + (res.getMonth() + 1) + '月' + res.getDate() + '日'
 		}
 		if(this.$route.params.res != ""){
 			this.imageUrl = this.$route.params.res;
@@ -130,7 +102,7 @@ export default {
 	    font-size: 32px;
 	    color: #333;
 		width: 100%;
-		padding: 2vw 2.933vw!important;
+		padding: 2vw 4.933vw!important;
 	}
 	.time_select{
 	    margin: 14px;
@@ -151,8 +123,7 @@ export default {
     border: 0px solid #f5f5f5;
     height: 9.467vw;
     font-size: 4vw;
-	line-height:  9.467vw;
-	padding-left: 2vw;
+	line-height:  8.5vw;
 	margin-top: 0.5vw;
 	}
 	.chiotiem1{
@@ -183,7 +154,7 @@ export default {
 	    margin-bottom: 14px;
 	}
 	.avatar{
-	    margin: 0 14px 14px 14px;
+	    margin: 0 14px 14px 40px;
     	border: 1px solid #f8f8f8;
     	width: 93px;
     	height: 89px;
@@ -214,6 +185,14 @@ export default {
     padding-left: 4vw;
     height: 40px;
     font-size: 15px;
+}
+.po_right{
+	 width: 20px;
+    height: 34px;
+	position: absolute;
+    top: 25px;
+    right: 30px;
+
 }
 </style>
 <style type="text/css">

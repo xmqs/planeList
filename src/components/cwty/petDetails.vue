@@ -58,6 +58,10 @@
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="lxfs" />
 			</div>
 			<div class="ele">
+				<label class="tit">机票信息</label>
+				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="jpxx" />
+			</div>
+			<div class="ele">
 				<label class="tit">护照信息</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="hzxx" />
 			</div>
@@ -102,6 +106,7 @@
 				cwmz:"",
 				cwpz:"",
 				sfxy:"",
+				jpxx:'',
 
 				list:[],
 				ids:"",
@@ -122,7 +127,7 @@
 						orderNo :this.ids
 					}
 				}).then(function(data) {
-					that.cwzp = data.data.data.petPicture[0];
+					that.cwzp = data.data.data.petPicture;
 					that.area = data.data.data.endCity;
 					that.riqi = data.data.data.flightDate;
 					if (data.data.data.homeDelivery == 1) {
@@ -130,6 +135,7 @@
 					} else{
 						that.sfxy = '否'
 					}
+					that.jpxx = data.data.data.picketInfo;
 					that.sfzh = data.data.data.ownerIdNo;
 					that.zrxm = data.data.data.ownerName;
 					that.hzxx = data.data.data.ownerPassport;

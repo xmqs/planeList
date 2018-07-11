@@ -366,7 +366,7 @@
 	.class-a {
 		border-bottom:4px solid #285FB1 !important;
 		border-radius: 0;
-		color: #285FB1;
+		color: #285FB1 !important;
 	}
 	.mt-cell-st {
 		position: relative;
@@ -448,6 +448,7 @@ color:rgba(102,102,102,1);
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
+		font-weight: 600;
 	}
 	.pet-where{
 		position: absolute;

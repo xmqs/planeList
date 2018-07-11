@@ -1,6 +1,9 @@
 <template>
 	<!--选择要看的新闻类型-->
 	<div id="srwp_input">
+		<div style="position: fixed;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+			正在加载,请稍后...
+		</div>
 		<!--头部临时用-->
 		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 			物品申报修改
@@ -32,19 +35,19 @@
 				<label class="tit">总重量(kg)</label>
 				<input class="inps" type="number" placeholder="请输入物品总重量" v-model="weight" />
 			</div>
-			<div class="ele">
+			<div @click="cage(size)" class="ele">
 				<label class="tit">外包装尺寸(米)</label>
-				<input class="inps" type="text" placeholder="请输入外包装尺寸" v-model="size" />
+				<input class="inps" type="text" placeholder="请输入外包装尺寸" v-model="size"  unselectable="on" onfocus="this.blur()"/>
 			</div>
 			<div @click="sheet1(0)" class="ele">
 				<label class="tit">发货地</label>
-				<input readonly="readonly" class="inps" type="text" v-model="startCity" />
+				<input readonly="readonly" class="inps" type="text" v-model="startCity"  unselectable="on" onfocus="this.blur()"/>
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
 				<label class="tit">选择目的城市</label>
 			  	<router-link :to="{path:'/srwp/IndexList'}">
-					<input readonly="readonly" class="inps" type="text" placeholder="" v-model="endCity" />
+					<input readonly="readonly" class="inps" type="text" placeholder="" v-model="endCity"  unselectable="on" onfocus="this.blur()"/>
 					<img class="po_right" src="../../../static/img/Shape.png"/>
 				</router-link>
 			</div>
@@ -135,6 +138,7 @@
 		name: "srwp_input",
 		data() {
 			return {
+				lod:true,
 				/*属性*/
 				packages:[],
 				weight:'',
@@ -196,6 +200,13 @@
 			// 	location.reload();
 			// },
 			//图片上传
+			cage(res){
+				this.$router.push({name: 'boxsize',
+					params:{ 
+						sizes:res
+					}
+				})
+			},
 			deleteImg(res){
 				this.bigPackageList.splice(res,1)
 			},
@@ -349,6 +360,7 @@
 						orderNo :that.ids
 					}
 				}).then(function(data) {
+					this.lod = false;
 					that.packages = data.data.data.packages;
 					that.weight = data.data.data.weight;
 					that.size = data.data.data.size;
@@ -383,6 +395,9 @@
 		    })
 		    Bus.$on('updateId', (e) => {
 		    	this.ids = e;
+		    })
+		    Bus.$on('boxsizes', (e) => {
+		　　　　this.size = e;
 		    })
 		    // Bus.$on('wplist1', (e) => {
 		    // 	this.packages = e;
