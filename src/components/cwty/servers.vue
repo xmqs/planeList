@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="margin" v-else>
-						<div v-if="isSelect == 'true'" class="tishi">
+						<div v-if="element.isSelect == 'true'" class="tishi">
 							<label>
 								<input checked @click="checked($event)" class="cwtyCost" v=0 :id='element.id' :value='element.price' type="radio" :name='index'><i><img style="position: relative;top: -1px;width: 22px;" src="./../../../static/img/serg.png" alt=""></i>&nbsp;{{element.title}}
 							</label>
@@ -133,7 +133,7 @@ export default {
 			}).then(function(data) {
 				that.lists = data.data.data;
 				for(var i=0;i<that.lists.length;i++){
-					if (that.lists[i].needed == 'true') {
+					if (that.lists[i].isSelect == 'true' || that.lists[i].needed == 'true') {
 						that.allCost += parseInt(that.lists[i].price);
 					}
 				}
@@ -180,7 +180,7 @@ export default {
 	    overflow: auto;
 	    height: 100%;
 	    position: fixed;
-    padding-bottom: 19.5vw;
+    padding-bottom: 16.5vw;
         width: 100%;
 	}
 	li{    
@@ -305,6 +305,15 @@ color:rgba(255,0,0,1);
     font-size: 32px;
     font-family: PingFangSC-Regular;
     color: rgba(51,51,51,1);
+	}
+	.dot{
+    width: 1.6vw;
+    height: 1.6vw;
+    background: red;
+    position: absolute;
+    top: 5.7vw;
+    border-radius: 50%;
+    left: 6px;
 	}
 </style>
 <style>

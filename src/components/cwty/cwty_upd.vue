@@ -61,7 +61,7 @@
 				<div class="newsele_1">如已有笼子，请正确填写笼子尺寸</div>
 			</div>
 			<div @click="sheet1(2)" class="ele">
-				<label class="tit">是否办理狗(猫)证</label>
+				<label class="tit">是否已卫生证书</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfblgz" unselectable="on" onfocus="this.blur()"/>
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
@@ -101,10 +101,6 @@
 			<div class="ele">
 				<label class="tit">姓名</label>
 				<input class="inps" type="text" placeholder="请输入姓名" v-model="zrxm" />
-			</div>
-			<div class="ele">
-				<label class="tit">身份证号</label>
-				<input class="inps" type="text" placeholder="请输入身份证号" v-model="sfzh" />
 			</div>
 			<div class="ele">
 				<label class="tit">护照信息</label>
@@ -165,7 +161,7 @@
 				area:"",
 				fhd:"",
 				myz:"",
-				myz1:[],
+				myz1:'',
 				chip:"",
 				sizes:"",
 				sizes1:"",
@@ -203,7 +199,7 @@
 			        method: this.size3
 			      }],
 				actions2:[{
-			        name: '是否办理狗证'
+			        name: '是否已卫生证书'
 			      },{
 			        name: '是',
 			        method: this.sfblgz1
@@ -255,11 +251,11 @@
 		},
 		methods: {
 			myimg(){
-				var that = this;
-				window.location.href='#uploadImgByClient?imgNum=3&serverurl=http://192.168.0.37:8000/web-editor-web/public/delivery/uploadByBase64.do';
-				window.uploadImgOver = function(str) {
-					that.imageUrl = JSON.parse(str).data;
-				}
+				var oldUrl = window.location.href;
+				window.location.href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+				//e.preventdefault();
+				this.$router.push({oldUrl})
+				//window.location.href = oldUrl;
 			},
 			cage(res){
 				this.$router.push({name: 'sizes',
@@ -348,60 +344,73 @@
 			},
 			shenbao(){
 				this.unbind = false;
-				setTimeout(()=>{
-					this.unbind = true;
-				},3000);
 				var check = true;
-				if(this.imageUrl.indexOf('http') == -1){
-					Toast('请上传宠物照片');
-					check = false;
-					return;
-				}
+				var flag1 = false;
+				var flag2 = false;
 				var input = document.querySelectorAll('.inps');
 				var label = document.getElementsByTagName('label');
+				if(this.sizes == '' && this.sizes1 == ''){
+					check = false;
+					this.unbind = true;
+					Toast('笼子尺寸与体型尺寸至少选择一种')
+					return;
+				}
 				for(var i =0;i < input.length;i++){
 				    if (input[i].value == "") {
-						if(label[i].innerHTML != '笼子尺寸' && label[i].innerHTML != '免疫证'){
+						if(label[i].innerHTML != '免疫证' && label[i].innerHTML != '笼子尺寸' && label[i].innerHTML != '体型尺寸'){
 							Toast('请填写'+label[i].innerHTML)
 							check = false;
+							this.unbind = true;
 							return;
 						}
 				    }
 				}
+				if(this.imageUrl.indexOf('http') == -1){
+					Toast('请上传宠物照片');
+					check = false;
+					this.unbind = true;
+					return;
+				}
 				if(isNaN(Number(this.cwzl))){
 					Toast('宠物重量填写有误')
 					check = false;
+					this.unbind = true;
 					return;
 				}
 				var regName =/^[\u4e00-\u9fa5]{2,4}$/; 
 				if(!this.zrxm.match(regName)){
 					Toast('姓名填写有误')
 					check = false;
+					this.unbind = true;
 					return;
 				}
-            	var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-            	if(!this.lxfs.match(telReg)){
-            		Toast('请输入正确的电话号码')
-					check = false;
-					return;
-            	}
-            	var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-           	 	if(!this.sfzh.match(cardIdReg)){
-            		Toast('请输入正确的身份证号码')
-					check = false;
-					return;
-            	}
-           	 	var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
-           	 	if(!this.hzxx.match(ownerPassport)){
-			        Toast('护照号码填写有误')
-					check = false;
-					return;
-			    }
+            	// var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+            	// if(!this.lxfs.match(telReg)){
+            	// 	Toast('请输入正确的电话号码')
+				// 	check = false;
+				// 	this.unbind = true;
+				// 	return;
+            	// }
+            	// var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+           	 	// if(!this.sfzh.match(cardIdReg)){
+            	// 	Toast('请输入正确的身份证号码')
+				// 	check = false;
+				// 	this.unbind = true;
+				// 	return;
+            	// }
+           	 	// var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
+           	 	// if(!this.hzxx.match(ownerPassport)){
+			    //     Toast('护照号码填写有误')
+				// 	check = false;
+				// 	this.unbind = true;
+				// 	return;
+			    // }
 				if (this.smfw == true) {
 					var input = document.querySelectorAll('.inps1');
 					if (input[0].value == "") {
 				    	Toast('请填写地址')
 				    	check = false;
+						this.unbind = true;
 				    	return;
 				    }
 				}
@@ -447,6 +456,7 @@
 							Toast("申报成功");
 							setTimeout(()=>{
 								this.$router.push({path: '/cwty/cwty_list/'+'tab-container1'})
+								this.unbind = true;
 								location.reload();
 							},1000);
 						}else{
@@ -522,25 +532,28 @@
 		    },100)
 		},
 		created: function() {
+			var that = this;
+			window.uploadImgOver = function(str) {
+				that.imageUrl = JSON.parse(str).data;
+			}
 		    Bus.$on('area', (e) => {
-		    	this.area = e;
+		    	that.area = e;
 				document.getElementById("soll").scrollTop = 300;
 		    })
 		    Bus.$on('myz', (e,el) => {
-		　　　　this.myz = e;
-				this.myz1 = [];
-				this.myz1.push(el);
+				that.myz = e;
+				that.myz1 = el;
 				document.getElementById("soll").scrollTop = 300;
 		    })
 		    Bus.$on('riqi', (e) => {
-		　　　　this.riqi = e;
+				that.riqi = e;
 				document.getElementById("soll").scrollTop = 300;
 		    })
 		    Bus.$on('varietys', (e) => {
-		　　　　this.varietys = e;
+				that.varietys = e;
 		    })
 		    Bus.$on('sizes1', (e) => {
-		　　　　this.sizes1 = e;
+				that.sizes1 = e;
 		    })
 		},
 		filters: {
@@ -753,11 +766,11 @@
 		left: 0px;
 		position: absolute;
 		transition: transform .3s;
-		border-radius: 3vw;
+		border-radius: 3vw !important;
 	}
 	.mint-switch-core:after {
-		width: 7vw;
-		height: 6.2vw;
+		width: 7vw !important;
+		height: 6.2vw !important;
 		background-color: #fff;
 		box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
 	}
@@ -765,10 +778,10 @@
 		display: inline-block;
 		position: relative;
 		top: -6px;
-		width: 9.933vw;
-		height: 6.4vw;
+		width: 9.933vw !important;
+		height: 6.4vw !important;
 		border: 1px solid #d9d9d9;
-		border-radius: 3.133vw;
+		border-radius: 3.133vw !important;
 		box-sizing: border-box;
 		background: #d9d9d9;
 	}

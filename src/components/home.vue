@@ -280,13 +280,34 @@
             //auth.getAccessToken({appId:"elecPort"});
         },
         created() {
-            this.getlist();
-      this.getmessage();
-      this.showData();
-      this.showData1();
-      this.showData2();
+            var flag = true;
+            if(sessionStorage.getItem('userifo') == null){
+				setInterval(() => {
+                    if(sessionStorage.getItem('userifo') != null){
+                        if (flag == true) {
+                            this.getall();
+                        }
+                        flag = false;
+                    }else{
+                        flag = true;
+                    }
+				}, 1000)
+            }else{
+                this.getlist();
+                this.getmessage();
+                this.showData();
+                this.showData1();
+                this.showData2();
+            }
         },
         methods: {
+            getall(){
+                this.getlist();
+                this.getmessage();
+                this.showData();
+                this.showData1();
+                this.showData2();
+            },
             handleChange(res){
                 if (res == 0) {
                     this.active = 'tab-container1';
@@ -1007,7 +1028,7 @@ color:rgba(51,51,51,1);
 .el-carousel__indicator {
     display: inline-block;
     background-color: transparent;
-    padding: 1.6vw 6.533vw;
+    padding: 1.6vw 6.533vw !important;
     cursor: pointer;
     /* width: 33%; */
     margin: 0 7%;

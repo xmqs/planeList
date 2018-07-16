@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>电子口岸</title>
+</head>
+
+<body>
+    <a href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll'>aaa</a>
+</body>
+<script>
+    function uploadImgOver(str) {
+        sessionStorage.setItem('myimgurl', JSON.parse(str).data);
+        //window.location.href = 'http://192.168.0.237:9500/#/cwty/cwty_inp?myimg=' + JSON.parse(str).data;
+    }
+</script>
+
+</html>

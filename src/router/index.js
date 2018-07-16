@@ -385,5 +385,9 @@ export default new Router({
             name: 'MonthSelect',
             component: MonthSelect,
         },
+        {
+            path: '/uploadImgByClient',
+            name: 'uploadImgByClient'
+        }
     ]
 })

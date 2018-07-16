@@ -50,10 +50,6 @@
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="zrxm" />
 			</div>
 			<div class="ele">
-				<label class="tit">身份证号</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfzh" />
-			</div>
-			<div class="ele">
 				<label class="tit">联系方式</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="lxfs" />
 			</div>

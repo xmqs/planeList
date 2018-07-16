@@ -13,10 +13,11 @@
 		<div id="con">  
 			<div class="nav">  
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交</mt-button>  
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交<div v-if="count20 !=0" class="dot">{{count20}}</div></mt-button>
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container3'}" @click.native.prevent="select_item('tab-container3')">待托运</mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container4'}" @click.native.prevent="select_item('tab-container4')">待评价</mt-button>  
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container4'}" @click.native.prevent="select_item('tab-container4')">待评价<div v-if="count50 !=0" class="dot">{{count50}}</div></mt-button>  
 			</div>
+			
 			<div class="page-tab-container" v-bind:style="{width: widthData}">  
 			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
 				<mt-tab-container-item id="tab-container1">  
@@ -39,8 +40,15 @@
 				  			<button @click="update(ele.id)" class="update_b">编辑</button>
 				  		</div>
 				  	</div>
-				  	<div v-if="list.length == 0" class="kong">
-				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+				  	<div v-if="list.length == 0" @click.stop="select_pet('猫')" class="kong">
+						<div class="catdiv">
+				  			<img class="catimg" src="../../../static/img/cat.png"/>
+							<div style="margin-top: 10px;font-size: 16px;font-family: PingFangSC-Regular;color: rgba(51,51,51,1);">猫</div>
+						</div>
+						<div @click.stop="select_pet('狗')" class="dogdiv">
+				  			<img class="dogimg" src="../../../static/img/dog.png"/>
+							<div style="margin-top: 10px;font-size: 16px;font-family: PingFangSC-Regular;color: rgba(51,51,51,1);">狗</div>
+						</div>
 				  	</div>
 					<div @click="gocwtyInp" style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
 						+ 托运宠物
@@ -63,11 +71,12 @@
 				  			</div>
 				  		</div>
 				  		<div class="ele3">
-			  				<button @click="serversId(ele.id)" class="update_b">选择服务</button>
+			  				<button style="position: relative;" @click="serversId(ele.id)" class="update_b">选择服务<div v-if="ele.status == '20'" class="dot1"></div></button>
 				  		</div>
 				  	</div> 
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无提交订单</div>
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">  
@@ -93,6 +102,7 @@
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无托运订单</div>
 				  	</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container4">  
@@ -112,13 +122,14 @@
 				  			</div>
 				  		</div>
 				  		<div class="ele3">
-			  				<p v-if="ele.status == '50'" @click="text(ele.id,ele.petPicture)" class="update_b">评价</p>
+			  				<div style="position: relative;" v-if="ele.status == '50'" @click="text(ele.id,ele.petPicture)" class="update_b">评价<div class="dot1"></div></div>
 			  				<p v-if="ele.status == '60'" class="update_b">已评价</p>
 			  				<p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p>
 				  		</div>
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无评价订单</div>
 				  	</div>
 				</mt-tab-container-item>  
 			  </mt-tab-container>  
@@ -141,7 +152,10 @@
 				widthData:0,
 				status:10,
 				list:[],
-				lod:true
+				lod:true,
+				count50:'',
+				count20:'',
+				petselect:''
 			}
 		},  
 	    components: {  
@@ -174,11 +188,13 @@
 					this.status = 50;
 				}
 				sessionStorage.setItem("active",newValue)
+				this.lod = true;
 				this.getList();
 			}
 		},
 		created() {
-			//this.login();
+			this.login();
+			this.gettolits();
 			if (sessionStorage.getItem("active") != null) {
 				this.active = sessionStorage.getItem("active");
 				sessionStorage.removeItem("active");
@@ -196,7 +212,7 @@
 			if (this.active == 'tab-container1') {
 				setTimeout(() => {
 					this.getList();
-				}, 500)
+				}, 100)
 			}
 			
 			this.widthData = document.documentElement.clientHeight -115;
@@ -221,6 +237,14 @@
 			        },
 					success: function(data1) {
 						
+					}
+				})
+			},
+			select_pet(res){
+				this.$router.push({name: 'cwty_inp',
+					params:{ 
+						reload:'reload',
+						selpet:res
 					}
 				})
 			},
@@ -269,6 +293,20 @@
 					Bus.$emit('serversDetailsId', res)
 			    }, 100)
 				this.$router.push({path: '/cwty/serversDetails'})
+			},
+
+			
+			gettolits(){
+				var that = this;
+				axios.get('/eport-server/delivery/getOrderCountByStatus.do', {
+					params: {
+						type:'PET'
+					}
+				}).then(function(data) {
+					that.count20 = data.data.data[0]['20'];
+					that.count50 = data.data.data[0]['50'];
+					//console.log(data.data.data[0]['20'])
+				})
 			},
 			getList(){
 				var that = this;
@@ -350,10 +388,11 @@
 		width: 23%;
 	    border: 0;
 	    background: #fff;
-	    height: 68px;
+	    height: 9.4vw;
 		font-size:32px;
 		font-family:PingFangSC-Regular;
 		color:rgba(102,102,102,1);
+		border-bottom:4px solid #fff;
 	}
 	.tips:active{    
 	    background: #fff;
@@ -454,6 +493,58 @@ color:rgba(102,102,102,1);
 	    font-size:26px;
 		font-family:PingFangSC-Regular;
 		color:rgba(40,95,177,1);
+	}
+	.dot{
+    position: absolute;
+    top:8px;
+    margin-left: 75%;
+	width: 4vw;
+    height: 4vw;
+    border: 1px solid #de0909;
+    position: absolute;
+    border-radius: 50%;
+    line-height: 3.5vw;
+    font-size: 22px;
+    color: #de0909;
+    background: #fff;
+    text-align: center;
+	}
+	.dot1{
+		width: 1.6vw;
+    height: 1.6vw;
+    background: red;
+    position: absolute;
+    top: -0.8vw;
+    right: -2.5px;
+    border-radius: 50%;
+	}
+	.hidden{
+		display: none;
+	}
+	.dogdiv{
+		width: 280px;
+		height: 280px;
+		background: #fff !important;
+		margin: 80px auto;
+	}
+	.catdiv{
+		width: 280px;
+		height: 280px;
+		margin: auto;
+		background: #fff !important;
+	}
+	.catimg{
+		width: 113px;
+		height: 129px;
+		margin-top: 50px;
+	}
+	.dogimg{
+		width: 120px;
+		height: 92px;
+		margin-top: 50px;
+	}
+	.selpet{
+		color: #285fb1 !important;
 	}
 </style>
 <style>

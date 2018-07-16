@@ -6,9 +6,12 @@
         </header> -->
 		<div id="soll" class="page-tab-container">
 			<p class="tit">上传免疫证</p>
-			<img @click="myimg" :src="imageUrl" class="avatar">
+			<!-- 
+			<a href='#uploadImgByClient?imgNum=2&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do'>
+			</a> -->
+			<img  :src="imageUrl" v-on:click="myimg" class="avatar"><!--  -->
 			<div style="position: relative;width:100%;border-top: 1px solid #f5f5f5;">
-				<input @change="gettime" id="time" class="chiotiem1" type="date">
+				<input @change="gettime" id="time" class="chiotiem1" type="date" :max="nowdate">
 				<div class="chiotiem">{{time}} 
 					<span style="margin: 1vw 5vw 0px 0px;float: left;">
 						<img class="po_right" src="../../../static/img/Shape.png"/>
@@ -41,25 +44,13 @@ export default {
 	        mydate:"日期选择",
 	        imageUrl:'../../../static/img/Group 3.png',
 			dialogVisible: false,
-			time:'选择最后一次注册时间'
+			time:'选择最后一次注册时间',
+			nowdate:''
 	    }
    },
 	methods:{
 		myimg(){
-			var that = this;
-			window.location.href='#uploadImgByClient?imgNum=3&serverurl=http://192.168.0.37:8000/web-editor-web/public/delivery/uploadByBase64.do';
-			window.uploadImgOver = function(str) {
-				that.imageUrl = JSON.parse(str).data;
-				setTimeout(() => {
-					var times;
-					if (that.time == '选择最后一次注册时间') {
-						times = '已上传'
-					}else{
-						times = that.time
-					}
-					Bus.$emit('myz',times,that.imageUrl)
-				}, 30)
-			}
+			window.location.href='http://222.190.243.8:8080/H5/test.html';
 		},
 	    gettime(){
 			var times = document.getElementById("time").value;
@@ -74,13 +65,49 @@ export default {
 		
 	},
 	created: function() {
-		if(this.$route.params.time != "已上传" && this.$route.params.time != "" && this.$route.params.time != undefined){
+		
+		var that = this;
+		window.uploadImgOver = function(str) {
+			that.imageUrl = JSON.parse(str).data;
+			setTimeout(() => {
+				var times;
+				if (that.time == '选择最后一次注册时间') {
+					times = '已上传'
+				}else{
+					times = that.time
+				}
+				Bus.$emit('myz',times,that.imageUrl)
+			}, 30)
+		}
+		var date_now = new Date();
+		var year = date_now.getFullYear();
+		var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+		var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+		this.nowdate = year+'-'+month+'-'+date;//获取当前年月日 不足10 补0
+
+		if(this.$route.params.time != "已上传" && this.$route.params.time != null && this.$route.params.time != '' && this.$route.params.time != undefined){
 			this.time = this.$route.params.time;
 		}
-		if(this.$route.params.res != ""){
+		if(this.$route.params.res != null && this.$route.params.res != ''){
 			this.imageUrl = this.$route.params.res;
 		}
-	  	//this.imageUrl = this.$route.params.con;
+		//this.imageUrl = this.$route.params.con;
+		  
+
+		  var that = this;
+			var oldUrl = window.location.href;
+			window.uploadImgOver = function(str) {
+				that.imageUrl = JSON.parse(str).data;
+				setTimeout(() => {
+					var times;
+					if (that.time == '选择最后一次注册时间') {
+						times = '已上传'
+					}else{
+						times = that.time
+					}
+					Bus.$emit('myz',times,that.imageUrl)
+				}, 30)
+			}
 	}
 }
 </script>
