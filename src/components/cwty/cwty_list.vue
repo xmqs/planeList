@@ -43,11 +43,11 @@
 				  	<div v-if="list.length == 0" @click.stop="select_pet('猫')" class="kong">
 						<div class="catdiv">
 				  			<img class="catimg" src="../../../static/img/cat.png"/>
-							<div style="margin-top: 10px;font-size: 16px;font-family: PingFangSC-Regular;color: rgba(51,51,51,1);">猫</div>
+							<div style="margin-top: 10px;font-size: 16px;font-family: PingFangSC-Regular;color: rgba(51,51,51,1);    margin-top: -26px;">猫</div>
 						</div>
 						<div @click.stop="select_pet('狗')" class="dogdiv">
 				  			<img class="dogimg" src="../../../static/img/dog.png"/>
-							<div style="margin-top: 10px;font-size: 16px;font-family: PingFangSC-Regular;color: rgba(51,51,51,1);">狗</div>
+							<div style="margin-top: 0px;font-size: 16px;font-family: PingFangSC-Regular;color: rgba(51,51,51,1);">狗</div>
 						</div>
 				  	</div>
 					<div @click="gocwtyInp" style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
@@ -55,7 +55,7 @@
 					</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
-				  	<div v-for="ele in list" v-if="status == 20" class="ele">
+				  	<div v-for="ele in list" v-if="status == 20 || status == 25" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
@@ -71,7 +71,7 @@
 				  			</div>
 				  		</div>
 				  		<div class="ele3">
-			  				<button style="position: relative;" @click="serversId(ele.id)" class="update_b">选择服务<div v-if="ele.status == '20'" class="dot1"></div></button>
+			  				<button style="position: relative;" @click="serversId(ele.id)" class="update_b">选择服务<div v-if="ele.status == '20' || ele.status == '25'" class="dot1"></div></button>
 				  		</div>
 				  	</div> 
 				  	<div v-if="list.length == 0" class="kong">
@@ -193,7 +193,7 @@
 			}
 		},
 		created() {
-			this.login();
+			//this.login();
 			this.gettolits();
 			if (sessionStorage.getItem("active") != null) {
 				this.active = sessionStorage.getItem("active");
@@ -303,7 +303,9 @@
 						type:'PET'
 					}
 				}).then(function(data) {
-					that.count20 = data.data.data[0]['20'];
+					var num1 = data.data.data[0]['20'];
+					var num2 = data.data.data[0]['25'];
+					that.count20 = parseInt(num1) + parseInt(num2);
 					that.count50 = data.data.data[0]['50'];
 					//console.log(data.data.data[0]['20'])
 				})
@@ -534,14 +536,14 @@ color:rgba(102,102,102,1);
 		background: #fff !important;
 	}
 	.catimg{
-		width: 113px;
-		height: 129px;
-		margin-top: 50px;
+width: 40.067vw;
+    height: 40.2vw;
+		margin-top: -4.333vw;
 	}
 	.dogimg{
-		width: 120px;
-		height: 92px;
-		margin-top: 50px;
+    width: 29vw;
+    height: 25.267vw;
+		margin-top:20px;
 	}
 	.selpet{
 		color: #285fb1 !important;

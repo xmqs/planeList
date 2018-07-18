@@ -298,21 +298,21 @@
 					Toast('姓名填写有误')
 					return;
 				}
-            	var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-            	if(!this.ownerTelNo.match(telReg)){
-            		Toast('请输入正确的电话号码')
-					return;
-            	}
+            	// var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+            	// if(!this.ownerTelNo.match(telReg)){
+            	// 	Toast('请输入正确的电话号码')
+				// 	return;
+            	// }
             	var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
            	 	if(!this.ownerIdNo.match(cardIdReg)){
             		Toast('请输入正确的身份证号码')
 					return;
             	}
-           	 	var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
-           	 	if(!this.ownerPassport.match(ownerPassport)){
-			        Toast('护照号码填写有误')
-					return;
-			    }
+           	 	// var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
+           	 	// if(!this.ownerPassport.match(ownerPassport)){
+			    //     Toast('护照号码填写有误')
+				// 	return;
+			    // }
            	 	var homeDelivery;
 				if(this.homeDelivery == false){
 					homeDelivery = 0;
@@ -360,7 +360,7 @@
 						orderNo :that.ids
 					}
 				}).then(function(data) {
-					this.lod = false;
+					that.lod = false;
 					that.packages = data.data.data.packages;
 					that.weight = data.data.data.weight;
 					that.size = data.data.data.size;

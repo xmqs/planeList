@@ -17,9 +17,8 @@
 		  		<div style="margin-top: 11px;" class="ele3">
 		  			<div v-for="(element,index) in lists1" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
-						<div class="yaoqiu">{{element.description}}</div>
 						<div class="allprice">
-							<div v-for="(ele,index) in element.options" v-if="ele.checked != null" class="price">{{ele.title}}</div>
+							<div class="price">￥{{element.price}}元</div>
 						</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
@@ -27,10 +26,6 @@
 						<div class="yaoqiu">根据距离收取相应费用</div>
 						<div class="price">普通￥20</div>
 		  			</div>-->
-		  			<div class="ele2-4">
-						<div class="addr">地址</div>
-						<div class="addr addr1">{{homeAddress}}</div>
-		  			</div>
 		  		</div>
 		  		<div class="ele4">
 		  			其他收费服务
@@ -38,9 +33,8 @@
 		  		<div style="margin-top: 11px;" class="ele3">
 		  			<div v-for="(element,index) in lists2" class="ele2-3">
 						<div class="tishi">{{element.title}}</div>
-						<div class="yaoqiu">{{element.description}}</div>
 						<div class="allprice">
-							<div v-for="(ele,index) in element.options" class="price">{{ele.title}}</div>
+							<div class="price">￥{{element.price}}元</div>
 						</div>
 		  			</div>
 		  			<!--<div class="ele2-3">
@@ -161,10 +155,10 @@ export default {
 		height: 100%;
 	}
 	#overflow{
-		width: 100%;
-	    height: 100%;
-	    overflow-y: auto;
-	    padding-bottom: 15px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 	}
 	.ele2{
 		position: relative;
@@ -173,9 +167,8 @@ export default {
 	    background-color: #fff;
 	}
 	.ele3{
-        padding: 12px 27px 7px 27px;
+        padding: 6px 27px 0px 27px;
 	    background-color: #fff;
-		    padding-bottom: 7vw;
 	}
 	.ele4{
 	width: 100%;
@@ -203,12 +196,13 @@ export default {
 		float: left;
 	}
 	.ele2-3{
-	    width: 100%;
-	    border-bottom: 1px solid #efefef;
-	    margin-bottom: 12px;
-		position: relative;
-height:140px;
-background:rgba(255,255,255,1);
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 1.6vw;
+    position: relative;
+    height: 80px;
+    background: #fff;
+    line-height: 60px;
 	}
 	.ele2-4{    
 		width: 100%;
@@ -216,7 +210,6 @@ background:rgba(255,255,255,1);
 		line-height: 8.2vw;
 		font-size: 4.133vw;
 		color: #333;
-		padding-left: 2vw;
 	}
 	.ele2-2{
 		padding: 7px 7px 7px 17px;
@@ -270,7 +263,7 @@ font-family:PingFangSC;
 color:rgba(51,51,51,1);
 	}
 	.price{
-	    color: #333;
+	    color: #FF0000;
 		    margin-top: 4.8vw;
 	}
 	.addr{
@@ -278,6 +271,7 @@ color:rgba(51,51,51,1);
 	}
 	.addr1{
 		margin-left: 24px;
-		color: #999;
+		color: #999;    width: 85%;
+    text-align: center;
 	}
 </style>

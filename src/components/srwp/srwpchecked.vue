@@ -20,25 +20,27 @@
 		  		</div>
 	  			<div class="ele3">
 	  				<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
-	  					<tr v-for="(element,index) in logistics" v-if="index == 0">
-	  						<td class="ele3-1" style="width: 30%;"><div class="order_time"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan.png"/></td>
+	  					<tr v-for="(element,index) in logistics" v-if="index == 0" :key="index">
+	  						<td class="ele3-1" style="width:30%;"><div class="order_time"><div style="position: absolute;top: 0;left:7px;">{{element.createTime | spilt1}}<br />{{element.createTime | spilt2}}</div></div><img class="yuan" src="../../../static/img/yuan.png"/></td>
 	  						<td style="border-left: 2px dotted rgb(119, 119, 119);">
-	  							<div style="color:#285FB1;font-size:14px;" class="state">{{element.title}}</div>
+	  							<div style="color:#285FB1;font-size:16px;" class="state">{{element.title}}</div>
+	  							<div v-if="element.title == '已托运'" style="color:#285FB1;font-size:14px;" class="state">物品已托运，运单号{{courierNo}}</div>
 	  							<div style="min-height: 60px;border-right: 0px solid #ccc;" class="stateCon">{{element.detail}}
 	  								<div style="margin: 12px 8px;">
-	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  									<img class="petimg" v-for="(ele,index) in element.images" :src="ele" :key="index"/>
 	  								</div>
 	  							</div>
 	  						</td>
 	  					</tr>
 	  					<tr v-else-if="index != 0">
-	  						<td class="ele3-1"><div class="order_time order_time1"><div style="position: absolute;top: 0;">{{element.createTime}}</div></div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
+	  						<td class="ele3-1" style="width: 30%;"><div class="order_time order_time1"><div style="position: absolute;top: 0;left:7px;">{{element.createTime | spilt1}}<br />{{element.createTime | spilt2}}</div></div><img class="yuan" src="../../../static/img/yuan1.png"/></td>
 	  						<td style="border-left: 1px solid #ccc;">
 								<div style="min-height: 82px;">
-								    <div class="state order_time1-1">{{element.title}}</div>
-								    <div class="stateCon order_time1-1">{{element.detail}}</div>
+									<div class="state order_time1-1">{{element.title}}</div>
+	  								<div v-if="element.title == '已托运'" style="font-size:14px;" class="state">物品已托运，运单号：{{courierNo}}</div>
+									<div class="stateCon order_time1-1">{{element.detail}}</div>
 	  								<div style="margin:12px 8px;">
-	  									<img class="petimg" v-for="ele in element.images" :src="ele"/>
+	  									<img class="petimg" v-for="(ele,index) in element.images" :src="ele" :key="index"/>
 	  								</div>
 								</div>
 							</td>
@@ -65,7 +67,8 @@ export default {
 			endCity:'',
 			ownerName:'',
 			startCity:'',
-			createTime:''
+			createTime:'',
+			courierNo:''
 	    }
     },
 	created: function() {
@@ -73,6 +76,16 @@ export default {
 			this.getList();
 			this.getdetails();
 	    }, 100)
+	},
+	filters: {
+		spilt1(res){
+			var time = res.substring(0,10)
+			return time;
+		},
+		spilt2(res){
+			var time = res.substring(11,16)
+			return time;
+		}
 	},
 	methods:{
 		goback(){
@@ -93,6 +106,7 @@ export default {
 			}).then(function(data) {
 				if(data.data.data != null){
 					that.logistics = data.data.data.logistics;
+					that.courierNo = data.data.data.courierNo;
 				}
 			})
 		},
@@ -128,6 +142,9 @@ export default {
 		padding: 0;
 		margin: 0;
 	}
+	p{
+		margin: 7px !important;
+	}
 	#soll{
 		padding: 0;
 		width: 100%;
@@ -141,8 +158,8 @@ export default {
 	    padding-bottom: 15px;
 	}
 	.ele2{
-    height: 21.5vw;
-    padding: 3vw 3.733vw 0 3.733vw;
+		height: 150px;
+        padding: 28px 28px 20px 28px;
 	    background-color: #fff;
 	}
 	.ele3{
@@ -188,27 +205,27 @@ export default {
 	    color: #333;
 	}
 	.ele2-2{
-		padding: 0 7px 7px 17px;
+		padding: 0px 7px 7px 17px;
 	}
 	.pet-name{
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
+		width: 240px;
 		font-size:28px;
-		font-family:PingFangSC-Regular;
-		color:rgba(153,153,153,1);    
-		margin: 1.7vw 0 0 0;
+		font-family:PingFangSC-Medium;
+		color:rgba(153,153,153,1);
 	}
 	.pet-state{
-		margin-top: 0;
-		margin-bottom: 0;
+		font-size:32px;
+		font-family:PingFangSC-Medium;
+		color:#285FB1;
 	}
 	.pet-where{
 	    margin-top: 42px;
 	    font-size:28px;
 		font-family:PingFangSC-Regular;
 		color:rgba(153,153,153,1);
-		margin: 1.7vw 0 0 0;
 	}
 	.pet-time{
 		position: relative;
@@ -246,7 +263,7 @@ export default {
 	.state{
 		padding-left:35px;
 	    text-align: left;
-	    font-size:26px;
+	    font-size:32px;
 		font-family:PingFangSC-Regular;
 		color:rgba(153,153,153,1);
 	}
@@ -255,12 +272,14 @@ export default {
 		padding-top: 2vw;
 	    text-align: left;
 	    color: #285FB1;
-	    font-size: 14px;
+	    font-size: 28px;
 	}
 	.yuan{
     position: absolute;
-    top: .167vw;
+    top: 0vw;
     left: 27vw;
+	width: 36px;
+	height: 36px;
 	}
 	.petimg{
 		width: 120px;

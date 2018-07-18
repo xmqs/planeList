@@ -46,9 +46,9 @@
                 <div class="block">
                     <div style="height: 61px;font-size: 18px;color: #333;border-bottom: 1px solid #f5f5f5;border-top: 10px solid #f5f5f5;line-height: 50px;margin-top: -7px;">
                     <ul>
-                        <li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">货物</li>
-                        <li class="tab" :class="{'mybottom':active === 'tab-container2'}" @click="selectmenu('tab-container2')">人员</li>
-                        <li class="tab" :class="{'mybottom':active === 'tab-container3'}" @click="selectmenu('tab-container3')">运输工具</li>
+                        <li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">进出口货值</li>
+                        <li class="tab" :class="{'mybottom':active === 'tab-container2'}" @click="selectmenu('tab-container2')">出入境人员</li>
+                        <li class="tab" :class="{'mybottom':active === 'tab-container3'}" @click="selectmenu('tab-container3')">运输方式</li>
                     </ul>
                     </div>
                     <el-carousel @change="handleChange" :autoplay="true" :interval="4500" arrow="never">

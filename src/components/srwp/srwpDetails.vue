@@ -11,9 +11,6 @@
 		</div>
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
-			<div class="points1">
-				<p class="">本平台只提供申办渠道，由用户与托运公司双向自由交易， 平台不承担任何纠纷和法律责任，最终解释权归南京市电子 口岸公司所有。建议与投诉电话：025-521637463</p>
-			</div>
 			<div class="points">
 				<span class="">物品信息</span>
 			</div>
@@ -204,28 +201,6 @@
 	*{
 		font-family: PingFangSC;
 	}
-	 @component-namespace page {
-    @component actionsheet {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:first-child {
-          margin-bottom: 20px;
-        }
-      }
-    }
-  }
-	p{
-	    background: #fff5e5;
-	    line-height: 40px;
-	    padding: 15px 12px;
-	    height: 150px;
-	    font-size:26px;
-		font-family:PingFangSC-Regular;
-		color:rgba(255,181,64,1);
-	}
 	#soll{
 	    position: fixed;
 	    width: 100%;
@@ -233,9 +208,9 @@
 	    height: 100%;
 	}
 	.points{
-	    padding: 20px;
+	    padding: 0px 20px;
 	    height: 80px;
-	    line-height: 45px;
+	    line-height: 80px;
 	    background-color: #eee;
 	    font-size:28px;
 		font-family:PingFangSC-Regular;
@@ -245,7 +220,7 @@
 	    margin: 0 20px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 282px;
+	    height: 160px;
 	    line-height: 85px;
 		font-size:32px;
 		font-family:PingFangSC-Regular;
@@ -299,11 +274,10 @@
 		color:#939393;
 	}
 	.pet-img{
-	    position: absolute;
-	    top: 7px;
-	    right: 40px;
-	    width: 64pt;
-	    height: 60pt;
+        position: absolute;
+	    top: 0;
+	    left: 0;
+	    height: 154px;
 	}
 	.po_right{
 		position: absolute;
@@ -330,89 +304,28 @@
 		font-family:PingFangSC-Regular;
 		color:rgba(255,255,255,1);
 	}
-	
-	.avatar-uploader{
-        display: inline;
-	}
-	  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 64pt;
-    height: 64pt;
-    line-height: 64pt;
-    margin-top: 3px;
-    text-align: center;
-    float: right;
-    opacity: 0;
-  }
- .avatar{
-    width: 64pt;
-    height: 64pt;
-    display: block;
-    margin-top: 5px;
-    float: right;
-    margin-right: 18px;
-}
-.downwarp{
-	    position: absolute;
-    right: 45px;
-    top: 30px;
-}
-	.downwarp-progress-s{
-	    display: inline-block;
-		-webkit-transition-property: -webkit-transform;
-	    -webkit-transition-duration: 1s;
-	    -moz-transition-property: -moz-transform;
-	    -moz-transition-duration: 1s;
-	    -webkit-animation: rotate 3s linear infinite;
-	    -moz-animation: rotate 3s linear infinite;
-	    -o-animation: rotate 3s linear infinite;
-	    animation: rotate 3s linear infinite;
-    }
-	/*图片上传*/
-	.avatar-uploader-icon{
-	    font-size: 28px;
-	    color: #8c939d;
-	    width: 80px;
-	    height: 80px;
-	    line-height: 64pt;
-	    text-align: center;
-	    border: 1px solid #ccc;
-	}
-	.avatar{
-        margin: 0 5px 7px 13px;
-    	border: 1px solid #f8f8f8;
-	    width: 80px;
-	    height: 80px;
-	}
-	.el-icon-plus{
-	    position: relative;
-	    top: 0px;
-	    left: 14px;
-	    margin-right: 15px;
-	}
-	.downwarp{
-		margin-top: 45%;
-	}
-	.delect-i{
-		position: absolute;
-	    top: 0px;
-	    right: 3px;
-	    width: 25px;
-	}
-	.item{
-		position: relative;
+	.pet-inf{
 		float: left;
-		padding: 7px;
+	}
+	.pet_name{
+		color: #333;
+   		font-weight: 600;
+   		font-size: 32px;
+	}
+	.pet-inf{
+	    padding: 9px;
+	    margin: 0;
+	    font-size: 15px;
+	    color: #999;
+	}
+	.pet_pz{
+		word-wrap: break-word;
+	}
+	.pet-inf1{
+    position: absolute;
+    left: 23vw;
+    width: 72%;
+        line-height: 46px;
+    font-size: 28px;
 	}
 </style>

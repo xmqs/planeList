@@ -195,25 +195,33 @@
               this.amonth = this.list[index1-1][1];
               this.aday = day
               this.varietys = this.list[index1][0]+"年"+this.list[index1-1][1]+"月"+day+"日";
+          setTimeout(() => {
+              Bus.$emit('riqi', this.varietys)
+          }, 30)
+          this.$router.back(-1)
             }else if(index2 > 3 && day < 14){
               this.ayear = this.list[index1][0];
               this.amonth = this.list[index1+1][1];
               this.aday = day
               this.varietys = this.list[index1][0]+"年"+this.list[index1+1][1]+"月"+day+"日";
+          setTimeout(() => {
+              Bus.$emit('riqi', this.varietys)
+          }, 30)
+          this.$router.back(-1)
             }else {
               this.ayear = this.list[index1][0];
               this.amonth = this.list[index1][1];
               this.aday = day
               this.varietys = this.list[index1][0] + "年" + this.list[index1][1] + "月" + day+"日";
+              setTimeout(() => {
+                  Bus.$emit('riqi', this.varietys)
+              }, 30)
+              this.$router.back(-1)
             }
           }
           this.tapstaic = 0;
           this.tapEY = 0;
           this.tapSY = 0;
-          setTimeout(() => {
-              Bus.$emit('riqi', this.varietys)
-          }, 30)
-          this.$router.back(-1)
         },
         test4(e){
           this.tapstaic++;

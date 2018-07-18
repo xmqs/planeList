@@ -37,6 +37,7 @@
 	  						<td style="border-left: 1px solid #ccc;">
 								<div style="min-height: 82px;">
 									<div class="state order_time1-1">{{element.title}}</div>
+	  								<div v-if="element.title == '已托运'" style="font-size:14px;" class="state">宠物已托运，运单号：{{courierNo}}</div>
 									<div class="stateCon order_time1-1">{{element.detail}}</div>
 	  								<div style="margin:12px 8px;">
 	  									<img class="petimg" v-for="(ele,index) in element.images" :src="ele" :key="index"/>

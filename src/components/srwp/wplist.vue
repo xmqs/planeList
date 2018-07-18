@@ -47,6 +47,7 @@
 </template>
 
 <script>
+	let arr = [];
 	import axios from "axios";
 	import { Toast } from 'mint-ui';
 	import { formatDate } from '../../assets/js/date.js';
@@ -62,7 +63,7 @@
 				price:'',
 				boxNo:'',
 				packages:[],
-				deleteid:9999,
+				deleteid:'',
 			}
 		},
 	    activated() {
@@ -70,6 +71,7 @@
 		},
 		methods: {
 			update(res){
+				console.log(res)
 				this.deleteid = res;
 				var obj = this.packages[res]
 				console.log(this.packages[res])
@@ -81,6 +83,7 @@
 				this.add2 = !this.add2;
 			},
 			add(){
+				this.deleteid = '';
 				this.name = '';
 				this.count = '';
 				this.price = '';
@@ -121,8 +124,11 @@
 				pack.count = this.count;
 				pack.price = this.price;
 				pack.boxNo = this.boxNo;
-				this.packages.splice(this.deleteid, 1);
-				this.packages.push(pack)
+				arr.push(pack)
+				if(this.deleteid != ''){
+					this.packages.splice(this.deleteid, 1);
+				}
+				this.packages = arr;
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
 				setTimeout(() => {

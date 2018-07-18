@@ -268,6 +268,7 @@
 				}
 				var input = document.querySelectorAll('.inps');
 				var label = document.getElementsByTagName('label');
+				this.travelList = [];
 				this.travelList.push(this.travelList1);
 				this.travelList.push(this.travelList2);
 				for(var i =0;i < input.length;i++){
@@ -292,21 +293,21 @@
 					Toast('姓名填写有误')
 					return;
 				}
-            	var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-            	if(!this.ownerTelNo.match(telReg)){
-            		Toast('请输入正确的电话号码')
-					return;
-            	}
+            	// var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+            	// if(!this.ownerTelNo.match(telReg)){
+            	// 	Toast('请输入正确的电话号码')
+				// 	return;
+            	// }
             	var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
            	 	if(!this.ownerIdNo.match(cardIdReg)){
             		Toast('请输入正确的身份证号码')
 					return;
             	}
-           	 	var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
-           	 	if(!this.ownerPassport.match(ownerPassport)){
-			        Toast('护照号码填写有误')
-					return;
-			    }
+           	 	// var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
+           	 	// if(!this.ownerPassport.match(ownerPassport)){
+			    //     Toast('护照号码填写有误')
+				// 	return;
+			    // }
            	 	var homeDelivery;
 				if(this.homeDelivery == false){
 					homeDelivery = 0;
@@ -348,7 +349,7 @@
 				}
 			}
 		},
-		mounted() {
+	    activated() {
 		    Bus.$on('area', (e) => {
 		    	this.endCity = e;
 			})
@@ -363,7 +364,8 @@
 		    // 	}*/
 			// })
 			this.packages = JSON.parse(sessionStorage.getItem('wplist1'));
-			sessionStorage.removeItem('wplist1');
+		},
+		mounted() {
 		},
 		created: function() {
 		},

@@ -13,9 +13,9 @@
 		<div id="con">  
 			<div class="nav">
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交</mt-button>  
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交<div v-if="count20 !=0" class="dot">{{count20}}</div></mt-button>  
 			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container3'}" @click.native.prevent="select_item('tab-container3')">待托运</mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container4'}" @click.native.prevent="select_item('tab-container4')">待评价</mt-button>  
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container4'}" @click.native.prevent="select_item('tab-container4')">待评价<div v-if="count50 !=0" class="dot">{{count50}}</div></mt-button>  
 			</div>
 			<div class="page-tab-container" v-bind:style="{width: widthData}">  
 			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
@@ -57,7 +57,7 @@
 					</router-link>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container2">  
-				  	<div v-for="ele in list" v-if="status == 20" class="ele">
+				  	<div v-for="ele in list" v-if="status == 20 || status == 25" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">已提交</span>
@@ -82,7 +82,7 @@
 						</a>
 				  		<div class="ele3">
 							<a :href ="'/H5/index.html#/srwp/servers/'+ele.id">
-			  					<button class="update_b">选择服务</button>
+			  					<button style="position: relative;" class="update_b">选择服务<div v-if="ele.status == '20' || ele.status == '25'" class="dot1"></div></button>
 			  					<!-- <button @click="serversId(ele.id)" class="update_b">选择服务</button> -->
 							</a>
 				  		</div>
@@ -92,7 +92,7 @@
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">
-				  	<div v-for="ele in list" v-if="status == 30" class="ele">
+				  	<div v-for="ele in list" v-if="status == 40" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">等待托运</span>
@@ -157,10 +157,11 @@
 							</div>
 						</a>
 				  		<div class="ele3">
-							<a :href ="'/H5/index.html#/srwp/srwprate/'+ele.id">	
-			  					<button class="update_b">评价</button>
+							<a v-if="ele.status == '50'" :href ="'/H5/index.html#/srwp/srwprate/'+ele.id">	
+			  					<button style="position: relative;" class="update_b">评价<div class="dot1"></div></button>
 			  					<!-- <p @click="text(ele.id)" class="update_b">评价</p> -->
 							</a>
+			  				<p v-if="ele.status == '60'" class="update_b">已评价</p>
 							<a :href ="'/H5/index.html#/srwp/srwpchecked/'+ele.id">
 			  					<button style="border-color: #999;color: #333;" class="update_b">托运详情</button>
 			  					<!-- <p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p> -->
@@ -192,7 +193,10 @@
 				widthData:0,
 				status:10,
 				list:[],
-				lod:true
+				lod:true,
+				count50:'',
+				count20:'',
+				petselect:''
 			}
 		},  
 	    components: {  
@@ -213,7 +217,7 @@
 				} else if (newValue == 'tab-container2'){
 					this.status = 20;
 				} else if (newValue == 'tab-container3'){
-					this.status = 30;
+					this.status = 40;
 				} else if (newValue == 'tab-container4'){
 					this.status = 50;
 				}
@@ -223,6 +227,7 @@
 		},
 		created() {
 			this.login();
+			this.gettolits();
 			if (sessionStorage.getItem("active") != null) {
 				this.active = sessionStorage.getItem("active");
 				sessionStorage.removeItem("active");
@@ -232,13 +237,14 @@
 			} else if (this.active == 'tab-container2'){
 				this.status = 20;
 			} else if (this.active == 'tab-container3'){
-				this.status = 30;
+				this.status = 40;
 			} else if (this.active == 'tab-container4'){
 				this.status = 50;
 			}
 			setTimeout(() => {
 				this.getList();
 			}, 500)
+			sessionStorage.removeItem('wplist1');
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
@@ -262,6 +268,20 @@
 					success: function(data1) {
 						
 					}
+				})
+			},
+			gettolits(){
+				var that = this;
+				axios.get('/eport-server/delivery/getOrderCountByStatus.do', {
+					params: {
+						type:'LUGGAGE'
+					}
+				}).then(function(data) {
+					var num1 = data.data.data[0]['20'];
+					var num2 = data.data.data[0]['25'];
+					that.count20 = parseInt(num1) + parseInt(num2);
+					that.count50 = data.data.data[0]['50'];
+					//console.log(data.data.data[0]['20'])
 				})
 			},
 			bus (res) {
@@ -483,4 +503,33 @@ color:rgba(102,102,102,1);
 		font-family:PingFangSC-Regular;
 		color:rgba(40,95,177,1);
 	}
+	.dot{
+    position: absolute;
+    top:8px;
+    margin-left: 75%;
+	width: 4vw;
+    height: 4vw;
+    border: 1px solid #de0909;
+    position: absolute;
+    border-radius: 50%;
+    line-height: 3.5vw;
+    font-size: 22px;
+    color: #de0909;
+    background: #fff;
+    text-align: center;
+	}
+	.dot1{
+		width: 1.6vw;
+    height: 1.6vw;
+    background: red;
+    position: absolute;
+    top: -0.8vw;
+    right: -2.5px;
+    border-radius: 50%;
+	}
+</style>
+<style>
+.mint-button:after {
+    background-color: #fff !important;
+}
 </style>
