@@ -309,7 +309,7 @@
                     }else{
                         flag = true;
                     }
-				}, 1000)
+				}, 200)
             }else{
                 this.getlist();
                 this.getmessage();
@@ -659,7 +659,7 @@
                 // .catch(function(err){
                 //     Toast('网络出错')
                 // });
-                    
+                sessionStorage.setItem('liebiao1',new Date)
                 axios.get('/eport-server/index/menu/query.do?channel=MYNJ', {
                     // params:{
                     //     channel:'MYNJ',
@@ -667,6 +667,7 @@
                     //     menuType:'菜单',
                     // }
                 }).then(function(res) {
+                sessionStorage.setItem('liebiao2',new Date)
                     _that.imageMenuList = [];
                     _that.imageMenuList = res.data.data.imageMenuList
                     _that.menuList = [];
@@ -954,6 +955,7 @@ color:rgba(51,51,51,1);
     margin: 0px auto;
     position: relative;
     margin-bottom: 18px;
+    background: #fff;
   }
   #test1 {
     width: 100%;
@@ -961,6 +963,7 @@ color:rgba(51,51,51,1);
     margin: 0 auto;
     position: relative;
     margin-bottom: 18px;
+    background: #fff;
   }
   #test2 {
     width: 100%;
@@ -968,6 +971,7 @@ color:rgba(51,51,51,1);
     margin: 0 auto;
     position: relative;
     margin-bottom: 18px;
+    background: #fff;
   }
   .topway{
     padding: 1.867vw 0;
