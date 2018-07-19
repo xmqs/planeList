@@ -32,7 +32,7 @@
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
 			<div class="ele">
-				<label class="tit">总重量(kg)</label>
+				<label class="tit">总重量(千克)</label>
 				<input class="inps" type="number" placeholder="请输入物品总重量" v-model="weight" />
 			</div>
 			<div @click="cage(size)" class="ele">
@@ -52,47 +52,25 @@
 				</router-link>
 			</div>
 			<div class="ele1">
-				<label class="tit">大件物品照片上传</label>
-				<el-upload
-				  class="avatar-uploader1"
-				  action="/web-editor-web/public/upload/upload.do"
-				  :show-file-list="false"
-				  :before-upload="handbefore"
-				  :on-error="handleAvatarError"
-				  :on-success="handleAvatarSuccess">
-				  <img class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-				  <div v-for="(ele,index) in bigPackageList" v-if="bigPackageList" class="item">
-					  <img :src="ele" class="avatar">
-					  <img @click.stop="deleteImg(index)" :id="index" src="../../../static/img/shanchu.png" class="delect-i">
-				  </div>
-				</el-upload>
+				<span class="tit">大件物品照片上传</span>
+				<div>
+					<img @click="myimg(1)" class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
+					<div v-for="(ele,index) in bigPackageList" v-if="bigPackageList" class="item" :key="index">
+						<img :src="ele" class="avatar">
+						<img @click.stop="deleteImg(index)" :id="index" src="../../../static/img/shanchu.png" class="delect-i">
+					</div>
+				</div>
 			</div>
 			<div class="ele2">
-				<label class="tit">电子机票行程单</label>
+				<span class="tit">电子机票行程单</span>
 				<div>
-					<el-upload
-					  class="avatar-uploader"
-					  action="/web-editor-web/public/upload/upload.do"
-					  :show-file-list="false"
-					  :before-upload="handbefore1"
-					  :on-error="handleAvatarError"
-					  :on-success="handleAvatarSuccess1">
-					  <img v-if="travelList1" :src="travelList1" class="avatar">
-					  <img v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-					</el-upload>
-					<el-upload
-					  class="avatar-uploader"
-					  action="/web-editor-web/public/upload/upload.do"
-					  :show-file-list="false"
-					  :before-upload="handbefore2"
-					  :on-error="handleAvatarError"
-					  :on-success="handleAvatarSuccess2">
-					  <img v-if="travelList2" style="margin-left: 34px;" :src="travelList2" class="avatar">
-					  <img v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-					</el-upload>
+					<img v-if="travelList1" :src="travelList1" class="item el-icon-plus">
+					<img @click="myimg(2)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
+					<img v-if="travelList2" :src="travelList2" class="item el-icon-plus">
+					<img @click="myimg(3)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
 				</div>
-				<div style="margin-top: -20px;">
-					<span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正面&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;反面</span>
+				<div style="margin-top: 88px;height: 29px;line-height: 25px;">
+					<span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正面&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;反面</span>
 				</div>
 			</div>
 			<div class="points">
@@ -180,6 +158,7 @@
 	    beforeRouteLeave(to, from, next) {
 	        // 设置下一个路由的 meta
 	        if(to.name == 'srwp_list'){
+				sessionStorage.removeItem('wplist1');
         		to.meta.keepAlive = false;
         		from.meta.keepAlive = false;
 	        }else{
@@ -200,6 +179,24 @@
 			// 	location.reload();
 			// },
 			//图片上传
+			myimg(res){
+				var oldUrl = window.location.href;
+				window.location.href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+				//e.preventdefault();
+				//this.$router.push({oldUrl})
+				var that = this;
+				window.uploadImgOver = function(str) {
+					//that.imageUrl = JSON.parse(str).data;
+					if(res == 1){
+						that.bigPackageList.push(JSON.parse(str).data);
+					}else if(res == 2){
+		        		that.travelList1 = JSON.parse(str).data;
+					}else if(res == 3){
+		        		that.travelList2 = JSON.parse(str).data;
+					}
+				}
+				window.location.href = oldUrl;
+			},
 			cage(res){
 				this.$router.push({name: 'boxsize',
 					params:{ 

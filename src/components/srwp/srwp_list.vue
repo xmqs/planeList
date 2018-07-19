@@ -49,6 +49,7 @@
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无申报订单</div>
 				  	</div>
 				  	<router-link :to="{path: '/srwp/srwp_inp'}">
 						<div style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
@@ -89,6 +90,7 @@
 				  	</div> 
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无提交订单</div>
 				  	</div>
 				</mt-tab-container-item>  
 				<mt-tab-container-item id="tab-container3">
@@ -129,6 +131,7 @@
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无托运订单</div>
 				  	</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container4">  
@@ -171,6 +174,7 @@
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
+						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无评价订单</div>
 				  	</div>
 				</mt-tab-container-item>  
 			  </mt-tab-container>  
@@ -244,7 +248,6 @@
 			setTimeout(() => {
 				this.getList();
 			}, 500)
-			sessionStorage.removeItem('wplist1');
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
