@@ -43,7 +43,7 @@
                 </div>
                 
                 
-                <div class="block">
+                <div id="io" class="block">
                     <div style="height: 61px;font-size: 18px;color: #333;border-bottom: 1px solid #f5f5f5;border-top: 10px solid #f5f5f5;line-height: 50px;margin-top: -7px;">
                     <ul>
                         <li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">进出口货值</li>
@@ -54,6 +54,7 @@
                     <el-carousel @change="handleChange" :autoplay="true" :interval="4500" arrow="never">
                     <el-carousel-item>
                         <!-- 统计图1 -->
+                        <div :id="id" :option="option"></div>
                         <div @click="godetails('tab1')">
                             <div class="quantum"><span>进出口货物量（万吨）-{{fmonth}}月</span><span class="numbers">总量{{freightTotalNum}}</span></div>
                             <div class="topway">
@@ -79,10 +80,10 @@
                                     </div>
                             </div>
                         </div>
-                        <div :id="id" :option="option"></div>
                     </el-carousel-item>
                     <el-carousel-item>
                         <!-- 统计图2 -->
+                        <div :id="id1" :option="option1"></div>
                         <div @click="godetails('tab2')">
                             <div class="quantum"><span>出入境人员总数（万人次）-{{pmonth}}月</span><span class="numbers">总量{{personTotalNum}}</span></div>
                             <div class="topway">
@@ -98,10 +99,10 @@
                                     </div>
                             </div>
                         </div>
-                        <div :id="id1" :option="option1"></div>
                     </el-carousel-item>
                     <el-carousel-item>
                         <!-- 统计图3 -->
+                        <div :id="id2" :option="option2"></div>
                         <div @click="godetails('tab3')">
                             <div class="quantum"><span>进出境运输工具（辆艘）-{{tmonth}}月</span><span class="numbers">总量{{transTotalNum}}</span></div>
                             <div class="topway">
@@ -117,7 +118,6 @@
                                     </div>
                             </div>
                         </div>
-                        <div :id="id2" :option="option2"></div>
                     </el-carousel-item>
                 </el-carousel>
                 </div>
@@ -230,38 +230,37 @@
                 },
                 pageList:[],
                 imageMenuList:[],
-                        menuList:[],
-                        active:'tab-container1',
-                        //图表
-                        id: '',
-                        option: {},
-                        //货物
-                        freightTotalNum:'',
-                        airFreight:'',
-                        waterFreight:'',
-                        transFreight:'',
-                        roadFreight:'',
-                        fdataarr:[],
-                        fcountarr:[],
-                   fmonth:'',
-                        //人员
-                        personTotalNum:'',
-                        personWaterCount:'',
-                        personAirCount:'',
-                        pdataarr:[],
-                        pcountarr:[],
-                        pmonth:'',
-                        //运输工具
-                        transTotalNum:'',
-                        transShipCount:'',
-                        transAirCount:'',
-                        tdataarr:[],
-                        tcountarr:[],
-                        tmonth:'',
+                menuList:[],
+                active:'tab-container1',
+                //图表
+                id: '',
+                option: {},
+                //货物
+                freightTotalNum:'',
+                airFreight:'',
+                waterFreight:'',
+                transFreight:'',
+                roadFreight:'',
+                fdataarr:[],
+                fcountarr:[],
+                fmonth:'',
+                //人员
+                personTotalNum:'',
+                personWaterCount:'',
+                personAirCount:'',
+                pdataarr:[],
+                pcountarr:[],
+                pmonth:'',
+                //运输工具
+                transTotalNum:'',
+                transShipCount:'',
+                transAirCount:'',
+                tdataarr:[],
+                tcountarr:[],
+                tmonth:'',
+                startx:'',
+                endx:'',
             }
-        },
-        watch: {
- 
         },
         filters: {
             formatDate(time) {
@@ -277,7 +276,26 @@
                     sessionStorage.setItem('isGuest', 'no')
                     console.log('no')
             }
+            // var el = document.getElementById('io');
+            // console.log(el)
+            // var that = this;
+            // el.addEventListener('touchstart', function (e) {
+            // var touch = e.changedTouches;  
+            // that.startx = touch[0].clientX;  
+            // that.starty = touch[0].clientY;  
+            // });  
+            // el.addEventListener('touchend', function (e) {  
+            //     var touch = e.changedTouches;  
+            //     that.endx = touch[0].clientX;  
+            //     that.endy = touch[0].clientY;  
+            //     that.myclient();
+            // });  
             //auth.getAccessToken({appId:"elecPort"});
+        },
+        watch: {
+            active: function(newValue) {
+                
+            }
         },
         created() {
             var flag = true;
@@ -301,6 +319,25 @@
             }
         },
         methods: {
+            myclient(){
+                if (this.startx > this.endx && this.startx-this.endx > 100) {  //判断左右移动程序  
+                    if(this.active == 'tab-container1'){
+                        this.handleChange(1);
+                    }else if(this.active == 'tab-container2'){
+                        this.handleChange(2);
+                    }else if(this.active == 'tab-container3'){
+                        
+                    }
+                } else if (this.startx < this.endx && this.endx-this.startx > 100){
+                    if(this.active == 'tab-container1'){
+                        
+                    }else if(this.active == 'tab-container2'){
+                        this.handleChange(0);
+                    }else if(this.active == 'tab-container3'){
+                        this.handleChange(1);
+                    }
+                }  
+            },
             getall(){
                 this.getlist();
                 this.getmessage();
@@ -309,6 +346,7 @@
                 this.showData2();
             },
             handleChange(res){
+                console.log(1)
                 if (res == 0) {
                     this.active = 'tab-container1';
                 } else if (res == 1){
@@ -699,8 +737,9 @@
         line-break: 51px;
         margin: 0 5%;
         color: #666666;
-        font-size:32px;
-font-family:PingFangSC-Regular;
+        font-size:26px;
+        white-space:normal;
+        font-family:PingFangSC-Regular;
     }
     .ele{
     width: 100%;

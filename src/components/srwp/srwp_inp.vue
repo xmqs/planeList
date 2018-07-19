@@ -349,6 +349,31 @@
 				}
 			}
 		},
+        beforeRouteLeave(to,from,next){
+			if (to.name == "srwp_list"){
+				this.packages = [];
+				this.weight = "";
+				this.size = '';
+				this.startCity = "";
+				this.endCity = '';
+				this.ownerName = "";
+				this.ownerIdNo = '';
+				this.ownerPassport = "";
+				this.homeAddress = '';
+				this.homeDelivery = "";
+				this.ownerTelNo = '';
+				this.bigPackageList = [];
+				this.travelList = [];
+				this.travelList1 = '';
+				this.travelList2 = '';
+				this.homeDelivery = false;
+				this.switch1 = false;
+				this.addr = false;
+			}else{
+				from.meta.keepAlive = true;
+			}
+			next();
+        },
 	    activated() {
 		    Bus.$on('area', (e) => {
 		    	this.endCity = e;

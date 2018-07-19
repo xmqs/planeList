@@ -487,6 +487,39 @@
 				this.varietys = this.$route.params.selpet;
 			}
 		},
+        beforeRouteLeave(to,from,next){
+			if (to.name == "cwty_list"){
+				this.area = '';
+				this.riqi = "";
+				this.sfxysmfu = '';
+				this.dz = "";
+				this.sfzh = '';
+				this.zrxm = "";
+				this.hzxx = '';
+				this.lxfs = "";
+				this.cwnl = '';
+				this.cwpz = "";
+				this.sfblgz = '';
+				this.xfzrxp = "";
+				this.cwmz = '';
+				this.imageUrl = "../../../static/img/Group 3.png";
+				this.sizes = '';
+				this.varietys = "";
+				this.myz = '';
+				this.myz1 = "";
+				this.cwzl = '';
+				this.fhd = "";
+				this.sizes1 = "";
+				this.jpxx = "";
+				this.chip = "";
+				this.switch1 = false;
+				this.smfw = false;
+				this.addr = false;
+			}else{
+				from.meta.keepAlive = true;
+			}
+			next();
+        },
 		created: function() {
 			var that = this;
 			var userinfo = sessionStorage.getItem('userifo');
