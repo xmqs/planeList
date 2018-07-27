@@ -161,8 +161,6 @@
 	    components: {
 	      'v-loadmore':Loadmore  // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
 	    },
-		watch: {
-		},
 		filters: {
 
 		},
@@ -227,7 +225,6 @@
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
         if(isAndroid){
-      //TODO Android跳转
           var userinfo = sessionStorage.getItem('userifo');
           if(userinfo != null){
             userinfo = JSON.parse(userinfo);
@@ -260,7 +257,6 @@
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if(isAndroid){
-          //TODO Android跳转
 
 
           var userinfo = sessionStorage.getItem('userifo');

@@ -3,7 +3,6 @@
 .header {
 	z-index: 9990;
 	position: fixed;
-	/*top:0;TODO*/
 	top:45px;
 	left: 0;
 	width: 100%;
@@ -71,7 +70,6 @@
 /*列表*/
 .swiper-container {
 	position: fixed;
-	/*top:36px;TODO*/
 	top:81px;
 	left: 0;
 	right: 0;
@@ -149,7 +147,6 @@
 .recommend{
 	z-index: 9900;
     position: fixed;
-    /*top:36px;TODO*/
     top:81px;
     left: 0;
     width: 100%;

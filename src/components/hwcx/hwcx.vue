@@ -104,8 +104,11 @@
 				</transition>
 			</div>
 			<div v-else-if="status == 1 && flag == 2">
+
 				<ul v-show="showhistry0" class="myhistrys">
-					<p style="padding-left: 4vw;margin-bottom: 3vw;margin-top: 14px;height: 7vw;">历史记录</p>
+          <a style="display:block;padding-left: 4vw;margin-bottom: 3vw;margin-top: 16px;height: 7vw;" href="tel:025-69820886">服务电话：025-69820886</a>
+					<p style="padding-left: 4vw;margin-bottom: 3vw;margin-top: 6px;height: 7vw;">历史记录</p>
+
 					<li @click="getarr0(ele)" v-for="(ele,index) in myhistry0" :key="index" class="myhistrylist">
 						<div v-if="index % 2 ==0" style="background:#f5f5f5;padding-left: 4vw;">
 							<span>{{ele | strs}}</span><span style="float:right;margin-right: 6vw;">{{ele | strs1}}</span>
@@ -256,7 +259,7 @@
 					axios.post("/eport-server/airFreight/getAirFreight.do", {
 						awbNumber:this.dingdanhao,
 						awbType:this.active
-					}).then((res) => {		
+					}).then((res) => {
 						if(res.status == 200) {
 							this.status = 0;
 							this.list = res.data.data;
@@ -268,7 +271,7 @@
 									if(JSON.parse(localStorage.getItem('histry')) != null){
 										this.histrylist = JSON.parse(localStorage.getItem('histry'));
 									}
-									
+
 									if (JSON.stringify(this.histrylist).indexOf(this.idNumber) != -1) {
 										for (let i = 0; i < this.histrylist.length; i++) {
 											if (JSON.stringify(this.histrylist[i].histry).indexOf(this.dingdanhao) == -1) {
@@ -288,7 +291,7 @@
 											histry:arr
 										})
 									}
-									
+
 									localStorage.setItem('histry',JSON.stringify(this.histrylist));
 									console.log(JSON.stringify(this.histrylist))
 									this.flag = 0;
@@ -303,7 +306,7 @@
 						}else{
 							Toast("查询失败");
 						}
-					}, (res) => {							
+					}, (res) => {
 					});
 				}
 			},
@@ -524,7 +527,7 @@ padding: 1.5% 4% 0;
 		    list-style: none;
     height: 10vw;
     line-height: 10vw;
-	    
+
 	}
 </style>
 <style type="text/css">

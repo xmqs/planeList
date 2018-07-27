@@ -332,7 +332,7 @@
             axios.post('/web-editor-web/channel/save.do',list3, {
             })
               .then(function (response) {
-                
+
               })
               .catch(function(err){
                 Toast('网络出错')
@@ -644,7 +644,6 @@
   .header {
     z-index: 9990;
     position: fixed;
-    /*top:0;TODO*/
     top: 88px;
     left: 0;
     width: 100%;

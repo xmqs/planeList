@@ -28,7 +28,10 @@
 			</div>
 			<div class="ele">
 				<label class="tit">免疫证</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" />
+        <!--TODO 免疫证照片-->
+        <img :src="imgUrl" alt="">
+
+				<!--<input readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" />-->
 			</div>
 			<div class="ele">
 				<label class="tit">发货地</label>
@@ -103,14 +106,14 @@
 				cwpz:"",
 				sfxy:"",
 				jpxx:'',
-
+        imgUrl:"",
 				list:[],
 				ids:"",
 				lod:true
 			}
 		},
 	    activated() {
-	    	
+
 		},
 		methods: {
 			goback(){
@@ -168,7 +171,7 @@
 		created: function() {
 		},
 		filters: {
-			
+
 		}
 	}
 </script>

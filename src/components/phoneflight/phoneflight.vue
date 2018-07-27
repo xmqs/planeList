@@ -7,6 +7,8 @@
     3、旅客直接通过安检应持有<span class="fwb">电子二维码</span>，必须提前<span class="fwb">60分钟</span>通过安检。
     <br>
     4、目前，手机值机支持<span class="fwb">国内航线</span>绝大部分航班，<span class="fwb">不含不包括不支持</span>9C春秋航空及AQ九元航空的航班。
+    <br>
+    服务电话：<a href="tel:025-968890">025-968890</a>
     <div class="zjbutton" @click="token()">我已阅读以上内容，开始值机</div>
   </div>
 </template>
