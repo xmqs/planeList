@@ -3,8 +3,8 @@
 <template>
   <div class="block">
 	  <ul>
-					<li class="tab">货物</li>
-					<li class="tab">人员</li>
+					<li class="tab">进出口货物</li>
+					<li class="tab">出入境人员</li>
 					<li class="tab">运输工具</li>
 				</ul>
      <el-carousel :autoplay="true" :interval="5000" arrow="never">
@@ -16,7 +16,7 @@
 </template>
 </div>
 </template>
- 
+
 <script>
  export default {
   data () {
@@ -36,7 +36,7 @@
   .el-carousel__item:nth-child(2n) {
      background-color: #99a9bf;
   }
-  
+
   .el-carousel__item:nth-child(2n+1) {
      background-color: #d3dce6;
   }

@@ -51,7 +51,7 @@
                 <p>{{list.FlightTerminalID}}</p>
               </div>
               <div v-if=list.GateID>
-                <p>航站楼</p>
+                <p>登机口</p>
                 <p>{{list.GateID}}</p>
               </div>
               <div v-if=list.BaggageReclaimID>

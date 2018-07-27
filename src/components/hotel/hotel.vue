@@ -36,10 +36,11 @@
 						<p style="width: 100%;text-align: left;padding: 3px 0 16px 0;">
 						品尝高品质铂尔曼Vinoteca红酒，享用铂尔曼咖啡和茗茶，以及铂尔曼Tapastry小食艺术。这里的作为商务会谈或休闲放松的绝佳场所，可与朋友们在这里放松心情，尽享惬意。</p>
 						<img src="../../../static/hotelImg/h7.png"/>
+						<img src="../../../static/hotelImg/h8.png"/>
 						<p style="width: 100%;text-align: center;padding: 3px 0 3px 0;font-size: 3.6vw;">健身中心</p>
 						<p style="width: 100%;text-align: left;padding: 3px 0 16px 0;">
 						在两场合同签订会议之间，在颠倒时差之后，铂尔曼健身就是这个问题的最佳答案。找到属于自己的时间，让身心全面充电，重展活力与舒体均衡。按自己的意愿，尽享舒畅时光。</p>
-						<img src="../../../static/hotelImg/h8.png"/>
+						<img src="../../../static/hotelImg/h9.png"/>
 						<p style="width: 100%;text-align: center;padding: 3px 0 3px 0;font-size: 3.6vw;">水疗中心</p>
 						<p style="width: 100%;text-align: left;padding: 3px 0 16px 0;">
 						谁说工作与休闲不可同时兼顾？水疗中心提供多项美容护肤、身体按摩项目，创造熟悉美妙的体验。</p>
@@ -105,7 +106,7 @@
 			},
 			more(){
 				//document.getElementById("contt").style.animation = "mynewmove 4s 2";
-				document.getElementById("contt").style.height='3511px';
+				document.getElementById("contt").style.height='3680px';
 				setTimeout(()=>{
 					this.clamp = !this.clamp;
 					this.mores = false;
@@ -120,7 +121,8 @@
 				},1000);
 			},
 			godetails(res){
-				window.location.href='http://localhost:9900/#/kaxw/kaxw_list/news_tuijian/0';
+        window.location.href = res;
+				//window.location.href='http://localhost:9900/#/kaxw/kaxw_list/news_tuijian/0';
 			}
 		},
 		mounted() {
@@ -140,7 +142,7 @@
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	*{
 	  -webkit-overflow-scrolling: touch;
 	  font-family: PingFangSC;
@@ -199,7 +201,6 @@
 	    line-height: 2;
 	    overflow : hidden;
 		text-overflow: ellipsis;
-		display: -webkit-box;
 		-webkit-box-orient: vertical;
 	}
 	.clamp{

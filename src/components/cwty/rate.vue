@@ -58,8 +58,8 @@
 						detail:that.texts,
 						orderno:that.ids,
 						score:that.value3
-				}).then((res) => {		
-					if(res.status == 200) {	
+				}).then((res) => {
+					if(res.status == 200) {
 				    setTimeout(() => {
 							that.$router.push({path: '/cwty/cwty_list/'+'tab-container4'})
 				    },2000)
@@ -102,7 +102,7 @@
 		-webkit-appearance: none;
 	}
 	#rate{
-		
+
 	}
 	#ele{
 		width: 100%;
@@ -111,7 +111,7 @@
     background: #F5F5F5;
 	}
   .ele{
-  	
+
   }
   .ele1{
   	float: left;

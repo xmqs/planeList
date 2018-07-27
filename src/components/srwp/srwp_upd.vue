@@ -167,12 +167,12 @@
 	        next();
 	    },
 	    activated() {
-			
+
 		},
 		methods: {
 			// goback(){
 			// 	this.$router.push({name: 'srwp_list',
-			// 		params:{ 
+			// 		params:{
 			// 			res:'tab-container1'
 			// 		}
 			// 	})
@@ -199,7 +199,7 @@
 			},
 			cage(res){
 				this.$router.push({name: 'boxsize',
-					params:{ 
+					params:{
 						sizes:res
 					}
 				})
@@ -211,13 +211,13 @@
 		        this.bigPackageList.push(res.data);
 		    },
 		    handbefore(){
-		    	
+
 		    },
 			handleAvatarSuccess1(res, file) {
 		        this.travelList1 = res.data;
 		    },
 		    handbefore1(){
-		    	
+
 			},
 			handleAvatarError(err, file, fileList){
 				Toast("上传失败");
@@ -226,7 +226,7 @@
 		        this.travelList2 = res.data;
 		    },
 		    handbefore2(){
-		    	
+
 		    },
 			fhd1(){
 				this.startCity = '北京'
@@ -290,7 +290,7 @@
 					check = false;
 					return;
 				}
-				var regName =/^[\u4e00-\u9fa5]{2,4}$/; 
+				var regName =/^[\u4e00-\u9fa5]{2,4}$/;
 				if(!this.ownerName.match(cardIdReg)){
 					Toast('姓名填写有误')
 					return;
@@ -332,12 +332,12 @@
 						ownerTelNo:this.ownerTelNo,
 						bigPackageList:this.bigPackageList,
 						travelList:this.travelList,
-					}).then((res) => {		
-						if(res.status == 200) {	
+					}).then((res) => {
+						if(res.status == 200) {
 							Toast("申报成功");
 							setTimeout(()=>{
 								// this.$router.push({name: 'srwp_list',
-								// 	params:{ 
+								// 	params:{
 								// 		res:'tab-container1'
 								// 	}
 								// })
@@ -346,7 +346,7 @@
 						}else{
 							Toast("申报失败");
 						}
-					}, (res) => {							
+					}, (res) => {
 					});
 				}
 			},
@@ -408,7 +408,7 @@
 		    },100)
 		},
 		filters: {
-			
+
 		}
 	}
 </script>

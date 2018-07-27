@@ -275,6 +275,7 @@
           });
         },
         toplaneDetail(res){
+          //this.$router.go('/flight/planeDetail/'+res.FlightIdentity+'/'+res.FlightDirection+'/'+res.ServiceType);
           this.$router.push({path:'/flight/planeDetail/'+res.FlightIdentity+'/'+res.FlightDirection+'/'+res.ServiceType});
         },
         changefocus(num){

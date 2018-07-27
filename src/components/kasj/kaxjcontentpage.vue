@@ -2,12 +2,12 @@
 	<div id="kaxjcontentpage" class="hairsplines">
 		<child ref="whateverName"></child>
 		<div class="allkasjele">
-			<div @click="checkkasj('tab1')" :class="{'kasjstyle':active == 'tab1'}" class="kasjele">货物</div>
-			<div @click="checkkasj('tab2')" :class="{'kasjstyle':active == 'tab2'}" class="kasjele">人员</div>
+			<div @click="checkkasj('tab1')" :class="{'kasjstyle':active == 'tab1'}" class="kasjele">进出口货物</div>
+			<div @click="checkkasj('tab2')" :class="{'kasjstyle':active == 'tab2'}" class="kasjele">出入境人员</div>
 			<div @click="checkkasj('tab3')" :class="{'kasjstyle':active == 'tab3'}" class="kasjele">运输工具</div>
 		</div>
-		<div class="page-tab-container">  
-			<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
+		<div class="page-tab-container">
+			<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
 				<mt-tab-container-item id="tab1">
 					<div class="selectSearch">
 						<div @click="isshowmyoption" class="optiontitle">{{optiontitle1}}<a class="sanjiao"></a></div>
@@ -62,7 +62,7 @@
 						<div :id="id" :option="option">
 						</div>
 							<div class="allcost" style="height: 17%;width: 29%;bottom: 33.8vw;"><p style="width:95%;font-size: 11px;text-align: center;margin-top: 30%;margin-left: 3px;color: #f9e1e1;">进出口货物总量{{totalNum}}万吨</p></div>
-						
+
 					</div>
 					<div class="aa" v-show="element != 1">
 						<div class="message">
@@ -81,7 +81,7 @@
 								<div v-else class="messline" style="color:#72B478">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
-								<div class="messline">总计</div>
+								<div class="messline">合计</div>
 								<div class="messline">{{allnum}}</div>
 								<div v-if="allPercent < 0" class="messline" style="color:#FF801A">{{allPercent}}</div>
 								<div v-else-if="allPercent == '--'" class="messline">{{allPercent}}</div>
@@ -90,7 +90,7 @@
 						</div>
 						<div :id="id1" :option="option2"></div>
 					</div>
-				</mt-tab-container-item>  
+				</mt-tab-container-item>
 
 				<mt-tab-container-item id="tab2">
 					<div class="selectSearch">
@@ -148,7 +148,7 @@
 								<div v-else class="messline" style="color:#72B478">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
-								<div class="messline">总计</div>
+								<div class="messline">合计</div>
 								<div class="messline">{{allnum}}</div>
 								<div v-if="allPercent < 0" class="messline" style="color:#FF801A">{{allPercent}}</div>
 								<div v-else-if="allPercent == '--'" class="messline">{{allPercent}}</div>
@@ -157,7 +157,7 @@
 						</div>
 						<div :id="rid1" :option="roption2"></div>
 					</div>
-				</mt-tab-container-item>  
+				</mt-tab-container-item>
 
 				<mt-tab-container-item id="tab3">
 					<div class="selectSearch">
@@ -217,7 +217,7 @@
 								<div v-else class="messline" style="color:#72B478">{{ele.percent}}</div>
 							</div>
 							<div class="messcol">
-								<div class="messline">总计</div>
+								<div class="messline">合计</div>
 								<div class="messline">{{allnum}}</div>
 								<div v-if="allPercent < 0" class="messline" style="color:#FF801A">{{allPercent}}</div>
 								<div v-else-if="allPercent == '--'" class="messline">{{allPercent}}</div>
@@ -226,7 +226,7 @@
 						</div>
 						<div :id="yid1" :option="yoption2"></div>
 					</div>
-				</mt-tab-container-item>  
+				</mt-tab-container-item>
 			</mt-tab-container>
 			<!-- 日期选择 -->
 			<div v-show="myrili">
@@ -237,7 +237,7 @@
 				<div class="controldata" id="soll">
 					<div  v-for="(year,yearIndex) in years" :key="yearIndex">
 						<div class="MyYear month">{{year.year}}</div>
-						<p v-for="(mon,monthIndex) in year.months" @click="select(year.year,mon.month,yearIndex,monthIndex)" 
+						<p v-for="(mon,monthIndex) in year.months" @click="select(year.year,mon.month,yearIndex,monthIndex)"
 							class="month" :class="mon.slected ? 'selected' : ''" :key="monthIndex">
 							{{mon.month}}月<span class="begin_end" v-show="mon.start"><br /></span><span class="begin_end" v-show="mon.end"><br /></span>
 						</p>
@@ -248,7 +248,7 @@
 			<div class="isrili" @click="isrili">
 				{{myselsetdata}}<span style="color: #fff;font-size: 3vw;position: relative;top: -1px;right: -4px;">▲</span>
 			</div>
-			</div> 
+			</div>
 	</div>
 </template>
 
@@ -371,7 +371,7 @@
 				airPercent:'',
 				waterCount:'',
 				waterPercent:'',
-				
+
 				shipCount:'',
 				shipPercent:'',
 				//all
@@ -419,7 +419,7 @@
 					this.startDate = this.selectedMonths[0];
 					this.endDate = this.selectedMonths[this.selectedMonths.length - 1];
 				}
-				
+
 				this.isfirst = false;
 				if (this.active == 'tab1') {
 					this.dataType = 1;
@@ -439,7 +439,7 @@
 				var arr1 = [];
 				var startyear = this.getstarttime;
 				var endyear = this.getendtime;
-				
+
 				var startyearM = this.getstarttimeM;
 				var endyearM = this.getendtimeM;
 				var startmonth;
@@ -649,7 +649,7 @@
 				// 		this.startDate = this.selsetyear[0]+'-'+this.selsetmonth[1]
 				// 		this.endDate = this.selsetyear[1]+'-'+this.selsetmonth[0]
 				// 	} else {
-						
+
 				// 	}
 				// } else {
 				// 	this.myselsetdata = this.selsetyear[1]+'年'+this.selsetmonth[1]+'月'+'-'+this.selsetyear[0]+'年'+this.selsetmonth[0]+'月'
@@ -892,7 +892,7 @@
 				opposite: true
 				},{ // Primary yAxis
 					labels: {
-							format: 
+							format:
 							'{value}',
 					},
 					title: {
@@ -1195,8 +1195,8 @@
 					},
 					series: [{
 						type: 'pie',
-						size:'80%',  
-                        innerSize: '70%',  
+						size:'80%',
+                        innerSize: '70%',
 						name: '占比',
 						data:arr
 					}]
@@ -1211,7 +1211,7 @@
 				} else if (this.dataType == 3){
 					arr = [['空运',parseFloat(this.airFreight)],['水运',parseFloat(this.shipCount)]]
 				}
-				
+
 				this.rid = "rtest";
 				this.roption = {
 					title: {
@@ -1245,8 +1245,8 @@
 					},
 					series: [{
 						type: 'pie',
-						size:'80%',  
-                        innerSize: '70%',  
+						size:'80%',
+                        innerSize: '70%',
 						name: '占比',
 						data:arr
 					}]
@@ -1261,7 +1261,7 @@
 				} else if (this.dataType == 3){
 					arr = [['飞机',parseFloat(this.airCount)],['船舶',parseFloat(this.shipCount)]]
 				}
-				
+
 				this.yid = "ytest";
 				this.yoption = {
 					title: {
@@ -1295,8 +1295,8 @@
 					},
 					series: [{
 						type: 'pie',
-						size:'80%',  
-                        innerSize: '70%',  
+						size:'80%',
+                        innerSize: '70%',
 						name: '占比',
 						data:arr
 					}]
@@ -1473,13 +1473,14 @@
 	}
 	.kasjele{
 		color: #666;
-	font-size: 4.3vw;
+	  font-size: 4.3vw;
     float: left;
     width: 20%;
     text-align: center;
     margin: 0 6%;
-	height: 11vw;
-	border-bottom:6px solid #fff;
+    height: 11vw;
+    border-bottom:6px solid #fff;
+    white-space: nowrap;
 	}
 	.mint-cell-value {
 		color: #888;
@@ -1491,7 +1492,7 @@
 		align-items: center;
 		width: 100%;
 	}
-	.selectSearch select{    
+	.selectSearch select{
 		background-color: #ffffff;
 		height: 22pt;
 		border-radius: 4px;
@@ -1522,7 +1523,7 @@
 	}
 	.page-tab-container{
 		padding: 0px;
-		
+
 	}
 	.el-select-dropdown__item {
 		font-size:4vw;
@@ -1553,6 +1554,7 @@
 		width: 32%;
 		height: 88px;
 		line-height: 88px;
+    white-space: nowrap;
 	}
 	.messcol{
 		height:88px;
@@ -1619,7 +1621,7 @@
 	}
 
 	/* 日期选择 */
-	
+
 .MyYear{
     height: 90px !important;
     line-height: 90px !important;

@@ -59,7 +59,7 @@
 						orderno:that.ids,
 						score:that.value3
 				}).then((res) => {
-					if(res.status == 200) {	
+					if(res.status == 200) {
 						Toast("评价成功");
 				    setTimeout(() => {
 							that.$router.back(-1)
@@ -110,7 +110,7 @@
 		-webkit-appearance: none;
 	}
 	#rate{
-		
+
 	}
 	#ele{
 		width: 100%;
@@ -119,7 +119,7 @@
     background: #F5F5F5;
 	}
   .ele{
-  	
+
   }
   .ele1{
   	float: left;

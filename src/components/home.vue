@@ -5,7 +5,7 @@
             <div style="width: 100%;" class="">
                 <div class="swipe-wrapper">
                     <mt-swipe :speed="1300" :auto="5000" ref="swipeWrapper">
-                        <mt-swipe-item v-for="ele in imageMenuList" class="item">
+                        <mt-swipe-item v-for="ele in imageMenuList" class="item" :key="ele">
                             <img class="swpUrl" @click="targetUrl(ele.targetUrl)" :src="ele.iconUrl"/>
                             <!-- <img class="swpUrl" @click="targetUrl(ele.targetUrl)" src="http://222.190.243.8:8080/s/img/20180628/3A2A2DD13C1E49B1B4B0B31A269FB7C3.jpg"/> -->
                         </mt-swipe-item>
@@ -24,7 +24,7 @@
                     <router-link :to="{path:'hwcx/hwcx'}">
                         <div class="tips" type="default">货物查询</div>
                     </router-link>
- 
+
                     <div @click="goback()">
                         <div class="tips" type="default">私人物品</div>
                     </div>
@@ -41,14 +41,14 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div id="io" class="block">
                     <div style="height: 61px;font-size: 18px;color: #333;border-bottom: 1px solid #f5f5f5;border-top: 10px solid #f5f5f5;line-height: 50px;margin-top: -7px;">
                     <ul>
-                        <li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">进出口货值</li>
+                        <li class="tab" :class="{'mybottom':active === 'tab-container1'}" @click="selectmenu('tab-container1')">进出口货物</li>
                         <li class="tab" :class="{'mybottom':active === 'tab-container2'}" @click="selectmenu('tab-container2')">出入境人员</li>
-                        <li class="tab" :class="{'mybottom':active === 'tab-container3'}" @click="selectmenu('tab-container3')">运输方式</li>
+                        <li class="tab" :class="{'mybottom':active === 'tab-container3'}" @click="selectmenu('tab-container3')">运输工具</li>
                     </ul>
                     </div>
                     <el-carousel @change="handleChange" :autoplay="true" :interval="4500" arrow="never">
@@ -121,7 +121,7 @@
                     </el-carousel-item>
                 </el-carousel>
                 </div>
-                
+
                 <!-- <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
                         <mt-tab-container-item id="tab-container1">
                                 统计图1
@@ -150,7 +150,7 @@
                                             </div>
                                     </div>
                                 </div>
-                                
+
                                 <div :id="id" :option="option"></div>
                         </mt-tab-container-item>
                         <mt-tab-container-item id="tab-container2"> -->
@@ -216,7 +216,7 @@
 <script scoped>
     import axios from "axios";
     import { Toast } from 'mint-ui'
-  import HighCharts from 'highcharts'
+    import HighCharts from 'highcharts'
     import { formatDate } from '../assets/js/date.js';
     export default {
         name: "home",
@@ -280,21 +280,21 @@
             // console.log(el)
             // var that = this;
             // el.addEventListener('touchstart', function (e) {
-            // var touch = e.changedTouches;  
-            // that.startx = touch[0].clientX;  
-            // that.starty = touch[0].clientY;  
-            // });  
-            // el.addEventListener('touchend', function (e) {  
-            //     var touch = e.changedTouches;  
-            //     that.endx = touch[0].clientX;  
-            //     that.endy = touch[0].clientY;  
+            // var touch = e.changedTouches;
+            // that.startx = touch[0].clientX;
+            // that.starty = touch[0].clientY;
+            // });
+            // el.addEventListener('touchend', function (e) {
+            //     var touch = e.changedTouches;
+            //     that.endx = touch[0].clientX;
+            //     that.endy = touch[0].clientY;
             //     that.myclient();
-            // });  
+            // });
             //auth.getAccessToken({appId:"elecPort"});
         },
         watch: {
             active: function(newValue) {
-                
+
             }
         },
         created() {
@@ -320,23 +320,23 @@
         },
         methods: {
             myclient(){
-                if (this.startx > this.endx && this.startx-this.endx > 100) {  //判断左右移动程序  
+                if (this.startx > this.endx && this.startx-this.endx > 100) {  //判断左右移动程序
                     if(this.active == 'tab-container1'){
                         this.handleChange(1);
                     }else if(this.active == 'tab-container2'){
                         this.handleChange(2);
                     }else if(this.active == 'tab-container3'){
-                        
+
                     }
                 } else if (this.startx < this.endx && this.endx-this.startx > 100){
                     if(this.active == 'tab-container1'){
-                        
+
                     }else if(this.active == 'tab-container2'){
                         this.handleChange(0);
                     }else if(this.active == 'tab-container3'){
                         this.handleChange(1);
                     }
-                }  
+                }
             },
             getall(){
                 this.getlist();
@@ -358,7 +358,7 @@
        godetails(n){
                  console.log(n)
             this.$router.push({name: 'kaxjcontentpage',
-              params:{ 
+              params:{
                 res:n
               }
             })
@@ -366,7 +366,7 @@
        getmessage(res){
             var that = this;
             axios.post('/eport-server/data/getIndexDataInfo.do',{
-                
+
             })
             .then(function(res){
                 that.freightTotalNum = res.data.data.freightTotalNum;
@@ -570,8 +570,8 @@
                     fontSize: '13px'
                 },
                 text: '最近一年总量统计',
-                                align: 'left',
-                                x: 7
+                      align: 'left',
+                      x: 7
           },
           colors: ['#BF9FF5'],
           xAxis: {
@@ -632,11 +632,10 @@
                 })
             },
             goothers(res){
-                console.log(res)
                 window.location = res;
             },
             select_item(){
- 
+
             },
             gokaxw(){
                 //this.$router.push({path: '/hotel/hotel'})
@@ -708,7 +707,7 @@
       flightM:function () {
         window.location += "flight";
       }
- 
+
         }
     }
 </script>
@@ -722,7 +721,7 @@
     -ms-text-size-adjust: none;
     text-size-adjust: none;
     /*解决chrome浏览器下字体不能小于12px*/ }
- 
+
   body {
     overflow-x: auto;
     font-size: 14px;
@@ -754,52 +753,52 @@
     outline: none;
     text-decoration: none;
     color: inherit; }
- 
+
   a:hover {
     text-decoration: none; }
- 
+
   html {
     zoom: 1; }
- 
+
   html * {
     outline: 0;
     zoom: 1; }
- 
+
   html button::-moz-focus-inner {
     border-color: transparent !important; }
- 
+
   /*设置margin和padding为0*/
   body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0; }
- 
+
   table {
     border-collapse: collapse;
     border-spacing: 0; }
- 
+
   fieldset, a img {
     border: 0; }
- 
+
   address, caption, cite, code, dfn, em, th, var，i {
     font-style: normal;
     font-weight: normal; }
- 
+
   li {
     list-style: none; }
- 
+
   caption, th {
     text-align: left; }
- 
+
   h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
     font-weight: normal; }
- 
+
   q:before, q:after {
     content: ''; }
- 
+
   em, i {
     font-style: normal; }
- 
+
   input[type="submit"], input[type="reset"], input[type="button"], input[type=date], button, select, input[type=text] {
     /*去掉苹果的默认UI来渲染按钮 、解决部分手机浏览器对border：none无效办法*/
     -webkit-appearance: none;
@@ -807,14 +806,14 @@
     appearance: none;
     /*去掉微信端input-text在ios轻快下的点击出先黑色半透明背景*/
     tap-highlight-color: transparent !important; }
- 
+
   a, input[type=text], select, input[type=password], textarea {
     /*去掉微信端input-text在ios轻快下的点击出先黑色半透明背景*/
     tap-highlight-color: transparent !important; }
- 
+
   input::-webkit-input-placeholder {
     color: #aaa; }
- 
+
     /*轮播组件*/
     .swipe-wrapper{
         width: 100%;
@@ -831,7 +830,7 @@
         font-size: 40px;
         color: white;
     }
- 
+
     .button-wrapper{
         display: flex;
         height: 100px;
@@ -845,7 +844,7 @@
         font-size: 40px;
     }
    /* list样式*/
- 
+
     .time-name {
         position: absolute;
         left: 40px;
@@ -874,7 +873,7 @@
         color:rgba(51,51,51,1);
         line-height:47px;
         height: 94px;
- 
+
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp:2;
@@ -948,14 +947,14 @@ color:rgba(51,51,51,1);
         text-align: left;
     }
     /* 图表 */
-    
+
   #test {
     width: 100%;
     height: 45.667vw;
     margin: 0px auto;
     position: relative;
     margin-bottom: 18px;
-    background: #fff;
+    background: #fff!important;
   }
   #test1 {
     width: 100%;
@@ -963,7 +962,7 @@ color:rgba(51,51,51,1);
     margin: 0 auto;
     position: relative;
     margin-bottom: 18px;
-    background: #fff;
+    background: #fff!important;
   }
   #test2 {
     width: 100%;
@@ -971,7 +970,7 @@ color:rgba(51,51,51,1);
     margin: 0 auto;
     position: relative;
     margin-bottom: 18px;
-    background: #fff;
+    background: #fff!important;
   }
   .topway{
     padding: 1.867vw 0;
@@ -1023,8 +1022,9 @@ color:rgba(51,51,51,1);
         padding: 1.867vw 4.533vw;
         color: #333;
         background: #fff;
-                font-size:26px;
-                    text-align: left;
+        font-size:26px;
+        text-align: left;
+        white-space: nowrap;
     }
     .numbers{
         float: right;
@@ -1032,8 +1032,15 @@ color:rgba(51,51,51,1);
     .block{
         height: 98vw;
     }
+
+  .el-carousel__item{
+    background: #fff!important;
+  }
 </style>
 <style>
+  .el-carousel__item{
+    background: #fff!important;
+  }
     .mint-toast-text {
         font-size: 3.8vw !important;
     }

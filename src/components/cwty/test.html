@@ -5,15 +5,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta name="format-detection" content="telephone=no">
+    <script src="../../../static/js/jquery-3.3.1.min.js"></script>
     <title>电子口岸</title>
 </head>
 
 <body>
     <a href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll'>aaa</a>
+    <button class="test">123</button>
 </body>
 <script>
+  $('.test').on("click",function () {
+    history.pushState(null,null,window.location.href+'#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll');
+    history.replaceState(null,null, 'http://localhost:8080/H5/index.html#/cwty/cwty_list/tab-container1');
+    history.replaceState(null,null, 'http://localhost:8080/H5/index.html#/');
+  })
     function uploadImgOver(str) {
-        sessionStorage.setItem('myimgurl', JSON.parse(str).data);
+      localStorage.setItem('myimgurl', JSON.parse(str).data);
+      document.cookie = "myimgurl="+str;
+      //alert(localStorage.getItem('myimgurl'));
+
+
+     /* var strcookie = document.cookie;
+      var arrcookie = strcookie.split("; ")
+
+      for ( var i = 0; i < arrcookie.length; i++) {
+        var arr = arrcookie[i].split("=");
+        if (arr[0] == "myimgurl"){
+          alert(arr[1]);
+        }
+      }*/
         //window.location.href = 'http://192.168.0.237:9500/#/cwty/cwty_inp?myimg=' + JSON.parse(str).data;
     }
 </script>

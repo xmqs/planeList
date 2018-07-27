@@ -2,13 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './../components/home'
 /*口岸新闻*/
-import kaxw_list from "@/components/kaxw/kaxw_list.vue"
+/*import kaxw_list from "@/components/kaxw/kaxw_list.vue"
 import kaxw_details from "@/components/kaxw/kaxw_details.vue"
 import search from "@/components/kaxw/search.vue"
-import test from "@/components/kaxw/test.vue"
+import test from "@/components/kaxw/test.vue"*/
 
+const kaxw_list = () => import('../components/kaxw/kaxw_list.vue')
+const kaxw_details = () => import('../components/kaxw/kaxw_details.vue')
+const search = () => import('../components/kaxw/search.vue')
+const test = () => import('../components/kaxw/test.vue')
 /*航班动态*/
-import Destination from "@/components/Flight/destination"
+/*import Destination from "@/components/Flight/destination"
 import MyList from "@/components/Flight/myList"
 import SelectPalne from "@/components/Flight/selectPlane"
 import Changeplane from "@/components/Flight/changeList"
@@ -23,19 +27,41 @@ import busLine from "@/components/Flight/busLine"
 import busLineA from "@/components/Flight/busLineA"
 import busLineD from "@/components/Flight/busLineD"
 import flightMain from "@/components/Flight/flightMain"
-import stopDetail from "@/components/Flight/stopDetail"
+import stopDetail from "@/components/Flight/stopDetail"*/
+
+const Destination = () => import('../components/Flight/destination')
+const MyList = () => import('../components/Flight/MyList')
+const SelectPalne = () => import('../components/Flight/selectPlane')
+const Changeplane = () => import('../components/Flight/changeList')
+const PlaneDetail = () => import('../components/Flight/PlaneDetail')
+const cityList = () => import('../components/Flight/cityList')
+const searchList = () => import('../components/Flight/searchList')
+const testScrollA = () => import('../components/Flight/testScrollA')
+const testScrollB = () => import('../components/Flight/testScrollB')
+const testScrollC = () => import('../components/Flight/testScrollC')
+const testScrollD = () => import('../components/Flight/testScrollD')
+const busLine = () => import('../components/Flight/busLine')
+const busLineA = () => import('../components/Flight/busLineA')
+const busLineD = () => import('../components/Flight/busLineD')
+const flightMain = () => import('../components/Flight/flightMain')
+const stopDetail = () => import('../components/Flight/stopDetail')
 
 /*酒店*/
-import hotel from "@/components/hotel/hotel"
-/*货物查询*/
+/*import hotel from "@/components/hotel/hotel"
+/!*货物查询*!/
 import hwcx from "@/components/hwcx/hwcx"
-/*口岸数据*/
+/!*口岸数据*!/
 import kasjhomepage from "@/components/kasj/kasjhomepage"
-import kaxjcontentpage from "@/components/kasj/kaxjcontentpage"
+import kaxjcontentpage from "@/components/kasj/kaxjcontentpage"*/
 
+
+const hotel = () => import('../components/hotel/hotel')
+const hwcx = () => import('../components/hwcx/hwcx')
+const kasjhomepage = () => import('../components/kasj/kasjhomepage')
+const kaxjcontentpage = () => import('../components/kasj/kaxjcontentpage')
 /*宠物托运*/
 
-import cwty_list from "@/components/cwty/cwty_list.vue"
+/*import cwty_list from "@/components/cwty/cwty_list.vue"
 import IndexList from "@/components/cwty/IndexList.vue"
 import cwty_inp from "@/components/cwty/cwty_inp.vue"
 import cwty_upd from "@/components/cwty/cwty_upd.vue"
@@ -48,10 +74,25 @@ import servers from "@/components/cwty/servers.vue"
 import serversDetails from "@/components/cwty/serversDetails.vue"
 import checked from "@/components/cwty/checked.vue"
 import rate from "@/components/cwty/rate.vue"
-import petDetails from "@/components/cwty/petDetails.vue"
+import petDetails from "@/components/cwty/petDetails.vue"*/
+
+const cwty_list = () => import('../components/cwty/cwty_list.vue')
+const IndexList = () => import('../components/cwty/IndexList.vue')
+const cwty_inp = () => import('../components/cwty/cwty_inp.vue')
+const cwty_upd = () => import('../components/cwty/cwty_upd.vue')
+const chiose_rad = () => import('../components/chiose_rad/chiose_rad.vue')
+const calendar = () => import('../components/chiose_rad/calendar.vue')
+const myzh = () => import('../components/chiose_rad/myzh.vue')
+const sizes = () => import('../components/chiose_rad/sizes.vue')
+const cwzp = () => import('../components/chiose_rad/cwzp.vue')
+const servers = () => import('../components/cwty/servers.vue')
+const serversDetails = () => import('../components/cwty/serversDetails.vue')
+const checked = () => import('../components/cwty/checked.vue')
+const rate = () => import('../components/cwty/rate.vue')
+const petDetails = () => import('../components/cwty/petDetails.vue')
 /*私人物品*/
 
-import boxsize from "@/components/srwp/boxsize.vue"
+/*import boxsize from "@/components/srwp/boxsize.vue"
 import srwp_list from "@/components/srwp/srwp_list.vue"
 import srwp_inp from "@/components/srwp/srwp_inp.vue"
 import srwp_upd from "@/components/srwp/srwp_upd.vue"
@@ -62,16 +103,35 @@ import srwpIndexList from "@/components/srwp/IndexList.vue"
 import srwpservers from "@/components/srwp/servers.vue"
 import srwpserversDetails from "@/components/srwp/serversDetails.vue"
 import srwpchecked from "@/components/srwp/srwpchecked.vue"
-import srwprate from "@/components/srwp/srwprate.vue"
+import srwprate from "@/components/srwp/srwprate.vue"*/
+
+
+const boxsize = () => import('../components/srwp/boxsize.vue')
+const srwp_list = () => import('../components/srwp/srwp_list.vue')
+const srwp_inp = () => import('../components/srwp/srwp_inp.vue')
+const srwp_upd = () => import('../components/srwp/srwp_upd.vue')
+const srwpDetails = () => import('../components/srwp/srwpDetails.vue')
+const wplist = () => import('../components/srwp/wplist.vue')
+const disWplist = () => import('../components/srwp/disWplist.vue')
+const srwpIndexList = () => import('../components/srwp/IndexList.vue')
+const srwpservers = () => import('../components/srwp/servers.vue')
+const srwpserversDetails = () => import('../components/srwp/serversDetails.vue')
+const srwpchecked = () => import('../components/srwp/srwpchecked.vue')
+const srwprate = () => import('../components/srwp/srwprate.vue')
 
 /*手机值机*/
-import phoneflight from "@/components/phoneflight/phoneflight.vue"
+/*import phoneflight from "@/components/phoneflight/phoneflight.vue"*/
+
+const phoneflight = () => import('../components/phoneflight/phoneflight.vue')
 
 // 日期范围
-import MonthSelect from "@/components/base/date/MonthSelect.vue"
+/*import MonthSelect from "@/components/base/date/MonthSelect.vue"*/
 
+const MonthSelect = () => import('../components/base/date/MonthSelect.vue')
 //空白页，刷新页面用
-import GoBack from "@/components/chiose_rad/GoBack.vue"
+/*import GoBack from "@/components/chiose_rad/GoBack.vue"*/
+
+const GoBack = () => import('../components/chiose_rad/GoBack.vue')
 
 Vue.use(Router)
 
@@ -258,7 +318,7 @@ export default new Router({
             }
         },
         {
-            path: '/cwty/cwty_upd',
+            path: '/cwty/cwty_upd/:id',
             name: 'cwty_upd',
             component: cwty_upd,
             meta: {

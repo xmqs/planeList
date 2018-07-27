@@ -10,16 +10,16 @@
 				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
 			</router-link>
 		</header> -->
-		<div id="con">  
+		<div id="con">
 			<div class="nav">
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交<div v-if="count20 !=0" class="dot">{{count20}}</div></mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container3'}" @click.native.prevent="select_item('tab-container3')">待托运</mt-button>  
-			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container4'}" @click.native.prevent="select_item('tab-container4')">待评价<div v-if="count50 !=0" class="dot">{{count50}}</div></mt-button>  
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container1'}" @click.native.prevent="select_item('tab-container1')">待报价</mt-button>
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container2'}" @click.native.prevent="select_item('tab-container2')">待提交<div v-if="count20 !=0" class="dot">{{count20}}</div></mt-button>
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container3'}" @click.native.prevent="select_item('tab-container3')">待托运</mt-button>
+			  <mt-button class="tips" size="small" :class="{'class-a':active === 'tab-container4'}" @click.native.prevent="select_item('tab-container4')">待评价<div v-if="count50 !=0" class="dot">{{count50}}</div></mt-button>
 			</div>
-			<div class="page-tab-container" v-bind:style="{width: widthData}">  
-			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
-				<mt-tab-container-item id="tab-container1">  
+			<div class="page-tab-container" v-bind:style="{width: widthData}">
+			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+				<mt-tab-container-item id="tab-container1">
 				  	<div v-for="ele in list" v-if="status == 10" class="ele" :key="ele.id">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
@@ -51,13 +51,11 @@
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无申报订单</div>
 				  	</div>
-				  	<router-link :to="{path: '/srwp/srwp_inp'}">
-						<div style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
+						<div style="height: 45px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;" @click="gosrwpInp">
 							+ 托运物品
 						</div>
-					</router-link>
-				</mt-tab-container-item>  
-				<mt-tab-container-item id="tab-container2">  
+				</mt-tab-container-item>
+				<mt-tab-container-item id="tab-container2">
 				  	<div v-for="ele in list" v-if="status == 20 || status == 25" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
@@ -87,12 +85,12 @@
 			  					<!-- <button @click="serversId(ele.id)" class="update_b">选择服务</button> -->
 							</a>
 				  		</div>
-				  	</div> 
+				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无提交订单</div>
 				  	</div>
-				</mt-tab-container-item>  
+				</mt-tab-container-item>
 				<mt-tab-container-item id="tab-container3">
 				  	<div v-for="ele in list" v-if="status == 40" class="ele">
 				  		<div class="ele1">
@@ -126,7 +124,7 @@
 			  					<button style="border-color: #999;color: #333;" class="update_b">服务详情</button>
 			  					<!-- <button @click="serversDetails(ele.id)" style="border-color: #999;color: #333;" class="update_b">服务详情</button> -->
 							</a>
-			  				
+
 				  		</div>
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
@@ -134,13 +132,13 @@
 						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无托运订单</div>
 				  	</div>
 				</mt-tab-container-item>
-				<mt-tab-container-item id="tab-container4">  
+				<mt-tab-container-item id="tab-container4">
 				  	<div v-for="ele in list" v-if="status == 50" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">物品主人：{{ele.ownerName}}</span>
 					  		<span class="sfsb">托运成功</span>
 				  		</div>
-						  
+
 						<a :href ="'/H5/index.html#/srwp/srwpDetails/'+ele.id">
 							<div class="ele2">
 								<div class="ele2-1 ele2-2">
@@ -160,7 +158,7 @@
 							</div>
 						</a>
 				  		<div class="ele3">
-							<a v-if="ele.status == '50'" :href ="'/H5/index.html#/srwp/srwprate/'+ele.id">	
+							<a v-if="ele.status == '50'" :href ="'/H5/index.html#/srwp/srwprate/'+ele.id">
 			  					<button style="position: relative;" class="update_b">评价<div class="dot1"></div></button>
 			  					<!-- <p @click="text(ele.id)" class="update_b">评价</p> -->
 							</a>
@@ -169,23 +167,23 @@
 			  					<button style="border-color: #999;color: #333;" class="update_b">托运详情</button>
 			  					<!-- <p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p> -->
 							</a>
-			  				
+
 				  		</div>
 				  	</div>
 				  	<div v-if="list.length == 0" class="kong">
 				  		<img style="width: 130px;" src="../../../static/img/kong1.png"/>
 						<div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">暂无评价订单</div>
 				  	</div>
-				</mt-tab-container-item>  
-			  </mt-tab-container>  
-			</div>  
-		</div> 
+				</mt-tab-container-item>
+			  </mt-tab-container>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 	import axios from "axios"
-    import {Loadmore} from 'mint-ui';  
+    import {Loadmore} from 'mint-ui';
     import { Toast } from 'mint-ui'
 	import { formatDate } from '../../assets/js/date.js';
 	import Bus from './bus.js'
@@ -202,15 +200,10 @@
 				count20:'',
 				petselect:''
 			}
-		},  
-	    components: {  
-	      'v-loadmore':Loadmore 
+		},
+	    components: {
+	      'v-loadmore':Loadmore
 	    },
-		watch: {
-		},
-		filters: {
-			
-		},
 		mounted() {
 
 		},
@@ -230,7 +223,7 @@
 			}
 		},
 		created() {
-			this.login();
+			//this.login();
 			this.gettolits();
 			if (sessionStorage.getItem("active") != null) {
 				this.active = sessionStorage.getItem("active");
@@ -251,28 +244,30 @@
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
-			login(){
-		        let test2 = {
-		            msg: "操作成功",
-		            data: 'dLrEF9ZmVxlQrMtvx0qQaI2v3pjPA6amn7Z9RHFpniqQ465BeOuyMFQAdTratX0JM1h9maM7MGngUSL0l28D8+QhJQkq6gHFUmukpAPv5eIwIH5ymE5zUbxd9CcZ6NRLgiO8+dfxghYgmt1Wsy1I1vKLBpTGhgzedR/6yzK1ehhP3kchQJD9J2ahfk6UebJvp4g6vsY2EdK7PaJ34xzrvI0rU3QDEebWL68AEYOsyp8RC5e2Q8/duihRLNXD/AtTVMsJi4Fm3l0uJf3nxKiAaVzyMOzth0B7YjunhxfjCiaLuU3h4CucHUL4BT2o4miEzszOm7BA3JRBfne60Rf6Og==',
-		            success: "true",
-		            sign: 'ZwYpjoj/L7GJu9WgmNcagtQD9UhH9V6Ecykn5rAzkre51zBbBmxhpYriCJ6OBBNmvV4kcgwmkEk1ELaRrGvLjB8qAtS7m4EZaJ3tGN2X+6gawowlsy0v0dYhYiWJetYAw+yQCYzfLR/rxPorAMhLt3nb3yFsw9GRFY+X+lH+uko=',
-		            signType: "RSA"
-		        }
-		        test2 = JSON.stringify(test2);
-				axios({
-					method: 'POST',
-					data:test2,
-		            url: '/eport-server/auth/mynj/getInfo.do',
-					dataType: 'json',
-					headers: {
-			            'Content-Type': 'application/json;charset=UTF-8'
-			        },
-					success: function(data1) {
-						
-					}
-				})
-			},
+      gosrwpInp(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if(isAndroid){
+          //TODO Android跳转
+
+
+          var userinfo = sessionStorage.getItem('userifo');
+          if(userinfo != null){
+            userinfo = JSON.parse(userinfo);
+          }
+
+          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/srwp/srwp_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&id'+userinfo.idNumber;
+
+        }else{
+          this.$router.push({name: 'srwp_inp',
+            params:{
+              reload:'reload'
+            }
+          })
+        }
+      },
+
 			gettolits(){
 				var that = this;
 				axios.get('/eport-server/delivery/getOrderCountByStatus.do', {
@@ -304,7 +299,7 @@
 			},
 			tyxq(res){
 				this.$router.push({name: 'srwpchecked',
-					params:{ 
+					params:{
 						testid:res
 					}
 				})
@@ -378,7 +373,7 @@
 	    font-size: 1.8rem;
 	    color: #285FB1;
 	}
-	.page-tab-container{    
+	.page-tab-container{
 		margin-top: 9vw;
 	    position: fixed;
 	    width: 100%;
@@ -396,7 +391,7 @@
 		height: 100px;
 		border-bottom: 1px solid #ccc;
 	}
-	.tips{    
+	.tips{
 		width: 23%;
 	    border: 0;
 	    background: #fff;
@@ -405,7 +400,7 @@
 		font-family:PingFangSC-Regular;
 		color:rgba(102,102,102,1);
 	}
-	.tips:active{    
+	.tips:active{
 	    background: #fff;
 	}
 	.mint-button--default {
@@ -477,7 +472,7 @@ color:rgba(102,102,102,1);
 		position: absolute;
 	    bottom: 95px;
 	    padding: 0 !important;
-	    
+
 	    font-size:28px;
 		font-family:PingFangSC-Regular;
 		color:rgba(153,153,153,1);

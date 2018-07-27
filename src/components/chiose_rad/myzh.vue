@@ -6,13 +6,13 @@
         </header> -->
 		<div id="soll" class="page-tab-container">
 			<p class="tit">上传免疫证</p>
-			<!-- 
+			<!--
 			<a href='#uploadImgByClient?imgNum=2&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do'>
 			</a> -->
 			<img  :src="imageUrl" v-on:click="myimg" class="avatar"><!--  -->
 			<div style="position: relative;width:100%;border-top: 1px solid #f5f5f5;">
 				<input @change="gettime" id="time" class="chiotiem1" type="date" :max="nowdate">
-				<div class="chiotiem">{{time}} 
+				<div class="chiotiem">{{time}}
 					<span style="margin: 1vw 5vw 0px 0px;float: left;">
 						<img class="po_right" src="../../../static/img/Shape.png"/>
 					</span>
@@ -40,12 +40,12 @@ export default {
 	    	lod:false,
 	    	lod1:true,
 	    	lod2:false,
-	        value1:"",
-	        mydate:"日期选择",
-	        imageUrl:'../../../static/img/Group 3.png',
-			dialogVisible: false,
-			time:'选择最后一次注册时间',
-			nowdate:''
+        value1:"",
+        mydate:"日期选择",
+        imageUrl:'../../../static/img/Group 3.png',
+        dialogVisible: false,
+        time:'选择最后一次注册时间',
+        nowdate:''
 	    }
    },
 	methods:{
@@ -61,11 +61,11 @@ export default {
                 Bus.$emit('myz',times,this.imageUrl)
             }, 30)
 	    },
-	   
-		
+
+
 	},
 	created: function() {
-		
+
 		var that = this;
 		window.uploadImgOver = function(str) {
 			that.imageUrl = JSON.parse(str).data;
@@ -92,7 +92,7 @@ export default {
 			this.imageUrl = this.$route.params.res;
 		}
 		//this.imageUrl = this.$route.params.con;
-		  
+
 
 		  var that = this;
 			var oldUrl = window.location.href;

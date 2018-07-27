@@ -124,13 +124,13 @@
 				ownerPassport:'',
 				homeAddress:'',
 				ownerTelNo:'',
-		        bigPackageList:[],
-		        travelList1:'',
-		        travelList2:'',
+        bigPackageList:[],
+        travelList1:'',
+        travelList2:'',
 				homeDelivery:false,
 				addr:false,
-		        travelList:[],
-		        packagesName:'',
+        travelList:[],
+        packagesName:'',
 				/*属性结束*/
 				value:"",
 				unbind:true,
@@ -161,12 +161,12 @@
 	        next();
 	    },
 	    activated() {
-			
+
 		},
 		methods: {
 			// goback(){
 			// 	this.$router.push({name: 'srwp_list',
-			// 		params:{ 
+			// 		params:{
 			// 			res:'tab-container1'
 			// 		}
 			// 	})
@@ -175,7 +175,20 @@
 			//图片上传
 			myimg(res){
 				var oldUrl = window.location.href;
-				window.location.href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+
+        if (isAndroid) {
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        }
+
+        if (isiOS) {
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        }
+
 				//e.preventdefault();
 				//this.$router.push({oldUrl})
 				var that = this;
@@ -193,7 +206,7 @@
 			},
 			cage(res){
 				this.$router.push({name: 'boxsize',
-					params:{ 
+					params:{
 						sizes:res
 					}
 				})
@@ -205,7 +218,7 @@
 		        this.bigPackageList.push(res.data);
 		    },
 		    handbefore(){
-		    	
+
 		    },
 			handleAvatarSuccess1(res, file) {
 		        this.travelList1 = res.data;
@@ -214,13 +227,13 @@
 				Toast("上传失败");
 			},
 		    handbefore1(){
-		    	
+
 		    },
 			handleAvatarSuccess2(res, file) {
 		        this.travelList2 = res.data;
 		    },
 		    handbefore2(){
-		    	
+
 		    },
 			fhd1(){
 				this.startCity = '北京'
@@ -284,7 +297,7 @@
 					check = false;
 					return;
 				}
-				var regName =/^[\u4e00-\u9fa5]{2,4}$/; 
+				var regName =/^[\u4e00-\u9fa5]{2,4}$/;
 				if(!this.ownerName.match(cardIdReg)){
 					Toast('姓名填写有误')
 					return;
@@ -325,22 +338,26 @@
 						ownerTelNo:this.ownerTelNo,
 						bigPackageList:this.bigPackageList,
 						travelList:this.travelList,
-					}).then((res) => {		
+					}).then((res) => {
 						console.log(res)
-						if(res.status == 200) {	
+						if(res.status == 200) {
 							Toast("申报成功");
 							setTimeout(()=>{
-								this.$router.push({name: 'srwp_list',
-									params:{ 
-										res:'tab-container1'
-									}
-								})
-								location.reload();
-							},1500);
+
+                this.$router.replace({path: '/srwp/srwp_list'})
+
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                if (isAndroid) {
+                  window.close();
+                } else {
+                  this.$router.back(-1);
+                }
+							},1000);
 						}else{
 							Toast("申报失败");
 						}
-					}, (res) => {							
+					}, (res) => {
 					});
 				}
 			}
@@ -372,10 +389,20 @@
 			next();
         },
 	    activated() {
+
+        var userinfo = sessionStorage.getItem('userifo');
+        if(userinfo != null){
+          userinfo = JSON.parse(userinfo);
+          this.ownerIdNo = userinfo.idNumber;
+          this.ownerTelNo = userinfo.phone;
+          this.ownerName = userinfo.userName;
+        }
+
+
 		    Bus.$on('area', (e) => {
 		    	this.endCity = e;
 			})
-			
+
 		    Bus.$on('boxsizes', (e) => {
 		　　　　this.size = e;
 		    })
@@ -388,11 +415,20 @@
 			this.packages = JSON.parse(sessionStorage.getItem('wplist1'));
 		},
 		mounted() {
+
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+
+      if (isAndroid) {
+        this.ownerName = this.$route.query.username;
+        this.ownerIdNo = this.$route.query.idNumber;
+        this.ownerTelNo = this.$route.query.phone;
+      }
 		},
 		created: function() {
 		},
 		filters: {
-			
+
 		}
 	}
 </script>
@@ -541,7 +577,7 @@
 		font-family:PingFangSC-Regular;
 		color:rgba(255,255,255,1);
 	}
-	
+
 	.avatar-uploader{
         display: inline;
 	}

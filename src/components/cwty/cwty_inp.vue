@@ -21,8 +21,7 @@
 			</div>
 			<div class="ele1">
 				<span class="tit">宠物照片</span>
-				<img @click="myimg" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl" class="avatar">
-				<img class="po_right" style="padding: 30px 4px 35px 18px;top:4;" src="../../../static/img/Shape.png"/>
+				<img @click="myimg(1)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl" class="avatar">
 			</div>
 			<div class="ele">
 				<label class="tit">宠物种类</label>
@@ -61,7 +60,7 @@
 				<div class="newsele_1">如已有笼子，请正确填写笼子尺寸</div>
 			</div>
 			<div @click="sheet1(2)" class="ele">
-				<label class="tit">是否已卫生证书</label>
+				<label class="tit">是否已办理卫生证书</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfblgz" unselectable="on" onfocus="this.blur()"/>
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
@@ -70,12 +69,21 @@
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="chip" unselectable="on" onfocus="this.blur()"/>
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>
-			<div @click="gomyz" class="ele newsele">
+			<!--<div @click="gomyz" class="ele newsele">
 				<label class="tit">免疫证</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" unselectable="on" onfocus="this.blur()"/>
 				<img style="top: 5.933vw;" class="po_right" src="../../../static/img/Shape.png"/>
 				<div class="newsele_1">如没有免疫证，可不填</div>
-			</div>
+			</div>-->
+      <div class="ele1">
+        <span class="tit">免疫证照片(没有可不填)</span>
+        <img @click="myimg(2)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl2" class="avatar">
+      </div>
+      <div class="ele">
+        <input @change="gettime('myzh')" id="time" class="chiotiem1" type="date" :max="nowdate">
+        <div class="chiotiem">{{time}}
+        </div>
+      </div>
 			<div @click="sheet1(4)" class="ele">
 				<label class="tit">发货地</label>
 				<input readonly="readonly" class="inps" type="text" v-model="fhd" unselectable="on" onfocus="this.blur()"/>
@@ -88,13 +96,11 @@
 					<img class="po_right" src="../../../static/img/Shape.png"/>
 				</router-link>
 			</div>
-			<div style="border-bottom:0" class="ele">
-				<label class="tit">预计航班日期</label>
-			  	<router-link :to="{name:'calendar'}">
-					<input readonly="readonly" class="inps" type="text" placeholder="" v-model="riqi" unselectable="on" onfocus="this.blur()"/>
-					<img class="po_right" src="../../../static/img/Shape.png"/>
-				</router-link>
-			</div>
+      <div class="ele">
+        <input @change="gettime('hangban')" id="time2" class="chiotiem1" type="date" :min="nowdate">
+        <div class="chiotiem">{{time2}}
+        </div>
+      </div>
 			<div class="points">
 				<span class="">主人信息</span>
 			</div>
@@ -142,16 +148,17 @@
 				lods:false,
 				lod:false,
 				imageUrl:  '../../../static/img/Group 3.png',
+				imageUrl2:  '../../../static/img/Group 3.png',
 				petdemo:true,
 				/*属性*/
 				dz:"",
 				smfw:false,
 				hzxx:"",
-		        varietys:" ",
+        varietys:" ",
 				lxfs:"",
 				sfzh:"",
 				zrxm:"",
-		        sfblgz:"",
+        sfblgz:"",
 				riqi:"",
 				area:"",
 				fhd:"",
@@ -171,7 +178,10 @@
 				switch1:false,
 				addr:false,
 				name:"",
+        time:"选择最后一次注册时间(没有可不填)",
+        time2:"预计航班日期",
 				actions:[],
+        nowdate:'',
 				actions0:[{
 			        name: '是否植入芯片'
 			      },{
@@ -231,7 +241,7 @@
 		        sheetVisible1:false
 			}
 		},
-	    activated() {
+    activated() {
 			if(this.$route.params.selpet != undefined){
 				this.varietys = this.$route.params.selpet;
 			}
@@ -244,228 +254,279 @@
 			}
 		},
 		methods: {
-			myimg(){
-				var oldUrl = window.location.href;
-				window.location.href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
-				//e.preventdefault();
-				//this.$router.push({oldUrl})
-				var that = this;
-				window.uploadImgOver = function(str) {
-					that.imageUrl = JSON.parse(str).data;
-				}
-				window.location.href = oldUrl;
-			},
-			cage(res){
-				this.$router.push({name: 'sizes',
-					params:{ 
-						sizes:res
-					}
-				})
-			},
-			clickcwzp(res){
-				setTimeout(() => {
-			        Bus.$emit('oldCwzp', res)
-			    }, 30)
-				this.$router.push({path: '/chiose_rad/cwzp'})
-			},
-			rou_cwzl(varietys){
-				setTimeout(() => {
-			        Bus.$emit('varietys', varietys)
-			    }, 30)
-				this.$router.push({path: '/chiose_rad/chiose_rad'})
-			},
-			chip1(){
-				this.chip = '是'
-			},
-			chip2(){
-				this.chip = '否'
-			},
-			size1(){
-				this.sizes = '大型'
-			},
-			size2(){
-				this.sizes = '中型'
-			},
-			size3(){
-				this.sizes = '小型'
-			},
-			sfblgz1() {
-		        this.sfblgz = '是'
-		    },
-			sfblgz2() {
-		        this.sfblgz = '否'
-		    },
-			age1(){
-				this.cwnl = '小于1岁'
-			},
-			age2(){
-				this.cwnl = '1~5岁'
-			},
-			age3(){
-				this.cwnl = '5~10岁'
-			},
-			age4(){
-				this.cwnl = '10岁以上'
-			},
-			fhd1(){
-				this.fhd = '北京'
-			},
-			fhd2(){
-				this.fhd = '上海'
-			},
-			fhd3(){
-				this.fhd = '南京'
-			},
-			serve_switch(){
-				this.switch1 = !this.switch1;
-				if (this.switch1 == true) {
-					this.addr = true;
-				}else{
-					this.addr = false;
-				}
-			},
-			sheet1(n){
-				if (n == 1) {
-					this.actions = this.actions1;
-				} else if (n == 2){
-					this.actions = this.actions2;
-				} else if (n == 0){
-					this.actions = this.actions0;
-				} else if (n == 3){
-					this.actions = this.actions3;
-				} else if (n == 4){
-					this.actions = this.actions4;
-				}
-				this.sheetVisible2 = !this.sheetVisible2;
-			},
-			gomyz(){
-				this.$router.push({name: 'myzh',
-					params:{ 
-						time:this.myz,
-						res:this.myz1
-					}
-				})
-			},
-			shenbao(){
-				this.unbind = false;
-				var check = true;
-				var input = document.querySelectorAll('.inps');
-				var label = document.getElementsByTagName('label');
-				if(this.sizes == '' && this.sizes1 == ''){
-					check = false;
-					this.unbind = true;
-					Toast('笼子尺寸与体型尺寸至少选择一种')
-					return;
-				}
-				if(this.imageUrl.indexOf('http') == -1){
-					Toast('请上传宠物照片');
-					check = false;
-					this.unbind = true;
-					return;
-				}
-				for(var i =0;i < input.length;i++){
-				    if (input[i].value == "") {
-						if(label[i].innerHTML != '免疫证' && label[i].innerHTML != '笼子尺寸' && label[i].innerHTML != '体型尺寸'){
-							Toast('请填写'+label[i].innerHTML)
-							check = false;
-							this.unbind = true;
-							return;
-						}
-				    }
-				}
-				if(isNaN(Number(this.cwzl))){
-					Toast('宠物重量填写有误')
-					this.unbind = true;
-					return;
-				}
-				var regName =/^[\u4e00-\u9fa5]{2,4}$/; 
-				if(!this.zrxm.match(regName)){
-					Toast('姓名填写有误')
-					check = false;
-					this.unbind = true;
-					return;
-				}
-            	// var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-            	// if(!this.lxfs.match(telReg)){
-            	// 	Toast('请输入正确的电话号码')
-				// 	check = false;
-				// 	this.unbind = true;
-				// 	return;
-            	// }
-            	// var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-           	 	// if(!this.sfzh.match(cardIdReg)){
-            	// 	Toast('请输入正确的身份证号码')
-				// 	check = false;
-				// 	return;
-            	// }
-           	 	// var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
-           	 	// if(!this.hzxx.match(ownerPassport)){
-			    //     Toast('护照号码填写有误')
-				// 	check = false;
-				// 	this.unbind = true;
-				// 	return;
-			    // }
-				if (this.smfw == true) {
-					var input = document.querySelectorAll('.inps1');
-					if (input[0].value == "") {
-				    	Toast('请填写地址')
-				    	check = false;
-						this.unbind = true;
-				    	return;
-				    }
-				}
-				if (check) {
-					var sfxysmfu;
-					var xfzrxp;
-					if(this.smfw == false){
-						sfxysmfu = 0;
-					}else{
-						sfxysmfu = 1;
-					}
-					if(this.chip == "是"){
-						xfzrxp = 1
-					}else{
-						xfzrxp = 0
-					}
-					axios.post("/eport-server/delivery/pet/saveOrder.do", {
-						endCity:this.area,
-						flightDate:this.riqi,
-						homeDelivery:sfxysmfu,
-						homeAddress:this.dz,
-						ownerIdNo:this.sfzh,
-						ownerName:this.zrxm,
-						ownerPassport:this.hzxx,
-						ownerTelNo:this.lxfs,
-						petAge:this.cwnl,
-						petBreed:this.cwpz,
-						petCertificate:this.sfblgz,
-						petChip:xfzrxp,
-						petName:this.cwmz,
-						petPicture:this.imageUrl,
-						petSize:this.sizes,
-						petType:this.varietys,
-						petVaccineLastTime:this.myz,
-						petVaccinePics:this.myz1,
-						petWeight:this.cwzl,
-						startCity:this.fhd,
-						boxSize:this.sizes1,
-						picketInfo:this.jpxx
-					}).then((res) => {		
-						console.log(res)
-						if(res.status == 200) {	
-							Toast("申报成功");
-							setTimeout(()=>{
-								this.$router.push({path: '/cwty/cwty_list/'+'tab-container1'})
-								this.unbind = true;
-								location.reload();
-							},1000);
-						}else{
-							this.unbind = true;
-							Toast("申报失败");
-						}
-					}, (res) => {							
-					});
-					/*axios({
+      /*修改时间*/
+      gettime(mask) {
+
+        if (mask == "myzh") {
+          var times = document.getElementById("time").value;
+          var reg = /(\d{4})\-(\d{2})\-(\d{2})/;
+          times = times.replace(reg, "$1年$2月$3日");
+
+          this.myz = times;
+          this.time = "最后一次注册时间：" + times;
+        }
+        if (mask == "hangban") {
+          var times = document.getElementById("time2").value;
+          var reg = /(\d{4})\-(\d{2})\-(\d{2})/;
+          times = times.replace(reg, "$1年$2月$3日");
+
+          this.riqi = times;
+          this.time2 = "预计航班日期：" + times;
+        }
+
+      },
+      myimg(id) {
+
+        var oldUrl = window.location.href;
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        if (isAndroid) {
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        }
+
+        if (isiOS) {
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        }
+
+        //window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        //e.preventdefault();
+        //this.$router.push({oldUrl})
+        var that = this;
+        window.uploadImgOver = function (str) {
+          if (id == 1) {
+            that.imageUrl = JSON.parse(str).data;
+          }
+          if (id == 2) {
+            that.imageUrl2 = JSON.parse(str).data;
+            that.myz1 = JSON.parse(str).data;
+          }
+        }
+        window.location.href = oldUrl;
+      },
+      cage(res) {
+        this.$router.push({
+          name: 'sizes',
+          params: {
+            sizes: res
+          }
+        })
+      },
+      clickcwzp(res) {
+        setTimeout(() => {
+          Bus.$emit('oldCwzp', res)
+        }, 30)
+        this.$router.push({path: '/chiose_rad/cwzp'})
+      },
+      rou_cwzl(varietys) {
+        setTimeout(() => {
+          Bus.$emit('varietys', varietys)
+        }, 30)
+        this.$router.push({path: '/chiose_rad/chiose_rad'})
+      },
+      chip1() {
+        this.chip = '是'
+      },
+      chip2() {
+        this.chip = '否'
+      },
+      size1() {
+        this.sizes = '大型'
+      },
+      size2() {
+        this.sizes = '中型'
+      },
+      size3() {
+        this.sizes = '小型'
+      },
+      sfblgz1() {
+        this.sfblgz = '是'
+      },
+      sfblgz2() {
+        this.sfblgz = '否'
+      },
+      age1() {
+        this.cwnl = '小于1岁'
+      },
+      age2() {
+        this.cwnl = '1~5岁'
+      },
+      age3() {
+        this.cwnl = '5~10岁'
+      },
+      age4() {
+        this.cwnl = '10岁以上'
+      },
+      fhd1() {
+        this.fhd = '北京'
+      },
+      fhd2() {
+        this.fhd = '上海'
+      },
+      fhd3() {
+        this.fhd = '南京'
+      },
+      serve_switch() {
+        this.switch1 = !this.switch1;
+        if (this.switch1 == true) {
+          this.addr = true;
+        } else {
+          this.addr = false;
+        }
+      },
+      sheet1(n) {
+        if (n == 1) {
+          this.actions = this.actions1;
+        } else if (n == 2) {
+          this.actions = this.actions2;
+        } else if (n == 0) {
+          this.actions = this.actions0;
+        } else if (n == 3) {
+          this.actions = this.actions3;
+        } else if (n == 4) {
+          this.actions = this.actions4;
+        }
+        this.sheetVisible2 = !this.sheetVisible2;
+      },
+      gomyz() {
+        //window.location.href='http://222.190.243.8:8080/H5/test.html';
+
+        this.$router.push({
+          name: 'myzh',
+          params: {
+            time: this.myz,
+            res: this.myz1
+          }
+        })
+      },
+      shenbao() {
+        this.unbind = false;
+        var check = true;
+        var input = document.querySelectorAll('.inps');
+        var label = document.getElementsByTagName('label');
+        if (this.sizes == '' && this.sizes1 == '') {
+          check = false;
+          this.unbind = true;
+          Toast('笼子尺寸与体型尺寸至少选择一种')
+          return;
+        }
+        if (this.imageUrl.indexOf('http') == -1) {
+          Toast('请上传宠物照片');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+        for (var i = 0; i < input.length; i++) {
+          if (input[i].value == "") {
+            if (label[i].innerHTML != '免疫证' && label[i].innerHTML != '笼子尺寸' && label[i].innerHTML != '体型尺寸') {
+              Toast('请填写' + label[i].innerHTML)
+              check = false;
+              this.unbind = true;
+              return;
+            }
+          }
+        }
+        if (isNaN(Number(this.cwzl))) {
+          Toast('宠物重量填写有误')
+          this.unbind = true;
+          return;
+        }
+        var regName = /^[\u4e00-\u9fa5]{2,4}$/;
+        if (!this.zrxm.match(regName)) {
+          Toast('姓名填写有误')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+        // var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+        // if(!this.lxfs.match(telReg)){
+        // 	Toast('请输入正确的电话号码')
+        // 	check = false;
+        // 	this.unbind = true;
+        // 	return;
+        // }
+        // var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        // if(!this.sfzh.match(cardIdReg)){
+        // 	Toast('请输入正确的身份证号码')
+        // 	check = false;
+        // 	return;
+        // }
+        // var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
+        // if(!this.hzxx.match(ownerPassport)){
+        //     Toast('护照号码填写有误')
+        // 	check = false;
+        // 	this.unbind = true;
+        // 	return;
+        // }
+        if (this.smfw == true) {
+          var input = document.querySelectorAll('.inps1');
+          if (input[0].value == "") {
+            Toast('请填写地址')
+            check = false;
+            this.unbind = true;
+            return;
+          }
+        }
+        if (check) {
+          var sfxysmfu;
+          var xfzrxp;
+          if (this.smfw == false) {
+            sfxysmfu = 0;
+          } else {
+            sfxysmfu = 1;
+          }
+          if (this.chip == "是") {
+            xfzrxp = 1
+          } else {
+            xfzrxp = 0
+          }
+          axios.post("/eport-server/delivery/pet/saveOrder.do", {
+            endCity: this.area,
+            flightDate: this.riqi,
+            homeDelivery: sfxysmfu,
+            homeAddress: this.dz,
+            ownerIdNo: this.sfzh,
+            ownerName: this.zrxm,
+            ownerPassport: this.hzxx,
+            ownerTelNo: this.lxfs,
+            petAge: this.cwnl,
+            petBreed: this.cwpz,
+            petCertificate: this.sfblgz,
+            petChip: xfzrxp,
+            petName: this.cwmz,
+            petPicture: this.imageUrl,
+            petSize: this.sizes,
+            petType: this.varietys,
+            petVaccineLastTime: this.myz,
+            petVaccinePics: this.myz1,
+            petWeight: this.cwzl,
+            startCity: this.fhd,
+            boxSize: this.sizes1,
+            picketInfo: this.jpxx
+          }).then((res) => {
+            console.log(res)
+            if (res.status == 200) {
+              Toast("申报成功");
+              setTimeout(() => {
+                this.$router.replace({path: '/cwty/cwty_list/' + 'tab-container1'})
+                this.unbind = true;
+
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                if (isAndroid) {
+                  window.close();
+                } else {
+                  this.$router.back(-1);
+                }
+              }, 1000);
+            } else {
+              this.unbind = true;
+              Toast("申报失败");
+            }
+          }, (res) => {
+          });
+          /*axios({
 						method: 'POST',
 						data:data,
 						url: '/eport-server/delivery/pet/saveOrder.do',
@@ -478,89 +539,110 @@
 							Toast("申报成功")
 						}
 					});*/
-					
-				}
-			}
-		},
-		mounted() {
-			if(this.$route.params.selpet != undefined){
-				this.varietys = this.$route.params.selpet;
-			}
-		},
-        beforeRouteLeave(to,from,next){
-			if (to.name == "cwty_list"){
-				this.area = '';
-				this.riqi = "";
-				this.sfxysmfu = '';
-				this.dz = "";
-				this.sfzh = '';
-				this.zrxm = "";
-				this.hzxx = '';
-				this.lxfs = "";
-				this.cwnl = '';
-				this.cwpz = "";
-				this.sfblgz = '';
-				this.xfzrxp = "";
-				this.cwmz = '';
-				this.imageUrl = "../../../static/img/Group 3.png";
-				this.sizes = '';
-				this.varietys = "";
-				this.myz = '';
-				this.myz1 = "";
-				this.cwzl = '';
-				this.fhd = "";
-				this.sizes1 = "";
-				this.jpxx = "";
-				this.chip = "";
-				this.switch1 = false;
-				this.smfw = false;
-				this.addr = false;
-			}else{
-				from.meta.keepAlive = true;
-			}
-			next();
-        },
-		created: function() {
-			var that = this;
-			var userinfo = sessionStorage.getItem('userifo');
-			if(userinfo != null){
-				userinfo = JSON.parse(userinfo);
-				that.sfzh = userinfo.idNumber,
-				that.lxfs = userinfo.phone;
-				that.zrxm = userinfo.userName;
-			}
-		    Bus.$on('area', (e) => {
-		    	that.area = e;
-				document.getElementById("soll").scrollTop = 350;
-		    })
-		    Bus.$on('myz', (e,el) => {
-		　　　　 that.myz = e;
-				that.myz1 = el;
-				document.getElementById("soll").scrollTop = 300;
-		    })
-		    Bus.$on('riqi', (e) => {
-				that.riqi = e;
-				document.getElementById("soll").scrollTop = 350;
-		    })
-		    Bus.$on('varietys', (e) => {
-				that.varietys = e;
-		    })
-		    Bus.$on('sizes1', (e) => {
-		　　　　that.sizes1 = e;
-		    })
-		//     Bus.$on('cwzp', (e) => {
-		// 　　　　 this.imageUrl1 = e;
-		// 		if (e[0] != undefined) {
-		// 			this.imageUrl = e[0];
-		// 		}else{
-		// 			this.imageUrl = '../../../static/img/Group 3.png';
-		// 		}
-		//     })
-		},
-		filters: {
-			
-		}
-	}
+        }
+      },
+    },
+      mounted() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        if (isAndroid) {
+          this.zrxm = this.$route.query.username;
+          this.lxfs = this.$route.query.phone;
+          if(this.$route.query.pet == 1){
+            this.varietys = "猫";
+          }
+          if(this.$route.query.pet == 2){
+            this.varietys = "狗";
+          }
+        }
+
+        var date_now = new Date();
+        var year = date_now.getFullYear();
+        var month = date_now.getMonth() + 1 < 10 ? "0" + (date_now.getMonth() + 1) : (date_now.getMonth() + 1);
+        var date = date_now.getDate() < 10 ? "0" + date_now.getDate() : date_now.getDate();
+        this.nowdate = year + '-' + month + '-' + date;//获取当前年月日 不足10 补0
+
+        if (this.$route.params.selpet != undefined) {
+          this.varietys = this.$route.params.selpet;
+        }
+      },
+      beforeRouteLeave(to, from, next) {
+        if (to.name == "cwty_list") {
+          this.area = '';
+          this.riqi = "";
+          this.sfxysmfu = '';
+          this.dz = "";
+          this.sfzh = '';
+          this.zrxm = "";
+          this.hzxx = '';
+          this.lxfs = "";
+          this.cwnl = '';
+          this.cwpz = "";
+          this.sfblgz = '';
+          this.xfzrxp = "";
+          this.cwmz = '';
+          this.imageUrl = "../../../static/img/Group 3.png";
+          this.imageUrl2 = "../../../static/img/Group 3.png";
+          this.sizes = '';
+          this.varietys = "";
+          this.myz = '';
+          this.myz1 = "";
+          this.cwzl = '';
+          this.fhd = "";
+          this.sizes1 = "";
+          this.jpxx = "";
+          this.chip = "";
+          this.switch1 = false;
+          this.smfw = false;
+          this.addr = false;
+          this.time = "选择最后一次注册时间(没有可不填)";
+          this.time2 = "预计航班日期";
+        } else {
+          from.meta.keepAlive = true;
+        }
+        next();
+      },
+      created: function () {
+        var that = this;
+        var userinfo = sessionStorage.getItem('userifo');
+        if (userinfo != null) {
+          userinfo = JSON.parse(userinfo);
+          that.sfzh = userinfo.idNumber,
+            that.lxfs = userinfo.phone;
+          that.zrxm = userinfo.userName;
+        }
+        Bus.$on('area', (e) => {
+          that.area = e;
+          document.getElementById("soll").scrollTop = 350;
+        })
+        Bus.$on('myz', (e, el) => {
+          that.myz = e;
+          that.myz1 = el;
+          document.getElementById("soll").scrollTop = 300;
+        })
+        Bus.$on('riqi', (e) => {
+          that.riqi = e;
+          document.getElementById("soll").scrollTop = 350;
+        })
+        Bus.$on('varietys', (e) => {
+          that.varietys = e;
+        })
+        Bus.$on('sizes1', (e) => {
+          that.sizes1 = e;
+        })
+        //     Bus.$on('cwzp', (e) => {
+        // 　　　　 this.imageUrl1 = e;
+        // 		if (e[0] != undefined) {
+        // 			this.imageUrl = e[0];
+        // 		}else{
+        // 			this.imageUrl = '../../../static/img/Group 3.png';
+        // 		}
+        //     })
+      },
+      filters: {}
+    }
 </script>
 
 <style scoped>
@@ -683,7 +765,7 @@
 		font-family:PingFangSC-Regular;
 		color:rgba(255,255,255,1);
 	}
-	
+
 .avatar-uploader{
     width: 90px;
     position: absolute;
@@ -736,7 +818,7 @@
 	    -o-animation: rotate 3s linear infinite;
 	    animation: rotate 3s linear infinite;
     }
-    
+
     .mint-switch-core:before {
     width: 6.667vw;
     height: 4vw;
@@ -746,7 +828,7 @@
     .mint-switch-input:checked+.mint-switch-core:after {
     -webkit-transform: translateX(2.667vw);
     transform: translateX(2.667vw);
-    content: ""!important; 
+    content: ""!important;
 }
 	.mint-switch-core:after {
 	    width: 4vw;
@@ -754,7 +836,7 @@
 	    background-color: #fff;
 	    -webkit-box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
 	    box-shadow: 0 1px 0.4vw rgba(0,0,0,.4);
-	    content: ""!important; 
+	    content: ""!important;
 	}
 	.mint-actionsheet-button, .mint-actionsheet-listitem {
 	    display: block;
@@ -798,6 +880,27 @@
 	    to{transform: rotate(359deg)
 	    }
 	}
+
+  .avatar{
+    margin: 0 14px 14px 40px;
+    border: 1px solid #f8f8f8;
+    width: 93px;
+    height: 89px;
+  }
+
+  .chiotiem1{
+    width: 100%;
+    background: #fff;
+    border: 1px solid #f5f5f5;
+    height: 10.467vw;
+    font-size: 4vw;
+    padding-left: 0;
+    float: right;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+  }
 </style>
 <style type="text/css">
 	.mint-actionsheet-button, .mint-actionsheet-listitem {
