@@ -26,11 +26,10 @@
 				<label class="tit">是否已植入芯片</label>
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="chip" />
 			</div>
-			<div class="ele">
+			<div class="ele3">
 				<label class="tit">免疫证</label>
         <!--TODO 免疫证照片-->
-        <img :src="imgUrl" alt="">
-
+        <img :src="myzzp" alt="" style="width: 68px !important;height: 68px !important;" >
 				<!--<input readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" />-->
 			</div>
 			<div class="ele">
@@ -98,6 +97,7 @@
 				area:"",
 				fhd:"",
 				myz:"",
+        myzzp:"",
 				chip:"",
 				sizes:"",
 				cwzl:"",
@@ -151,6 +151,7 @@
 					that.sizes = data.data.data.petSize;
 					that.varietys = data.data.data.petType;
 					that.myz = data.data.data.petVaccineLastTime;
+					that.myzzp = data.data.data.petVaccinePics;
 					that.cwzl = data.data.data.petWeight;
 					that.fhd = data.data.data.startCity;
 					that.dz = data.data.data.homeAddress;
@@ -161,18 +162,9 @@
 			}
 		},
 		mounted() {
-		    Bus.$on('list', (e) => {
-		    	this.ids = e;
-		    })
-		    setTimeout(() => {
-		        this.getdetails();
-		    },100)
+      this.ids = this.$route.params.id;
+      this.getdetails();
 		},
-		created: function() {
-		},
-		filters: {
-
-		}
 	}
 </script>
 
@@ -232,6 +224,16 @@
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
 	    height: 80px;
+	    line-height: 80px;
+		font-size:32px;
+		font-family:PingFangSC-Regular;
+		color:rgba(51,51,51,1);
+	}
+	.ele3{
+	    margin: 0px 20px;
+	    border-bottom: 1px solid #efefef;
+	    position: relative;
+	    min-height: 80px;
 	    line-height: 80px;
 		font-size:32px;
 		font-family:PingFangSC-Regular;

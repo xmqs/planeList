@@ -40,6 +40,7 @@
 				</div>
 				<div class="serversOK">
 					<button @click="submit()" class="shenbao">保存</button>
+					<button @click="removelist()" class="shenbao" style="background: #e4393c" v-if="isdelete">删除</button>
 				</div>
 			</div>
 		</div>
@@ -64,14 +65,13 @@
 				boxNo:'',
 				packages:[],
 				deleteid:'',
+        isdelete:false,
+        premove:"",
 			}
-		},
-	    activated() {
-	    	
 		},
 		methods: {
 			update(res){
-				console.log(res)
+			  this.isdelete = true;
 				this.deleteid = res;
 				var obj = this.packages[res]
 				console.log(this.packages[res])
@@ -91,7 +91,14 @@
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
 			},
+      removelist(){
+        this.packages.splice(this.deleteid, 1);
+        this.add1 = !this.add1;
+        this.add2 = !this.add2;
+        this.isdelete = false;
+      },
 			submit(){
+        this.isdelete = false;
 				var input = document.querySelectorAll('.add2_inps');
 				var label = document.querySelectorAll('.add2_tit');
 				for(var i =0;i < input.length;i++){
@@ -101,7 +108,7 @@
 				    	return;
 				    }
 				}
-				var name =/^[\u4e00-\u9fa5]+$/; 
+				var name =/^[\u4e00-\u9fa5]+$/;
 				var num =/^[0-9]*$/;
 				if(!this.name.match(name)){
 					Toast('中文名输入有误')
@@ -124,40 +131,36 @@
 				pack.count = this.count;
 				pack.price = this.price;
 				pack.boxNo = this.boxNo;
-				arr.push(pack)
-				if(this.deleteid != ''){
+
+        this.packages.push(pack);
+
+				if(this.deleteid !== ''){
 					this.packages.splice(this.deleteid, 1);
 				}
-				this.packages = arr;
 				this.add1 = !this.add1;
 				this.add2 = !this.add2;
-				setTimeout(() => {
+				/*setTimeout(() => {
 					sessionStorage.setItem('wplist1',JSON.stringify(this.packages))
-				}, 30)
+				}, 30)*/
 			},
-			getdetails(){
+			/*getdetails(){
 				var that = this;
 				axios.get('/eport-server/delivery/pet/queryOrderById.do', {
 					params: {
 						orderNo :this.ids
 					}
 				}).then(function(data) {
-					
+
 				})
-			}
+			}*/
 		},
 		mounted() {
-		    Bus.$on('wplist', (e) => {
-		    	this.packages = e;
-		    })
-		    setTimeout(() => {
-		        //this.getdetails();
-		    },100)
+		  this.packages = this.$route.params;
 		},
 		created: function() {
 		},
 		filters: {
-			
+
 		}
 	}
 </script>
@@ -204,22 +207,24 @@
 		margin-top: 0;
 	}
 	.ele{
-        margin: 7px 10px 0px 17px;
+      margin: 7px 10px 0px 17px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 120px;
+	    min-height: 120px;
 	    line-height: 53px;
 	    font-size: 30px;
 	}
 	.tanhao{
 	    width: 43px;
 	    position: absolute;
-	    top: 27px;
+	    top: 50%;
+      margin-top: -20px;
 	    right: 13px;
 	}
 	.name{
 	    font-size: 32px;
     	color: #333;
+      max-width: 630px;
 	}
 	.intp{
 	    color: #9b9b9b;

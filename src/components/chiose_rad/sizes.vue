@@ -20,6 +20,7 @@
 				</li>
 			</ul>
             <div @click="savemsg" class="save">保存</div>
+            <div @click="savemsg2" class="save">不需要笼子</div>
 		</div>
 	</div>
 </template>
@@ -37,6 +38,13 @@ export default {
 	    }
     },
 	methods:{
+    savemsg2(){
+      var res = "";
+      setTimeout(() => {
+        Bus.$emit('sizes1', res)
+      }, 30)
+      this.$router.back(-1)
+    },
         savemsg(){
             if(this.long == ''){
                 Toast('请输入笼子长度')
@@ -81,7 +89,7 @@ export default {
 		-webkit-appearance: none;
 	}
 	#soll{
-		
+
     }
     li{
         padding: 0 5vw;

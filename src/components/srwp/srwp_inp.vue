@@ -16,12 +16,12 @@
 			</div>
 			<div class="ele">
 				<label class="tit">物品清单</label>
-				<div style="line-height: 23px;" @click="wplist(packages)" class="inps">
-					<span v-for="(ele,index) in packages">
+				<div style="line-height: 23px;white-space: nowrap!important;overflow: hidden!important;text-overflow:ellipsis!important;" @click="wplist(packages)" class="inps">
+					<span v-for="(ele,index) in packages"  style="white-space: nowrap!important;overflow: hidden!important;text-overflow:ellipsis!important;">
 						<span v-if="index == 0">
 							{{ele.name}}
 						</span>
-						<span v-else>
+						<span v-else  style="white-space: nowrap!important;overflow: hidden!important;text-overflow:ellipsis!important;">
 							,{{ele.name}}
 						</span>
 					</span>
@@ -61,13 +61,16 @@
 			<div class="ele2">
 				<span class="tit">电子机票行程单</span>
 				<div>
-					<img v-if="travelList1" :src="travelList1" class="item el-icon-plus">
-					<img @click="myimg(2)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-					<img v-if="travelList2" :src="travelList2" class="item el-icon-plus">
-					<img @click="myimg(3)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-				</div>
-				<div style="margin-top: 88px;height: 29px;line-height: 25px;">
-					<span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正面&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;反面</span>
+          <div class="img_list">
+            <img @click="myimg(2)" v-if="travelList1" :src="travelList1" class="item el-icon-plus">
+            <img @click="myimg(2)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
+            <p>正面</p>
+          </div>
+          <div class="img_list">
+            <img @click="myimg(3)" v-if="travelList2" :src="travelList2" class="item el-icon-plus">
+            <img @click="myimg(3)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
+            <p>反面</p>
+          </div>
 				</div>
 			</div>
 			<div class="points">
@@ -251,10 +254,7 @@
 				this.sheetVisible2 = !this.sheetVisible2;
 			},
 			wplist(res){
-				setTimeout(() => {
-			        Bus.$emit('wplist', res)
-			    }, 30)
-				this.$router.push({path: '/srwp/wplist'})
+				this.$router.push({name: 'wplist',params:res});
 			},
 			serve_switch(){
 				this.switch1 = !this.switch1;
@@ -362,7 +362,7 @@
 				}
 			}
 		},
-        beforeRouteLeave(to,from,next){
+    beforeRouteLeave(to,from,next){
 			if (to.name == "srwp_list"){
 				this.packages = [];
 				this.weight = "";
@@ -382,13 +382,30 @@
 				this.homeDelivery = false;
 				this.switch1 = false;
 				this.addr = false;
-				sessionStorage.removeItem('wplist1');
 			}else{
 				from.meta.keepAlive = true;
 			}
 			next();
         },
 	    activated() {
+		    Bus.$on('area', (e) => {
+		    	this.endCity = e;
+			  })
+
+		    Bus.$on('boxsizes', (e) => {
+		　　　　this.size = e;
+		    })
+    },
+		mounted() {
+
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+
+      if (isAndroid) {
+        this.ownerName = this.$route.query.username;
+        this.ownerIdNo = this.$route.query.id;
+        this.ownerTelNo = this.$route.query.phone;
+      }else{
 
         var userinfo = sessionStorage.getItem('userifo');
         if(userinfo != null){
@@ -397,32 +414,6 @@
           this.ownerTelNo = userinfo.phone;
           this.ownerName = userinfo.userName;
         }
-
-
-		    Bus.$on('area', (e) => {
-		    	this.endCity = e;
-			})
-
-		    Bus.$on('boxsizes', (e) => {
-		　　　　this.size = e;
-		    })
-		    // Bus.$on('wplist1', (e) => {
-		    // 	this.packages = e;
-		    // 	/*for (var i =0;i<this.packages.length;i++) {
-		    // 		this.packagesName += this.packages[i].name + ','
-		    // 	}*/
-			// })
-			this.packages = JSON.parse(sessionStorage.getItem('wplist1'));
-		},
-		mounted() {
-
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-
-      if (isAndroid) {
-        this.ownerName = this.$route.query.username;
-        this.ownerIdNo = this.$route.query.idNumber;
-        this.ownerTelNo = this.$route.query.phone;
       }
 		},
 		created: function() {
@@ -489,7 +480,7 @@
 	    margin: 0 20px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 282px;
+	    min-height: 282px;
 	    line-height: 85px;
 		font-size:32px;
 		font-family:PingFangSC-Regular;
@@ -499,7 +490,7 @@
 	    margin: 0 20px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 326px;
+	    min-height: 326px;
 	    line-height: 85px;
 		font-size:32px;
 		font-family:PingFangSC-Regular;
@@ -637,7 +628,7 @@
 	    border: 1px solid #ccc;
 	}
 	.avatar{
-        margin: 0 5px 7px 13px;
+      margin: 0 10px 7px 13px;
     	border: 1px solid #f8f8f8;
 	    width: 160px !important;
 	    height: 160px !important;
@@ -653,9 +644,9 @@
 	}
 	.delect-i{
 		position: absolute;
-	    top: -7px;
-	    right: -3px;
-	    width: 50px;
+    top: -7px;
+    right: -3px;
+    width: 50px;
 	}
 	.item{
 		position: relative;
@@ -664,6 +655,13 @@
 		width: 172px;
 		height: 172px;
 	}
+
+  .img_list{
+    display: inline-block;
+  }
+  .img_list p{
+    text-align: center;
+  }
 </style>
 <style type="text/css">
 	.mint-actionsheet-button, .mint-actionsheet-listitem {

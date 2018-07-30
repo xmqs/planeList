@@ -19,12 +19,12 @@
 			</div>
 			<div class="ele">
 				<span class="tit">物品清单</span>
-				<div style="line-height: 23px;" @click="wplist(packages)" class="inps">
-					<span v-for="(ele,index) in packages">
+				<div style="line-height: 23px;white-space: nowrap!important;overflow: hidden!important;text-overflow:ellipsis!important;" @click="wplist(packages)" class="inps">
+					<span v-for="(ele,index) in packages"  style="white-space: nowrap!important;overflow: hidden!important;text-overflow:ellipsis!important;">
 						<span v-if="index == 0">
 							{{ele.name}}
 						</span>
-						<span v-else>
+						<span v-else style="white-space: nowrap!important;overflow: hidden!important;text-overflow:ellipsis!important;">
 							,{{ele.name}}
 						</span>
 					</span>
@@ -64,14 +64,17 @@
 			<div class="ele2">
 				<span class="tit">电子机票行程单</span>
 				<div>
-					<img v-if="travelList1" :src="travelList1" class="item el-icon-plus">
-					<img @click="myimg(2)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-					<img v-if="travelList2" :src="travelList2" class="item el-icon-plus">
-					<img @click="myimg(3)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
-				</div>
-				<div style="margin-top: 88px;height: 29px;line-height: 25px;">
-					<span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正面&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;反面</span>
-				</div>
+          <div class="img_list">
+            <img style="width: 100px !important;height: 100px !important;" @click="myimg(2)" v-if="travelList1" :src="travelList1" class="item el-icon-plus">
+            <img style="width: 100px !important;height: 100px !important;" @click="myimg(2)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
+            <p>正面</p>
+          </div>
+          <div class="img_list">
+            <img style="width: 100px !important;height: 100px !important;" @click="myimg(3)" v-if="travelList2" :src="travelList2" class="item el-icon-plus">
+            <img style="width: 100px !important;height: 100px !important;" @click="myimg(3)" v-else class="item el-icon-plus" src="../../../static/img/Group 3.png"/>
+            <p>反面</p>
+          </div>
+        </div>
 			</div>
 			<div class="points">
 				<span class="">主人信息</span>
@@ -128,11 +131,11 @@
 				ownerPassport:'',
 				homeAddress:'',
 				ownerTelNo:'',
-		        bigPackageList:[],
-		        travelList1:'',
-		        travelList2:'',
-		        travelList:[],
-		        ids:'',
+        bigPackageList:[],
+        travelList1:'',
+        travelList2:'',
+        travelList:[],
+        ids:'',
 				/*属性结束*/
 				value:"",
 				switch1:false,
@@ -181,9 +184,19 @@
 			//图片上传
 			myimg(res){
 				var oldUrl = window.location.href;
-				window.location.href='#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
-				//e.preventdefault();
-				//this.$router.push({oldUrl})
+
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+
+        if (isAndroid) {
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        }
+
+        if (isiOS) {
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+        }
 				var that = this;
 				window.uploadImgOver = function(str) {
 					//that.imageUrl = JSON.parse(str).data;
@@ -243,12 +256,9 @@
 				}
 				this.sheetVisible2 = !this.sheetVisible2;
 			},
-			wplist(res){
-				setTimeout(() => {
-			        Bus.$emit('wplist', res)
-			    }, 30)
-				this.$router.push({path: '/srwp/wplist'})
-			},
+      wplist(res){
+        this.$router.push({name: 'wplist',params:res});
+      },
 			serve_switch(){
 				this.switch1 = !this.switch1;
 				if (this.switch1 == true) {
@@ -334,15 +344,17 @@
 						travelList:this.travelList,
 					}).then((res) => {
 						if(res.status == 200) {
-							Toast("申报成功");
 							setTimeout(()=>{
-								// this.$router.push({name: 'srwp_list',
-								// 	params:{
-								// 		res:'tab-container1'
-								// 	}
-								// })
-								// location.reload();
-							},1500);
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                if (isAndroid) {
+                  Toast("修改成功,返回即可");
+                  //window.history.go(-1);
+                } else {
+                  Toast("修改成功");
+                  this.$router.replace({path: '/srwp/srwp_list'})
+                }
+							},1000);
 						}else{
 							Toast("申报失败");
 						}
@@ -390,23 +402,25 @@
 		    Bus.$on('area', (e) => {
 		    	this.endCity = e;
 		    })
-		    Bus.$on('updateId', (e) => {
+		    /*Bus.$on('updateId', (e) => {
 		    	this.ids = e;
-		    })
+		    })*/
 		    Bus.$on('boxsizes', (e) => {
 		　　　　this.size = e;
 		    })
 		    // Bus.$on('wplist1', (e) => {
 		    // 	this.packages = e;
 			// })
-			this.packages = JSON.parse(sessionStorage.getItem('wplist1'));
-			sessionStorage.removeItem('wplist1');
+			/*this.packages = JSON.parse(sessionStorage.getItem('wplist1'));
+			sessionStorage.removeItem('wplist1');*/
+      this.ids = this.$route.params.id;
+      this.getDetails();
 		},
-		created: function() {
+		/*created: function() {
 		    setTimeout(() => {
 		        this.getDetails();
 		    },100)
-		},
+		},*/
 		filters: {
 
 		}
@@ -469,7 +483,7 @@
 	    margin: 0 20px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 282px;
+	    min-height: 282px;
 	    line-height: 85px;
 		font-size:32px;
 		font-family:PingFangSC-Regular;
@@ -479,11 +493,11 @@
 	    margin: 0 20px;
 	    border-bottom: 1px solid #efefef;
 	    position: relative;
-	    height: 326px;
+	    min-height: 326px;
 	    line-height: 85px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
+      font-size:32px;
+      font-family:PingFangSC-Regular;
+      color:rgba(51,51,51,1);
 	}
 	.ele{
 	    margin: 0px 20px;
@@ -579,8 +593,8 @@
     opacity: 0;
   }
  .avatar{
-    width: 64pt;
-    height: 64pt;
+    width: 100px;
+    height: 100px;
     display: block;
     margin-top: 5px;
     float: right;
@@ -638,6 +652,13 @@
 		float: left;
 		padding: 7px;
 	}
+
+  .img_list{
+    display: inline-block;
+  }
+  .img_list p{
+    text-align: center;
+  }
 </style>
 <style type="text/css">
 	.mint-actionsheet-button, .mint-actionsheet-listitem {

@@ -114,7 +114,7 @@
 			</div>
 			<div class="ele">
 				<label class="tit">机票信息</label>
-				<input class="inps" type="text" placeholder="请输入航班信息" v-model="jpxx" />
+				<input class="inps" type="text" placeholder="请输入机票信息" v-model="jpxx" />
 			</div>
 			<div class="ele">
 				<label class="tit">联系方式</label>
@@ -202,7 +202,10 @@
 			      }, {
 			        name: '小型',
 			        method: this.size3
-			      }],
+			      },{
+              name: '不需要笼子',
+              method: this.size4
+            }],
 				actions2:[{
 			        name: '是否已卫生证书'
 			      },{
@@ -339,6 +342,9 @@
       },
       size3() {
         this.sizes = '小型'
+      },
+      size4() {
+        this.sizes = ''
       },
       sfblgz1() {
         this.sfblgz = '是'

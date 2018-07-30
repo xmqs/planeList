@@ -76,7 +76,7 @@
             </div>-->
       <div class="ele1">
         <span class="tit">免疫证照片(没有可不填)</span>
-        <img @click="myimg(2)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl2" class="avatar">
+        <img @click="myimg(2)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl2" class="avatar" v-if="imageUrl2!==''">
       </div>
       <div class="ele">
         <input @change="gettime('myzh')" id="time" class="chiotiem1" type="date" :max="nowdate">
@@ -538,7 +538,12 @@
             orderNo :this.ids
           }
         }).then((data)=> {
-          this.time = "选择最后一次注册时间："+data.data.data.petVaccineLastTime,
+          if(data.data.data.petVaccineLastTime!=='null'){
+            this.time = "选择最后一次注册时间："+data.data.data.petVaccineLastTime;
+          }else{
+            this.time = "最后一次注册时间：无"
+          }
+
             this.time2 = "预计航班日期："+data.data.data.flightDate,
             this.imageUrl2 = data.data.data.petVaccinePics;
 

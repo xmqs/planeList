@@ -256,7 +256,7 @@
             userinfo = JSON.parse(userinfo);
           }
 
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/srwp/srwp_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&id'+userinfo.idNumber;
+          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/srwp/srwp_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&id='+userinfo.idNumber;
 
         }else{
           this.$router.push({name: 'srwp_inp',
@@ -284,14 +284,20 @@
 			bus (res) {
 			    setTimeout(() => {
 			        Bus.$emit('list', res)
-			    }, 30)
+			    }, 500)
 		        this.$router.push({path: '/srwp/srwpDetails'})
 		    },
 			update (res) {
-			    setTimeout(() => {
-			        Bus.$emit('updateId', res)
-			    }, 30)
-		        this.$router.push({path: '/srwp/srwp_upd'})
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+
+        if(isAndroid){
+          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/srwp/srwp_upd/'+res;
+        }else{
+          this.$router.push({path: '/srwp/srwp_upd/'+res})
+        }
+
+
 		    },
 			select_item(res){
 				this.active = res;
@@ -306,19 +312,19 @@
 			text(res,img){
 			    setTimeout(() => {
 					Bus.$emit('ids', res,img)
-			    }, 30)
+			    }, 500)
 				this.$router.push({path: '/cwty/rate'})
 			},
 			serversId(res){
 			    setTimeout(() => {
 					Bus.$emit('serversId', res)
-			    }, 30)
+			    }, 500)
 				this.$router.push({path: '/srwp/servers'})
 			},
 			serversDetails(res){
 			    setTimeout(() => {
 					Bus.$emit('DetailsId', res)
-			    }, 30)
+			    }, 500)
 				this.$router.push({path: '/srwp/serversDetails'})
 			},
 			getList(){
@@ -332,7 +338,7 @@
 					that.list = data.data.data;
 					setTimeout(()=>{
 						that.lod = false;
-					},100);
+					},500);
 				})
 			}
 		}

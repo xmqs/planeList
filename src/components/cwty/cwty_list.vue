@@ -20,7 +20,7 @@
 
 			<div class="page-tab-container" v-bind:style="{width: widthData}">
 			  <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
-				<mt-tab-container-item id="tab-container1">
+				<mt-tab-container-item id="tab-container1" style="padding-bottom:50px">
 				  	<div v-for="ele in list" v-if="status == 10" class="ele">
 				  		<div class="ele1">
 					  		<span class="zhuren">宠物主人：{{ele.ownerName}}</span>
@@ -275,10 +275,7 @@
         }
 			},
 			bus (res) {
-			    setTimeout(() => {
-			        Bus.$emit('list', res)
-			    }, 100)
-		        this.$router.push({path: '/cwty/petDetails'})
+		        this.$router.push({path: '/cwty/petDetails/'+res})
 		    },
 			update (res) {
 			    /*setTimeout(() => {
@@ -299,25 +296,25 @@
 			tyxq(res){
 				setTimeout(() => {
 					Bus.$emit('element', res)
-			    }, 100)
+			    }, 500)
 				this.$router.push({path: '/cwty/checked'})
 			},
 			text(res,img){
 			    setTimeout(() => {
 					Bus.$emit('ids', res,img)
-			    }, 100)
+			    }, 500)
 				this.$router.push({path: '/cwty/rate'})
 			},
 			serversId(res){
 			    setTimeout(() => {
 					Bus.$emit('serversId', res)
-			    }, 100)
+			    }, 500)
 				this.$router.push({path: '/cwty/servers'})
 			},
 			serversDetails(res){
 			    setTimeout(() => {
 					Bus.$emit('serversDetailsId', res)
-			    }, 100)
+			    }, 500)
 				this.$router.push({path: '/cwty/serversDetails'})
 			},
 
@@ -347,7 +344,7 @@
 					that.list = data.data.data;
 					setTimeout(()=>{
 						that.lod = false;
-					},100);
+					},500);
 				})
 			}
 		}

@@ -290,7 +290,7 @@ export default new Router({
             component: servers,
         },
         {
-            path: '/cwty/petDetails',
+            path: '/cwty/petDetails/:id',
             name: 'petDetails',
             component: petDetails,
         },
@@ -378,9 +378,12 @@ export default new Router({
             path: '/srwp/srwp_inp',
             name: 'srwp_inp',
             component: srwp_inp,
+            meta:{
+                keepAlive:true
+            }
         },
         {
-            path: '/srwp/srwp_upd',
+            path: '/srwp/srwp_upd/:id',
             name: 'srwp_upd',
             component: srwp_upd,
             meta: {
