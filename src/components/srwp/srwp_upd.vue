@@ -485,9 +485,9 @@
 	    position: relative;
 	    min-height: 282px;
 	    line-height: 85px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
+      font-size:32px;
+      font-family:PingFangSC-Regular;
+      color:rgba(51,51,51,1);
 	}
 	.ele2{
 	    margin: 0 20px;
@@ -658,6 +658,11 @@
   }
   .img_list p{
     text-align: center;
+  }
+  .ele1:after{
+    content: " ";
+    display: table;
+    clear:both;
   }
 </style>
 <style type="text/css">

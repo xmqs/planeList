@@ -75,7 +75,7 @@
                 <div class="newsele_1">如没有免疫证，可不填</div>
             </div>-->
       <div class="ele1">
-        <span class="tit">免疫证照片(没有可不填)</span>
+        <span class="tit">免疫证照片</span>
         <img @click="myimg(2)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl2" class="avatar" v-if="imageUrl2!==''">
       </div>
       <div class="ele">
@@ -179,12 +179,12 @@
         switch1:false,
         addr:false,
         name:"",
-        time:"选择最后一次注册时间(没有可不填)",
+        time:"选择最后一次注射时间",
         time2:"预计航班日期",
         actions:[],
         nowdate:'',
         actions0:[{
-          name: '是否植入芯片'
+          name: '是否已植入芯片'
         },{
           name: '是',
           method: this.chip1
@@ -205,7 +205,7 @@
           method: this.size3
         }],
         actions2:[{
-          name: '是否已卫生证书'
+          name: '是否已办理卫生证书'
         },{
           name: '是',
           method: this.sfblgz1
@@ -252,7 +252,7 @@
           times = times.replace(reg, "$1年$2月$3日");
 
           this.myz = times;
-          this.time = "最后一次注册时间：" + times;
+          this.time = "最后一次注射时间：" + times;
         }
         if (mask == "hangban") {
           var times = document.getElementById("time2").value;
@@ -538,15 +538,19 @@
             orderNo :this.ids
           }
         }).then((data)=> {
-          if(data.data.data.petVaccineLastTime!=='null'){
-            this.time = "选择最后一次注册时间："+data.data.data.petVaccineLastTime;
+          if(data.data.data.petVaccineLastTime=='null'||data.data.data.petVaccineLastTime==''||data.data.data.petVaccineLastTime==null){
+            this.time = "最后一次注射时间：无"
           }else{
-            this.time = "最后一次注册时间：无"
+            this.time = "选择最后一次注射时间："+data.data.data.petVaccineLastTime;
+          }
+          if(data.data.data.flightDate=='null'||data.data.data.flightDate==''||data.data.data.flightDate==null){
+            this.time2 = "预计航班日期：无";
+          }else{
+            this.time2 = "预计航班日期："+data.data.data.flightDate;
           }
 
-            this.time2 = "预计航班日期："+data.data.data.flightDate,
-            this.imageUrl2 = data.data.data.petVaccinePics;
 
+          this.imageUrl2 = data.data.data.petVaccinePics;
           this.myz1 = data.data.data.petVaccinePics;
           this.imageUrl = data.data.data.petPicture;
           this.area = data.data.data.endCity;
@@ -580,54 +584,14 @@
           this.fhd = data.data.data.startCity;
           this.lod2 = false;
           this.lod1 = true;
+          if(data.data.data.homeDelivery=="1"){
+            this.addr = true;
+          }
         })
       }
     },
 		mounted() {
-      this.ids = this.$route.params.id;
-      axios.get('/eport-server/delivery/pet/queryOrderById.do', {
-        params: {
-          orderNo :this.ids
-        }
-      }).then((data)=> {
-        this.time = "选择最后一次注册时间："+data.data.data.petVaccineLastTime,
-        this.time2 = "预计航班日期："+data.data.data.flightDate,
-        this.imageUrl2 = data.data.data.petVaccinePics;
 
-        this.myz1 = data.data.data.petVaccinePics;
-        this.imageUrl = data.data.data.petPicture;
-        this.area = data.data.data.endCity;
-        this.riqi = data.data.data.flightDate;
-        this.dz = data.data.data.homeAddress;
-        this.jpxx = data.data.data.picketInfo;
-        this.sizes1 = data.data.data.boxSize;
-        if (data.data.data.homeDelivery == 0) {
-          this.smfw = false
-          this.dz = ''
-        } else{
-          this.smfw = true
-        }
-        this.sfzh = data.data.data.ownerIdNo;
-        this.zrxm = data.data.data.ownerName;
-        this.hzxx = data.data.data.ownerPassport;
-        this.lxfs = data.data.data.ownerTelNo;
-        this.cwnl = data.data.data.petAge;
-        this.cwpz = data.data.data.petBreed;
-        this.sfblgz = data.data.data.petCertificate;
-        if (data.data.data.petChip == 0) {
-          this.chip = '否'
-        } else{
-          this.chip = '是'
-        }
-        this.cwmz = data.data.data.petName;
-        this.sizes = data.data.data.petSize;
-        this.varietys = data.data.data.petType;
-        this.myz = data.data.data.petVaccineLastTime;
-        this.cwzl = data.data.data.petWeight;
-        this.fhd = data.data.data.startCity;
-        this.lod2 = false;
-        this.lod1 = true;
-      })
 		},
 		created: function() {
 		    Bus.$on('area', (e) => {
@@ -682,12 +646,11 @@
         this.switch1 = false;
         this.smfw = false;
         this.addr = false;
-        this.time = "选择最后一次注册时间(没有可不填)";
-        this.time2 = "预计航班日期";
+        this.time = "";
+        this.time2 = "";
         this.home = true;
       } else {
         this.home = false;
-        from.meta.keepAlive = true;
       }
       next();
     },

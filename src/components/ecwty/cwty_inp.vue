@@ -4,132 +4,215 @@
 		<div style="position: fixed;top: 80px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
 			正在加载,请稍后...
 		</div>
-		<!--头部临时用-->
-		<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			宠物申报
-			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container1'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-			</router-link>
-		</header> -->
-		<!--内容-->
 		<div id="soll" class="page-tab-container">
-				<div class="points1">
-					<p class="pcon">本平台只提供申办渠道，由用户与托运公司双向自由交易， 平台不承担任何纠纷和法律责任，最终解释权归南京市电子口岸公司所有。建议与投诉电话：025-521637463</p>
-				</div>
+      <div class="points1">
+					<p class="pcon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本平台只提供申办渠道，由用户与托运公司双向自由交易， 平台不承担任何纠纷和法律责任，最终解释权归南京市电子口岸公司所有。建议与投诉电话：025-521637463<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This platform only provides the bidding channel, which is two-way free transaction between the user and the consignment company. The platform does not bear any disputes and legal liabilities, and the final interpretation power is Nanjing electronics.All port compa nies. Advice and complaint phone: 025-521637463
+          </p>
+        </div>
 			<div class="points">
 				<span class="">宠物信息</span>
+        <p>Pet information</p>
 			</div>
 			<div class="ele1">
-				<span class="tit">宠物照片</span>
-				<img @click="myimg(1)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl" class="avatar">
+        <div class="tit2">
+          <div class="cntit">宠物照片</div>
+          <div class="entit">Pet pictures</div>
+        </div>
+				<img @click="myimg(1)" :src="imageUrl" class="avatar">
 			</div>
-			<div class="ele">
-				<label class="tit">宠物种类</label>
-			  	<div @click="rou_cwzl(varietys)">
+			<div class="ele eleright">
+        <div class="tit">
+          <div class="cntit">宠物种类</div>
+          <div class="entit">Pet type</div>
+        </div>
+        <div @click="rou_cwzl(varietys)" class="elecontent">
 					<input readonly="readonly" class="inps" type="text" placeholder="" v-model="varietys" unselectable="on" onfocus="this.blur()"/>
-					<img class="po_right" src="../../../static/img/Shape.png"/>
-				</div>
+        </div>
 			</div>
 			<div class="ele">
-				<label class="tit">宠物品种</label>
-				<input class="inps" type="text" placeholder="请输入宠物品种" v-model="cwpz" />
+        <div class="tit">
+          <div class="cntit">宠物品种</div>
+          <div class="entit">Pet breed</div>
+        </div>
+        <div class="elecontent2">
+          <input class="inps" type="text" placeholder="请输入宠物品种" v-model="cwpz" />
+          <p class="enph">Please enter pet variet</p>
+        </div>
 			</div>
 			<div class="ele">
-				<label class="tit">宠物名字</label>
-				<input class="inps" type="text" placeholder="请输入宠物名字" v-model="cwmz" />
+        <div class="tit">
+          <div class="cntit">宠物名称</div>
+          <div class="entit">Pet name</div>
+        </div>
+        <div class="elecontent2">
+          <input class="inps" type="text" placeholder="请输入宠物名字" v-model="cwmz" />
+          <p class="enph">Please enter pet name</p>
+        </div>
 			</div>
-			<div @click="sheet1(3)" class="ele">
-				<label class="tit">宠物年龄</label>
-				<input readonly="readonly" class="inps" type="text" v-model="cwnl" unselectable="on" onfocus="this.blur()"/>
-				<img class="po_right" src="../../../static/img/Shape.png"/>
+			<div @click="sheet1(3)" class="ele eleright">
+        <div class="tit">
+          <div class="cntit">宠物年龄</div>
+          <div class="entit">Pet age</div>
+        </div>
+        <div class="elecontent">
+				  <input readonly="readonly" class="inps" type="text" v-model="cwnl" unselectable="on" onfocus="this.blur()"/>
+        </div>
 			</div>
 			<div class="ele">
-				<label class="tit">宠物重量(公斤)</label>
-				<input class="inps" type="number" placeholder="请输入宠物重量(公斤)" v-model="cwzl" />
+        <div class="tit">
+          <div class="cntit">宠物重量(公斤)</div>
+          <div class="entit">Pet weight(KG)</div>
+        </div>
+        <div class="elecontent2">
+				  <input class="inps" type="number" placeholder="请输入宠物重量(公斤)" v-model="cwzl" />
+          <p class="enph">Please enter a pet weight</p>
+        </div>
 			</div>
-			<div @click="sheet1(1)" class="ele newsele">
-				<label class="tit">体型尺寸</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sizes" unselectable="on" onfocus="this.blur()"/>
-				<img style="top: 5.933vw;" class="po_right" src="../../../static/img/Shape.png"/>
-				<div class="newsele_1">如需购买笼子，请选择宠物尺寸</div>
+			<div @click="sheet1(1)" class="ele newsele eleright">
+        <div class="tit">
+          <div class="cntit">体型尺寸</div>
+          <div class="entit">Pet size</div>
+        </div>
+        <div class="elecontent">
+          <input v-show="sizes!==''" readonly="readonly" class="inps" type="text" placeholder="" v-model="sizes" unselectable="on" onfocus="this.blur()"/>
+          <p v-show="sizes==''" class="enph">如须购买笼子 请选择体型尺寸</p>
+          <p v-show="sizes==''" class="enph">If you want to buy a cage, please choose the pet size</p>
+        </div>
 			</div>
-			<div @click="cage(sizes1)" class="ele newsele">
-				<label class="tit">笼子尺寸</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sizes1" unselectable="on" onfocus="this.blur()"/>
-				<img style="top: 5.933vw;" class="po_right" src="../../../static/img/Shape.png"/>
-				<div class="newsele_1">如已有笼子，请正确填写笼子尺寸</div>
+			<div @click="cage(sizes1)" class="ele newsele eleright">
+        <div class="tit">
+          <div class="cntit">笼子尺寸</div>
+          <div class="entit">Pet cage size</div>
+        </div>
+        <div class="elecontent">
+          <input  v-show="sizes1!==''" readonly="readonly" class="inps" type="text" placeholder="" v-model="sizes1" unselectable="on" onfocus="this.blur()"/>
+          <p v-show="sizes1==''" class="enph">如已有笼子请正确填写笼子尺寸</p>
+          <p v-show="sizes1==''" class="enph">If you have a cage, please fill in the cage size correctly</p>
+        </div>
 			</div>
-			<div @click="sheet1(2)" class="ele">
-				<label class="tit">是否已办理卫生证书</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfblgz" unselectable="on" onfocus="this.blur()"/>
-				<img class="po_right" src="../../../static/img/Shape.png"/>
-			</div>
-			<div @click="sheet1(0)" class="ele">
-				<label class="tit">是否已植入芯片</label>
+			<div @click="sheet1(2)" class="ele eleright">
+        <div class="tit2">
+          <div class="cntit">是否已办理卫生证书</div>
+          <div class="entit">Have The health certificate or no</div>
+        </div>
+        <div class="elecontent3">
+				  <input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfblgz" unselectable="on" onfocus="this.blur()"/>
+        </div>
+      </div>
+			<div @click="sheet1(0)" class="ele eleright">
+        <div class="tit2">
+          <div class="cntit">是否已植入芯片</div>
+          <div class="entit">Implanted chip or no</div>
+        </div>
+        <div class="elecontent3">
 				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="chip" unselectable="on" onfocus="this.blur()"/>
-				<img class="po_right" src="../../../static/img/Shape.png"/>
-			</div>
-			<!--<div @click="gomyz" class="ele newsele">
-				<label class="tit">免疫证</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="myz" unselectable="on" onfocus="this.blur()"/>
-				<img style="top: 5.933vw;" class="po_right" src="../../../static/img/Shape.png"/>
-				<div class="newsele_1">如没有免疫证，可不填</div>
-			</div>-->
+        </div>
+      </div>
       <div class="ele1">
-        <span class="tit">免疫证照片</span>
-        <img @click="myimg(2)" style="position: absolute;top: 4px;right:2px;width: 68px !important;height: 68px !important;" :src="imageUrl2" class="avatar">
+        <div class="tit2">
+          <div class="cntit">免疫证照片</div>
+          <div class="entit">Pet immunization certificate</div>
+        </div>
+        <img @click="myimg(2)" :src="imageUrl2" class="avatar">
       </div>
       <div class="ele">
         <input @change="gettime('myzh')" id="time" class="chiotiem1" type="date" :max="nowdate">
-        <div class="chiotiem">{{time}}
+          <div class="chiotiem">
+            {{time}}
+          <p  class="entit">Last injection time</p>
         </div>
       </div>
-			<div @click="sheet1(4)" class="ele">
-				<label class="tit">发货地</label>
-				<input readonly="readonly" class="inps" type="text" v-model="fhd" unselectable="on" onfocus="this.blur()"/>
-				<img class="po_right" src="../../../static/img/Shape.png"/>
+			<div @click="sheet1(4)" class="ele eleright">
+        <div class="tit">
+          <div class="cntit">发货地</div>
+          <div class="entit">Place of dispatch</div>
+        </div>
+        <div class="elecontent">
+          <input readonly="readonly" class="inps" type="text" v-model="fhd" unselectable="on" onfocus="this.blur()"/>
+        </div>
 			</div>
-			<div class="ele">
-				<label class="tit">选择目的城市</label>
-			  	<router-link :to="{name:'IndexList'}">
-					<input readonly="readonly" class="inps" type="text" placeholder="" v-model="area" unselectable="on" onfocus="this.blur()"/>
-					<img class="po_right" src="../../../static/img/Shape.png"/>
-				</router-link>
+			<div class="ele eleright">
+        <div class="tit">
+          <div class="cntit">选择目的城市</div>
+          <div class="entit">Select the destination city</div>
+        </div>
+        <div class="elecontent">
+			  	<router-link :to="{name:'enIndexList'}">
+            <input readonly="readonly" class="inps" type="text" placeholder="" v-model="area" unselectable="on" onfocus="this.blur()"/>
+				  </router-link>
+        </div>
 			</div>
       <div class="ele">
         <input @change="gettime('hangban')" id="time2" class="chiotiem1" type="date" :min="nowdate">
-        <div class="chiotiem">{{time2}}
+        <div class="chiotiem">
+          {{time2}}
+          <p  class="entit">Estimated flight date</p>
         </div>
       </div>
 			<div class="points">
 				<span class="">主人信息</span>
+        <p>Pet owner information</p>
 			</div>
 			<div class="ele">
-				<label class="tit">姓名</label>
-				<input class="inps" type="text" placeholder="请输入姓名" v-model="zrxm" />
+        <div class="tit">
+          <div class="cntit">姓名</div>
+          <div class="entit">The name</div>
+        </div>
+        <div class="elecontent2">
+				  <input class="inps" type="text" placeholder="请输入姓名" v-model="zrxm" />
+          <p class="enph">Please enter The name</p>
+        </div>
 			</div>
 			<div class="ele">
-				<label class="tit">护照信息</label>
-				<input class="inps" type="text" placeholder="请输入护照信息" v-model="hzxx" />
+        <div class="tit">
+          <div class="cntit">护照信息</div>
+          <div class="entit">Passport information</div>
+        </div>
+        <div class="elecontent2">
+				  <input class="inps" type="text" placeholder="请输入护照信息" v-model="hzxx" />
+          <p class="enph">Please enter Passport information</p>
+        </div>
 			</div>
 			<div class="ele">
-				<label class="tit">机票信息</label>
-				<input class="inps" type="text" placeholder="请输入机票信息" v-model="jpxx" />
+        <div class="tit">
+          <div class="cntit">机票信息</div>
+          <div class="entit">Ticket information</div>
+        </div>
+        <div class="elecontent2">
+				  <input class="inps" type="text" placeholder="请输入机票信息" v-model="jpxx" />
+          <p class="enph">Please enter Ticket information</p>
+        </div>
 			</div>
 			<div class="ele">
-				<label class="tit">联系方式</label>
-				<input class="inps" type="number" placeholder="请输入联系方式" v-model="lxfs" />
+        <div class="tit">
+          <div class="cntit">联系方式</div>
+          <div class="entit">Contact information</div>
+        </div>
+        <div class="elecontent2">
+				  <input class="inps" type="number" placeholder="请输入联系方式" v-model="lxfs" />
+          <p class="enph">Please enter Contact information</p>
+        </div>
 			</div>
 			<div class="ele">
-				<span class="tit">是否需要上门服务</span>
-				<mt-switch @change="serve_switch" class="my-switch hairlines" v-model="smfw"></mt-switch>
+        <div class="tit2">
+          <div class="cntit">是否需要上门服务</div>
+          <div class="entit">If you need Door-to-door service</div>
+        </div>
+        <mt-switch @change="serve_switch" class="my-switch hairlines" v-model="smfw"></mt-switch>
 			</div>
 			<div v-show="addr" class="ele" >
-				<label class="tit">地址</label>
-				<input class="inps1" type="text" placeholder="请输入地址" v-model="dz" />
+        <div class="tit2">
+          <div class="cntit">地址</div>
+          <div class="entit">Address</div>
+        </div>
+        <div class="elecontent">
+          <input class="inps" type="text" placeholder="请输入地址" v-model="dz" />
+          <p class="enph">Please enter Address</p>
+        </div>
 			</div>
 			<div class="ele-s">
-				<button @click="unbind && shenbao()" class="shenbao">申报</button>
+				<button @click="unbind && shenbao()" class="shenbao">申报 <br>Declare</button>
 			</div>
 		</div>
 		<mt-actionsheet :actions="actions" closeOnClickModal="sheetVisible1" v-model="sheetVisible2" cancel-text="取消"></mt-actionsheet>
@@ -142,7 +225,7 @@
 	import { formatDate } from '../../assets/js/date.js';
 	import Bus from './bus.js'
 	export default {
-		name: "cwty_input",
+		name: "ecwty_input",
 		data() {
 			return {
 				lods:false,
@@ -178,66 +261,66 @@
 				switch1:false,
 				addr:false,
 				name:"",
-        time:"选择最后一次注射时间",
+        time:"最后一次注射时间",
         time2:"预计航班日期",
 				actions:[],
         nowdate:'',
 				actions0:[{
-			        name: '是否已植入芯片'
+			        name: '是否已植入芯片(Implanted chip or not)'
 			      },{
-			        name: '是',
+			        name: '是(Yes)',
 			        method: this.chip1
 			      }, {
-			        name: '否',
+			        name: '否(No)',
 			        method: this.chip2
 			      }],
 				actions1:[{
-			        name: '体型尺寸'
+			        name: '体型尺寸(Pet size)'
 			      },{
-			        name: '大型',
+			        name: '大型(Large)',
 			        method: this.size1
 			      }, {
-			        name: '中型',
+			        name: '中型(Medium)',
 			        method: this.size2
 			      }, {
-			        name: '小型',
+			        name: '小型(Small)',
 			        method: this.size3
 			      },{
-              name: '不需要笼子',
+              name: '不需要笼子(Don\'t need a cage)',
               method: this.size4
             }],
 				actions2:[{
-			        name: '是否已办理卫生证书'
+			        name: '是否已办理卫生证书(Whether a health certificate has been issued)'
 			      },{
-			        name: '是',
+			        name: '是(Yes)',
 			        method: this.sfblgz1
 			      }, {
-			        name: '否',
+			        name: '否(No)',
 			        method: this.sfblgz2
 			      }],
 				actions3:[{
-			        name: '宠物年龄'
+			        name: '宠物年龄(Pet age)'
 			      },{
-			        name: '小于1岁',
+			        name: '小于1岁(Less than 1 year old)',
 			        method: this.age1
 			      }, {
-			        name: '1~5岁',
+			        name: '1~5岁(1-5 years of age)',
 			        method: this.age2
 			      }, {
-			        name: '5~10岁',
+			        name: '5~10岁(5-10 years old)',
 			        method: this.age3
 			      }, {
-			        name: '10岁以上',
+			        name: '10岁以上(More than 10 years old)',
 			        method: this.age4
 			      }],
 				actions4:[{
-			        name: '北京',
+			        name: '北京(BeiJing)',
 			        method: this.fhd1
 			      }, {
-			        name: '上海',
+			        name: '上海(ShangHai)',
 			        method: this.fhd2
 			      }, {
-			        name: '南京',
+			        name: '南京(NanJing)',
 			        method: this.fhd3
 			      }],
 		        sheetVisible2: false,
@@ -266,7 +349,7 @@
           times = times.replace(reg, "$1年$2月$3日");
 
           this.myz = times;
-          this.time = "最后一次注册时间：" + times;
+          this.time = "最后一次注射时间：" + times;
         }
         if (mask == "hangban") {
           var times = document.getElementById("time2").value;
@@ -310,65 +393,59 @@
       },
       cage(res) {
         this.$router.push({
-          name: 'sizes',
+          name: 'ensizes',
           params: {
             sizes: res
           }
         })
       },
-      clickcwzp(res) {
-        setTimeout(() => {
-          Bus.$emit('oldCwzp', res)
-        }, 30)
-        this.$router.push({path: '/chiose_rad/cwzp'})
-      },
       rou_cwzl(varietys) {
-        this.$router.push({path: '/chiose_rad/chiose_rad'})
+        this.$router.push({path: '/chiose_rad/en_chiose_rad'})
       },
       chip1() {
-        this.chip = '是'
+        this.chip = '是(Yes)'
       },
       chip2() {
-        this.chip = '否'
+        this.chip = '否(No)'
       },
       size1() {
-        this.sizes = '大型'
+        this.sizes = '大型(Large)'
       },
       size2() {
-        this.sizes = '中型'
+        this.sizes = '中型(Medium)'
       },
       size3() {
-        this.sizes = '小型'
+        this.sizes = '小型(Small)'
       },
       size4() {
         this.sizes = ''
       },
       sfblgz1() {
-        this.sfblgz = '是'
+        this.sfblgz = '是(Yes)'
       },
       sfblgz2() {
-        this.sfblgz = '否'
+        this.sfblgz = '否(No)'
       },
       age1() {
-        this.cwnl = '小于1岁'
+        this.cwnl = '小于1岁(Less than 1 year old)'
       },
       age2() {
-        this.cwnl = '1~5岁'
+        this.cwnl = '1~5岁(1-5 years of age)'
       },
       age3() {
-        this.cwnl = '5~10岁'
+        this.cwnl = '5~10岁(5-10 years old)'
       },
       age4() {
-        this.cwnl = '10岁以上'
+        this.cwnl = '10岁以上(More than 10 years old)'
       },
       fhd1() {
-        this.fhd = '北京'
+        this.fhd = '北京(BeiJing)'
       },
       fhd2() {
-        this.fhd = '上海'
+        this.fhd = '上海(ShangHai)'
       },
       fhd3() {
-        this.fhd = '南京'
+        this.fhd = '南京(NanJing)'
       },
       serve_switch() {
         this.switch1 = !this.switch1;
@@ -406,74 +483,141 @@
       shenbao() {
         this.unbind = false;
         var check = true;
-        var input = document.querySelectorAll('.inps');
-        var label = document.getElementsByTagName('label');
-        if (this.sizes == '' && this.sizes1 == '') {
-          check = false;
-          this.unbind = true;
-          Toast('笼子尺寸与体型尺寸至少选择一种')
-          return;
-        }
+        /*宠物照片*/
         if (this.imageUrl.indexOf('http') == -1) {
-          Toast('请上传宠物照片');
+          Toast('请上传宠物照片 Please upload your pet photo');
           check = false;
           this.unbind = true;
           return;
         }
-        for (var i = 0; i < input.length; i++) {
-          if (input[i].value == "") {
-            if (label[i].innerHTML != '免疫证' && label[i].innerHTML != '笼子尺寸' && label[i].innerHTML != '体型尺寸') {
-              Toast('请填写' + label[i].innerHTML)
-              check = false;
-              this.unbind = true;
-              return;
-            }
-          }
-        }
-        if (isNaN(Number(this.cwzl))) {
-          Toast('宠物重量填写有误')
-          this.unbind = true;
-          return;
-        }
-
-        if (this.myz1 == "") {
-          Toast('请上传免疫证照片')
-          this.unbind = true;
-          return;
-        }
-
-
-        var regName = /^[\u4e00-\u9fa5]{2,4}$/;
-        if (!this.zrxm.match(regName)) {
-          Toast('姓名填写有误')
+        /*请选择宠种类*/
+        if(this.varietys == ""){
+          Toast('请选择宠种类 Please select the pet type');
           check = false;
           this.unbind = true;
           return;
         }
-        // var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-        // if(!this.lxfs.match(telReg)){
-        // 	Toast('请输入正确的电话号码')
-        // 	check = false;
-        // 	this.unbind = true;
-        // 	return;
-        // }
-        // var cardIdReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        // if(!this.sfzh.match(cardIdReg)){
-        // 	Toast('请输入正确的身份证号码')
-        // 	check = false;
-        // 	return;
-        // }
-        // var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
-        // if(!this.hzxx.match(ownerPassport)){
-        //     Toast('护照号码填写有误')
-        // 	check = false;
-        // 	this.unbind = true;
-        // 	return;
-        // }
+        /*请选择宠品种*/
+        if(this.cwpz == ""){
+          Toast('请填写宠物品种 Please fill in the pet species');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+        /*请天写宠物名称*/
+        if(this.cwmz == ""){
+          Toast('请填写宠物名称 Please fill in the pet name');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        /*请选择宠物年龄*/
+        if(this.cwnl == ""){
+          Toast('请选择宠物年龄 Please choose your pet\'s age');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+        /*重量*/
+        if(this.cwzl == ""){
+          Toast('请填写宠物重量 Please fill in the pet weight');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(isNaN(Number(this.cwzl))){
+          Toast('宠物重量填写有误 Incorrect pet weight entry/The pet weight was incorrectly filled in')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        /*体型尺寸*/
+        if (this.sizes == ""&&this.sizes1 == "") {
+          Toast('笼子尺寸与体型尺寸至少选择一种 Choose at least one cage size and body size')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        /*TODO 添加新判断 卫生证书 和 芯片*/
+
+        if(this.sfblgz==""){
+          Toast('请选择是否办理卫生证书 Please choose whether to apply for a health certificate');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(this.chip==""){
+          Toast('请选择是否已植入芯片 Please select whether the chip has been implanted');
+          check = false;
+          this.unbind = true;
+          return;
+        }
+        /*请上传免疫证照片*/
+        if (this.myz1.indexOf('http') == -1) {
+          Toast('请上传免疫证照片 Please upload the photo of immunization certificate')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(this.fhd == ""){
+          Toast('请选择发货地 Please choose the place of shipment')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(this.area == ""){
+          Toast('请选择目的城市 Please select the destination city')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+
+        if(this.time2 == "预计航班日期："||this.time2 == "预计航班日期"){
+          Toast('请选择目的城市 Please select the destination city')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if (this.zrxm == "") {
+          Toast('请填写姓名 Please fill in your name')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(this.hzxx == ""){
+          Toast('请填写护照信息 Please fill in the passport information')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(this.jpxx == ""){
+          Toast('请填写机票信息 Please fill in the ticket information')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
+        if(this.lxfs == ""){
+          Toast('请填写联系方式 Please fill in the contact information')
+          check = false;
+          this.unbind = true;
+          return;
+        }
+
         if (this.smfw == true) {
-          var input = document.querySelectorAll('.inps1');
-          if (input[0].value == "") {
-            Toast('请填写地址')
+          if (this.dz == "") {
+            Toast('请填写地址 Please fill in the address')
             check = false;
             this.unbind = true;
             return;
@@ -488,7 +632,7 @@
           } else {
             sfxysmfu = 1;
           }
-          if (this.chip == "是") {
+          if (this.chip == "是(Yes)") {
             xfzrxp = 1
           } else {
             xfzrxp = 0
@@ -519,38 +663,25 @@
           }).then((res) => {
             console.log(res)
             if (res.status == 200) {
-              Toast("申报成功");
+              Toast("申报成功 Declare success");
               setTimeout(() => {
-                this.$router.replace({path: '/cwty/cwty_list/' + 'tab-container1'})
+                this.$router.replace({path: '/ecwty/cwty_list/' + 'tab-container1'});
                 this.unbind = true;
 
                 var u = navigator.userAgent;
                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
                 if (isAndroid) {
-                  window.close();
-                } else {
-                  this.$router.back(-1);
-                }
+                    window.close();
+                  } else {
+                    this.$router.back(-1);
+                  }
               }, 1000);
             } else {
               this.unbind = true;
-              Toast("申报失败");
+              Toast("申报失败 Declare false");
             }
           }, (res) => {
           });
-          /*axios({
-						method: 'POST',
-						data:data,
-						url: '/eport-server/delivery/pet/saveOrder.do',
-						dataType: 'json',
-						headers: {
-				            'Content-Type': 'application/json;charset=UTF-8'
-				        },
-						then: function(data1) {
-							console.log(data1);
-							Toast("申报成功")
-						}
-					});*/
         }
       },
     },
@@ -563,10 +694,10 @@
           this.zrxm = this.$route.query.username;
           this.lxfs = this.$route.query.phone;
           if(this.$route.query.pet == 1){
-            this.varietys = "猫";
+            this.varietys = "猫(Cat)";
           }
           if(this.$route.query.pet == 2){
-            this.varietys = "狗";
+            this.varietys = "狗(Dog)";
           }
         }
 
@@ -581,7 +712,7 @@
         }
       },
       beforeRouteLeave(to, from, next) {
-        if (to.name == "cwty_list") {
+        if (to.name == "ecwty_list") {
           this.area = '';
           this.riqi = "";
           this.sfxysmfu = '';
@@ -609,10 +740,8 @@
           this.switch1 = false;
           this.smfw = false;
           this.addr = false;
-          this.time = "选择最后一次注册时间(没有可不填)";
+          this.time = "最后一次注射时间";
           this.time2 = "预计航班日期";
-        } else {
-          from.meta.keepAlive = true;
         }
         next();
       },
@@ -627,16 +756,10 @@
         }
         Bus.$on('area', (e) => {
           that.area = e;
-          document.getElementById("soll").scrollTop = 350;
         })
         Bus.$on('myz', (e, el) => {
           that.myz = e;
           that.myz1 = el;
-          document.getElementById("soll").scrollTop = 300;
-        })
-        Bus.$on('riqi', (e) => {
-          that.riqi = e;
-          document.getElementById("soll").scrollTop = 350;
         })
         Bus.$on('varietys', (e) => {
           that.varietys = e;
@@ -653,7 +776,6 @@
         // 		}
         //     })
       },
-      filters: {}
     }
 </script>
 
@@ -672,10 +794,9 @@
 	}
 	.pcon{
     background: #fff5e5;
-    line-height: 5.333vw;
-    padding: 2vw 1.6vw;
-    height: 20vw;
-    font-size: 3.467vw;
+    line-height:36px;
+    padding: 21px 36px;
+    font-size:26px;
     font-family: PingFangSC-Regular;
     color: #ffb540;
 	}
@@ -687,64 +808,106 @@
 	}
 	.points{
 	    padding: 20px;
-	    height: 80px;
 	    line-height: 45px;
 	    background-color: #eee;
 	    font-size:28px;
 		font-family:PingFangSC-Regular;
 		color:rgba(170,170,170,1);
 	}
-	.ele1{
-	    margin: 0 20px;
-	    border-bottom: 1px solid #efefef;
-	    position: relative;
-	    height: 160px;
-	    line-height: 160px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
-	}
 	.ele{
+      display: flex;
+      align-items:center;
+      justify-content: space-between;
 	    margin: 0px 20px;
 	    border-bottom: 1px solid #efefef;
-	    position: relative;
-	    height: 90px;
-	    line-height: 90px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
+	    min-height: 120px;
+      font-size:32px;
+      font-family:PingFangSC-Regular;
+      color:rgba(51,51,51,1);
 	}
+  .ele1{
+      display: flex;
+      align-items:center;
+      justify-content: space-between;
+      margin: 0 20px;
+      border-bottom: 1px solid #efefef;
+      height: 160px;
+      font-size:32px;
+      font-family:PingFangSC-Regular;
+      color:rgba(51,51,51,1);
+  }
+  /*添加右箭头*/
+  .eleright{
+    background: #fff url("./../../../static/img/shape2.png") no-repeat right;
+    background-size: 16px;
+  }
 	.tit{
 		color: #333;
+    max-width: 35%;
+    overflow: hidden;
 	}
+  .elecontent{
+    width: 60%;
+    margin-right: 30px;
+  }
+  /*无角标*/
+  .elecontent2{
+    width: 60%;
+  }
+  /*左加长 右短效果*/
+  .tit2{
+    color: #333;
+    max-width: 70%;
+    overflow: hidden;
+  }
+  .elecontent3{
+    width: 20%;
+    margin-right: 30px;
+  }
+  .tit p{
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+    line-height:45px;
+  }
+  .cntit{
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .entit{
+    font-size:28px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
 	.inps{
-	    width: 55%;
-	    position: absolute;
-	    right: 7px;
-		top: 3vw;
+      width: 100%;
 	    height: 45px;
 	    border: 0;
 	    outline: none;
 	    font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:#939393;
-		text-align: right;
-		padding-right: 3.5vw;
+      font-family:PingFangSC-Regular;
+      color:#333;
+      text-align: right;
 	}
-	.inps1{
-	    width: 60%;
-	    position: absolute;
-	    right: 7px;
-	    top: 3vw;
-	    height: 45px;
-	    border: 0;
-		text-align: right;
-		padding-right: 3vw;
-	    outline: none;
-	    font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:#939393;
-	}
+  .inps3{
+    width: 100%;
+    height: 45px;
+    border: 0;
+    outline: none;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:#333;
+    text-align: right;
+    background: #fff;
+  }
+  /*英文注释*/
+  .enph{
+    font-size:28px;
+    color:rgba(204,204,204,1);
+    line-height:40px;
+    text-align: right;
+  }
 	.pet-img{
 	    position: absolute;
 	    top: 7px;
@@ -759,11 +922,6 @@
 	    right: -6px;
 	    padding: 20px 8px 19px 34px;
 	}
-	.my-switch{
-	    position: absolute;
-	    top: 23px;
-	    right: 12px;
-	}
 	.ele-s{
 	    padding: 25px 19px;
     	background: #f0f0f0;
@@ -772,10 +930,10 @@
 	    border: 0;
 	    background: #285fb1;
 	    width: 100%;
-	    height: 92px;
+	    height: 102px;
 	    font-size:34px;
-		font-family:PingFangSC-Regular;
-		color:rgba(255,255,255,1);
+      font-family:PingFangSC-Regular;
+      color:rgba(255,255,255,1);
 	}
 
 .avatar-uploader{
@@ -807,12 +965,9 @@
     opacity: 0;
   }
  .avatar{
-    width: 64pt;
-    height: 64pt;
-    display: block;
-    margin-top: 5px;
-    float: right;
-    margin-right: 18px;
+    width: 128px;
+    height: 128px;
+    display: inline-block;
 }
 .downwarp{
 	    position: absolute;
@@ -893,12 +1048,6 @@
 	    }
 	}
 
-  .avatar{
-    margin: 0 14px 14px 40px;
-    border: 1px solid #f8f8f8;
-    width: 93px;
-    height: 89px;
-  }
 
   .chiotiem1{
     width: 100%;

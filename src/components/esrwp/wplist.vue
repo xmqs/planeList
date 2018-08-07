@@ -11,36 +11,60 @@
 			<div v-show="add1" class="soll1">
 				<div v-for="(ele,index) in packages" class="ele">
 					<div class="ele1 name">{{ele.name}}</div>
-					<div class="ele1 intp">数量：{{ele.count}}&nbsp;&nbsp;&nbsp;&nbsp;形式价格：{{ele.price}}&nbsp;&nbsp;&nbsp;&nbsp;箱号：{{ele.boxNo}}</div>
+					<div class="ele1 intp">数量：{{ele.count}}，形式价格：{{ele.price}}，箱号：{{ele.boxNo}}</div>
+					<div class="ele1 intp">Number of items：{{ele.count}}，Formal price（元）：{{ele.price}}，Carton no.{{ele.boxNo}}</div>
 					<img @click="update(index)" class="tanhao" src="../../../static/img/tanhao.png"/>
 				</div>
 				<div @click="add" class="ele_1">
 					<img class="yuanjia" src="../../../static/img/ajia.png"/>
-					<label class="tit">新增物品</label>
-					<img class="po_right" src="../../../static/img/Shape.png"/>
+					<label class="tit1">新增物品(The new items)</label>
 				</div>
 			</div>
 			<p v-show="add1" class="tips">友情提示：可以发送excel表格版本的物品清单至邮箱 27362829@163.com</p>
+			<p v-show="add1" class="tips">Note: you can send the list of items in excel form to email 27362829@163.com</p>
 			<div v-show="add2" class="add2">
+
 				<div class="add2_ele">
-					<label class="add2_tit">中文名</label>
-					<input class="add2_inps" type="text" placeholder="请输入中文名" v-model="name" />
+          <div class="tit">
+            <div class="cntit">物品名称</div>
+            <div class="entit">Name of the item</div>
+          </div>
+          <div class="elecontent2">
+            <input class="inps" type="text" placeholder="请输入物品名称" v-model="name" />
+          </div>
+				</div>
+
+				<div class="add2_ele">
+          <div class="tit">
+            <div class="cntit">数量</div>
+            <div class="entit">Number of items</div>
+          </div>
+          <div class="elecontent2">
+            <input class="inps" type="text" placeholder="请输入数量" v-model="count" />
+          </div>
 				</div>
 				<div class="add2_ele">
-					<label class="add2_tit">数量</label>
-					<input class="add2_inps" type="number" placeholder="请输入数量" v-model="count" />
+          <div class="tit">
+            <div class="cntit">形式价格(元)</div>
+            <div class="entit">Formal price(元)</div>
+          </div>
+          <div class="elecontent2">
+            <input class="inps" type="text" placeholder="请输入形式价格" v-model="price" />
+          </div>
 				</div>
 				<div class="add2_ele">
-					<label class="add2_tit">形式价格(元)</label>
-					<input class="add2_inps" type="number" placeholder="请输入形式价格" v-model="price" />
+          <div class="tit">
+            <div class="cntit">箱号</div>
+            <div class="entit">Carton no.</div>
+          </div>
+          <div class="elecontent2">
+            <input class="inps" type="text" placeholder="请输入箱号" v-model="boxNo" />
+          </div>
 				</div>
-				<div class="add2_ele">
-					<label class="add2_tit">箱号</label>
-					<input class="add2_inps" type="number" placeholder="请输入箱号" v-model="boxNo" />
-				</div>
+
 				<div class="serversOK">
-					<button @click="submit()" class="shenbao">保存</button>
-					<button @click="removelist()" class="shenbao" style="background: #e4393c" v-if="isdelete">删除</button>
+					<button @click="submit()" class="shenbao">保存(Save)</button>
+					<button @click="removelist()" class="shenbao" style="background: #e4393c" v-if="isdelete">删除(Delete)</button>
 				</div>
 			</div>
 		</div>
@@ -107,24 +131,37 @@
 				    	return;
 				    }
 				}
-				var name =/^[\u4e00-\u9fa5]+$/;
 				var num =/^[0-9]*$/;
-				if(!this.name.match(name)){
-					Toast('中文名输入有误')
+				if(this.name == ''){
+					Toast('请输如物品名称 Please enter the name of the item')
 					return;
 				}
 				if(!this.count.match(num)){
-					Toast('数量输入有误')
+					Toast('数量输入有误 Quantity input error')
 					return;
 				}
 				if(!this.price.match(num)){
-					Toast('形式价格输入有误')
+					Toast('形式价格输入有误 The formal price input is wrong')
 					return;
 				}
 				if(!this.boxNo.match(num)){
-					Toast('箱号输入有误')
+					Toast('箱号输入有误 The box number is not correct')
 					return;
 				}
+
+        if(this.count==''){
+          Toast('数量输入有误 Quantity input error')
+          return;
+        }
+        if(this.price==''){
+          Toast('形式价格输入有误 The formal price input is wrong')
+          return;
+        }
+        if(this.boxNo==''){
+          Toast('箱号输入有误 The box number is not correct')
+          return;
+        }
+
 				var pack = {};
 				pack.name = this.name;
 				pack.count = this.count;
@@ -223,6 +260,7 @@
 	.intp{
 	    color: #9b9b9b;
     	font-size: 28px;
+      max-width: 650px;
 	}
 	.yuanjia{
 	    width: 37px;
@@ -231,16 +269,24 @@
 		padding: 25px;
     font-size: 32px;
     color: #333;
+    display: flex;
+    align-items: center;
+    background: #fff url("./../../../static/img/shape2.png") no-repeat  98% center;
+    background-size: 16px;
 	}
 	.po_right{
 	    float: right;
     	margin-top: 3px;
 	}
-	.tit{
-		    position: relative;
-	    top: -3px;
-	    left: 10px;
-	}
+  .tit{
+    color: #333;
+    max-width: 35%;
+    overflow: hidden;
+  }
+  .tit1{
+    margin-left: 10px;
+    color: #333;
+  }
 	.tips{
 		    width: 90%;
     text-align: left;
@@ -249,14 +295,27 @@
         line-height: 45px;
         font-size: 27px;
 	}
+  .cntit{
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .entit{
+    font-size:28px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
 	/*新增*/
 	.add2_ele{
-	    margin: 0px 10px;
-	    border-bottom: 1px solid #efefef;
-	    position: relative;
-	    height: 90px;
-	    line-height: 90px;
-	    font-size: 32px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0 20px;
+    border-bottom: 1px solid #efefef;
+    height: 120px;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
 	}
 	.add2_tit{
 		color: #333;
@@ -282,6 +341,26 @@
 		color: #fff;
 		margin: 3% 0 3% 5%;
 	}
+
+  .elecontent2{
+    width: 60%;
+  }
+  .inps{
+    width: 100%;
+    height: 45px;
+    border: 0;
+    outline: none;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:#333;
+    text-align: right;
+  }
+  .enph{
+    font-size:28px;
+    color:rgba(204,204,204,1);
+    line-height:40px;
+    text-align: right;
+  }
 </style>
 <style>
 	.mint-toast-text {

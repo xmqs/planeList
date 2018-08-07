@@ -21,6 +21,11 @@
               <div class="price">￥{{element.price}}元</div>
             </div>
           </div>
+          <!--<div class="ele2-3">
+                      <div class="tishi">上面提货</div>
+                      <div class="yaoqiu">根据距离收取相应费用</div>
+                      <div class="price">普通￥20</div>
+                    </div>-->
         </div>
         <div class="ele4">
           其他收费服务

@@ -126,7 +126,6 @@
 
   body {
     font-size: 12px;
-    font-family: ubuntu, helvetica, arial;
     overflow: hidden; /* this is important to prevent the whole page to bounce */
   }
 

@@ -18,6 +18,14 @@
     <!-- built files will be auto injected -->
 </body>
 <script type="text/javascript">
+  if (window.location.href.indexOf('isGuest=yes') != -1) {
+    sessionStorage.setItem('isGuest', 'yes')
+    console.log('yes')
+  } else {
+    sessionStorage.setItem('isGuest', 'no')
+    console.log('no')
+  }
+
     var test = "";
     var retData;
     var params = {

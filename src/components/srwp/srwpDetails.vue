@@ -11,10 +11,12 @@
 		</div>
 		<!--内容-->
 		<div id="soll" class="page-tab-container">
-			<div class="points">
-				<span class="">物品信息</span>
-			</div>
-			<div class="ele">
+      <div class="points">
+        <span class="">物品信息</span>
+        <div class="">Item information</div>
+      </div>
+
+			<!--<div class="ele">
 				<label class="tit">物品清单</label>
 				<div style="line-height: 33px;" @click="disWplist(packages)" class="inps">
 					<span v-for="(ele,index) in packages">
@@ -27,50 +29,95 @@
 					</span>
 				</div>
 				<img class="po_right" src="../../../static/img/Shape.png"/>
-			</div>
-			<div class="ele">
-				<label class="tit">总重量(kg)</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入物品总重量" v-model="weight" />
-			</div>
-			<div class="ele">
-				<label class="tit">外包装尺寸(米)</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入外包装尺寸" v-model="size" />
-			</div>
-			<div class="ele">
-				<label class="tit">发货地</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入发货地" v-model="startCity" />
-			</div>
-			<div class="ele">
-				<label class="tit">目的城市</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入发货地" v-model="endCity" />
-			</div>
+			</div>-->
+
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">总重量(千克)</div>
+          <div class="entit">The total weight(KG)</div>
+        </div>
+        <div class="elecontent">
+          {{weight}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">外包装尺寸(米)</div>
+          <div class="entit">Outer packing dimension(M)</div>
+        </div>
+        <div class="elecontent">
+          {{size}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">发货地</div>
+          <div class="entit">Place of dispatch</div>
+        </div>
+        <div class="elecontent">
+          {{startCity}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">目的城市</div>
+          <div class="entit">Destination airport</div>
+        </div>
+        <div class="elecontent">
+          {{endCity}}
+        </div>
+      </div>
+
 			<div class="points">
 				<span class="">主人信息</span>
+				<div class="">The master of information</div>
 			</div>
-			<div class="ele">
-				<label class="tit">姓名</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入姓名" v-model="ownerName" />
-			</div>
-			<div class="ele">
-				<label class="tit">身份证号</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入身份证号" v-model="ownerIdNo" />
-			</div>
-			<div class="ele">
-				<label class="tit">联系方式</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入联系方式" v-model="ownerTelNo" />
-			</div>
-			<div class="ele">
-				<label class="tit">护照信息</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="请输入护照信息" v-model="ownerPassport" />
-			</div>
-			<div class="ele">
-				<label class="tit">是否需要上门服务</label>
-				<input readonly="readonly" class="inps" type="text" placeholder="" v-model="sfxy" />
-			</div>
-			<div v-if="sfxy == '是'" class="ele">
-				<label class="tit">地址</label>
-				<input readonly="readonly" class="inps1" type="text" placeholder="请输入地址" v-model="homeAddress" />
-			</div>
+
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">姓名</div>
+          <div class="entit">Name</div>
+        </div>
+        <div class="elecontent">
+          {{ownerName}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">联系方式</div>
+          <div class="entit">The contact</div>
+        </div>
+        <div class="elecontent">
+          {{ownerTelNo}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">护照信息</div>
+          <div class="entit">Passport information</div>
+        </div>
+        <div class="elecontent">
+          {{ownerPassport}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">是否需要上门服务</div>
+          <div class="entit">Need door-to-door service or not</div>
+        </div>
+        <div class="elecontent">
+          {{sfxy}}
+        </div>
+      </div>
+      <div v-if="sfxy == '是'" class="ele">
+        <div class="tit2">
+          <div class="cntit">地址</div>
+          <div class="entit">Address</div>
+        </div>
+        <div class="elecontent">
+          {{homeAddress}}
+        </div>
+      </div>
 		</div>
 	</div>
 </template>
@@ -108,12 +155,12 @@
 			}
 		},
 	    activated() {
-			
+
 		},
 		methods: {
 			goback(){
 				this.$router.push({name: 'srwp_list',
-					params:{ 
+					params:{
 						res:'tab-container1'
 					}
 				})
@@ -123,19 +170,19 @@
 		        this.bigPackageList.push(res.data);
 		    },
 		    handbefore(){
-		    	
+
 		    },
 			handleAvatarSuccess1(res, file) {
 		        this.travelList1 = res.data;
 		    },
 		    handbefore1(){
-		    	
+
 		    },
 			handleAvatarSuccess2(res, file) {
 		        this.travelList2 = res.data;
 		    },
 		    handbefore2(){
-		    	
+
 		    },
 			disWplist(res){
 				setTimeout(() => {
@@ -189,143 +236,172 @@
 		    },100)
 		},
 		filters: {
-			
+
 		}
 	}
 </script>
 
 <style scoped>
-	*{
-	  -webkit-overflow-scrolling: touch;
-	}
-	*{
-		font-family: PingFangSC;
-	}
-	#soll{
-	    position: fixed;
-	    width: 100%;
-	    overflow: auto;
-	    height: 100%;
-	}
-	.points{
-	    padding: 0px 20px;
-	    height: 80px;
-	    line-height: 80px;
-	    background-color: #eee;
-	    font-size:28px;
-		font-family:PingFangSC-Regular;
-		color:rgba(170,170,170,1);
-	}
-	.ele1{
-	    margin: 0 20px;
-	    border-bottom: 1px solid #efefef;
-	    position: relative;
-	    height: 160px;
-	    line-height: 85px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
-	}
-	.ele2{
-	    margin: 0 20px;
-	    border-bottom: 1px solid #efefef;
-	    position: relative;
-	    height: 326px;
-	    line-height: 85px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
-	}
-	.ele{
-	    margin: 0px 20px;
-	    border-bottom: 1px solid #efefef;
-	    position: relative;
-	    height: 80px;
-	    line-height: 80px;
-		font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:rgba(51,51,51,1);
-	}
-	.tit{
-		color: #333;
-	}
-	.inps{
-	    width: 55%;
-	    position: absolute;
-	    right: 7px;
-	    top: 10px;
-	    height: 45px;
-	    border: 0;
-	    outline: none;
-	    font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:#939393;
-	}
-	.inps1{
-	    width: 60%;
-	    position: absolute;
-	    right: 7px;
-	    top: 10px;
-	    height: 45px;
-	    border: 0;
-	    outline: none;
-	    font-size:32px;
-		font-family:PingFangSC-Regular;
-		color:#939393;
-	}
-	.pet-img{
-        position: absolute;
-	    top: 0;
-	    left: 0;
-	    height: 154px;
-	}
-	.po_right{
-		position: absolute;
-	    top: 0px;
-	    z-index: 999;
-	    right: -6px;
-	    padding: 20px 8px 19px 34px;
-	}
-	.my-switch{
-	    position: absolute;
-	    top: 23px;
-	    right: 12px;
-	}
-	.ele-s{
-	    padding: 25px 19px;
-    	background: #f0f0f0;
-	}
-	.shenbao{
-	    border: 0;
-	    background: #285fb1;
-	    width: 100%;
-	    height: 92px;
-	    font-size:34px;
-		font-family:PingFangSC-Regular;
-		color:rgba(255,255,255,1);
-	}
-	.pet-inf{
-		float: left;
-	}
-	.pet_name{
-		color: #333;
-   		font-weight: 600;
-   		font-size: 32px;
-	}
-	.pet-inf{
-	    padding: 9px;
-	    margin: 0;
-	    font-size: 15px;
-	    color: #999;
-	}
-	.pet_pz{
-		word-wrap: break-word;
-	}
-	.pet-inf1{
+  *{
+    -webkit-overflow-scrolling: touch;
+  }
+  *{
+    font-family: PingFangSC;
+  }
+  p{
+    background: #fff5e5;
+    line-height: 40px;
+    padding: 15px 12px;
+    height: 150px;
+    font-size:26px;
+    font-family:PingFangSC-Regular;
+    color:rgba(255,181,64,1);
+  }
+  #soll{
+    position: fixed;
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+  }
+  .points{
+    padding: 20px;
+    line-height: 45px;
+    background-color: #eee;
+    font-size:28px;
+    font-family:PingFangSC-Regular;
+    color:rgba(170,170,170,1);
+  }
+  .ele1{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0 20px;
+    border-bottom: 1px solid #efefef;
+    height: 160px;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .avatar{
+    width: 128px;
+    height: 128px;
+    display: inline-block;
+  }
+  .ele2{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0 20px;
+    border-bottom: 1px solid #efefef;
+    height: 160px;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .ele{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0 20px;
+    border-bottom: 1px solid #efefef;
+    height: 120px;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .ele3{
+    margin: 0px 20px;
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    min-height: 80px;
+    font-size:32px;
+    padding-top: 10px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .tit{
+    color: #333;
+  }
+  .inps{
+    width: 55%;
     position: absolute;
-    left: 23vw;
-    width: 72%;
-        line-height: 46px;
+    right: 7px;
+    top: 10px;
+    height: 45px;
+    border: 0;
+    outline: none;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:#939393;
+  }
+  .inps1{
+    width: 60%;
+    position: absolute;
+    right: 7px;
+    top: 10px;
+    height: 45px;
+    border: 0;
+    outline: none;
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:#939393;
+  }
+  .po_right{
+    position: absolute;
+    top: 0px;
+    z-index: 999;
+    right: -6px;
+    padding: 20px 8px 19px 34px;
+  }
+  .my-switch{
+    position: absolute;
+    top: 23px;
+    right: 12px;
+  }
+  .ele-s{
+    padding: 25px 19px;
+    background: #f0f0f0;
+  }
+  .shenbao{
+    border: 0;
+    background: #285fb1;
+    width: 100%;
+    height: 92px;
+    font-size:34px;
+    font-family:PingFangSC-Regular;
+    color:rgba(255,255,255,1);
+  }
+  .pet_pz{
+    word-wrap: break-word;
+  }
+  .pet-inf{
+    display: flex;
+    align-items: center;
+  }
+  .pet-inf1{
+    display: flex;
+    margin-left: 20px;
+    height: 128px;
+    align-items: center;
+  }
+  .pet_name{
+    font-size: 36px;
+  }
+  .en_pet_name{
     font-size: 28px;
-	}
+  }
+  .pname{
+    font-size: 40px;
+  }
+
+  .cntit{
+    font-size:32px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
+  .entit{
+    font-size:28px;
+    font-family:PingFangSC-Regular;
+    color:rgba(51,51,51,1);
+  }
 </style>

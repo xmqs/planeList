@@ -60,8 +60,9 @@
 						score:that.value3
 				}).then((res) => {
 					if(res.status == 200) {
+						Toast("评价成功");
 				    setTimeout(() => {
-							that.$router.push({path: '/cwty/cwty_list/'+'tab-container4'})
+							that.$router.back(-1)
 				    },2000)
 					}else{
 						Toast("评价失败");
@@ -71,19 +72,28 @@
 				});
 			},
 			getpetdetails(){
+				console.log(1)
 				var that = this;
-				axios.get('/eport-server/delivery/pet/queryOrderById.do', {
+				axios.get('/eport-server/delivery/luggage/queryOrderById.do', {
 					params: {
 						orderNo :this.ids
 					}
 				}).then(function(data) {
-					that.cwzp = data.data.data.petPicture;
+					console.log(data.data)
+					that.cwzp = data.data.data.bigPackageList[0];
 				})
 			}
     },
 		created: function() {
-        this.ids = this.$route.params.id;
-        this.getpetdetails();
+		    Bus.$on('ids', (e,img) => {
+					this.ids = e;
+				})
+				var thisurl = window.location.href;
+				var index=thisurl.lastIndexOf("\srwprate");
+				this.ids = thisurl.substring(index+9,thisurl.length);
+				setTimeout(()=>{
+					this.getpetdetails();
+				},500);
 		}
   }
 </script>

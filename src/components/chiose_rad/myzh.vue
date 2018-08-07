@@ -222,35 +222,3 @@ export default {
 
 }
 </style>
-<style type="text/css">
-	.avatar{
-	    width: 180px !important;
-	    height: 180px !important;
-	}
-	.el-date-picker .el-picker-panel__content {
-	    width: 520px !important;
-	}
-	.el-popper{
-	    width: 550px !important;
-	}
-	.el-date-table td {
-	    padding: 20px !important;
-	}
-	.el-date-table td span {
-	    font-size: 4.267vw !important;
-	    padding: 28px 2px 28px 0px !important;
-	    line-height: 2px !important;
-	    width: 60px !important;
-	    height: 60px !important;
-	    /* text-align: center; */
-	}
-	.el-date-picker__header-label {
-	    font-size: 32px;
-	    width: 30px;
-	    height: 30px;
-	}
-	.el-input--prefix .el-input__inner {
-	    height: 70px;
-	    font-size: 30px;
-	}
-</style>

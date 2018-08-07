@@ -90,6 +90,20 @@ const serversDetails = () => import('../components/cwty/serversDetails.vue')
 const checked = () => import('../components/cwty/checked.vue')
 const rate = () => import('../components/cwty/rate.vue')
 const petDetails = () => import('../components/cwty/petDetails.vue')
+
+
+const ecwty_list = () => import('../components/ecwty/cwty_list.vue')
+const enIndexList = () => import('../components/ecwty/IndexList.vue')
+const enchiose_rad = () => import('../components/chiose_rad/en_chiose_rad.vue')
+const ensizes = () => import('../components/chiose_rad/en_sizes.vue')
+const eIndexList = () => import('../components/ecwty/IndexList.vue')
+const ecwty_inp = () => import('../components/ecwty/cwty_inp.vue')
+const ecwty_upd = () => import('../components/ecwty/cwty_upd.vue')
+const eservers = () => import('../components/ecwty/servers.vue')
+const eserversDetails = () => import('../components/ecwty/serversDetails.vue')
+const echecked = () => import('../components/ecwty/checked.vue')
+const erate = () => import('../components/ecwty/rate.vue')
+const epetDetails = () => import('../components/ecwty/petDetails.vue')
 /*私人物品*/
 
 /*import boxsize from "@/components/srwp/boxsize.vue"
@@ -119,6 +133,12 @@ const srwpserversDetails = () => import('../components/srwp/serversDetails.vue')
 const srwpchecked = () => import('../components/srwp/srwpchecked.vue')
 const srwprate = () => import('../components/srwp/srwprate.vue')
 
+
+const esrwp_inp = () => import('../components/esrwp/srwp_inp.vue')
+const esrwp_upd = () => import('../components/esrwp/srwp_upd.vue')
+const ewplist = () => import('../components/esrwp/wplist.vue')
+const eboxsize = () => import('../components/esrwp/boxsize.vue')
+const esrwpIndexList = () => import('../components/esrwp/IndexList.vue')
 /*手机值机*/
 /*import phoneflight from "@/components/phoneflight/phoneflight.vue"*/
 
@@ -284,8 +304,14 @@ export default new Router({
             name: 'cwty_list',
             component: cwty_list,
         },
+
         {
-            path: '/cwty/servers',
+          path: '/ecwty/cwty_list/:con',
+          name: 'ecwty_list',
+          component: ecwty_list,
+        },
+        {
+            path: '/cwty/servers/:id',
             name: 'servers',
             component: servers,
         },
@@ -295,17 +321,22 @@ export default new Router({
             component: petDetails,
         },
         {
-            path: '/cwty/rate',
+            path: '/ecwty/petDetails/:id',
+            name: 'epetDetails',
+            component: epetDetails,
+        },
+        {
+            path: '/cwty/rate/:id/:img',
             name: 'rate',
             component: rate,
         },
         {
-            path: '/cwty/serversDetails',
+            path: '/cwty/serversDetails/:id',
             name: 'serversDetails',
             component: serversDetails,
         },
         {
-            path: '/cwty/checked',
+            path: '/cwty/checked/:id',
             name: 'checked',
             component: checked,
         },
@@ -313,6 +344,15 @@ export default new Router({
             path: '/cwty/cwty_inp',
             name: 'cwty_inp',
             component: cwty_inp,
+            meta: {
+                keepAlive: true
+            }
+        },
+      /*en版*/
+        {
+            path: '/ecwty/cwty_inp',
+            name: 'ecwty_inp',
+            component: ecwty_inp,
             meta: {
                 keepAlive: true
             }
@@ -326,6 +366,14 @@ export default new Router({
             }
         },
         {
+            path: '/ecwty/cwty_upd/:id',
+            name: 'ecwty_upd',
+            component: ecwty_upd,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
             path: '/cwty/IndexList',
             name: 'IndexList',
             component: IndexList,
@@ -334,9 +382,22 @@ export default new Router({
             }
         },
         {
+            path: '/ecwty/IndexList',
+            name: 'enIndexList',
+            component: enIndexList,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
             path: '/chiose_rad/chiose_rad',
             name: 'chiose_rad',
             component: chiose_rad,
+        },
+        {
+            path: '/chiose_rad/en_chiose_rad',
+            name: 'enchiose_rad',
+            component: enchiose_rad,
         },
         {
             path: '/calendar/calendar',
@@ -359,6 +420,11 @@ export default new Router({
             component: sizes
         },
         {
+            path: '/chiose_rad/en_sizes',
+            name: 'ensizes',
+            component: ensizes
+        },
+        {
             path: '/chiose_rad/cwzp',
             name: 'cwzp',
             component: cwzp,
@@ -370,6 +436,11 @@ export default new Router({
             component: boxsize
         },
         {
+            path: '/esrwp/boxsize',
+            name: 'eboxsize',
+            component: eboxsize
+        },
+        {
             path: '/srwp/srwp_list',
             name: 'srwp_list',
             component: srwp_list
@@ -378,6 +449,14 @@ export default new Router({
             path: '/srwp/srwp_inp',
             name: 'srwp_inp',
             component: srwp_inp,
+            meta:{
+                keepAlive:true
+            }
+        },
+        {
+            path: '/esrwp/srwp_inp',
+            name: 'esrwp_inp',
+            component: esrwp_inp,
             meta:{
                 keepAlive:true
             }
@@ -401,6 +480,11 @@ export default new Router({
             component: wplist,
         },
         {
+            path: '/esrwp/wplist',
+            name: 'ewplist',
+            component: ewplist,
+        },
+        {
             path: '/srwp/disWplist',
             name: 'disWplist',
             component: disWplist,
@@ -409,6 +493,14 @@ export default new Router({
             path: '/srwp/IndexList',
             name: 'srwpIndexList',
             component: srwpIndexList,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/esrwp/IndexList',
+            name: 'esrwpIndexList',
+            component: esrwpIndexList,
             meta: {
                 keepAlive: true
             }
