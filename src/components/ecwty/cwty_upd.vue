@@ -286,8 +286,6 @@
           method: this.size4
         }],
         actions2:[{
-          name: '是否已办理卫生证书(Whether a health certificate has been issued)'
-        },{
           name: '是(Yes)',
           method: this.sfblgz1
         }, {

@@ -24,10 +24,13 @@
     		</div>
     </div>
     <div class="ele">
-    	<textarea name="" v-model="texts" placeholder="亲！评价一下吧…"></textarea>
+    	<textarea name="" v-model="texts" placeholder="亲！评价一下吧… Evaluate it..."></textarea>
     </div>
     <div class="ele">
-    	<button @click="fabu" class="shenbao">发布评价</button>
+    	<button @click="fabu" class="shenbao">
+        <p>发布评价</p>
+        <p>Post evaluation</p>
+      </button>
     </div>
     </div>
   </div>
@@ -43,7 +46,7 @@
     data() {
       return {
       	value3: null,
-      	arr:['非常差', '差', '一般', '好', '非常好'],
+      	arr:['非常差 Very poor', '差 Poor', '一般 General', '好 Good', '非常好 Very good'],
       	texts:"",
 				ids:"",
 				cwzp:''
@@ -60,19 +63,18 @@
 						score:that.value3
 				}).then((res) => {
 					if(res.status == 200) {
-						Toast("评价成功");
+						Toast("评价成功 Evaluation of success");
 				    setTimeout(() => {
 							that.$router.back(-1)
 				    },2000)
 					}else{
-						Toast("评价失败");
+						Toast("评价失败 Evaluation of failure");
 				    return;
 					}
 				}, (res) => {
 				});
 			},
 			getpetdetails(){
-				console.log(1)
 				var that = this;
 				axios.get('/eport-server/delivery/luggage/queryOrderById.do', {
 					params: {

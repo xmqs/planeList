@@ -1,5 +1,5 @@
 <template>
-  <span :class="pStatic" @click="todetail">{{status}}</span>
+  <span :class="pStatics" @click="todetail">{{status}}</span>
 </template>
 
 <script>
@@ -7,11 +7,11 @@
       name: "flightStatus",
       data(){
           return{
-            pStatic:''
+            pStatics:''
           }
       },
       props: {
-        status: String
+        status: ""
       },
       methods:{
         todetail(){
@@ -20,14 +20,14 @@
       },
       mounted(){
         switch (this.status){
-          case "起飞": this.pStatic = "pStatic";  break;
-          case "计划航班" :this.pStatic = "pStatic";  break;
-          case "前站起飞" :this.pStatic = "pStatic";  break;
-          case "降落" :this.pStatic = "pStatic2";  break;
-          case "延误" :this.pStatic = "pStatic2";  break;
-          case "航班结束" :this.pStatic = "pStatic2";  break;
-          case "航班取消" :this.pStatic = "pStatic3";  break;
-          case "" :this.pStatic = "pStatic3";this.status = "暂无";  break;
+          case "起飞": this.pStatics = "pStatic";  break;
+          case "计划航班" :this.pStatics = "pStatic";  break;
+          case "前站起飞" :this.pStatics = "pStatic";  break;
+          case "降落" :this.pStatics = "pStatic2";  break;
+          case "延误" :this.pStatics = "pStatic2";  break;
+          case "航班结束" :this.pStatics = "pStatic2";  break;
+          case "航班取消" :this.pStatics = "pStatic3";  break;
+          case "" :this.pStatics = "pStatic3";this.status = "暂无";  break;
         }
       }
     }

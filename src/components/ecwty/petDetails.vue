@@ -130,9 +130,9 @@
 					that.area = data.data.data.endCity;
 					that.riqi = data.data.data.flightDate;
 					if (data.data.data.homeDelivery == 1) {
-						that.sfxy = '是'
+						that.sfxy = '是(Yes)'
 					} else{
-						that.sfxy = '否'
+						that.sfxy = '否(No)'
 					}
 					that.jpxx = data.data.data.picketInfo;
 					that.sfzh = data.data.data.ownerIdNo;
@@ -143,9 +143,9 @@
 					that.cwpz = data.data.data.petBreed;
 					that.sfblgz = data.data.data.petCertificate;
 					if (data.data.data.petChip == 0) {
-						that.chip = '否'
+						that.chip = '否(No)'
 					} else{
-						that.chip = '是'
+						that.chip = '是(Yes)'
 					}
 					that.cwmz = data.data.data.petName;
 					that.sizes = data.data.data.petSize;

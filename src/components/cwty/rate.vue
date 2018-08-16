@@ -1,11 +1,5 @@
 <template>
   <div id="rate">
-  	<!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
-			托运详情
-			<router-link :to="{path: '/cwty/cwty_list/'+'tab-container4'}">
-				<img style="height: 16px;position: fixed;top: 14px;left:12px;" src="./../../../static/img/Back.png"/>
-			</router-link>
-		</header> -->
     <div id="ele">
     	<div class="ele ele_1">
     		<div class="ele1">
@@ -24,10 +18,13 @@
     		</div>
     </div>
     <div class="ele">
-    	<textarea name="" v-model="texts" placeholder="亲！评价一下吧…"></textarea>
+    	<textarea name="" v-model="texts" placeholder="亲！评价一下吧… Evaluate it..."></textarea>
     </div>
     <div class="ele">
-    	<button @click="fabu" class="shenbao">发布评价</button>
+    	<button @click="fabu" class="shenbao">
+        <p>发布评价</p>
+        <p>Post evaluation</p>
+      </button>
     </div>
     </div>
   </div>
@@ -43,15 +40,13 @@
     data() {
       return {
       	value3: null,
-      	arr:['非常差', '差', '一般', '好', '非常好'],
+      	arr:['非常差 Very poor', '差 Poor', '一般 General', '好 Good', '非常好 Very good'],
       	texts:"",
 				ids:"",
 				cwzp:''
       }
     },
     methods: {
-    	score(){
-    	},
       fabu(){
       	var that = this;
 				axios.post("/eport-server/delivery/order/evaluate.do", {
@@ -60,11 +55,12 @@
 						score:that.value3
 				}).then((res) => {
 					if(res.status == 200) {
-				    setTimeout(() => {
-							that.$router.push({path: '/cwty/cwty_list/'+'tab-container4'})
-				    },2000)
+            Toast("评价成功 Evaluation of success");
+            setTimeout(() => {
+              that.$router.back(-1)
+            },2000)
 					}else{
-						Toast("评价失败");
+						Toast("评价失败 Evaluation of failure");
 				    return;
 					}
 				}, (res) => {

@@ -43,7 +43,7 @@
     data() {
       return {
       	value3: null,
-      	arr:['非常差', '差', '一般', '好', '非常好'],
+      	arr:['非常差 Very poor', '差 Poor', '一般 General', '好 Good', '非常好 Very good'],
       	texts:"",
 				ids:"",
 				cwzp:''
@@ -54,7 +54,7 @@
     	},
       fabu(){
       	var that = this;
-				axios.post("/eport-server/delivery/order/evaluate.do", {
+				axios.post("/eport-server/delive  ry/order/evaluate.do", {
 						detail:that.texts,
 						orderno:that.ids,
 						score:that.value3

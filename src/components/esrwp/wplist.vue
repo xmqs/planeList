@@ -12,7 +12,7 @@
 				<div v-for="(ele,index) in packages" class="ele">
 					<div class="ele1 name">{{ele.name}}</div>
 					<div class="ele1 intp">数量：{{ele.count}}，形式价格：{{ele.price}}，箱号：{{ele.boxNo}}</div>
-					<div class="ele1 intp">Number of items：{{ele.count}}，Formal price（元）：{{ele.price}}，Carton no.{{ele.boxNo}}</div>
+					<div class="ele1 intp">Number of items：{{ele.count}}，Formal price（¥）：{{ele.price}}，Carton no.{{ele.boxNo}}</div>
 					<img @click="update(index)" class="tanhao" src="../../../static/img/tanhao.png"/>
 				</div>
 				<div @click="add" class="ele_1">
@@ -31,6 +31,7 @@
           </div>
           <div class="elecontent2">
             <input class="inps" type="text" placeholder="请输入物品名称" v-model="name" />
+            <p class="enph">Please enter item name</p>
           </div>
 				</div>
 
@@ -40,16 +41,18 @@
             <div class="entit">Number of items</div>
           </div>
           <div class="elecontent2">
-            <input class="inps" type="text" placeholder="请输入数量" v-model="count" />
+            <input class="inps" type="number" placeholder="请输入数量" v-model="count" />
+            <p class="enph">Please enter quantity</p>
           </div>
 				</div>
 				<div class="add2_ele">
           <div class="tit">
             <div class="cntit">形式价格(元)</div>
-            <div class="entit">Formal price(元)</div>
+            <div class="entit">Formal price(¥)</div>
           </div>
           <div class="elecontent2">
-            <input class="inps" type="text" placeholder="请输入形式价格" v-model="price" />
+            <input class="inps" type="number" placeholder="请输入形式价格" v-model="price" />
+            <p class="enph">Please enter form price</p>
           </div>
 				</div>
 				<div class="add2_ele">
@@ -58,7 +61,8 @@
             <div class="entit">Carton no.</div>
           </div>
           <div class="elecontent2">
-            <input class="inps" type="text" placeholder="请输入箱号" v-model="boxNo" />
+            <input class="inps" type="number" placeholder="请输入箱号" v-model="boxNo" />
+            <p class="enph">Please enter box number</p>
           </div>
 				</div>
 

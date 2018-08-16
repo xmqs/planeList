@@ -11,7 +11,7 @@
           <div class="entit">Cage length(M)</div>
         </div>
         <div class="elecontent2">
-          <input class="inps" stype="text" placeholder="请输入笼子长度" v-model="long"/>
+          <input class="inps" stype="number" placeholder="请输入笼子长度" v-model="long"/>
           <p class="enph">Please enter cage length</p>
         </div>
       </div>
@@ -21,7 +21,7 @@
           <div class="entit">Cage width(M)</div>
         </div>
         <div class="elecontent2">
-          <input class="inps" type="text" placeholder="请输入笼子宽度" v-model="width"/>
+          <input class="inps" type="number" placeholder="请输入笼子宽度" v-model="width"/>
           <p class="enph">Please enter cage width</p>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <div class="entit">Cage height(M)</div>
         </div>
         <div class="elecontent2">
-          <input class="inps" type="text" placeholder="请输入笼子高度" v-model="height"/>
+          <input class="inps" type="number" placeholder="请输入笼子高度" v-model="height"/>
           <p class="enph">Please enter cage height</p>
         </div>
       </div>
@@ -76,16 +76,16 @@
       },
       savemsg() {
         if (this.long == '') {
-          Toast('请输入笼子长度')
+          Toast('请输入笼子长度 Please enter cage length')
           return;
         } else if (this.width == '') {
-          Toast('请输入笼子宽度')
+          Toast('请输入笼子宽度 Please enter cage width')
           return;
         } else if (this.height == '') {
-          Toast('请输入笼子高度')
+          Toast('请输入笼子高度 Please enter cage height')
           return;
         } else if (isNaN(Number(this.height)) || isNaN(Number(this.width)) || isNaN(Number(this.long))) {
-          Toast('请输入数字')
+          Toast('请输入数字 Please enter the number')
           return;
         } else {
           var res = this.long + 'x' + this.width + 'x' + this.height

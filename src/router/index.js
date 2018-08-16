@@ -44,6 +44,7 @@ const busLine = () => import('../components/Flight/busLine')
 const busLineA = () => import('../components/Flight/busLineA')
 const busLineD = () => import('../components/Flight/busLineD')
 const flightMain = () => import('../components/Flight/flightMain')
+const flightMainNew = () => import('../components/Flight/flightMainNew')
 const stopDetail = () => import('../components/Flight/stopDetail')
 
 /*酒店*/
@@ -135,6 +136,7 @@ const srwprate = () => import('../components/srwp/srwprate.vue')
 
 
 const esrwp_inp = () => import('../components/esrwp/srwp_inp.vue')
+const esrwp_list = () => import('../components/esrwp/srwp_list.vue')
 const esrwp_upd = () => import('../components/esrwp/srwp_upd.vue')
 const ewplist = () => import('../components/esrwp/wplist.vue')
 const eboxsize = () => import('../components/esrwp/boxsize.vue')
@@ -152,6 +154,13 @@ const MonthSelect = () => import('../components/base/date/MonthSelect.vue')
 /*import GoBack from "@/components/chiose_rad/GoBack.vue"*/
 
 const GoBack = () => import('../components/chiose_rad/GoBack.vue')
+
+
+const allRate = () => import('../components/chiose_rad/rate.vue')
+const srwpallRate = () => import('../components/chiose_rad/srwprate.vue')
+
+
+/*评价页面*/
 
 Vue.use(Router)
 
@@ -218,6 +227,14 @@ export default new Router({
             path: '/flight/flightMain',
             name: 'flightMain',
             component: flightMain,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/flight/flightMainNew',
+            name: 'flightMainNew',
+            component: flightMainNew,
             meta: {
                 keepAlive: true
             }
@@ -326,7 +343,7 @@ export default new Router({
             component: epetDetails,
         },
         {
-            path: '/cwty/rate/:id/:img',
+            path: '/cwty/rate/:id',
             name: 'rate',
             component: rate,
         },
@@ -446,6 +463,11 @@ export default new Router({
             component: srwp_list
         },
         {
+            path: '/esrwp/srwp_list',
+            name: 'esrwp_list',
+            component: esrwp_list
+        },
+        {
             path: '/srwp/srwp_inp',
             name: 'srwp_inp',
             component: srwp_inp,
@@ -470,6 +492,14 @@ export default new Router({
             }
         },
         {
+            path: '/esrwp/srwp_upd/:id',
+            name: 'esrwp_upd',
+            component: esrwp_upd,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
             path: '/srwp/srwpDetails/:id',
             name: 'srwpDetails',
             component: srwpDetails
@@ -477,7 +507,7 @@ export default new Router({
         {
             path: '/srwp/wplist',
             name: 'wplist',
-            component: wplist,
+            component: wplist,disWplist
         },
         {
             path: '/esrwp/wplist',
@@ -543,6 +573,16 @@ export default new Router({
         {
             path: '/uploadImgByClient',
             name: 'uploadImgByClient'
-        }
+        },
+        {
+            path: '/allRate/:id',
+            name: 'allRate',
+            component:allRate,
+        },
+        {
+            path: '/srwpallRate/:id',
+            name: 'srwpallRate',
+            component:srwpallRate,
+        },
     ]
 })

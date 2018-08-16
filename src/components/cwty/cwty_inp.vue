@@ -517,7 +517,6 @@
             boxSize: this.sizes1,
             picketInfo: this.jpxx
           }).then((res) => {
-            console.log(res)
             if (res.status == 200) {
               Toast("申报成功");
               setTimeout(() => {

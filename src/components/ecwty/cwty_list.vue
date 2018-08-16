@@ -1,8 +1,8 @@
 <template>
   <div id="kaxw_list">
-    <!--<div style="position: fixed;top:36px;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
+    <div style="position: fixed;top:13.4vw;text-align: center;width: 100%;height: 100%;z-index: 999999;padding-top: 40px;background-color: #fff;" v-show="lod">
             正在加载,请稍后...
-        </div>-->
+        </div>
     <!--头部临时用-->
     <!-- <header style="height: 45px;background:#285FB1;position: fixed;top: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;line-height: 45px;">
             宠物申报平台
@@ -119,7 +119,7 @@
             <div v-if="list.length == 0" class="kong">
               <img style="width: 130px;" src="../../../static/img/kong1.png"/>
               <div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">
-                暂无订单 No orders
+                暂无提交订单 No order has been submitted
               </div>
             </div>
           </mt-tab-container-item>
@@ -159,7 +159,7 @@
             <div v-if="list.length == 0" class="kong">
               <img style="width: 130px;" src="../../../static/img/kong1.png"/>
               <div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">
-                暂无订单 No orders
+                暂无托运订单 No consignment order
               </div>
             </div>
           </mt-tab-container-item>
@@ -186,12 +186,14 @@
                 </div>
               </div>
               <div class="ele3">
-                <button v-if="ele.status == '50'" @click="text(ele.id,ele.petPicture)" class="update_b">
-                  <p class="btn_p">评价</p>
-                  <p class="btn_p">Evaluation</p>
-                  <div class="dot1"></div>
-                </button>
-                <button v-if="ele.status == '60'" class="update_b">
+                <a v-if="ele.status == '50'" :href="'/H5/index.html#/cwty/rate/'+ele.id">
+                  <button  class="update_b">
+                    <p class="btn_p">评价</p>
+                    <p class="btn_p">Evaluation</p>
+                    <div class="dot1"></div>
+                  </button>
+                </a>
+                <button v-if="ele.status == '60'" class="update_b"  @click="totext(ele.id)">
                   <p class="btn_p">已评价</p>
                   <p class="btn_p">Have evaluation</p>
                 </button>
@@ -204,7 +206,7 @@
             <div v-if="list.length == 0" class="kong">
               <img style="width: 130px;" src="../../../static/img/kong1.png"/>
               <div style="margin-top: 10px;font-size: 14px;font-family: PingFangSC-Regular;color:rgba(102,102,102,1);">
-                暂无订单 No orders
+                暂无评价订单 No evaluation orders
               </div>
             </div>
           </mt-tab-container-item>
@@ -291,8 +293,9 @@
       this.widthData = document.documentElement.clientHeight - 115;
     },
     methods: {
-
-
+      totext(res){
+        this.$router.push({path: '/allRate/'+res});
+      },
       select_pet(res) {
 
         var u = navigator.userAgent;

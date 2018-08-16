@@ -123,7 +123,7 @@
 				  		</div>
 				  		<div class="ele3">
 			  				<div style="position: relative;" v-if="ele.status == '50'" @click="text(ele.id,ele.petPicture)" class="update_b">评价<div class="dot1"></div></div>
-			  				<p v-if="ele.status == '60'" class="update_b">已评价</p>
+			  				<p v-if="ele.status == '60'" class="update_b" @click="totext(ele.id)">已评价</p>
 			  				<p @click="tyxq(ele.id)" style="border-color: #999;color: #333;" class="update_b">托运详情</p>
 				  		</div>
 				  	</div>
@@ -216,7 +216,9 @@
 			this.widthData = document.documentElement.clientHeight -115;
 		},
 		methods: {
-
+      totext(res){
+        this.$router.push({path: '/rate/'+res});
+      },
 
 			select_pet(res){
 

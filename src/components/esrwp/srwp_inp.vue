@@ -73,16 +73,14 @@
           <div class="cntit">选择目的城市</div>
           <div class="entit">Select the destination city</div>
         </div>
-        <div class="elecontent">
-          <router-link :to="{name:'/srwp/IndexList'}">
+        <div class="elecontent" @click="toEnIndexList">
             <input readonly="readonly" class="inps" type="text" placeholder="" v-model="endCity" unselectable="on" onfocus="this.blur()"/>
-          </router-link>
         </div>
       </div>
       <div class="ele1">
         <div class="tit2">
           <div class="cntit">大件物品照片上传</div>
-          <div class="entit">Pet immunization certificate</div>
+          <div class="entit">Upload photos of large items</div>
         </div>
         <img @click="myimg(1)" src="../../../static/img/Group 3.png" class="avatar">
       </div>
@@ -238,6 +236,9 @@
       }
     },
     methods: {
+      toEnIndexList(){
+        this.$router.push({path:'/esrwp/IndexList'});
+      },
       //图片上传
       myimg(res) {
         var oldUrl = window.location.href;
@@ -333,60 +334,79 @@
         setTimeout(() => {
           this.unbind = true;
         }, 3000);
-        var check = true;
+
+        let check = true;
         if (this.packages.length == 0) {
-          Toast('请填写物品清单')
+          Toast('请填写物品清单 Please fill out the list')
           check = false;
           return;
         }
-        var input = document.querySelectorAll('.inps');
-        var label = document.getElementsByTagName('label');
-        this.travelList = [];
-        this.travelList.push(this.travelList1);
-        this.travelList.push(this.travelList2);
-        for (var i = 0; i < input.length; i++) {
-          if (input[i].value == "") {
-            Toast('请填写' + label[i].innerHTML)
-            check = false;
-            return;
-          }
+
+        if(this.weight == ""){
+          Toast('请填写物品总重量 Please fill in the total weight')
+          check = false;
+          return;
         }
+
+        if(this.size == ""){
+          Toast('请填写外包装尺寸 Please fill in the dimensions of the outer packing')
+          check = false;
+          return;
+        }
+        if(this.startCity == ""){
+          Toast('请选择发货地 Please choose the place of shipment')
+          check = false;
+          return;
+        }
+        if(this.endCity == ""){
+          Toast('请选择目的地城市 Please select the destination city')
+          check = false;
+          return;
+        }
+
         if (this.bigPackageList.length == 0) {
-          Toast('请上传大件物品照片')
+          Toast('请上传大件物品照片 Please upload photos of large items')
           check = false;
           return;
         }
         if (this.travelList2 == "" || this.travelList1 == "") {
-          Toast('请上传电子机票行程单')
+          Toast('请上传电子机票行程单 Please upload the e-ticket itinerary')
           check = false;
           return;
         }
-        var regName = /^[\u4e00-\u9fa5]{2,4}$/;
-        if (!this.ownerName.match(cardIdReg)) {
-          Toast('姓名填写有误')
+        if (this.ownerName == "") {
+          Toast('请填写姓名 Please fill in your name')
           return;
         }
-        // var telReg = /^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-        // if(!this.ownerTelNo.match(telReg)){
-        // 	Toast('请输入正确的电话号码')
-        // 	return;
-        // }
-        var cardIdReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        if (!this.ownerIdNo.match(cardIdReg)) {
-          Toast('请输入正确的身份证号码')
+        if (this.ownerPassport == "") {
+          Toast('请填写护照信息 Please fill in the passport information')
           return;
         }
-        // var ownerPassport = /^[a-zA-Z0-9]{5,17}$/;
-        // if(!this.ownerPassport.match(ownerPassport)){
-        //     Toast('护照号码填写有误')
-        // 	return;
-        // }
+        if (this.picketInfo == "") {
+          Toast('请填写机票信息 Please fill in the ticket information')
+          return;
+        }
+        if (this.ownerTelNo == "") {
+          Toast('请填写联系方式 Please fill in the contact information')
+          return;
+        }
+
+
         var homeDelivery;
         if (this.homeDelivery == false) {
           homeDelivery = 0;
         } else {
           homeDelivery = 1;
+          if (this.homeAddress == "") {
+            Toast('请填写地址 Please fill in the address')
+            return;
+          }
         }
+
+        this.travelList = [];
+        this.travelList.push(this.travelList1);
+        this.travelList.push(this.travelList2);
+
         if (check) {
           axios.post("/eport-server/delivery/luggage/saveOrder.do", {
             packages: this.packages,
@@ -402,13 +422,15 @@
             ownerTelNo: this.ownerTelNo,
             bigPackageList: this.bigPackageList,
             travelList: this.travelList,
+            picketInfo:this.picketInfo
           }).then((res) => {
             console.log(res)
             if (res.status == 200) {
-              Toast("申报成功");
+              Toast("申报成功 Declare success");
               setTimeout(() => {
 
-                this.$router.replace({path: '/srwp/srwp_list'})
+                this.$router.replace({path: '/esrwp/srwp_list'})
+                this.unbind = true;
 
                 var u = navigator.userAgent;
                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
@@ -419,7 +441,7 @@
                 }
               }, 1000);
             } else {
-              Toast("申报失败");
+              Toast("申报失败 Declare false");
             }
           }, (res) => {
           });
@@ -778,9 +800,6 @@
     border: 1px solid #ccc;
   }
 
-  .el-icon-plus {
-
-  }
 
   .downwarp {
     margin-top: 45%;

@@ -117,12 +117,16 @@
 						</a>
 				  		<div class="ele3">
 							<a :href ="'/H5/index.html#/srwp/srwpchecked/'+ele.id">
-			  					<button class="update_b">托运详情</button>
-			  					<!-- <button @click="tyxq(ele)" class="update_b">托运详情</button> -->
+                <button class="update_b">
+                  <p class="btn_p">托运详情</p>
+                  <p class="btn_p">The shipping details</p>
+                </button>
 							</a>
 							<a :href ="'/H5/index.html#/srwp/serversDetails/'+ele.id">
-			  					<button style="border-color: #999;color: #333;" class="update_b">服务详情</button>
-			  					<!-- <button @click="serversDetails(ele.id)" style="border-color: #999;color: #333;" class="update_b">服务详情</button> -->
+                <button class="update_b">
+                  <p class="btn_p">服务详情</p>
+                  <p class="btn_p">Service details</p>
+                </button>
 							</a>
 
 				  		</div>
@@ -159,10 +163,16 @@
 						</a>
 				  		<div class="ele3">
 							<a v-if="ele.status == '50'" :href ="'/H5/index.html#/srwp/srwprate/'+ele.id">
-			  					<button style="position: relative;" class="update_b">评价<div class="dot1"></div></button>
-			  					<!-- <p @click="text(ele.id)" class="update_b">评价</p> -->
+                <button class="update_b">
+                  <p class="btn_p">评价</p>
+                  <p class="btn_p">Evaluation</p>
+                  <div class="dot1"></div>
+                </button>
 							</a>
-			  				<p v-if="ele.status == '60'" class="update_b">已评价</p>
+              <button v-if="ele.status == '60'" class="update_b">
+                <p class="btn_p">已评价</p>
+                <p class="btn_p">Have evaluation</p>
+              </button>
 							<a :href ="'/H5/index.html#/srwp/srwpchecked/'+ele.id">
 			  					<button style="border-color: #999;color: #333;" class="update_b">托运详情</button>
 			  					<!-- <p @click="tyxq(ele)" style="border-color: #999;color: #333;" class="update_b">托运详情</p> -->

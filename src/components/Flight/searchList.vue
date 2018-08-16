@@ -90,7 +90,14 @@
                   <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
               </span>
-                  <status @todetail="toplaneDetail(item)" :status="item.FlightStatus"></status>
+                  <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus==''">{{item.FlightStatus}}</span>
                   <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if=!item.isFollow  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if=item.isFollow  @click="changeunfocus(item.FlightIdentity)">
@@ -110,7 +117,14 @@
                   <span  @click="toplaneDetail(item)">
               {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
             </span>
-                  <status @todetail="toplaneDetail(item)" :status="item.FlightStatus"></status>
+                  <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">{{item.FlightStatus}}</span>
+                  <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus==''">{{item.FlightStatus}}</span>
                   <span class="share">
                 共享
               </span>

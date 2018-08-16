@@ -31,6 +31,16 @@
 				<img class="po_right" src="../../../static/img/Shape.png"/>
 			</div>-->
 
+      <div class="ele" @click="disWplist(packages)">
+        <div class="tit2">
+          <div class="cntit">物品清单</div>
+          <div class="entit">Item listing</div>
+        </div>
+        <div class="elecontent itemsDetail">
+          {{packagesDetail}}
+        </div>
+      </div>
+
       <div class="ele">
         <div class="tit2">
           <div class="cntit">总重量(千克)</div>
@@ -61,10 +71,35 @@
       <div class="ele">
         <div class="tit2">
           <div class="cntit">目的城市</div>
-          <div class="entit">Destination airport</div>
+          <div class="entit">Photos of large items</div>
         </div>
         <div class="elecontent">
           {{endCity}}
+        </div>
+      </div>
+
+      <div class="ele4" v-if="bigPackageList.length!==0">
+        <div>
+          <span data-v-0797969a="" class="cntit">大件物品照片 E-ticket itinerary</span>
+        </div>
+        <div v-for="(ele,index) in bigPackageList" v-if="bigPackageList" class="item">
+          <img :src=ele class="avatar2">
+        </div>
+      </div>
+
+      <div class="ele5">
+        <span class="tit">电子机票行程单 E-ticket itinerary</span>
+        <div>
+          <div class="img_list">
+            <img class="item el-icon-plus" :src=travelList[0] />
+            <p>正面</p>
+            <p>Positive</p>
+          </div>
+          <div class="img_list">
+            <img class="item el-icon-plus" :src=travelList[1] />
+            <p>反面</p>
+            <p>Reverse</p>
+          </div>
         </div>
       </div>
 
@@ -84,15 +119,6 @@
       </div>
       <div class="ele">
         <div class="tit2">
-          <div class="cntit">联系方式</div>
-          <div class="entit">The contact</div>
-        </div>
-        <div class="elecontent">
-          {{ownerTelNo}}
-        </div>
-      </div>
-      <div class="ele">
-        <div class="tit2">
           <div class="cntit">护照信息</div>
           <div class="entit">Passport information</div>
         </div>
@@ -102,6 +128,25 @@
       </div>
       <div class="ele">
         <div class="tit2">
+          <div class="cntit">机票信息</div>
+          <div class="entit">Ticket information</div>
+        </div>
+        <div class="elecontent">
+          {{picketInfo}}
+        </div>
+      </div>
+      <div class="ele">
+        <div class="tit2">
+          <div class="cntit">联系方式</div>
+          <div class="entit">The contact</div>
+        </div>
+        <div class="elecontent">
+          {{ownerTelNo}}
+        </div>
+      </div>
+
+      <div class="ele">
+        <div class="tit2">
           <div class="cntit">是否需要上门服务</div>
           <div class="entit">Need door-to-door service or not</div>
         </div>
@@ -109,7 +154,7 @@
           {{sfxy}}
         </div>
       </div>
-      <div v-if="sfxy == '是'" class="ele">
+      <div v-if="sfxy == '是(Yes)'" class="ele">
         <div class="tit2">
           <div class="cntit">地址</div>
           <div class="entit">Address</div>
@@ -141,22 +186,32 @@
 				ownerPassport:'',
 				homeAddress:'',
 				ownerTelNo:'',
-		        bigPackageList:[],
-		        travelList1:'',
-		        travelList2:'',
-		        travelList:[],
-		        ids:'',
-		        sfxy:'',
+        bigPackageList:[],
+        travelList1:'',
+        travelList2:'',
+        travelList:[],
+        picketInfo:"",
+        ids:'',
+        sfxy:'',
 				/*属性结束*/
 				value:"",
 				homeDelivery:false,
-		        packagesName:'',
+        packagesName:'',
 				lod:true
 			}
 		},
 	    activated() {
 
 		},
+    computed: {
+      packagesDetail() {
+        let list = ""
+        for (let i = 0; i < this.packages.length; i++) {
+          list += this.packages[i].name + ' ';
+        }
+        return list
+      }
+    },
 		methods: {
 			goback(){
 				this.$router.push({name: 'srwp_list',
@@ -185,10 +240,7 @@
 
 		    },
 			disWplist(res){
-				setTimeout(() => {
-			        Bus.$emit('disWplist', res,this.ids)
-			    }, 30)
-				this.$router.push({path: '/srwp/disWplist'})
+				this.$router.push({name: 'disWplist',params:{list:res}})
 			},
 			getDetails(){
 				var that = this;
@@ -205,12 +257,13 @@
 					that.ownerName = data.data.data.ownerName;
 					that.ownerIdNo = data.data.data.ownerIdNo;
 					that.ownerPassport = data.data.data.ownerPassport;
+					that.picketInfo = data.data.data.picketInfo;
 					that.homeAddress = data.data.data.homeAddress;
 					that.switch1 = data.data.data.homeDelivery;
 					if (data.data.data.homeDelivery == 1) {
-						that.sfxy = '是'
+						that.sfxy = '是(Yes)'
 					} else{
-						that.sfxy = '否'
+						that.sfxy = '否(No)'
 					}
 					that.ownerTelNo = data.data.data.ownerTelNo;
 					that.bigPackageList = data.data.data.bigPackageList;
@@ -247,15 +300,6 @@
   }
   *{
     font-family: PingFangSC;
-  }
-  p{
-    background: #fff5e5;
-    line-height: 40px;
-    padding: 15px 12px;
-    height: 150px;
-    font-size:26px;
-    font-family:PingFangSC-Regular;
-    color:rgba(255,181,64,1);
   }
   #soll{
     position: fixed;
@@ -318,6 +362,28 @@
     padding-top: 10px;
     font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
+  }
+  .ele4 {
+    margin: 0 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #efefef;
+  }
+  .ele5{
+    margin: 0 20px;
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    min-height: 326px;
+    line-height: 85px;
+    font-size: 32px;
+    font-family: PingFangSC-Regular;
+    color: rgba(51, 51, 51, 1);
+  }
+  .item {
+    width: 170px;
+    height: 170px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
   }
   .tit{
     color: #333;
@@ -403,5 +469,78 @@
     font-size:28px;
     font-family:PingFangSC-Regular;
     color:rgba(51,51,51,1);
+  }
+  .avatar {
+    width: 128px;
+    height: 128px;
+    display: inline-block;
+  }
+
+  .avatar2 {
+    width: 160px;
+    height: 160px;
+  }
+  .img_list {
+    display: inline-block;
+  }
+
+  .img_list p {
+    text-align: center;
+    height: 28px;
+    font-size: 26px;
+    font-family: PingFangSC-Regular;
+    color: rgba(153, 153, 153, 1);
+    line-height: 24px;
+  }
+</style>
+<style type="text/css">
+  .mint-actionsheet-button, .mint-actionsheet-listitem {
+    height: 80px !important;
+    line-height: 80px !important;
+    font-size: 30px !important;
+  }
+
+  .mint-toast-text {
+    font-size: 3.8vw !important;
+  }
+
+  .mint-switch-core:before {
+    width: 6.667vw;
+    height: 6vw;
+    background-color: #fdfdfd;
+  }
+
+  .mint-switch-core:after, .mint-switch-core:before {
+    content: " ";
+    top: -1px;
+    left: 0px;
+    position: absolute;
+    transition: transform .3s;
+    border-radius: 3vw;
+  }
+
+  .mint-switch-core:after {
+    width: 7vw;
+    height: 6.2vw;
+    background-color: #fff;
+    box-shadow: 0 1px 0.4vw rgba(0, 0, 0, .4);
+  }
+
+  .mint-switch-core {
+    display: inline-block;
+    position: relative;
+    top: -6px;
+    width: 9.933vw;
+    height: 6.4vw;
+    border: 1px solid #d9d9d9;
+    border-radius: 3.133vw;
+    box-sizing: border-box;
+    background: #d9d9d9;
+  }
+  .itemsDetail{
+    max-width: 460px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

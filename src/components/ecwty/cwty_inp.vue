@@ -137,10 +137,8 @@
           <div class="cntit">选择目的城市</div>
           <div class="entit">Select the destination city</div>
         </div>
-        <div class="elecontent">
-			  	<router-link :to="{name:'enIndexList'}">
+        <div class="elecontent" @click="toEnIndexList">
             <input readonly="readonly" class="inps" type="text" placeholder="" v-model="area" unselectable="on" onfocus="this.blur()"/>
-				  </router-link>
         </div>
 			</div>
       <div class="ele">
@@ -290,8 +288,6 @@
               method: this.size4
             }],
 				actions2:[{
-			        name: '是否已办理卫生证书(Whether a health certificate has been issued)'
-			      },{
 			        name: '是(Yes)',
 			        method: this.sfblgz1
 			      }, {
@@ -334,12 +330,15 @@
 			var userinfo = sessionStorage.getItem('userifo');
 			if(userinfo != null){
 				userinfo = JSON.parse(userinfo);
-				this.sfzh = userinfo.idNumber,
-				this.lxfs = userinfo.phone
-				this.zrxm = userinfo.userName
+				this.sfzh = userinfo.idNumber;
+				this.lxfs = userinfo.phone;
+				this.zrxm = userinfo.userName;
 			}
 		},
 		methods: {
+      toEnIndexList(){
+        this.$router.push({name:'enIndexList'});
+      },
       /*修改时间*/
       gettime(mask) {
 
@@ -581,7 +580,7 @@
 
 
         if(this.time2 == "预计航班日期："||this.time2 == "预计航班日期"){
-          Toast('请选择目的城市 Please select the destination city')
+          Toast('请选择目的城市 Please select the estimated flight date')
           check = false;
           this.unbind = true;
           return;
@@ -661,7 +660,6 @@
             boxSize: this.sizes1,
             picketInfo: this.jpxx
           }).then((res) => {
-            console.log(res)
             if (res.status == 200) {
               Toast("申报成功 Declare success");
               setTimeout(() => {
