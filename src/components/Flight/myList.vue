@@ -6,7 +6,7 @@
     </div>
 
     <ul class="search_list">
-      <li v-for="item in list">
+      <li v-for="item in list" v-if="item.FlightStatus!=='今日无此航班'">
         <div v-if='item.SLAVE_FLIGHT!==""'>
             <span  @click="toplaneDetail(item)">
               {{item.FlightIdentity}}
@@ -29,6 +29,54 @@
           <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">{{item.FlightStatus}}</span>
           <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">{{item.FlightStatus}}</span>
           <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus==''">{{item.FlightStatus}}</span>
+          <span class="star">
+                <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
+                <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
+              </span>
+        </div>
+        <div v-for="slave in item.SLAVE_FLIGHT" v-if=item.SLAVE_FLIGHT class="slave_plane">
+            <span  @click="toplaneDetail(item)">
+              {{slave.SlaveFlightIdentity}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
+              <span v-if=!item.EstimatedLandingTakeoffDateTime class="jicon">计</span>
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+            </span>
+          <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='降落'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='延误'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic2" v-if="item.FlightStatus=='航班结束'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">{{item.FlightStatus}}</span>
+          <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus==''">{{item.FlightStatus}}</span>
+          <span class="share">
+            共享
+          </span>
+        </div>
+      </li>
+      <li v-for="item in list" v-if="item.FlightStatus=='今日无此航班'">
+        <div v-if='item.SLAVE_FLIGHT!==""'>
+            <span  @click="toplaneDetail(item)">
+              {{item.FlightIdentity}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{direction=="D"?item.IATADestAirport:item.IATAOriginAirport}}
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}
+              <span v-if=!item.EstimatedLandingTakeoffDateTime  class="jicon">计</span>
+            </span>
+          <span  @click="toplaneDetail(item)">
+              {{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}
+            </span>
+          <span>今日无此航班</span>
           <span class="star">
                 <img src="./../../../static/img/unfocus.png" alt="" v-if="!item.isFollow"  @click="changefocus(item.FlightIdentity)">
                 <img  src="./../../../static/img/focus.png" alt="" v-if="item.isFollow"  @click="changeunfocus(item.FlightIdentity)">
@@ -424,5 +472,9 @@
   }
   .flight_th span.star{
     width: 80px;
+  }
+
+  .search_list li:nth-child(2n){
+    background: #f1f1f1;
   }
 </style>

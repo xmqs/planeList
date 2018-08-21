@@ -430,6 +430,9 @@
   .search_list li span.pStatic3{
     color: #ccc;
   }
+  .search_list li:nth-child(2n){
+    background: #f1f1f1;
+  }
 </style>
 <style>
   .search_list li span.pStatic{
@@ -441,7 +444,5 @@
   .search_list li span.pStatic3{
     color: #ccc;
   }
-  .search_list li:nth-child(2n){
-    background: #f1f1f1;
-  }
+
 </style>

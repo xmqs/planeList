@@ -135,9 +135,9 @@
         },
         switchFocus(){
           if(this.list.isFollow){
-            this.changefocus(this.list.FlightIdentity);
-          }else{
             this.changeunfocus(this.list.FlightIdentity);
+          }else{
+            this.changefocus(this.list.FlightIdentity);
           }
         },
         changefocus(num){
@@ -179,7 +179,7 @@
         axios.post('/eport-server/airFlight/getAirFlight.do',{
           "isFirst":"0",
           "countryType":"",
-          "serviceType":this.$route.params.countryType==1?"P":"C",
+          "serviceType":"",
           "direction":this.$route.params.direction,
           "airportCode":"",
           "airlineCode":"",
@@ -188,6 +188,10 @@
           "pageNumber":"1",
           userId:sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
         }).then((response)=> {
+          if(response.data.data.list == []){
+            Toast('暂无当前航班数据');
+            return;
+          }
           this.list = response.data.data.list[0];
         }).catch((error)=> {
 

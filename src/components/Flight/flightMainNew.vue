@@ -19,7 +19,7 @@
         <li :class="{ active: countryType=='I' }" @click="SearchIoD('I')">国际</li>
         <li :class="{ active: countryType=='D' }" @click="SearchIoD('D')">国内</li>
         <li :class="{ active: serviceType=='C' }" @click="SearchC()">货机</li>
-        <li @click="toDestination">查询</li>
+        <li @click="toMyList">我的关注</li>
       </ul>
     </div>
     <div id="wall">
@@ -29,12 +29,12 @@
           <ul class="search_list">
             <li v-for="item in list">
               <div>
-                <div class="itemHeader">
+                <div class="itemHeader"  @click="toplaneDetail(item)">
                   <img :src='item.AirLineImg+"@3x.png"'>
                   <span>{{item.AirlineIATACode}}</span>
                   <span class="FlightIdentity">{{item.FlightIdentity}}</span>
                 </div>
-                <div class="SLAVE_FLIGHT">
+                <div class="SLAVE_FLIGHT"  @click="toplaneDetail(item)">
                   <span v-for="sf in item.SLAVE_FLIGHT">{{sf.SlaveFlightIdentity}}</span>
                 </div>
                 <div class="itemBody">
@@ -42,7 +42,7 @@
                     <span class="Airport">{{item.IATAOriginAirport}}</span>
                     <div class="mask"></div>
                   </div>
-                  <div class="timeList">
+                  <div class="timeList"  @click="toplaneDetail(item)">
                     <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='起飞'">{{item.FlightStatus}}</span>
                     <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='计划航班'">{{item.FlightStatus}}</span>
                     <span @todetail="toplaneDetail(item)" class="pStatic" v-if="item.FlightStatus=='前站起飞'">{{item.FlightStatus}}</span>
@@ -52,7 +52,7 @@
                     <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus=='航班取消'">{{item.FlightStatus}}</span>
                     <span @todetail="toplaneDetail(item)" class="pStatic3" v-if="item.FlightStatus==''">{{item.FlightStatus}}</span>
 
-                    <span class="time_line">{{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):"--"}}{{direction=="D"?'降落':'起飞'}}</span>
+                    <span class="time_line">{{item.ActualLandingTakeoffDateTime?item.ActualLandingTakeoffDateTime.slice(11,16):item.EstimatedLandingTakeoffDateTime?item.EstimatedLandingTakeoffDateTime.slice(11,16):item.ScheduledLandingTakeoffDateTime.slice(11,16)}}{{direction=="D"?'起飞':'降落'}}</span>
                   </div>
                   <div class="mask_wall">
                     <span class="Airport">{{item.IATADestAirport}}</span>
@@ -64,8 +64,8 @@
                          @click="changefocus(item.FlightIdentity)">
                     <img src="./../../../static/img/focus.png" alt="" v-if=item.isFollow
                          @click="changeunfocus(item.FlightIdentity)">
-                    <div v-if=!item.isFollow>关注</div>
-                    <div v-if=item.isFollow>已关注</div>
+                    <div v-if=!item.isFollow style="white-space: nowrap">关注</div>
+                    <div v-if=item.isFollow style="white-space: nowrap">已关注</div>
                   </div>
                 </div>
               </div>
@@ -110,7 +110,10 @@
         this.showAoD = true;
       },
       toDestination() {
-        this.$router.push({name: 'Destination'});
+        this.$router.push({path:'/flight/destinationNew'});
+      },
+      toMyList() {
+        this.$router.push({path:'/flight/myListNew'});
       },
       loadTop() {
         this.prePage--;
@@ -443,12 +446,12 @@
     padding-left: 22px;
     display: flex;
     align-items:center;
-    font-size: 24px;
+    font-size: 26px;
     font-family: PingFangSC-Regular;
     color: #999;
   }
   .itemHeader img{
-    width: 24px;
+    width: 28px;
   }
   .itemHeader span{
     margin-left: 10px;
@@ -520,6 +523,7 @@
     text-align: center;
     font-size: 24px;
     padding: 6px 20px 0 16px;
+    width: 100px;
   }
   .star img{
     width: 33px;
@@ -531,17 +535,17 @@
     right: 60px;
     bottom: 60px;
     z-index: 9999999;
-    background: #000;
+    background: rgba(0,0,0,.6);
+    color: #fff;
     font-size: 30px;
     padding: 30px;
-    opacity: 0.6;
     border-radius: 60px;
     height: 100px;
     text-align: center;
-    transition: width 1s;
-    -moz-transition: width 1s; /* Firefox 4 */
-    -webkit-transition: width 1s; /* Safari 和 Chrome */
-    -o-transition: width 1s; /* Opera */
+    transition: all 1s;
+    -moz-transition: all 1s; /* Firefox 4 */
+    -webkit-transition: all 1s; /* Safari 和 Chrome */
+    -o-transition: all 1s; /* Opera */
   }
   .SearchAod span{
     padding: 0 30px;

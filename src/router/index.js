@@ -30,12 +30,15 @@ import flightMain from "@/components/Flight/flightMain"
 import stopDetail from "@/components/Flight/stopDetail"*/
 
 const Destination = () => import('../components/Flight/destination')
+const DestinationNew = () => import('../components/Flight/destinationNew')
 const MyList = () => import('../components/Flight/MyList')
+const MyListNew = () => import('../components/Flight/MyListNew')
 const SelectPalne = () => import('../components/Flight/selectPlane')
 const Changeplane = () => import('../components/Flight/changeList')
 const PlaneDetail = () => import('../components/Flight/PlaneDetail')
 const cityList = () => import('../components/Flight/cityList')
 const searchList = () => import('../components/Flight/searchList')
+const searchListNew = () => import('../components/Flight/searchListNew')
 const testScrollA = () => import('../components/Flight/testScrollA')
 const testScrollB = () => import('../components/Flight/testScrollB')
 const testScrollC = () => import('../components/Flight/testScrollC')
@@ -46,7 +49,8 @@ const busLineD = () => import('../components/Flight/busLineD')
 const flightMain = () => import('../components/Flight/flightMain')
 const flightMainNew = () => import('../components/Flight/flightMainNew')
 const stopDetail = () => import('../components/Flight/stopDetail')
-
+/*航班deemo*/
+const airLine = () => import('../components/Flight/airLine')
 /*酒店*/
 /*import hotel from "@/components/hotel/hotel"
 /!*货物查询*!/
@@ -160,6 +164,9 @@ const allRate = () => import('../components/chiose_rad/rate.vue')
 const srwpallRate = () => import('../components/chiose_rad/srwprate.vue')
 
 
+const download = () => import('../components/download/imgload')
+
+
 /*评价页面*/
 
 Vue.use(Router)
@@ -222,6 +229,14 @@ export default new Router({
                 keepAlive: true
             }
         },
+        {
+            path: '/flight/destinationNew',
+            name: 'DestinationNew',
+            component: DestinationNew,
+            meta: {
+                keepAlive: true
+            }
+        },
         //航班主页
         {
             path: '/flight/flightMain',
@@ -243,6 +258,11 @@ export default new Router({
             path: '/flight/myList',
             name: 'MyList',
             component: MyList
+        },
+        {
+            path: '/flight/myListNew',
+            name: 'MyListNew',
+            component: MyListNew
         },
         {
             path: '/flight/cityList',
@@ -314,6 +334,20 @@ export default new Router({
             meta: {
                 keepAlive: true
             }
+        },
+        {
+            path: '/flight/searchListNew',
+            name: 'searchListNew',
+            component: searchListNew,
+            meta: {
+                keepAlive: true
+            }
+        },
+        /*航线deemo*/
+        {
+            path: '/flight/airLine',
+            name: 'airLine',
+            component: airLine,
         },
         /*宠物托运*/
         {
@@ -583,6 +617,11 @@ export default new Router({
             path: '/srwpallRate/:id',
             name: 'srwpallRate',
             component:srwpallRate,
+        },
+        {
+            path: '/download',
+            name: 'download',
+            component:download,
         },
     ]
 })

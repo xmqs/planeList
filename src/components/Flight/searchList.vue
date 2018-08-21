@@ -279,6 +279,10 @@
             userId:sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:''
           }).then((response)=> {
             this.list = response.data.data.list;
+            if(this.list.length == 0){
+              Toast('未查询到航班数据');
+              return;
+            }
             this.last_page = response.data.data.last_page;
             this.rightPage = this.prePage = this.nextPage = response.data.data.right_page;
             if(response.data.data.last_page == response.data.data.current_page){
