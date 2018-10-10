@@ -18,80 +18,112 @@
     <!-- built files will be auto injected -->
 </body>
 <script type="text/javascript">
+
+  var appToken = "";
   if (window.location.href.indexOf('isGuest=yes') != -1) {
     sessionStorage.setItem('isGuest', 'yes')
-    console.log('yes')
   } else {
     sessionStorage.setItem('isGuest', 'no')
-    console.log('no')
-  }
 
-    var test = "";
-    var retData;
-    var params = {
+    if (window.location.href.indexOf('isApp=yes') != -1) {
+
+      let name,value;
+      let str=location.href;
+      let num=str.indexOf("?")
+      str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+      let arr=str.split("&"); //各个参数放到数组里
+      console.log(arr)
+      for(let i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+          name=arr[i].substring(0,num);
+          value=arr[i].substr(num+1);
+          if(name == 'token'){
+
+            appToken = value;
+            $.get('/eport-server/token/getUserInfoByToken.do?token='+appToken,function(res){
+
+              sessionStorage.setItem('fg', '1');
+              sessionStorage.setItem("userifo", JSON.stringify(res.data));
+            });
+          }
+        }
+      }
+
+    }else{
+      var test = "";
+      var retData;
+      var params = {
         //"appId" : "mynj_test"
         "appId": "elecPort"
-    };
+      };
 
-    function moveTo(longitude, latitude) {
-        sessionStorage.setItem("userPosition", longitude + "," + latitude);
-    }
-    //调用原生方法
-    auth.getAccessToken(JSON.stringify(params));
-    //原生回调
-    function getAccessTokenCallback(resopnse) {
+      auth.getAccessToken(JSON.stringify(params));
+      //原生回调
+      function getAccessTokenCallback(resopnse) {
         retData = JSON.parse(resopnse);
         getUserInfoByToken();
-    }
+      }
+      //调用原生方法
 
-    function getUserInfoByToken() {
+      function getUserInfoByToken() {
         var params = {
-            "accessToken": retData.data.accessToken,
-            "appId": "elecPort"
+          "accessToken": retData.data.accessToken,
+          "appId": "elecPort"
         };
         auth.getUserInfoByToken(JSON.stringify(params));
-    }
+      }
 
-    function getUserInfoByTokenCallback(params) {
+      function getUserInfoByTokenCallback(params) {
         test = params;
         testinfo();
-    }
-    //testinfo();
+      }
+      //testinfo();
 
-    function testinfo() {
+      function testinfo() {
         test = JSON.parse(test);
         let test2 = {
-            msg: "操作成功",
-            data: test.data,
-            success: "true",
-            sign: test.sign,
-            signType: "RSA"
+          msg: "操作成功",
+          data: test.data,
+          success: "true",
+          sign: test.sign,
+          signType: "RSA"
         }
         test2 = JSON.stringify(test2);
 
-        // let test2 = {
-        //     msg: "操作成功",
-        //     data: 'dLrEF9ZmVxlQrMtvx0qQaI2v3pjPA6amn7Z9RHFpniqQ465BeOuyMFQAdTratX0JM1h9maM7MGngUSL0l28D8+QhJQkq6gHFUmukpAPv5eIwIH5ymE5zUbxd9CcZ6NRLgiO8+dfxghYgmt1Wsy1I1vKLBpTGhgzedR/6yzK1ehhP3kchQJD9J2ahfk6UebJvp4g6vsY2EdK7PaJ34xzrvI0rU3QDEebWL68AEYOsyp8RC5e2Q8/duihRLNXD/AtTVMsJi4Fm3l0uJf3nxKiAaVzyMOzth0B7YjunhxfjCiaLuU3h4CucHUL4BT2o4miEzszOm7BA3JRBfne60Rf6Og==',
-        //     success: "true",
-        //     sign: 'ZwYpjoj/L7GJu9WgmNcagtQD9UhH9V6Ecykn5rAzkre51zBbBmxhpYriCJ6OBBNmvV4kcgwmkEk1ELaRrGvLjB8qAtS7m4EZaJ3tGN2X+6gawowlsy0v0dYhYiWJetYAw+yQCYzfLR/rxPorAMhLt3nb3yFsw9GRFY+X+lH+uko=',
-        //     signType: "RSA"
-        // }
-        // test2 = JSON.stringify(test2);
         $.ajax({
-            url: '/eport-server/auth/mynj/getInfo.do',
-            data: test2,
-            type: 'post',
-            dataType: 'json',
-            contentType: 'Application/json',
-            success: function(data) {
-                sessionStorage.setItem('fg', '1');
-                sessionStorage.setItem("userifo", JSON.stringify(data.data));
-            },
-            error: function(err) {
+          url: '/eport-server/auth/mynj/getInfo.do',
+          data: test2,
+          type: 'post',
+          dataType: 'json',
+          contentType: 'Application/json',
+          success: function(data) {
 
-            },
+
+            sessionStorage.setItem('fg', '1');
+            sessionStorage.setItem("userifo", JSON.stringify(data.data));
+
+          },
+          error: function(err) {
+
+          },
         });
+      }
     }
+  }
+
+  function moveTo(longitude, latitude) {
+    sessionStorage.setItem("userPosition", longitude + "," + latitude);
+  }
+
+  sessionStorage.setItem("haveAmap", 'false');
+
+  function navigatorList(baidu,Amap) {
+    if(Amap!=="false"){
+      sessionStorage.setItem("haveAmap", "true");
+    }
+  }
 </script>
 
 </html>

@@ -289,7 +289,7 @@
         "airlineCode":"",
         "pageSize":"10",
         "pageNumber":"1",
-        "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:'',
+        /*"userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:'',*/
       }).then((response)=> {
         this.list = response.data.data.list;
         this.last_page = response.data.data.last_page;

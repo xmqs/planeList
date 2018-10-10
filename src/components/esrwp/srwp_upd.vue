@@ -276,11 +276,11 @@
 
 
         if (isAndroid) {
-          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 
         if (isiOS) {
-          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 				var that = this;
 				window.uploadImgOver = function(str) {
@@ -293,7 +293,9 @@
 		        		that.travelList2 = JSON.parse(str).data;
 					}
 				}
-				window.location.href = oldUrl;
+        if (isAndroid) {
+          this.$router.go(-1);
+        }
 			},
 			cage(res){
 				this.$router.push({name: 'boxsize',
@@ -449,16 +451,17 @@
             picketInfo:this.picketInfo
 					}).then((res) => {
 						if(res.status == 200) {
+              Toast("修改成功 The modification is successful");
 							setTimeout(()=>{
-                var u = navigator.userAgent;
+                /*var u = navigator.userAgent;
                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
                 if (isAndroid) {
                   Toast("修改成功,返回即可 The modification is successful,Please return");
                   //window.history.go(-1);
                 } else {
-                  Toast("修改成功 The modification is successful");
-                  this.$router.replace({path: '/srwp/srwp_list'})
-                }
+                  Toast("修改成功 The modification is successful");*/
+                  window.history.go(-1);
+                /*}*/
 							},1000);
 						}else{
 							Toast("修改失败 Modify error");

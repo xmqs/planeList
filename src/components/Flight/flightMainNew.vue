@@ -280,26 +280,27 @@
       })
 
       axios.post('/eport-server/airFlight/getAirFlight.do', {
-        "isFirst": "1",
-        "countryType": "I",
-        "serviceType": "P",
-        "direction": "D",
-        "airportCode": "",
-        "flightIdentity": "",
-        "airlineCode": "",
-        "pageSize": "10",
-        "pageNumber": "1",
+        "isFirst":"1",
+        "countryType":"I",
+        "serviceType":"P",
+        "direction":"D",
+        "airportCode":"",
+        "flightIdentity":"",
+        "airlineCode":"",
+        "pageSize":"10",
+        "pageNumber":"1",
         /*TODO 用户信息*/
-        "userId":sessionStorage.getItem('isGuest')=='no'?JSON.parse(sessionStorage.getItem('userifo')).idNumber:'',
+        "userId":'',
       }).then((response) => {
         this.list = response.data.data.list;
         this.last_page = response.data.data.last_page;
-        this.rightPage = this.prePage = this.nextPage = response.data.data.right_page;
+        this.rightPage = response.data.data.right_page;
+        this.prePage = response.data.data.right_page;
+        this.nextPage = response.data.data.right_page;
         if (response.data.data.last_page == response.data.data.current_page) {
           this.allLoaded = true;
         }
       }).catch((error) => {
-        console.log(error)
       });
     }
   }

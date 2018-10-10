@@ -315,7 +315,7 @@
         this.$router.push({path: '/srwpallRate/'+res});
       },
       gosrwpInp() {
-        var u = navigator.userAgent;
+        /*var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isAndroid) {
@@ -326,16 +326,16 @@
             userinfo = JSON.parse(userinfo);
           }
 
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/esrwp/srwp_inp?username=' + userinfo.userName + '&phone=' + userinfo.phone + '&id=' + userinfo.idNumber;
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/esrwp/srwp_inp?username=' + userinfo.userName + '&phone=' + userinfo.phone + '&id=' + userinfo.idNumber;
 
-        } else {
+        } else {*/
           this.$router.push({
             name: 'esrwp_inp',
             params: {
               reload: 'reload'
             }
           })
-        }
+       /* }*/
       },
 
       gettolits() {
@@ -356,14 +356,14 @@
         this.$router.push({path: '/srwp/srwpDetails/'+res})
       },
       update(res) {
-        var u = navigator.userAgent;
+       /* var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 
         if (isAndroid) {
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/esrwp/srwp_upd/' + res;
-        } else {
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/esrwp/srwp_upd/' + res;
+        } else {*/
           this.$router.push({path: '/esrwp/srwp_upd/' + res})
-        }
+      /*  }*/
 
 
       },

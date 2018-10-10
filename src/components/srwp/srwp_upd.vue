@@ -191,11 +191,11 @@
 
 
         if (isAndroid) {
-          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 
         if (isiOS) {
-          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 				var that = this;
 				window.uploadImgOver = function(str) {
@@ -208,7 +208,9 @@
 		        		that.travelList2 = JSON.parse(str).data;
 					}
 				}
-				window.location.href = oldUrl;
+        if (isAndroid) {
+          this.$router.go(-1);
+        }
 			},
 			cage(res){
 				this.$router.push({name: 'boxsize',

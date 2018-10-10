@@ -80,9 +80,14 @@
                 </div>
               </div>
             </div>
+            <a href="https://m.mynj.cn:11162/web-editor-web/s//h/20180910/DB042147E5224DCEBBEF1230BF9CF9EC.htm"
+                 style="height: 54px;background:#4381d7;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 50%;text-align: center;color: #fff;font-size: 20px;">
+              <p>流程介绍</p>
+              <p class="encommit">Process introduction</p>
+            </a>
             <div @click="gocwtyInp"
-                 style="height: 54px;background:#285FB1;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;text-align: center;color: #fff;font-size: 20px;">
-              <p>+ 托运宠物</p>
+                 style="height: 54px;background:#285FB1;position: fixed;bottom: 0;right: 0;z-index: 999999;width: 50%;text-align: center;color: #fff;font-size: 20px;">
+              <p>托运宠物</p>
               <p class="encommit">Consignment of pets</p>
             </div>
           </mt-tab-container-item>
@@ -297,50 +302,27 @@
         this.$router.push({path: '/allRate/'+res});
       },
       select_pet(res) {
-
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-
-        if (isAndroid) {
-          var userinfo = sessionStorage.getItem('userifo');
-          if (userinfo != null) {
-            userinfo = JSON.parse(userinfo);
-          }
-          let pet = "";
-          if (res == "猫") {
-            pet = 1;
-          }
-          if (res == "狗") {
-            pet = 2;
-          }
-
-
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/ecwty/cwty_inp?username=' + userinfo.userName + '&phone=' + userinfo.phone + '&pet=' + pet;
-
-
-        } else {
-          if (res == "猫") {
-            res = "猫(Cat)";
-          }
-          if (res == "狗") {
-            res = "狗(Dog)";
-          }
-          this.$router.push({
-            name: 'ecwty_inp',
-            params: {
-              reload: 'reload',
-              selpet: res
-            }
-          })
+        if (res == "猫") {
+          res = "猫(Cat)";
         }
+        if (res == "狗") {
+          res = "狗(Dog)";
+        }
+        this.$router.push({
+          name: 'ecwty_inp',
+          params: {
+            reload: 'reload',
+            selpet: res
+          }
+        })
+        /*}*/
       },
       gocwtyInp() {
 
-        var u = navigator.userAgent;
+       /* var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-        if (isAndroid) {
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端*/
+        /*if (isAndroid) {
 
 
           var userinfo = sessionStorage.getItem('userifo');
@@ -348,16 +330,16 @@
             userinfo = JSON.parse(userinfo);
           }
 
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/ecwty/cwty_inp?username=' + userinfo.userName + '&phone=' + userinfo.phone;
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/ecwty/cwty_inp?username=' + userinfo.userName + '&phone=' + userinfo.phone;
 
-        } else {
-          this.$router.push({
-            name: 'ecwty_inp',
-            params: {
-              reload: 'reload'
-            }
-          })
-        }
+        } else {*/
+        this.$router.push({
+          name: 'ecwty_inp',
+          params: {
+            reload: 'reload'
+          }
+        })
+       /* }*/
       },
       bus(res) {
         this.$router.push({path: '/cwty/petDetails/' + res})
@@ -366,14 +348,14 @@
         /*setTimeout(() => {
                   Bus.$emit('updateId', res)
               }, 100)*/
-        var u = navigator.userAgent;
+        /*var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 
         if (isAndroid) {
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/ecwty/cwty_upd/' + res;
-        } else {
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/ecwty/cwty_upd/' + res;
+        } else {*/
           this.$router.push({path: '/ecwty/cwty_upd/' + res})
-        }
+       /* }*/
       },
       select_item(res) {
         this.active = res;

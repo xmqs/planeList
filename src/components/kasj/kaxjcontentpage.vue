@@ -1308,7 +1308,12 @@
 		},
 		created: function() {
 			var that = this;
+
+
 			that.active = this.$route.params.res;
+
+
+
 			axios.post('/eport-server/data/getDateList.do',{
 			})
 			.then(function(res){

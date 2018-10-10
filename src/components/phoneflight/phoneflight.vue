@@ -10,6 +10,9 @@
     <br>
     服务电话：<a href="tel:025-968890">025-968890</a>
     <div class="zjbutton" @click="token()">我已阅读以上内容，开始值机</div>
+    <a style="text-align: center;display: block" href="https://m.mynj.cn:11162/s/img/20180912/765E4049F31947F687F72EF3773F8914.jpg">
+      <img src="https://m.mynj.cn:11162/s/img/20180912/765E4049F31947F687F72EF3773F8914.jpg" alt="" style="width: 50%;margin: 0 auto">
+    </a>
   </div>
 </template>
 <script>
@@ -20,9 +23,6 @@
 			return {
 
 			}
-		},
-		mounted(){
-
 		},
 		methods: {
 			token(){
@@ -42,7 +42,6 @@
 					    console.log(error);
 					});
 				//}else{
-					//window.location = 'http://222.190.243.8:8080/H5/index.html#/'
 				//}
 			}
 		},

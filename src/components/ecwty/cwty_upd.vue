@@ -351,11 +351,11 @@
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
         if (isAndroid) {
-          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 
         if (isiOS) {
-          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 
         //window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
@@ -371,7 +371,9 @@
             that.myz1 = JSON.parse(str).data;
           }
         }
-        window.location.href = oldUrl;
+        if (isAndroid) {
+          this.$router.go(-1);
+        }
       },
 			cage(res){
 				this.$router.push({name: 'ensizes',
@@ -633,23 +635,18 @@
 						picketInfo:this.jpxx
 					}).then((res) => {
 						if(res.status == 200) {
-
-							setTimeout(()=>{
-								//
-								this.unbind = true;
-
-
-								/*TODO  修改添加*/
-
-                var u = navigator.userAgent;
+              Toast("修改成功 Modify Success");
+							setTimeout(()=> {
+                this.unbind = true;
+                /*TODO  修改添加*/
+                /*var u = navigator.userAgent;
                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
                 if (isAndroid) {
                   Toast("修改成功,返回即可 Modify Success,Please Back");
                   //window.history.go(-1);
-                } else {
-                  Toast("修改成功 Modify Success");
-                  this.$router.replace({path: '/ecwty/cwty_list/'+'tab-container1'})
-                }
+                } else {*/
+                this.$router.back(-1);
+              /*}*/
 							},1000);
 						}else{
 							Toast("修改失败 Modify false");

@@ -427,7 +427,7 @@
         </div>
       </div>
     </div>
-    <a :href="'http://222.190.243.8:8080/H5/StopDetail.html'" id="stopDetail" @click="toStopDetail" v-show="pageShow==2">
+    <a :href="'https://m.mynj.cn:11162/H5/StopDetail.html'" id="stopDetail" @click="toStopDetail" v-show="pageShow==2">
       查看停车场详情
     </a>
   </div>
@@ -804,7 +804,7 @@
     methods: {
       toStopDetail(){
         //停车场详情
-        window.open("http://222.190.243.8:8080/H5/StopDetail.html");
+        window.open("https://m.mynj.cn:11162/H5/StopDetail.html");
       },
       //主页进入切换页面
       homeChange(){

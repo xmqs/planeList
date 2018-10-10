@@ -368,11 +368,11 @@
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
         if (isAndroid) {
-          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href += '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 
         if (isiOS) {
-          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
+          window.location.href = '#uploadImgByClient?imgNum=0&serverurl=https://m.mynj.cn:11162/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
         }
 
         //window.location.href += '#uploadImgByClient?imgNum=0&serverurl=http://222.190.243.8:8080/web-editor-web/public/delivery/uploadByBase64.do&selectPhotoType=photoAll';
@@ -388,7 +388,11 @@
             that.myz1 = JSON.parse(str).data;
           }
         }
-        window.location.href = oldUrl;
+
+        if (isAndroid) {
+          this.$router.go(-1);
+        }
+
       },
       cage(res) {
         this.$router.push({
@@ -663,16 +667,15 @@
             if (res.status == 200) {
               Toast("申报成功 Declare success");
               setTimeout(() => {
-                this.$router.replace({path: '/ecwty/cwty_list/' + 'tab-container1'});
+               /* this.$router.replace({path: '/ecwty/cwty_list/' + 'tab-container1'});*/
                 this.unbind = true;
-
-                var u = navigator.userAgent;
+                /*var u = navigator.userAgent;
                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
                 if (isAndroid) {
                     window.close();
-                  } else {
-                    this.$router.back(-1);
-                  }
+                  } else {*/
+                this.$router.back(-1);
+                 /* }*/
               }, 1000);
             } else {
               this.unbind = true;
@@ -684,7 +687,7 @@
       },
     },
       mounted() {
-        var u = navigator.userAgent;
+       /* var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
@@ -697,7 +700,7 @@
           if(this.$route.query.pet == 2){
             this.varietys = "狗(Dog)";
           }
-        }
+        }*/
 
         var date_now = new Date();
         var year = date_now.getFullYear();

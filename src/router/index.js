@@ -167,15 +167,23 @@ const srwpallRate = () => import('../components/chiose_rad/srwprate.vue')
 const download = () => import('../components/download/imgload')
 
 
+const testUserInfo = () => import('../components/download/testUserInfo')
+/*口岸地图*/
+const eportMap = () => import('../components/eportMap/eportMap')
+
+const jump = () => import('../components/jump')
+
+
 /*评价页面*/
 
 Vue.use(Router)
 
 export default new Router({
-    routes: [{
+    routes: [
+      {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
         },
         //口岸新闻列表
         {
@@ -191,6 +199,11 @@ export default new Router({
             path: '/kaxw/kaxw_details/:sourceId/:cons',
             name: 'kaxw_details',
             component: kaxw_details
+        },
+        {
+            path: '/jump',
+            name: 'jump',
+            component: jump
         },
         //查询
         {
@@ -216,7 +229,7 @@ export default new Router({
             component: test
         },
         {
-            path: '/kasj/kaxjcontentpage',
+            path: '/kasj/kaxjcontentpage/:res',
             name: 'kaxjcontentpage',
             component: kaxjcontentpage
         },
@@ -622,6 +635,16 @@ export default new Router({
             path: '/download',
             name: 'download',
             component:download,
+        },
+        {
+            path: '/testUserInfo',
+            name: 'testUserInfo',
+            component:testUserInfo,
+        },
+        {
+            path: '/eportMap',
+            name: 'eportMap',
+            component:eportMap,
         },
     ]
 })

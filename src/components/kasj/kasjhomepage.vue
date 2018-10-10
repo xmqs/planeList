@@ -27,11 +27,11 @@
               </div>
           </div>
         </div>
-        
+
         <div :id="id" :option="option"></div>
         <!-- 统计图2 -->
         <div @click="godetails('tab2')">
-          <div class="quantum"><span>出入境人员总数（万人次）-{{pmonth}}月</span><span class="numbers">总量{{personTotalNum}}</span></div>
+          <div class="quantum"><span>出入境人员总数（万人次）- {{pmonth}}月</span><span class="numbers">总量{{personTotalNum}}</span></div>
           <div class="topway">
               <div style="width:49%" class="way">
                   <div class="way_ele0"><img class="chuan" src="../../../static/img/kasj/chuan.png" alt=""></div>
@@ -124,16 +124,12 @@
     },
     methods: {
        godetails(n){
-            this.$router.push({name: 'kaxjcontentpage',
-              params:{ 
-                res:n
-              }
-            })
+         window.location = 'https://m.mynj.cn:11162/H5/index.html#/kasj/kaxjcontentpage/'+n
        },
        getmessage(res){
             var that = this;
             axios.post('/eport-server/data/getIndexDataInfo.do',{
-                
+
             })
             .then(function(res){
                 that.freightTotalNum = res.data.data.freightTotalNum;
@@ -417,7 +413,6 @@
     color: #333;
     font-weight: 600;
     background: #fff;
-    border-bottom: 8px solid #f5f5f5;
   }
   .way{
     float: left;
@@ -457,10 +452,11 @@
     }
     .quantum{
         padding: 1.867vw 4.533vw;
-        font-size:28px;
+        font-size:30px;
         font-family:PingFangSC-Medium;
         color:rgba(51,51,51,1);
         background: #fff;
+        font-weight: bold;
     }
     .numbers{
         float: right;

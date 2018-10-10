@@ -50,7 +50,7 @@ export default {
    },
 	methods:{
 		myimg(){
-			window.location.href='http://222.190.243.8:8080/H5/test.html';
+			window.location.href='https://m.mynj.cn:11162/H5/StopDetail.html/H5/test.html';
 		},
 	    gettime(){
 			var times = document.getElementById("time").value;

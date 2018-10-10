@@ -266,7 +266,7 @@
             userinfo = JSON.parse(userinfo);
           }
 
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/srwp/srwp_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&id='+userinfo.idNumber;
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/srwp/srwp_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&id='+userinfo.idNumber;
 
         }else{
           this.$router.push({name: 'srwp_inp',
@@ -302,7 +302,7 @@
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 
         if(isAndroid){
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/srwp/srwp_upd/'+res;
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/srwp/srwp_upd/'+res;
         }else{
           this.$router.push({path: '/srwp/srwp_upd/'+res})
         }

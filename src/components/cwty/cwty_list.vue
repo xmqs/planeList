@@ -240,7 +240,7 @@
           }
 
 
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/cwty/cwty_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&pet='+pet;
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/cwty/cwty_inp?username='+userinfo.userName+'&phone='+userinfo.phone+'&pet='+pet;
 
 
 
@@ -266,7 +266,7 @@
             userinfo = JSON.parse(userinfo);
           }
 
-          window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/cwty/cwty_inp?username='+userinfo.userName+'&phone='+userinfo.phone;
+          window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/cwty/cwty_inp?username='+userinfo.userName+'&phone='+userinfo.phone;
 
         }else{
           this.$router.push({name: 'cwty_inp',
@@ -287,7 +287,7 @@
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 
           if(isAndroid){
-            window.location.href = 'http://222.190.243.8:8080/cwty/index.html#/cwty/cwty_upd/'+res;
+            window.location.href = 'https://m.mynj.cn:11162/cwty/index.html#/cwty/cwty_upd/'+res;
           }else{
             this.$router.push({path: '/cwty/cwty_upd/'+res})
           }
