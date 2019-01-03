@@ -57,15 +57,22 @@
 
       //this.userPosition = sessionStorage.getItem("userPosition").split(",");
 
-      if(sessionStorage.getItem("userPosition")){
-        this.userPosition = sessionStorage.getItem("userPosition").split(",");
-      }
 
       this.map = new AMap.Map('container', {
         resizeEnable: true, //是否监控地图容器尺寸变化
         zoom:14, //初始化地图层级
         center:[118.802393,32.026761],
       });
+
+      if(sessionStorage.getItem("userPosition")){
+        this.userPosition = sessionStorage.getItem("userPosition").split(",");
+
+        let userMark = new AMap.Marker({
+          map: this.map,
+          position: this.userPosition,
+        });
+        userMark.setAnimation('AMAP_ANIMATION_BOUNCE');
+      }
 
       let that = this;
       this.map.on('zoomchange',function(e){
@@ -77,13 +84,13 @@
         });
 
         userMark.setAnimation('AMAP_ANIMATION_BOUNCE');
-
         if(parseInt(this.map.St.W.zoom)>10){
           if(that.page == 1){
+
             for(let i = 0;i<that.PortUnit.length;i++){
               let mark = new AMap.Marker({
                 map: that.map,
-                position: [parseFloat(that.PortUnit[i].lon),parseFloat(that.PortUnit[i].lat)],
+                position: [parseFloat(that.PortUnit[i].longitude),parseFloat(that.PortUnit[i].latitude)],
                 icon: new AMap.Icon({
                   size: new AMap.Size(23, 23),  //图标大小
                   image: "./../../../static/img/kazn/icon1_3.png",
@@ -92,7 +99,7 @@
                 }),
               });
 
-              let content = that.PortUnit[i].unitName;
+              let content = that.PortUnit[i].description.unitName;
 
               mark.setLabel({
                 offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -101,8 +108,8 @@
 
               mark.on('click',(ev)=>{
                 that.detail = that.PortUnit[i].description
-                that.lat = that.PortUnit[i].lat;
-                that.lon = that.PortUnit[i].lon;
+                that.lat = that.PortUnit[i].latitude;
+                that.lon = that.PortUnit[i].longitude;
               })
             }
           }
@@ -110,7 +117,7 @@
             for(let i = 0;i<that.SpecialArea.length;i++){
               let mark = new AMap.Marker({
                 map: that.map,
-                position: [parseFloat(that.SpecialArea[i].lon),parseFloat(that.SpecialArea[i].lat)],
+                position: [parseFloat(that.SpecialArea[i].longitude),parseFloat(that.SpecialArea[i].latitude)],
                 icon: new AMap.Icon({
                   size: new AMap.Size(23, 23),  //图标大小
                   image: "./../../../static/img/kazn/icon2_3.png",
@@ -119,7 +126,7 @@
                 }),
               });
 
-              let content = that.SpecialArea[i].unitName;
+              let content = that.SpecialArea[i].description.unitName;
 
               mark.setLabel({
                 offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -128,8 +135,8 @@
 
               mark.on('click',(ev)=>{
                 that.detail = that.SpecialArea[i].description;
-                that.lat = that.PortUnit[i].lat;
-                that.lon = that.PortUnit[i].lon;
+                that.lat = that.PortUnit[i].latitude;
+                that.lon = that.PortUnit[i].longitude;
               })
             }
           }
@@ -149,7 +156,7 @@
 
               let mark = new AMap.Marker({
                 map: that.map,
-                position: [parseFloat(that.PortAirport[i].lon),parseFloat(that.PortAirport[i].lat)],
+                position: [parseFloat(that.PortAirport[i].longitude),parseFloat(that.PortAirport[i].latitude)],
                 icon: new AMap.Icon({
                   size: new AMap.Size(23, 23),  //图标大小
                   image: icon,
@@ -158,7 +165,8 @@
                 }),
               });
 
-              let content = that.PortAirport[i].unitName;
+
+              let content = that.PortAirport[i].description.unitName;
 
               mark.setLabel({
                 offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -167,8 +175,8 @@
 
               mark.on('click',(ev)=>{
                 that.detail = that.PortAirport[i].description;
-                that.lat = that.PortUnit[i].lat;
-                that.lon = that.PortUnit[i].lon;
+                that.lat = that.PortUnit[i].latitude;
+                that.lon = that.PortUnit[i].longitude;
               })
             }
           }
@@ -177,7 +185,7 @@
             for(let i = 0;i<that.PortUnit.length;i++){
               let mark = new AMap.Marker({
                 map: that.map,
-                position: [parseFloat(that.PortUnit[i].lon),parseFloat(that.PortUnit[i].lat)],
+                position: [parseFloat(that.PortUnit[i].longitude),parseFloat(that.PortUnit[i].latitude)],
                 icon: new AMap.Icon({
                   size: new AMap.Size(23, 23),  //图标大小
                   image: "./../../../static/img/kazn/icon1_3.png",
@@ -188,8 +196,8 @@
 
               mark.on('click',(ev)=>{
                 that.detail = that.PortUnit[i].description
-                that.lat = that.PortUnit[i].lat;
-                that.lon = that.PortUnit[i].lon;
+                that.lat = that.PortUnit[i].latitude;
+                that.lon = that.PortUnit[i].longitude;
               })
             }
           }
@@ -197,7 +205,7 @@
             for(let i = 0;i<that.SpecialArea.length;i++){
               let mark = new AMap.Marker({
                 map: that.map,
-                position: [parseFloat(that.SpecialArea[i].lon),parseFloat(that.SpecialArea[i].lat)],
+                position: [parseFloat(that.SpecialArea[i].longitude),parseFloat(that.SpecialArea[i].latitude)],
                 icon: new AMap.Icon({
                   size: new AMap.Size(23, 23),  //图标大小
                   image: "./../../../static/img/kazn/icon2_3.png",
@@ -206,11 +214,10 @@
                 }),
               });
 
-
               mark.on('click',(ev)=>{
                 that.detail = that.SpecialArea[i].description;
-                that.lat = that.PortUnit[i].lat;
-                that.lon = that.PortUnit[i].lon;
+                that.lat = that.PortUnit[i].latitude;
+                that.lon = that.PortUnit[i].longitude;
               })
             }
           }
@@ -230,7 +237,7 @@
 
               let mark = new AMap.Marker({
                 map: that.map,
-                position: [parseFloat(that.PortAirport[i].lon),parseFloat(that.PortAirport[i].lat)],
+                position: [parseFloat(that.PortAirport[i].longitude),parseFloat(that.PortAirport[i].latitude)],
                 icon: new AMap.Icon({
                   size: new AMap.Size(23, 23),  //图标大小
                   image: icon,
@@ -241,30 +248,28 @@
 
               mark.on('click',(ev)=>{
                 that.detail = that.PortAirport[i].description;
-                that.lat = that.PortUnit[i].lat;
-                that.lon = that.PortUnit[i].lon;
+                that.lat = that.PortUnit[i].latitude;
+                that.lon = that.PortUnit[i].longitude;
               })
             }
           }
         }
       })
 
-      let userMark = new AMap.Marker({
-        map: this.map,
-        position: this.userPosition,
-      });
 
-      userMark.setAnimation('AMAP_ANIMATION_BOUNCE');
 
       axios.post('/eport-server/eportMap/getMaps.do').then((res)=>{
         this.PortUnit = res.data.data[0].PortUnit;
         this.SpecialArea = res.data.data[1].SpecialArea;
         this.PortAirport = res.data.data[2].PortAirport;
 
+
+
         for(let i = 0;i<this.PortUnit.length;i++){
+
           let mark = new AMap.Marker({
             map: this.map,
-            position: [parseFloat(this.PortUnit[i].lon),parseFloat(this.PortUnit[i].lat)],
+            position: [parseFloat(this.PortUnit[i].longitude),parseFloat(this.PortUnit[i].latitude)],
             icon: new AMap.Icon({
               size: new AMap.Size(23, 23),  //图标大小
               image: "./../../../static/img/kazn/icon1_3.png",
@@ -273,7 +278,8 @@
             }),
           });
 
-          let content = this.PortUnit[i].unitName;
+          let content = this.PortUnit[i].description.unitName;
+
 
           mark.setLabel({
             offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -282,8 +288,8 @@
 
           mark.on('click',(ev)=>{
             this.detail = this.PortUnit[i].description;
-            this.lat = this.PortUnit[i].lat;
-            this.lon = this.PortUnit[i].lon;
+            this.lat = this.PortUnit[i].latitude;
+            this.lon = this.PortUnit[i].longitude;
           })
         }
       })
@@ -333,7 +339,7 @@
           for(let i = 0;i<this.PortUnit.length;i++){
             let mark = new AMap.Marker({
               map: this.map,
-              position: [parseFloat(this.PortUnit[i].lon),parseFloat(this.PortUnit[i].lat)],
+              position: [parseFloat(this.PortUnit[i].longitude),parseFloat(this.PortUnit[i].latitude)],
               icon: new AMap.Icon({
                 size: new AMap.Size(23, 23),  //图标大小
                 image: "./../../../static/img/kazn/icon1_3.png",
@@ -342,7 +348,7 @@
               }),
             });
 
-            let content = this.PortUnit[i].unitName;
+            let content = this.PortUnit[i].description.unitName;
 
             mark.setLabel({
               offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -351,8 +357,8 @@
 
             mark.on('click',(ev)=>{
               this.detail = this.PortUnit[i].description
-              this.lat = this.PortUnit[i].lat;
-              this.lon = this.PortUnit[i].lon;
+              this.lat = this.PortUnit[i].latitude;
+              this.lon = this.PortUnit[i].longitude;
             })
           }
         }
@@ -361,7 +367,7 @@
           for(let i = 0;i<this.SpecialArea.length;i++){
             let mark = new AMap.Marker({
               map: this.map,
-              position: [parseFloat(this.SpecialArea[i].lon),parseFloat(this.SpecialArea[i].lat)],
+              position: [parseFloat(this.SpecialArea[i].longitude),parseFloat(this.SpecialArea[i].latitude)],
               icon: new AMap.Icon({
                 size: new AMap.Size(23, 23),  //图标大小
                 image: "./../../../static/img/kazn/icon2_3.png",
@@ -370,7 +376,7 @@
               }),
             });
 
-            let content = this.SpecialArea[i].unitName;
+            let content = this.SpecialArea[i].description.unitName;
 
             mark.setLabel({
               offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -379,8 +385,8 @@
 
             mark.on('click',(ev)=>{
               this.detail = this.SpecialArea[i].description;
-              this.lat = this.PortUnit[i].lat;
-              this.lon = this.PortUnit[i].lon;
+              this.lat = this.PortUnit[i].latitude;
+              this.lon = this.PortUnit[i].longitude;
             })
           }
         }
@@ -401,7 +407,7 @@
 
             let mark = new AMap.Marker({
               map: this.map,
-              position: [parseFloat(this.PortAirport[i].lon),parseFloat(this.PortAirport[i].lat)],
+              position: [parseFloat(this.PortAirport[i].longitude),parseFloat(this.PortAirport[i].latitude)],
               icon: new AMap.Icon({
                 size: new AMap.Size(23, 23),  //图标大小
                 image: icon,
@@ -410,7 +416,7 @@
               }),
             });
 
-            let content = this.PortAirport[i].unitName;
+            let content = this.PortAirport[i].description.unitName;
 
             mark.setLabel({
               offset: new AMap.Pixel(-content.length*5.5, -18),
@@ -419,8 +425,8 @@
 
             mark.on('click',(ev)=>{
               this.detail = this.PortAirport[i].description;
-              this.lat = this.PortUnit[i].lat;
-              this.lon = this.PortUnit[i].lon;
+              this.lat = this.PortUnit[i].latitude;
+              this.lon = this.PortUnit[i].longitude;
             })
           }
         }

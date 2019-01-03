@@ -271,6 +271,7 @@
           }
         }
       })
+
       Bus.$on('unfocus', (e) => {
         for (let i = 0; i < this.list.length; i++) {
           if (this.list[i].FlightIdentity == e) {

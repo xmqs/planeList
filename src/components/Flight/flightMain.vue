@@ -94,6 +94,7 @@
   import axios from "axios"
   import Bus from './bus.js'
   import flightStatus from './flightStatus'
+
   export default {
     name: "flightMain",
     data() {

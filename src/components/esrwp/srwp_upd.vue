@@ -240,6 +240,7 @@
         this.endCity = '';
         this.ownerName = "";
         this.ownerIdNo = '';
+        this.picketInfo = '';
         this.ownerPassport = "";
         this.homeAddress = '';
         this.homeDelivery = "";
@@ -488,6 +489,7 @@
 					that.ownerPassport = data.data.data.ownerPassport;
 					that.homeAddress = data.data.data.homeAddress;
 					that.ownerTelNo = data.data.data.ownerTelNo;
+					that.picketInfo = data.data.data.picketInfo;
 					that.bigPackageList = data.data.data.bigPackageList;
 					that.travelList = data.data.data.travelList;
 					that.travelList1 = data.data.data.travelList[0];
